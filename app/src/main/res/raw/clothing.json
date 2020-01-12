@@ -1,0 +1,106 @@
+{
+  "id_topic": 5,
+  "name": "Clothing",
+  "percent_learned" : 0,
+  "total_image" : 32,
+  "is_lock": true,
+  "unlockFree" : false,
+  "list_image": [
+    {
+      "name": "zipper"
+    },
+    {
+      "name": "wallet"
+    },
+    {
+      "name": "umbrella"
+    },
+    {
+      "name": "toque"
+    },
+    {
+      "name": "tie"
+    },
+    {
+      "name": "swimsuit"
+    },
+    {
+      "name": "sunglasses"
+    },
+    {
+      "name": "sneakers"
+    },
+    {
+      "name": "suitcase"
+    },
+    {
+      "name": "shoe"
+    },
+    {
+      "name": "shirt"
+    },
+    {
+      "name": "safety pin"
+    },
+    {
+      "name": "ring"
+    },
+    {
+      "name": "purse"
+    },
+    {
+      "name": "pants"
+    },
+    {
+      "name": "jeans"
+    },
+    {
+      "name": "jacket"
+    },
+    {
+      "name": "hat"
+    },
+    {
+      "name": "hanger"
+    },
+    {
+      "name": "goggles"
+    },
+    {
+      "name": "gloves"
+    },
+    {
+      "name": "glasses"
+    },
+    {
+      "name": "dress"
+    },
+    {
+      "name": "crown"
+    },
+    {
+      "name": "coat"
+    },
+    {
+      "name": "clothes-peg"
+    },
+    {
+      "name": "cap"
+    },
+    {
+      "name": "cane"
+    },
+    {
+      "name": "briefcase"
+    },
+    {
+      "name": "bowtie"
+    },
+    {
+      "name": "bathrobe"
+    },
+    {
+      "name": "backpack"
+    }
+  ]
+}
