@@ -5,4 +5,10 @@ package com.android.tupple.domain.entity.menumain;
  */
 
 public interface CurrentPresenter {
+
+    void init();
+
+    void start();
+
+    void stop();
 }

@@ -5,4 +5,11 @@ package com.android.tupple.domain.entity.menumain;
  */
 
 public interface DrawerViewPresenter {
+
+    void init();
+
+    void start();
+
+    void stop();
+
 }

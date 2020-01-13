@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Activity Main -->
-    <dimen name="menu_item_list">150dp</dimen>
+    <!-- Menu Drawer -->
+    <dimen name="menu_item_icon">85dp</dimen>
+    <dimen name="menu_item_padding">15dp</dimen>
 
 </resources>
