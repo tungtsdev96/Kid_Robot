@@ -1,2 +1,2 @@
-include ':app', ':libtrigger', ':device', ':domain'
+include ':app', ':libtrigger', ':device', ':cleanobject', ':domain', ':domain'
 rootProject.name='Kid Robot'

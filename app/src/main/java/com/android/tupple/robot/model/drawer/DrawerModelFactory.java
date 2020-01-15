@@ -2,8 +2,8 @@ package com.android.tupple.robot.model.drawer;
 
 import android.content.Context;
 
-import com.android.tupple.domain.presenter.drawer.DrawerModel;
 import com.android.tupple.robot.commondata.MenuItemData;
+import com.android.tupple.robot.domain.presenter.drawer.DrawerModel;
 
 /**
  * Created by tungts on 2020-01-13.
