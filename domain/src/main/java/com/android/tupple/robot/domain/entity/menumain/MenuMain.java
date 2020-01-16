@@ -43,6 +43,7 @@ public class MenuMain {
         }
     }
 
+    // TODO start header, drawer, currentMenu
     public void start() {
         if (mDrawerViewPresenter != null) {
             mDrawerViewPresenter.start();
@@ -51,6 +52,39 @@ public class MenuMain {
         if (mCurrentPresenter != null) {
             mCurrentPresenter.start();
         }
+    }
+
+    public void setCurrentPresenterByMenuType(MenuType menuType) {
+        mCurrentPresenter = mMenuPresenterViewHolder.get(menuType);
+    }
+
+    private void onMenuswitched(MenuType menuType) {
+
+        if (mCurrentPresenter != null && mCurrentPresenter.getMenuType() == menuType) {
+            return;
+        }
+
+        changeMenu(menuType);
+
+//        if (mOnCalendarSwitchListener != null) {
+//            mOnCalendarSwitchListener.onCalendarSwitched(calendarType);
+//        }
+    }
+
+    private void changeMenu(MenuType menuType) {
+//        mCurrentPresenter.release();
+//        mCurrentPresenter.stop();
+        setCurrentPresenterByMenuType(menuType);
+        updateMenuMain();
+    }
+
+    private void updateMenuMain() {
+        // TODO update header, drawer,...
+
+//        if (mCurrentPresenter != null) {
+//            updateHeaderAndDrawer(mCurrentPresenter.getMenuMainType());
+//            mCurrentPresenter.init();
+//        }
     }
 
     public void stop() {

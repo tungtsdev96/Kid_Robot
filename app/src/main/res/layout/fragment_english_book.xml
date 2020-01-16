@@ -6,14 +6,9 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_gravity="center"
         android:id="@+id/rcv_english_book"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <TextView
-        android:layout_gravity="center"
-        android:text="English Book"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
 </FrameLayout>

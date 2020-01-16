@@ -32,7 +32,12 @@ public class EnglishBookPresenterImpl<SchoolBook> implements EnglishBookPresente
 
     @Override
     public void start() {
+        loadData();
+    }
 
+    private void loadData() {
+        // TODO handle emply data or error
+        mEnglishBookModel.getListBook().subscribe(mEnglishBookView::setListData);
     }
 
     private void onViewCreated(EnglishBookView<SchoolBook> englishBookView) {

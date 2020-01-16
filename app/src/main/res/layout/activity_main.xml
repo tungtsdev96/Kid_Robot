@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:animateLayoutChanges="true"
+    android:paddingTop="65dp"
     tools:context=".activity.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
