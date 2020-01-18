@@ -29,6 +29,14 @@
 <!--            </intent-filter>-->
         </activity>
 
+        <activity
+            android:name=".activity.LessonActivity"
+            android:screenOrientation="landscape"/>
+
+        <activity
+            android:name=".activity.LearningVocabActivity"
+            android:screenOrientation="landscape"/>
+
     </application>
 
 </manifest>

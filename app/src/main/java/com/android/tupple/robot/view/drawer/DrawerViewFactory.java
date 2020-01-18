@@ -2,7 +2,7 @@ package com.android.tupple.robot.view.drawer;
 
 import android.app.Activity;
 
-import com.android.tupple.robot.commondata.MenuItemData;
+import com.android.tupple.robot.common.data.MenuItemData;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerView;
 
 

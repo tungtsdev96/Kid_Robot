@@ -2,7 +2,7 @@ package com.android.tupple.robot.model.drawer;
 
 import android.content.Context;
 
-import com.android.tupple.robot.commondata.MenuItemData;
+import com.android.tupple.robot.common.data.MenuItemData;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerModel;
 
 import io.reactivex.disposables.CompositeDisposable;

@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.commondata.SchoolBook;
+import com.android.tupple.robot.common.data.SchoolBook;
 import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookView;
 
 import java.util.List;
@@ -23,12 +24,15 @@ import java.util.List;
  * Created by tungts on 2020-01-15.
  */
 
-public class EnglishBookFragment extends Fragment implements EnglishBookView<SchoolBook> {
+public class EnglishBookFragment extends Fragment implements EnglishBookView<SchoolBook>, BookAdapter.OnBookFragmentItemClickListener {
 
     public static final String TAG = "EnglishBookFragment";
 
     private Context mContext;
     private CleanObserver<EnglishBookView<SchoolBook>> mViewCreatedObserver;
+
+    private CleanObserver<SchoolBook> mOnItemBookClickedObserver;
+    private CleanObserver<SchoolBook> mOnItemBookLongClickedObserver;
 
     void setViewCreatedObserver(CleanObserver<EnglishBookView<SchoolBook>> viewCreatedObserver) {
         this.mViewCreatedObserver = viewCreatedObserver;
@@ -63,13 +67,38 @@ public class EnglishBookFragment extends Fragment implements EnglishBookView<Sch
     private void initView(View rootView) {
         mRcvListBooks = rootView.findViewById(R.id.rcv_english_book);
         mBookAdapter = new BookAdapter(mContext);
-        mRcvListBooks.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
+        mRcvListBooks.setLayoutManager(new GridLayoutManager(mContext, 4));
         mRcvListBooks.setAdapter(mBookAdapter);
+        mBookAdapter.setOnBookFragmentItemClickListener(this);
     }
 
     @Override
     public void setListData(List<SchoolBook> listBooks) {
         mBookAdapter.setListBooks(listBooks);
+    }
+
+    @Override
+    public void onItemBookClicked(int position) {
+        if (mOnItemBookClickedObserver != null) {
+            mOnItemBookClickedObserver.onNext(mBookAdapter.getBookByPosition(position));
+        }
+    }
+
+    @Override
+    public void onItemBookLongClicked(int position) {
+        if (mOnItemBookLongClickedObserver != null) {
+            mOnItemBookLongClickedObserver.onNext(mBookAdapter.getBookByPosition(position));
+        }
+    }
+
+    @Override
+    public CleanObservable<SchoolBook> getOnItemBookClickedObservable() {
+        return CleanObservable.create(cleanObserver -> mOnItemBookClickedObserver = cleanObserver);
+    }
+
+    @Override
+    public CleanObservable<SchoolBook> getOnItemBookLongClickedObservable() {
+        return CleanObservable.create(cleanObserver -> mOnItemBookClickedObserver = cleanObserver);
     }
 
 }

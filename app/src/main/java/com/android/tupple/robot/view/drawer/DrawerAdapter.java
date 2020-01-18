@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.commondata.MenuItemData;
+import com.android.tupple.robot.common.data.MenuItemData;
 import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.ResourceUtils;
 import com.bumptech.glide.RequestManager;

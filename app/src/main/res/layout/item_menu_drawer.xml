@@ -22,6 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:fontFamily="@font/boosternextfy_bold"/>
+        style="@style/CommonStyleText"/>
 
 </LinearLayout>
