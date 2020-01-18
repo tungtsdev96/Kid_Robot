@@ -5,4 +5,11 @@ package com.android.tupple.robot.common.data;
  */
 
 public class Vocabulary {
+
+    public int vocabId;
+    public String vocabEn;
+    public String vocabVi;
+    public String image;
+    public String audio;
+
 }

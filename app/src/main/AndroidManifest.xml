@@ -35,7 +35,8 @@
 
         <activity
             android:name=".activity.LearningVocabActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            android:launchMode="singleTop"/>
 
     </application>
 

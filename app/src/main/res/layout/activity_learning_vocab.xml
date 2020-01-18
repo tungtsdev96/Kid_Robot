@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content_learning_english"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="35dp"
-        android:layout_height="35dp"/>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/slide_learning_vocab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-</RelativeLayout>
+</FrameLayout>
