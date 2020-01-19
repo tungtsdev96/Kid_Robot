@@ -1,12 +1,14 @@
 package com.android.tupple.robot;
 
 import android.app.Application;
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.android.tupple.robot.domain.log.CLog;
 import com.android.tupple.robot.domain.log.CLogger;
+import com.android.tupple.trigger.TriggerService;
 
 /**
  * Created by tungts on 2020-01-12.
