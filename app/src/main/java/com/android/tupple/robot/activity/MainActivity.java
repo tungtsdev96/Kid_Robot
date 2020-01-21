@@ -4,9 +4,9 @@ import android.os.Bundle;
 
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.base.BaseActivity;
-import com.android.tupple.robot.commondata.MenuItemData;
-import com.android.tupple.robot.commondata.SchoolBook;
-import com.android.tupple.robot.commondata.Topic;
+import com.android.tupple.robot.common.data.MenuItemData;
+import com.android.tupple.robot.common.data.SchoolBook;
+import com.android.tupple.robot.common.data.Topic;
 import com.android.tupple.robot.domain.entity.menumain.MenuMain;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerModel;
@@ -71,7 +71,10 @@ public class MainActivity extends BaseActivity {
 
         englishBookPresenter.setEnglishTopicViewWrapper(englishBookViewWrapper);
         englishBookPresenter.setEnglishBookModel(englishBookModel);
+
         // TODO innit Observerable
+        englishBookPresenter.setOnItemBookClickedObserver(mActivityLauncher::launchUnitActivity);
+
         mMenuMain.setCurrentPresenterByMenuType(MenuType.ENGLISH_BOOK);
         mMenuMain.setEnglishBookPresenter(englishBookPresenter);
     }
@@ -94,7 +97,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-//        mMenuMain.stop();
+        mMenuMain.stop();
         super.onDestroy();
     }
 }

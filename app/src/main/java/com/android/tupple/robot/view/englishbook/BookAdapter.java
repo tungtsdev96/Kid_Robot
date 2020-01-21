@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.commondata.SchoolBook;
+import com.android.tupple.robot.common.data.SchoolBook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,20 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ItemBookViewHo
 
     public BookAdapter(Context mContext) {
         this.mContext = mContext;
+    }
+
+    public interface OnBookFragmentItemClickListener {
+
+        void onItemBookClicked(int position);
+
+        void onItemBookLongClicked(int positon);
+
+    }
+
+    private OnBookFragmentItemClickListener mOnBookFragmentItemClickListener;
+
+    public void setOnBookFragmentItemClickListener(OnBookFragmentItemClickListener onBookFragmentItemClickListener) {
+        this.mOnBookFragmentItemClickListener = onBookFragmentItemClickListener;
     }
 
     @NonNull
@@ -46,6 +60,13 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ItemBookViewHo
         return mListBooks.size();
     }
 
+    public SchoolBook getBookByPosition(int position) {
+        if (position < 0) {
+            return null;
+        }
+        return mListBooks.get(position);
+    }
+
     public void setListBooks(List<SchoolBook> listBooks) {
         mListBooks.clear();
         mListBooks.addAll(listBooks);
@@ -56,7 +77,13 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ItemBookViewHo
 
         public ItemBookViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(v -> {
+                if (mOnBookFragmentItemClickListener !=null) {
+                    mOnBookFragmentItemClickListener.onItemBookClicked(getAdapterPosition());
+                }
+            });
         }
+
     }
 
 }

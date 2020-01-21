@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.commondata.MenuItemData;
+import com.android.tupple.robot.common.data.MenuItemData;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerView;
 
 import java.util.List;

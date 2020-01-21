@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.FragmentManager;
 
-import com.android.tupple.robot.commondata.Topic;
+import com.android.tupple.robot.common.data.Topic;
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicViewWrapper;
 
 /**
