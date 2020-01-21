@@ -8,10 +8,24 @@ import com.android.tupple.robot.common.data.Vocabulary;
 
 public abstract class LearnVocabItem {
 
-    private Vocabulary vocabulary;
+    protected Vocabulary mVocabulary;
 
     public LearnVocabItem(Vocabulary vocabulary) {
-        this.vocabulary = vocabulary;
+        this.mVocabulary = vocabulary;
     }
+
+    public String getVocabImage() {
+        return mVocabulary.image;
+    }
+
+    public String getVocabEn() {
+        return mVocabulary.vocabEn;
+    }
+
+    public String getSound() {
+        return mVocabulary.audio;
+    }
+
+    public abstract int getType();
 
 }

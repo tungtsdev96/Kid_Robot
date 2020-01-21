@@ -13,7 +13,7 @@ public class LearnVocab {
     }
 
     public void init() {
-
+        mLearnVocabPresenter.init();
     }
 
     public void start() {

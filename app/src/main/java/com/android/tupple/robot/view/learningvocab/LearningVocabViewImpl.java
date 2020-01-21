@@ -18,6 +18,7 @@ public class LearningVocabViewImpl implements LearningVocabView<LessonData, Voca
     private Activity mActivity;
 
     private ViewPager2 mViewPagerVocab;
+    private LearningVocabAdapter mLearningVocabAdapter;
 
     public LearningVocabViewImpl(Activity activity) {
         this.mActivity = activity;
@@ -30,6 +31,7 @@ public class LearningVocabViewImpl implements LearningVocabView<LessonData, Voca
 
     private void initViewPager() {
         mViewPagerVocab = mActivity.findViewById(R.id.slide_learning_vocab);
-
+        mLearningVocabAdapter = new LearningVocabAdapter(mActivity);
+        mViewPagerVocab.setAdapter(mLearningVocabAdapter);
     }
 }
