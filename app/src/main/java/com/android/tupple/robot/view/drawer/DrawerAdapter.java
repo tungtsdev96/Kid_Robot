@@ -59,8 +59,10 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerItem
 
     public void setListMenu(List<MenuItemData> items) {
         mItems.clear();
-        for (MenuItemData item : items) {
-            this.mItems.add(new DrawerMenuItem(item));
+        for (int i = 0; i < 200; i++) {
+            for (MenuItemData item : items) {
+                this.mItems.add(new DrawerMenuItem(item));
+            }
         }
         notifyDataSetChanged();
     }

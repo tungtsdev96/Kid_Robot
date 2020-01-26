@@ -87,6 +87,8 @@ public class MainActivity extends BaseActivity {
         drawerPresenter.setDrawerView(drawerView);
         drawerPresenter.setDrawerModel(drawerModel);
         mMenuMain.setDrawerViewPresenter(drawerPresenter);
+
+        drawerPresenter.setItemMenuSelectedObserver(mMenuMain::changeMenu);
     }
 
     @Override

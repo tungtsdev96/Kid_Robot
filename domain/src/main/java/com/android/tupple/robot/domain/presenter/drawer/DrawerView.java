@@ -1,5 +1,8 @@
 package com.android.tupple.robot.domain.presenter.drawer;
 
+import com.android.tupple.cleanobject.CleanObservable;
+import com.android.tupple.robot.domain.entity.menumain.MenuType;
+
 import java.util.List;
 
 /**
@@ -9,5 +12,7 @@ import java.util.List;
 public interface DrawerView<MenuItemData> {
 
     void setListMenu(List<MenuItemData> items);
+
+    CleanObservable<MenuType> getItemMenuSelectedObservable();
 
 }
