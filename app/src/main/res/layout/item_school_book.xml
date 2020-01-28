@@ -10,7 +10,7 @@
     android:background="?attr/selectableItemBackground"
     android:focusable="true">
 
-    <ImageView
+    <com.android.tupple.robot.common.customview.SquareImageView
         android:id="@+id/img_schoolbook"
         android:layout_width="150dp"
         android:layout_height="180dp"
