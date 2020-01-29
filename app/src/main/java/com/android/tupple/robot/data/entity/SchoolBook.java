@@ -98,4 +98,52 @@ public class SchoolBook implements Parcelable {
 
         return schoolBooks;
     }
+
+    public int getIdBook() {
+        return idBook;
+    }
+
+    public void setIdBook(int idBook) {
+        this.idBook = idBook;
+    }
+
+    public int getGradle() {
+        return gradle;
+    }
+
+    public void setGradle(int gradle) {
+        this.gradle = gradle;
+    }
+
+    public int getTotalLesson() {
+        return totalLesson;
+    }
+
+    public void setTotalLesson(int totalLesson) {
+        this.totalLesson = totalLesson;
+    }
+
+    public String getNameBook() {
+        return nameBook;
+    }
+
+    public void setNameBook(String nameBook) {
+        this.nameBook = nameBook;
+    }
+
+    public boolean isLearning() {
+        return isLearning;
+    }
+
+    public void setLearning(boolean learning) {
+        isLearning = learning;
+    }
+
+    public String getImageBook() {
+        return imageBook;
+    }
+
+    public void setImageBook(String imageBook) {
+        this.imageBook = imageBook;
+    }
 }

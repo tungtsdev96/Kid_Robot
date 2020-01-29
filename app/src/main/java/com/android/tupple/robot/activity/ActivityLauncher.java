@@ -3,8 +3,8 @@ package com.android.tupple.robot.activity;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.android.tupple.robot.common.data.LessonData;
-import com.android.tupple.robot.common.data.SchoolBook;
+import com.android.tupple.robot.data.entity.LessonData;
+import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.utils.ActivityUtils;
 import com.android.tupple.robot.utils.constant.BookConstant;
 import com.android.tupple.robot.utils.constant.LessonConstant;

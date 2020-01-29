@@ -17,7 +17,7 @@ public class LearnVocab {
     }
 
     public void start() {
-
+        mLearnVocabPresenter.start();
     }
 
     public void stop() {

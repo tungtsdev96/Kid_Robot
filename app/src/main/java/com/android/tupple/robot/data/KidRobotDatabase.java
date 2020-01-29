@@ -9,6 +9,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.android.tupple.robot.data.entity.LessonData;
+import com.android.tupple.robot.data.entity.SchoolBook;
+
 /**
  * Created by tung.ts on 1/29/2020.
  * The database contains table:
@@ -16,7 +19,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
  *   2, event, alarm_clock
  */
 
-@Database(entities = {},
+@Database(entities = {SchoolBook.class, LessonData.class},
         version = 1, exportSchema = false)
 public abstract class KidRobotDatabase extends RoomDatabase {
 

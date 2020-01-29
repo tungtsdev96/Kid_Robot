@@ -2,8 +2,8 @@ package com.android.tupple.robot.model.english;
 
 import android.content.Context;
 
-import com.android.tupple.robot.common.data.SchoolBook;
-import com.android.tupple.robot.common.data.Topic;
+import com.android.tupple.robot.data.entity.SchoolBook;
+import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookModel;
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicModel;
 

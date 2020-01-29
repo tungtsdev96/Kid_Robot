@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.common.data.Topic;
+import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicView;
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicViewWrapper;
 import com.android.tupple.robot.view.englishbook.EnglishBookFragment;

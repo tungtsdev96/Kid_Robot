@@ -3,7 +3,7 @@ package com.android.tupple.robot.model.english;
 import android.content.Context;
 
 import com.android.tupple.cleanobject.CleanObservable;
-import com.android.tupple.robot.common.data.SchoolBook;
+import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookModel;
 
 import java.util.List;

@@ -97,4 +97,52 @@ public class LessonData implements Parcelable {
 
         return list;
     }
+
+    public int getLessonId() {
+        return lessonId;
+    }
+
+    public void setLessonId(int lessonId) {
+        this.lessonId = lessonId;
+    }
+
+    public int getBookGradle() {
+        return bookGradle;
+    }
+
+    public void setBookGradle(int bookGradle) {
+        this.bookGradle = bookGradle;
+    }
+
+    public String getLessonTitle() {
+        return lessonTitle;
+    }
+
+    public void setLessonTitle(String lessonTitle) {
+        this.lessonTitle = lessonTitle;
+    }
+
+    public boolean isLearning() {
+        return isLearning;
+    }
+
+    public void setLearning(boolean learning) {
+        isLearning = learning;
+    }
+
+    public int getProgressLearning() {
+        return progressLearning;
+    }
+
+    public void setProgressLearning(int progressLearning) {
+        this.progressLearning = progressLearning;
+    }
+
+    public int getTotalVocab() {
+        return totalVocab;
+    }
+
+    public void setTotalVocab(int totalVocab) {
+        this.totalVocab = totalVocab;
+    }
 }

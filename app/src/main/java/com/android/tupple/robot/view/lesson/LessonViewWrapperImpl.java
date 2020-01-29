@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.common.data.LessonData;
+import com.android.tupple.robot.data.entity.LessonData;
 import com.android.tupple.robot.domain.presenter.lesson.LessonView;
 import com.android.tupple.robot.domain.presenter.lesson.LessonViewWrapper;
 

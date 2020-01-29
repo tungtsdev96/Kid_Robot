@@ -6,30 +6,40 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.utils.constant.LearnVocabConstant;
+import com.android.tupple.robot.view.learningvocab.item.LearnVocabImage;
+import com.android.tupple.robot.view.learningvocab.item.LearnVocabItem;
+import com.android.tupple.robot.view.learningvocab.item.LearnVocabText;
+import com.android.tupple.robot.view.learningvocab.item.LearnVocabTextAndImage;
 import com.android.tupple.robot.view.learningvocab.viewholder.ItemViewholderFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tungts on 2020-01-18.
  */
 
-public class LearningVocabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class LearningVocabAdapter extends RecyclerView.Adapter<ItemViewholderFactory.LearnVocabBaseViewHolder> {
 
     private Context mContext;
+    private List<LearnVocabItem> mLearnVocabItem = new ArrayList<>();
 
-    public LearningVocabAdapter(Context context) {
+
+    LearningVocabAdapter(Context context) {
         this.mContext = context;
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ItemViewholderFactory.LearnVocabBaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return ItemViewholderFactory.create(mContext, parent, viewType);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull ItemViewholderFactory.LearnVocabBaseViewHolder holder, int position) {
+        holder.bind(mLearnVocabItem.get(position));
     }
 
     @Override
@@ -48,6 +58,14 @@ public class LearningVocabAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemCount() {
-        return 3;
+        return mLearnVocabItem.size();
+    }
+
+    public void setCurrentVocabLearning(Vocabulary currentVocab) {
+        mLearnVocabItem.clear();
+        mLearnVocabItem.add(new LearnVocabText(currentVocab));
+        mLearnVocabItem.add(new LearnVocabImage(currentVocab));
+        mLearnVocabItem.add(new LearnVocabTextAndImage(currentVocab));
+        notifyDataSetChanged();
     }
 }

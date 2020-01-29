@@ -6,7 +6,7 @@ import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.customview.SnappingRecyclerView;
-import com.android.tupple.robot.common.data.MenuItemData;
+import com.android.tupple.robot.data.entity.MenuItemData;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerView;
 

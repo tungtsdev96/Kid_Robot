@@ -1,6 +1,6 @@
 package com.android.tupple.robot.view.learningvocab.item;
 
-import com.android.tupple.robot.common.data.Vocabulary;
+import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.utils.constant.LearnVocabConstant;
 
 /**

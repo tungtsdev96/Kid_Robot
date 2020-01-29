@@ -4,9 +4,9 @@ import android.os.Bundle;
 
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.base.BaseActivity;
-import com.android.tupple.robot.common.data.MenuItemData;
-import com.android.tupple.robot.common.data.SchoolBook;
-import com.android.tupple.robot.common.data.Topic;
+import com.android.tupple.robot.data.entity.MenuItemData;
+import com.android.tupple.robot.data.entity.SchoolBook;
+import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.domain.entity.menumain.MenuMain;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerModel;
@@ -18,8 +18,8 @@ import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookViewWrap
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicModel;
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicPresenterImpl;
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicViewWrapper;
-import com.android.tupple.robot.model.drawer.DrawerModelFactory;
-import com.android.tupple.robot.model.english.EnglishModelFactory;
+import com.android.tupple.robot.data.model.drawer.DrawerModelFactory;
+import com.android.tupple.robot.data.model.english.EnglishModelFactory;
 import com.android.tupple.robot.view.drawer.DrawerViewFactory;
 import com.android.tupple.robot.view.englishbook.EnglishBookViewWrapperFactory;
 import com.android.tupple.robot.view.englishtopic.EnglishTopicViewWrapperFactory;

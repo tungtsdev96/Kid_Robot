@@ -2,7 +2,7 @@ package com.android.tupple.robot.model.lesson;
 
 import android.content.Context;
 
-import com.android.tupple.robot.common.data.LessonData;
+import com.android.tupple.robot.data.entity.LessonData;
 import com.android.tupple.robot.domain.presenter.lesson.LessonModel;
 
 /**
