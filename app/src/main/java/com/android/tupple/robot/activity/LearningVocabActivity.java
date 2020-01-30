@@ -10,7 +10,6 @@ import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.data.model.vocabulary.VocabularyModelFactory;
 import com.android.tupple.robot.domain.entity.learnvocab.LearnVocab;
 import com.android.tupple.robot.domain.presenter.data.VocabularyModel;
-import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
 import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabPresenterImpl;
 import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabView;
 import com.android.tupple.robot.view.learningvocab.LearningVocabViewFactory;
@@ -56,8 +55,18 @@ public class LearningVocabActivity extends BaseActivity {
         learningVocabPresenter.setLearningVocabView(learningVocabView);
         learningVocabPresenter.setVocabularyModel(learningVocabModel);
         learningVocabPresenter.setLessonId(1);
+
+        initObserver(learningVocabPresenter);
+
         mLearnVocab.setLearnVocabPresenter(learningVocabPresenter);
         mLearnVocab.init();
+    }
+
+    private void initObserver(LearningVocabPresenterImpl<Vocabulary> learningVocabPresenter) {
+        learningVocabPresenter.setOnDoneLearningVocabListener(listVocabularies -> {
+//            mActivityLauncher.launchTestVocabActivity(listVocabularies, new LessonData());
+            // TODO TungTS
+        });
     }
 
     @Override
