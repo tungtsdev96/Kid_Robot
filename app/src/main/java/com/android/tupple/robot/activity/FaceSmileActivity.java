@@ -3,14 +3,17 @@ package com.android.tupple.robot.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.os.Handler;
 
 import androidx.annotation.Nullable;
 
 import com.android.tupple.robot.R;
+import com.android.tupple.robot.receiver.RecordingReceiver;
 import com.android.tupple.robot.utils.WindowManagerUtils;
 import com.android.tupple.trigger.TriggerHelper;
+import com.android.tupple.trigger.utils.TriggerConstant;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -18,6 +21,11 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.functions.Consumer;
 import pl.droidsonroids.gif.GifImageView;
 
 /**
@@ -27,6 +35,8 @@ import pl.droidsonroids.gif.GifImageView;
 // TODO Calculate battery consumption if always run this activity
 
 public class FaceSmileActivity extends Activity {
+
+    private boolean isStartAsync = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,15 +49,16 @@ public class FaceSmileActivity extends Activity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        isStartAsync = false;
     }
 
-    private void startTrigger() {
+    private void checkPermission() {
         Dexter.withActivity(this)
                 .withPermission(Manifest.permission.RECORD_AUDIO)
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        TriggerHelper.startTrigger(FaceSmileActivity.this);
+                        startTrigger();
                     }
 
                     @Override
@@ -60,6 +71,14 @@ public class FaceSmileActivity extends Activity {
 
                     }
                 }).check();
+    }
+
+    private void startTrigger() {
+        if (isStartAsync) {
+            new Handler().postDelayed(() -> TriggerHelper.startTrigger(this), 200);
+        } else {
+            TriggerHelper.startTrigger(this);
+        }
     }
 
     private void initGifImage() {
@@ -78,11 +97,15 @@ public class FaceSmileActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        startTrigger();
+        checkPermission();
+        registerReceiver(mRecordingReceiver, new IntentFilter(TriggerConstant.ACTION_RECOGNIZE_DONE));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        unregisterReceiver(mRecordingReceiver);
     }
+
+    RecordingReceiver mRecordingReceiver = new RecordingReceiver();
 }
