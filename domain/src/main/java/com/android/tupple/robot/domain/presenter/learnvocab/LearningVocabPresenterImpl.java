@@ -13,8 +13,8 @@ import java.util.List;
 
 public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresenter {
 
-    public interface DoneLearningVocabListener<Vocabulary> {
-        void onComplete(List<Vocabulary> vocabularies);
+    public interface DoneLearningVocabListener {
+        void onComplete();
     }
 
     private final String TAG = "LearningVocabP";
@@ -29,7 +29,7 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
     private int mCurrentVocabLearning = -1;
     private List<Vocabulary> mListCurrentVocabLearning = new ArrayList<>();
 
-    private DoneLearningVocabListener<Vocabulary> mOnDoneLearningVocabListener;
+    private DoneLearningVocabListener mOnDoneLearningVocabListener;
 
     public LearningVocabPresenterImpl() {
     }
@@ -114,7 +114,7 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
     private void nextVocab() {
         if (mCurrentVocabLearning == mListCurrentVocabLearning.size() - 1) {
             if (mOnDoneLearningVocabListener != null) {
-                mOnDoneLearningVocabListener.onComplete(mListCurrentVocabLearning);
+                mOnDoneLearningVocabListener.onComplete();
             }
             return;
         }
@@ -123,11 +123,11 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
         mLearningVocabView.setCurrentVocabLearning(mListCurrentVocabLearning.get(mCurrentVocabLearning));
     }
 
-    public DoneLearningVocabListener<Vocabulary> getOnLearningVocabListener() {
+    public DoneLearningVocabListener getOnLearningVocabListener() {
         return mOnDoneLearningVocabListener;
     }
 
-    public void setOnDoneLearningVocabListener(DoneLearningVocabListener<Vocabulary> onLearningVocabListener) {
+    public void setOnDoneLearningVocabListener(DoneLearningVocabListener onLearningVocabListener) {
         this.mOnDoneLearningVocabListener = onLearningVocabListener;
     }
 

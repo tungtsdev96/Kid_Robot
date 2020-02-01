@@ -63,9 +63,9 @@ public class LearningVocabActivity extends BaseActivity {
     }
 
     private void initObserver(LearningVocabPresenterImpl<Vocabulary> learningVocabPresenter) {
-        learningVocabPresenter.setOnDoneLearningVocabListener(listVocabularies -> {
-//            mActivityLauncher.launchTestVocabActivity(listVocabularies, new LessonData());
-            // TODO TungTS
+        learningVocabPresenter.setOnDoneLearningVocabListener(() -> {
+            // TODO check LessonData or Topic
+            mActivityLauncher.launchTestVocabActivity(new LessonData());
         });
     }
 
