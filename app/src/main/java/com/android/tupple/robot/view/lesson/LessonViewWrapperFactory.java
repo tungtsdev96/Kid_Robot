@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.tupple.robot.common.data.LessonData;
+import com.android.tupple.robot.data.entity.LessonData;
 import com.android.tupple.robot.domain.presenter.lesson.LessonViewWrapper;
 
 /**

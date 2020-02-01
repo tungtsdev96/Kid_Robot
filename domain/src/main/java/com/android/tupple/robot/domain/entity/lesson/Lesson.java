@@ -30,7 +30,9 @@ public class Lesson {
         if (mLessonPresenter == null) {
             CLog.printE("Lesson", "LessonPresenter is null");
 
-        }  mLessonPresenter.start();
+        }
+
+        mLessonPresenter.start();
     }
 
     public void stop() {

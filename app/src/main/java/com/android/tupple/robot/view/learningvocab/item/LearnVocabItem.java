@@ -1,6 +1,6 @@
 package com.android.tupple.robot.view.learningvocab.item;
 
-import com.android.tupple.robot.common.data.Vocabulary;
+import com.android.tupple.robot.data.entity.Vocabulary;
 
 /**
  * Created by tungts on 2020-01-18.
@@ -10,7 +10,11 @@ public abstract class LearnVocabItem {
 
     protected Vocabulary mVocabulary;
 
-    public LearnVocabItem(Vocabulary vocabulary) {
+    LearnVocabItem(Vocabulary vocabulary) {
+        this.mVocabulary = vocabulary;
+    }
+
+    public void setVocabulary(Vocabulary vocabulary) {
         this.mVocabulary = vocabulary;
     }
 

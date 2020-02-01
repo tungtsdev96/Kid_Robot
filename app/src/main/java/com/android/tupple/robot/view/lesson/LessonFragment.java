@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.common.data.LessonData;
+import com.android.tupple.robot.data.entity.LessonData;
 import com.android.tupple.robot.domain.presenter.lesson.LessonView;
 
 import java.util.List;
@@ -65,7 +65,7 @@ public class LessonFragment extends Fragment implements LessonView<LessonData>, 
     private void initView(View rootView) {
         mRcvLesson = rootView.findViewById(R.id.rcv_lesson);
         mLessonAdapter = new LessonAdapter(mContext);
-        mRcvLesson.setLayoutManager(new GridLayoutManager(mContext, 4));
+        mRcvLesson.setLayoutManager(new GridLayoutManager(mContext, 4, RecyclerView.VERTICAL, false));
         mRcvLesson.setAdapter(mLessonAdapter);
         mLessonAdapter.setOnItemLessonListener(this);
     }

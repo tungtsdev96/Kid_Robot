@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.common.data.MenuItemData;
+import com.android.tupple.robot.data.entity.MenuItemData;
 import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.ResourceUtils;
 import com.bumptech.glide.RequestManager;
@@ -59,8 +59,10 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerItem
 
     public void setListMenu(List<MenuItemData> items) {
         mItems.clear();
-        for (MenuItemData item : items) {
-            this.mItems.add(new DrawerMenuItem(item));
+        for (int i = 0; i < 200; i++) {
+            for (MenuItemData item : items) {
+                this.mItems.add(new DrawerMenuItem(item));
+            }
         }
         notifyDataSetChanged();
     }

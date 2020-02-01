@@ -4,12 +4,12 @@ import android.os.Bundle;
 
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.base.BaseActivity;
-import com.android.tupple.robot.common.data.LessonData;
+import com.android.tupple.robot.data.entity.LessonData;
 import com.android.tupple.robot.domain.entity.lesson.Lesson;
 import com.android.tupple.robot.domain.presenter.lesson.LessonModel;
 import com.android.tupple.robot.domain.presenter.lesson.LessonPresenterImpl;
 import com.android.tupple.robot.domain.presenter.lesson.LessonViewWrapper;
-import com.android.tupple.robot.model.lesson.LessonModelFactory;
+import com.android.tupple.robot.data.model.lesson.LessonModelFactory;
 import com.android.tupple.robot.view.lesson.LessonViewWrapperFactory;
 
 /**

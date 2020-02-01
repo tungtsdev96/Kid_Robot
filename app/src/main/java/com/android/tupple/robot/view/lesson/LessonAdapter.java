@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.common.data.LessonData;
+import com.android.tupple.robot.data.entity.LessonData;
 
 import java.util.ArrayList;
 import java.util.List;

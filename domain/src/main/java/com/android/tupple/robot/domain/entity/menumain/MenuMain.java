@@ -71,7 +71,7 @@ public class MenuMain {
 //        }
     }
 
-    private void changeMenu(MenuType menuType) {
+    public void changeMenu(MenuType menuType) {
 //        mCurrentPresenter.release();
 //        mCurrentPresenter.stop();
         setCurrentPresenterByMenuType(menuType);
@@ -80,11 +80,10 @@ public class MenuMain {
 
     private void updateMenuMain() {
         // TODO update header, drawer,...
-
-//        if (mCurrentPresenter != null) {
-//            updateHeaderAndDrawer(mCurrentPresenter.getMenuMainType());
-//            mCurrentPresenter.init();
-//        }
+        if (mCurrentPresenter != null) {
+            mCurrentPresenter.init();
+            start();
+        }
     }
 
     public void stop() {

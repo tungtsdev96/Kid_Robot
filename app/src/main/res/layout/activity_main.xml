@@ -9,6 +9,7 @@
     tools:context=".activity.MainActivity">
 
     <TextView
+        android:visibility="gone"
         android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +23,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.android.tupple.robot.common.customview.SnappingRecyclerView
             android:id="@+id/rcv_menu_item"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>

@@ -1,6 +1,6 @@
 package com.android.tupple.robot.view.drawer;
 
-import com.android.tupple.robot.common.data.MenuItemData;
+import com.android.tupple.robot.data.entity.MenuItemData;
 
 /**
  * Created by tungts on 2020-01-13.

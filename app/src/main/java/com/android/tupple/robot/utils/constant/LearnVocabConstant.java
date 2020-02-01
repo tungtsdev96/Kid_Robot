@@ -19,4 +19,9 @@ public final class LearnVocabConstant {
         int TEXT_AND_IMAGE = 2;
     }
 
+    public interface TestVocab {
+        String EXTRA_LIST_VOCAB_LEARNING = "extra_list_vocab_learning";
+        String EXTRA_IS_LESSON = "extra_is_lesson";
+    }
+
 }

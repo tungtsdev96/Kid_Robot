@@ -18,46 +18,47 @@ import com.android.tupple.robot.view.learningvocab.item.LearnVocabItem;
 
 public class ItemViewholderFactory {
 
-    abstract static class LearnVocabBaseViewHolder extends RecyclerView.ViewHolder {
-        public LearnVocabBaseViewHolder(@NonNull View itemView) {
+    public abstract static class LearnVocabBaseViewHolder extends RecyclerView.ViewHolder {
+
+        LearnVocabBaseViewHolder(@NonNull View itemView) {
             super(itemView);
         }
 
-        abstract void bind(LearnVocabItem learnVocabItem);
+        public abstract void bind(LearnVocabItem learnVocabItem);
     }
 
     static class TextVocabViewHolder extends LearnVocabBaseViewHolder {
 
-        public TextVocabViewHolder(@NonNull View itemView) {
+        TextVocabViewHolder(@NonNull View itemView) {
             super(itemView);
         }
 
         @Override
-        void bind(LearnVocabItem learnVocabItem) {
+        public void bind(LearnVocabItem learnVocabItem) {
 
         }
     }
 
     static class ImageVocabViewHolder extends LearnVocabBaseViewHolder {
 
-        public ImageVocabViewHolder(@NonNull View itemView) {
+        ImageVocabViewHolder(@NonNull View itemView) {
             super(itemView);
         }
 
         @Override
-        void bind(LearnVocabItem learnVocabItem) {
+        public void bind(LearnVocabItem learnVocabItem) {
 
         }
     }
 
    static class TextAndImageVocabViewHolder extends LearnVocabBaseViewHolder {
 
-        public TextAndImageVocabViewHolder(@NonNull View itemView) {
+        TextAndImageVocabViewHolder(@NonNull View itemView) {
             super(itemView);
         }
 
         @Override
-        void bind(LearnVocabItem learnVocabItem) {
+        public void bind(LearnVocabItem learnVocabItem) {
 
         }
     }
