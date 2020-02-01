@@ -1,6 +1,8 @@
 package com.android.tupple.robot.domain.presenter.drawer;
 
 import com.android.tupple.robot.domain.entity.menumain.DrawerViewPresenter;
+import com.android.tupple.robot.domain.entity.menumain.MenuType;
+import com.android.tupple.robot.domain.presenter.PresenterObserver;
 
 import java.util.ArrayList;
 
@@ -13,8 +15,12 @@ public class DrawerPresenterImpl<MenuItemData> implements DrawerViewPresenter {
     private DrawerView<MenuItemData> mDrawerView;
     private DrawerModel<MenuItemData> mDrawerModel;
 
+    private PresenterObserver<MenuType> mItemMenuSelectedObserver;
+
     public void setDrawerView(DrawerView<MenuItemData> drawerView) {
         this.mDrawerView = drawerView;
+        // TODO initObservable
+        mDrawerView.getItemMenuSelectedObservable().subscribe(this::handleItemMenuSelected);
     }
 
     public void setDrawerModel(DrawerModel<MenuItemData> drawerModel) {
@@ -32,6 +38,16 @@ public class DrawerPresenterImpl<MenuItemData> implements DrawerViewPresenter {
 
     private void loadMenu() {
         mDrawerView.setListMenu(new ArrayList<MenuItemData>());
+    }
+
+    public void setItemMenuSelectedObserver(PresenterObserver<MenuType> itemMenuSelectedObserver) {
+        this.mItemMenuSelectedObserver = itemMenuSelectedObserver;
+    }
+
+    private void handleItemMenuSelected(MenuType menuItemData) {
+        if (mItemMenuSelectedObserver != null) {
+            mItemMenuSelectedObserver.onComplete(menuItemData);
+        }
     }
 
     @Override

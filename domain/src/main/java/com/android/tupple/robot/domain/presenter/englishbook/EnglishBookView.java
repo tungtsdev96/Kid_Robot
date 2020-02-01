@@ -1,5 +1,7 @@
 package com.android.tupple.robot.domain.presenter.englishbook;
 
+import com.android.tupple.cleanobject.CleanObservable;
+
 import java.util.List;
 
 /**
@@ -9,5 +11,9 @@ import java.util.List;
 public interface EnglishBookView<Book> {
 
     void setListData(List<Book> listBooks);
+
+    CleanObservable<Book> getOnItemBookClickedObservable();
+
+    CleanObservable<Book> getOnItemBookLongClickedObservable();
 
 }

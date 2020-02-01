@@ -4,9 +4,9 @@ import android.os.Bundle;
 
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.base.BaseActivity;
-import com.android.tupple.robot.commondata.MenuItemData;
-import com.android.tupple.robot.commondata.SchoolBook;
-import com.android.tupple.robot.commondata.Topic;
+import com.android.tupple.robot.data.entity.MenuItemData;
+import com.android.tupple.robot.data.entity.SchoolBook;
+import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.domain.entity.menumain.MenuMain;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerModel;
@@ -18,8 +18,8 @@ import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookViewWrap
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicModel;
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicPresenterImpl;
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicViewWrapper;
-import com.android.tupple.robot.model.drawer.DrawerModelFactory;
-import com.android.tupple.robot.model.english.EnglishModelFactory;
+import com.android.tupple.robot.data.model.drawer.DrawerModelFactory;
+import com.android.tupple.robot.data.model.english.EnglishModelFactory;
 import com.android.tupple.robot.view.drawer.DrawerViewFactory;
 import com.android.tupple.robot.view.englishbook.EnglishBookViewWrapperFactory;
 import com.android.tupple.robot.view.englishtopic.EnglishTopicViewWrapperFactory;
@@ -71,7 +71,10 @@ public class MainActivity extends BaseActivity {
 
         englishBookPresenter.setEnglishTopicViewWrapper(englishBookViewWrapper);
         englishBookPresenter.setEnglishBookModel(englishBookModel);
+
         // TODO innit Observerable
+        englishBookPresenter.setOnItemBookClickedObserver(mActivityLauncher::launchUnitActivity);
+
         mMenuMain.setCurrentPresenterByMenuType(MenuType.ENGLISH_BOOK);
         mMenuMain.setEnglishBookPresenter(englishBookPresenter);
     }
@@ -84,6 +87,8 @@ public class MainActivity extends BaseActivity {
         drawerPresenter.setDrawerView(drawerView);
         drawerPresenter.setDrawerModel(drawerModel);
         mMenuMain.setDrawerViewPresenter(drawerPresenter);
+
+        drawerPresenter.setItemMenuSelectedObserver(mMenuMain::changeMenu);
     }
 
     @Override
@@ -94,7 +99,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-//        mMenuMain.stop();
+        mMenuMain.stop();
         super.onDestroy();
     }
 }

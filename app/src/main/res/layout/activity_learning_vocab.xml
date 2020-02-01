@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content_learning_english"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/slide_learning_vocab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/btn_previous"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PREVIOUS"
+        android:textSize="18sp"
+        android:layout_margin="16dp"
+        android:padding="8dp"
+        android:layout_gravity="start"
+        android:drawableStart="@drawable/ic_arrow_left"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        style="@style/CommonStyleText"/>
+
+    <TextView
+        android:id="@+id/btn_next"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NEXT"
+        android:textSize="18sp"
+        android:layout_margin="16dp"
+        android:padding="8dp"
+        android:layout_gravity="end"
+        android:drawableEnd="@drawable/ic_next"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        style="@style/CommonStyleText"/>
+
+</FrameLayout>

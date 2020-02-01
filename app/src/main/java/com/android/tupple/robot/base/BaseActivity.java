@@ -15,6 +15,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        WindowManagerUtils.setFullScreenMode(this);
         super.onCreate(savedInstanceState);
         setContentView(getLayoutContent());
         onCreatedActivity(savedInstanceState);

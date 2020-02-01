@@ -2,6 +2,7 @@
 <resources>
 
     <!-- Menu Drawer -->
+    <dimen name="menu_item_size">120dp</dimen>
     <dimen name="menu_item_icon">85dp</dimen>
     <dimen name="menu_item_padding">15dp</dimen>
 

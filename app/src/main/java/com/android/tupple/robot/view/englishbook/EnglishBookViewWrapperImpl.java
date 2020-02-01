@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.commondata.SchoolBook;
+import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookView;
 import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookViewWrapper;
 

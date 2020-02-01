@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.commondata.Topic;
+import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicView;
 
 /**
