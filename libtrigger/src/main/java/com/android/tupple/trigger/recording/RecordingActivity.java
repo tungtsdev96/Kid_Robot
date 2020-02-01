@@ -5,10 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.util.Log;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 
 import com.android.tupple.trigger.R;
 import com.android.tupple.trigger.TriggerHelper;
+import com.android.tupple.trigger.TriggerService;
+import com.android.tupple.trigger.utils.TriggerConstant;
 import com.android.tupple.trigger.utils.WindowManagerUtils;
 import com.github.zagum.speechrecognitionview.RecognitionProgressView;
 import com.github.zagum.speechrecognitionview.adapters.RecognitionListenerAdapter;
@@ -17,6 +22,7 @@ import java.util.ArrayList;
 
 /**
  * Created by tungts on 2020-02-01.
+ * TODO recording audio and send to server
  */
 
 public class RecordingActivity extends Activity {
@@ -29,44 +35,63 @@ public class RecordingActivity extends Activity {
         WindowManagerUtils.setFullScreenMode(this);
         setContentView(R.layout.activity_recording);
 
-        init();
+        initRecognize();
     }
 
-    private void init() {
+    private void initRecognize() {
+        int[] colors = {
+                ContextCompat.getColor(this, R.color.color1),
+                ContextCompat.getColor(this, R.color.color2),
+                ContextCompat.getColor(this, R.color.color3),
+                ContextCompat.getColor(this, R.color.color4),
+                ContextCompat.getColor(this, R.color.color5)
+        };
+
         SpeechRecognizer speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getApplicationContext());
         mRecognitionProgressView = findViewById(R.id.recognition_view);
+        mRecognitionProgressView.setColors(colors);
         mRecognitionProgressView.play();
 
         mRecognitionProgressView.setSpeechRecognizer(speechRecognizer);
         mRecognitionProgressView.setRecognitionListener(new RecognitionListenerAdapter() {
             @Override
             public void onResults(Bundle results) {
-                // TODO show result
-                ArrayList<String> matches = results
-                        .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                Toast.makeText(RecordingActivity.this, matches.get(0), Toast.LENGTH_LONG).show();
-
-                mRecognitionProgressView.stop();
+                ArrayList<String> result = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+                handleResultRecognize(result != null ? result.get(0) : null);
             }
 
             @Override
             public void onError(int error) {
                 super.onError(error);
-//                startRecognize(speechRecognizer);
-                Toast.makeText(RecordingActivity.this, "" + error, Toast.LENGTH_SHORT).show();
+                handleErrorRecognize(error);
             }
 
             @Override
             public void onEndOfSpeech() {
                 super.onEndOfSpeech();
-                Toast.makeText(RecordingActivity.this, "End Speed", Toast.LENGTH_SHORT).show();
                 mRecognitionProgressView.stop();
                 finish();
             }
         });
 
-
         startRecognize(speechRecognizer);
+    }
+
+    private void handleErrorRecognize(int error) {
+        switch (error) {
+            case SpeechRecognizer.ERROR_NETWORK:
+                finish();
+                break;
+        }
+    }
+
+    private void handleResultRecognize(String result) {
+        mRecognitionProgressView.stop();
+        Intent intent = new Intent();
+        intent.setAction(TriggerConstant.ACTION_RECOGNIZE_DONE);
+        intent.putExtra(TriggerConstant.EXTRA_RECOGNIZE_DONE, result);
+        sendBroadcast(intent);
+        Log.d(TriggerService.TAG, result);
     }
 
     private void startRecognize(SpeechRecognizer speechRecognizer) {
@@ -75,7 +100,6 @@ public class RecordingActivity extends Activity {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "vi-VN");
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "vi-VN");
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 6);
-
         speechRecognizer.startListening(intent);
     }
 
