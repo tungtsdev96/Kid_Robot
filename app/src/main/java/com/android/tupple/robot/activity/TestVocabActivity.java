@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.base.BaseActivity;
+import com.android.tupple.robot.common.base.BaseActivity;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocab;
 
 /**

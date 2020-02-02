@@ -20,7 +20,7 @@ public class KidRobotApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initCLogger();
-        initTriggerService();
+//        initTriggerService();
     }
 
     private void initTriggerService() {

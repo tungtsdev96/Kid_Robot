@@ -21,11 +21,6 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.reactivex.functions.Consumer;
 import pl.droidsonroids.gif.GifImageView;
 
 /**
@@ -75,7 +70,7 @@ public class FaceSmileActivity extends Activity {
 
     private void startTrigger() {
         if (isStartAsync) {
-            new Handler().postDelayed(() -> TriggerHelper.startTrigger(this), 200);
+            new Handler().postDelayed(() -> TriggerHelper.startTrigger(this), 500);
         } else {
             TriggerHelper.startTrigger(this);
         }

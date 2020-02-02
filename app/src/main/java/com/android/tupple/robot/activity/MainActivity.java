@@ -3,7 +3,7 @@ package com.android.tupple.robot.activity;
 import android.os.Bundle;
 
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.base.BaseActivity;
+import com.android.tupple.robot.common.base.BaseActivity;
 import com.android.tupple.robot.data.entity.MenuItemData;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;

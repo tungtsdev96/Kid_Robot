@@ -11,7 +11,6 @@ import android.media.MediaRecorder;
 import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.tupple.trigger.audio.MFCC;
 import com.android.tupple.trigger.recording.RecordingActivity;
