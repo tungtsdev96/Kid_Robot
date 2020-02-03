@@ -3,7 +3,7 @@ package com.android.tupple.robot.activity;
 import android.os.Bundle;
 
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.base.BaseActivity;
+import com.android.tupple.robot.common.base.BaseActivity;
 import com.android.tupple.robot.data.entity.LessonData;
 import com.android.tupple.robot.domain.entity.lesson.Lesson;
 import com.android.tupple.robot.domain.presenter.lesson.LessonModel;

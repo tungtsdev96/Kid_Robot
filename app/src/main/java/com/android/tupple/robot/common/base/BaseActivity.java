@@ -1,4 +1,4 @@
-package com.android.tupple.robot.base;
+package com.android.tupple.robot.common.base;
 
 import android.os.Bundle;
 
