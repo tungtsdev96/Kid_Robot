@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Kid Robot</string>
+
+    <string name="text_choose_right_answer">Chọn đáp án đúng</string>
+
 </resources>

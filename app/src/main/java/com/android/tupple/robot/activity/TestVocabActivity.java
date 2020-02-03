@@ -18,7 +18,7 @@ public class TestVocabActivity extends BaseActivity {
 
     @Override
     protected int getLayoutContent() {
-        return R.layout.activity_test_vocabulary;
+        return R.layout.fragment_test_vocab_level_1;
     }
 
     @Override
