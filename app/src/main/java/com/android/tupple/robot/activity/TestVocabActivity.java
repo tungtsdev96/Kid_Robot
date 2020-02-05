@@ -5,7 +5,16 @@ import android.os.Bundle;
 
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.base.BaseActivity;
+import com.android.tupple.robot.data.entity.LessonData;
+import com.android.tupple.robot.data.entity.Topic;
+import com.android.tupple.robot.data.entity.Vocabulary;
+import com.android.tupple.robot.data.model.testvocab.TestVocabModelFactory;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocab;
+import com.android.tupple.robot.domain.presenter.data.TestVocabModel;
+import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1Model;
+import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1PresenterImpl;
+import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1ViewWrapper;
+import com.android.tupple.robot.view.testvocab.TestVocabViewFactory;
 
 /**
  * Created by tung.ts on 1/29/2020.
@@ -18,7 +27,7 @@ public class TestVocabActivity extends BaseActivity {
 
     @Override
     protected int getLayoutContent() {
-        return R.layout.fragment_test_vocab_level_1;
+        return R.layout.activity_test_vocabulary;
     }
 
     @Override
@@ -26,12 +35,34 @@ public class TestVocabActivity extends BaseActivity {
         mTestVocab = new TestVocab();
         mActivityLauncher = new ActivityLauncher(this);
 
-        Bundle bundle = getBundleFromIntent();
+        inject();
+        mTestVocab.init();
     }
 
-    private Bundle getBundleFromIntent() {
-        Intent intent = getIntent();
-        return intent.getBundleExtra("");
+    private void inject() {
+        injectLevel1();
+        injectLevel2();
     }
 
+    private void injectLevel1() {
+        Level1PresenterImpl<LessonData, Topic, Vocabulary> level1Presenter = new Level1PresenterImpl<>();
+        Level1ViewWrapper<LessonData, Topic, Vocabulary> level1ViewWrapper = TestVocabViewFactory.newLevel1ViewWrapper(getSupportFragmentManager());
+        TestVocabModel<LessonData, Topic, Vocabulary> testVocabModel = TestVocabModelFactory.newTestVocabModel(this);
+        Level1Model<LessonData, Topic, Vocabulary> level1Model = TestVocabModelFactory.newLevel1Model(this);
+
+        level1Presenter.setLevel1ViewWrapper(level1ViewWrapper);
+        level1Presenter.setTestVocabModel(testVocabModel);
+        level1Presenter.setLevel1Model(level1Model);
+        mTestVocab.setLevel1Presenter(level1Presenter);
+    }
+
+    private void injectLevel2() {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mTestVocab.start();
+    }
 }
