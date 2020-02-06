@@ -2,10 +2,13 @@ package com.android.tupple.trigger.recording;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
@@ -68,12 +71,21 @@ public class RecordingActivity extends Activity {
             @Override
             public void onEndOfSpeech() {
                 super.onEndOfSpeech();
+//                Toast.makeText(RecordingActivity.this, "End Speed", Toast.LENGTH_SHORT).show();
                 mRecognitionProgressView.stop();
-                finish();
+
+                startMediaPlayer();
+
+                new Handler().postDelayed(() -> finish(), 3000);
             }
         });
 
         startRecognize(speechRecognizer);
+    }
+
+    private void startMediaPlayer() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.ant);
+        mediaPlayer.start();
     }
 
     private void handleErrorRecognize(int error) {
@@ -90,6 +102,7 @@ public class RecordingActivity extends Activity {
         intent.setAction(TriggerConstant.ACTION_RECOGNIZE_DONE);
         intent.putExtra(TriggerConstant.EXTRA_RECOGNIZE_DONE, result);
         sendBroadcast(intent);
+        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
         Log.d(TriggerService.TAG, result);
     }
 
