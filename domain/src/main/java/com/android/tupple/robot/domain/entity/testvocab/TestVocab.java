@@ -12,7 +12,7 @@ public class TestVocab {
 
     private TestVocabPresenterHolder mTestVocabPresenterHolder;
 
-    private TestVocabPresenter mCurrenLevelPresenter;
+    private TestVocabPresenter mCurrentLevelPresenter;
 
     public TestVocab() {
         mTestVocabPresenterHolder = new TestVocabPresenterHolder();
@@ -28,22 +28,21 @@ public class TestVocab {
 
     public void init(){
         // TODO init HeaderPresenter
-
-        mCurrenLevelPresenter = mTestVocabPresenterHolder.get(TestVocabLevel.LEVEL1_1);
-        if (mCurrenLevelPresenter != null) {
-            mCurrenLevelPresenter.init();
+        mCurrentLevelPresenter = mTestVocabPresenterHolder.get(TestVocabLevel.LEVEL1_1);
+        if (mCurrentLevelPresenter != null) {
+            mCurrentLevelPresenter.init();
         }
     }
 
     public void start() {
-        if (mCurrenLevelPresenter != null) {
-            mCurrenLevelPresenter.start();
+        if (mCurrentLevelPresenter != null) {
+            mCurrentLevelPresenter.start();
         }
     }
 
     public void stop() {
-        if (mCurrenLevelPresenter != null) {
-            mCurrenLevelPresenter.stop();
+        if (mCurrentLevelPresenter != null) {
+            mCurrentLevelPresenter.stop();
         }
     }
 
@@ -52,11 +51,11 @@ public class TestVocab {
             mTestVocabPresenterHolder.clear();
         }
 
-        if (mCurrenLevelPresenter != null) {
-            mCurrenLevelPresenter.finish();
+        if (mCurrentLevelPresenter != null) {
+            mCurrentLevelPresenter.finish();
         }
 
-        mCurrenLevelPresenter = null;
+        mCurrentLevelPresenter = null;
     }
 
     class TestVocabPresenterHolder {

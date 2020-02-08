@@ -26,6 +26,7 @@ public class Vocabulary {
             Vocabulary vocabulary = new Vocabulary();
             vocabulary.vocabId = 1;
             vocabulary.vocabVi = "ads " + i;
+            vocabulary.vocabEn = "vocabEn " + i;
             vocabularies.add(vocabulary);
         }
 

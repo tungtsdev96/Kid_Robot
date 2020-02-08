@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#3303A9F4">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,13 +32,14 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/btn_pronounce"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_mic_max"/>
 
             <TextView
                 android:visibility="gone"
-                android:id="@+id/text_questionn_vocab"
+                android:id="@+id/text_question_vocab"
                 android:layout_marginStart="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,11 +48,21 @@
                 style="@style/CommonStyleText"/>
 
             <ImageView
-                android:id="@+id/image_vocab"
+                android:id="@+id/image_question_vocab"
                 android:visibility="gone"
                 android:layout_width="180dp"
                 android:layout_height="110dp"
                 android:layout_marginStart="16dp" />
+
+            <Button
+                android:id="@+id/btn_check_answer"
+                android:layout_marginStart="16dp"
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kiem tra"
+                android:textColor="@color/text_btn_answer_disable"
+                android:background="@drawable/bg_btn_check_answer_disable"/>
 
         </LinearLayout>
 
@@ -62,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"/>
-
+        
     </LinearLayout>
 
 </FrameLayout>

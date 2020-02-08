@@ -2,6 +2,7 @@ package com.android.tupple.robot.domain.presenter.testvocab.level2;
 
 import com.android.tupple.robot.domain.entity.testvocab.Level2Presenter;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
+import com.android.tupple.robot.domain.presenter.PresenterObserver;
 import com.android.tupple.robot.domain.presenter.data.TestVocabModel;
 
 /**
@@ -37,6 +38,11 @@ public class Level2PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     @Override
     public TestVocabLevel getLevel() {
         return null;
+    }
+
+    @Override
+    public void setOnNextLevelObserver(PresenterObserver<TestVocabLevel> onNextLevelObserver) {
+
     }
 
     @Override

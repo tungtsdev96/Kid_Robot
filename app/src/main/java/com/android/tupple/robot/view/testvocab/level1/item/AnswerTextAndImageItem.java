@@ -12,13 +12,12 @@ public class AnswerTextAndImageItem implements AnswerItem {
     private boolean isAnswer;
     private Vocabulary vocabulary;
 
-    private AnswerTextAndImageItem(Vocabulary vocabulary, boolean isAnswer) {
+    private AnswerTextAndImageItem(Vocabulary vocabulary) {
         this.vocabulary = vocabulary;
-        this.isAnswer = isAnswer;
     }
 
-    public static AnswerTextAndImageItem create(Vocabulary vocabulary, boolean isAnswer) {
-        return new AnswerTextAndImageItem(vocabulary, isAnswer);
+    public static AnswerTextAndImageItem create(Vocabulary vocabulary) {
+        return new AnswerTextAndImageItem(vocabulary);
     }
 
     @Override
@@ -29,6 +28,10 @@ public class AnswerTextAndImageItem implements AnswerItem {
     @Override
     public boolean isAnswerTrue() {
         return isAnswer;
+    }
+
+    public Vocabulary getVocabulary() {
+        return this.vocabulary;
     }
 
 }

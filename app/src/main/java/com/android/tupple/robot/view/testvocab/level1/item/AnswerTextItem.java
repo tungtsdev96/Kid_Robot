@@ -1,5 +1,6 @@
 package com.android.tupple.robot.view.testvocab.level1.item;
 
+import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.utils.constant.TestVocabConstant;
 
 /**
@@ -11,13 +12,12 @@ public class AnswerTextItem implements AnswerItem {
     private String text;
     private boolean isAnswer;
 
-    private AnswerTextItem(String text, boolean isAnswer) {
+    private AnswerTextItem(String text) {
         this.text = text;
-        this.isAnswer = isAnswer;
     }
 
-    public static AnswerTextItem create(String text, boolean isAnswer) {
-        return new AnswerTextItem(text, isAnswer);
+    public static AnswerTextItem create(Vocabulary vocabulary) {
+        return new AnswerTextItem(vocabulary.vocabEn);
     }
 
     @Override
@@ -28,6 +28,10 @@ public class AnswerTextItem implements AnswerItem {
     @Override
     public boolean isAnswerTrue() {
         return isAnswer;
+    }
+
+    public String getText() {
+        return this.text;
     }
 
 }

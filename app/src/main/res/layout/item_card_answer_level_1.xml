@@ -8,6 +8,7 @@
     app:cardUseCompatPadding="true">
 
     <FrameLayout
+        android:id="@+id/item_answer"
         android:focusable="true"
         android:clickable="true"
         android:background="?attr/selectableItemBackground"
@@ -20,7 +21,7 @@
             android:layout_height="120dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/text_answer"
@@ -31,7 +32,7 @@
             android:layout_margin="20dp"
             android:text="tungts"
             android:textSize="20sp"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
     </FrameLayout>
 

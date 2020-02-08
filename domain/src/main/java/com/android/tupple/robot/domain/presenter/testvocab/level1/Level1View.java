@@ -1,6 +1,7 @@
 package com.android.tupple.robot.domain.presenter.testvocab.level1;
 
 import com.android.tupple.cleanobject.CleanObservable;
+import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 
 import java.util.List;
 
@@ -10,8 +11,19 @@ import java.util.List;
 
 public interface Level1View<LessonData, Topic, Vocabulary> {
 
-    void setData(List<Vocabulary> items);
+    void showQuestion(TestVocabLevel testVocabLevel, Vocabulary vocabulary, List<Vocabulary> listAnswers);
 
-    CleanObservable<Boolean> getAnswerChooseObservable();
+    void notifyMustSelectedAnswer();
 
+    void setSelectedAnswer(boolean isSelected);
+
+    void showLayoutAnswerResult(boolean isAnswer);
+
+    void hideLayoutAnswerResult();
+
+    CleanObservable<Integer> getAnswerSelectedObservable();
+
+    CleanObservable getBtnCheckAnswerClickedObservable();
+
+    CleanObservable getBtnPronounceVocabClickedObservable();
 }

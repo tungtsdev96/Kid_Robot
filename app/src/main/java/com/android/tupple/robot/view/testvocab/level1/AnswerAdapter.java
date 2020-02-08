@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.utils.constant.TestVocabConstant;
+import com.android.tupple.robot.view.testvocab.level1.item.AnswerImageItem;
 import com.android.tupple.robot.view.testvocab.level1.item.AnswerItem;
 import com.android.tupple.robot.view.testvocab.level1.item.AnswerTextAndImageItem;
+import com.android.tupple.robot.view.testvocab.level1.item.AnswerTextItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,30 +22,24 @@ import java.util.List;
  * Created by tungts on 2020-02-06.
  */
 
-public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AnswerAdapter extends RecyclerView.Adapter<AnswerViewHolderFactory.AnswerItemViewHolder> {
 
     private Context mContext;
     private List<AnswerItem> mItems = new ArrayList<>();
 
-    public AnswerAdapter(Context context) {
+    AnswerAdapter(Context context) {
         this.mContext = context;
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AnswerTextItemViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card_answer_level_1, parent, false)
-        );
+    public AnswerViewHolderFactory.AnswerItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return AnswerViewHolderFactory.create(parent, viewType, mOnAnswerClickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        holder.itemView.setOnClickListener(v -> {
-            if (mOnAnswerClickListener != null) {
-                mOnAnswerClickListener.onClick(position);
-            }
-        });
+    public void onBindViewHolder(@NonNull AnswerViewHolderFactory.AnswerItemViewHolder holder, int position) {
+
     }
 
     @Override
@@ -51,16 +47,29 @@ public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return mItems.size();
     }
 
-    public void setListAnswer(List<Vocabulary> listAnswer, int positionAnswer, int typeAnswer) {
+    @Override
+    public int getItemViewType(int position) {
+        return mItems.get(position).getType();
+    }
+
+    public void setListAnswer(List<Vocabulary> listAnswer, int typeAnswer) {
         mItems.clear();
-        for (int i = 0; i < listAnswer.size(); i++) {
+        for (Vocabulary vocabulary: listAnswer) {
+            AnswerItem item;
             switch (typeAnswer) {
                 case TestVocabConstant.ANSWER_TYPE.TEXT:
+                    item = AnswerTextItem.create(vocabulary);
+                    break;
                 case TestVocabConstant.ANSWER_TYPE.IMAGE:
+                    item = AnswerImageItem.create(vocabulary);
+                    break;
                 case TestVocabConstant.ANSWER_TYPE.TEXT_AND_IMAGE:
-                    AnswerItem item = AnswerTextAndImageItem.create(listAnswer.get(i), i == positionAnswer);
-                    mItems.add(item);
+                    item = AnswerTextAndImageItem.create(vocabulary);
+                    break;
+                default:
+                    item = null;
             }
+            mItems.add(item);
         }
 
         notifyDataSetChanged();
