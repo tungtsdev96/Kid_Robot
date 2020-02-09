@@ -1,19 +1,17 @@
-package com.android.tupple.robot.view.testvocab.level1;
+package com.android.tupple.robot.view.testvocab.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.tupple.robot.R;
 import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.utils.constant.TestVocabConstant;
-import com.android.tupple.robot.view.testvocab.level1.item.AnswerImageItem;
-import com.android.tupple.robot.view.testvocab.level1.item.AnswerItem;
-import com.android.tupple.robot.view.testvocab.level1.item.AnswerTextAndImageItem;
-import com.android.tupple.robot.view.testvocab.level1.item.AnswerTextItem;
+import com.android.tupple.robot.view.testvocab.adapter.item.AnswerImageItem;
+import com.android.tupple.robot.view.testvocab.adapter.item.AnswerItem;
+import com.android.tupple.robot.view.testvocab.adapter.item.AnswerTextAndImageItem;
+import com.android.tupple.robot.view.testvocab.adapter.item.AnswerTextItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +25,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerViewHolderFactory.
     private Context mContext;
     private List<AnswerItem> mItems = new ArrayList<>();
 
-    AnswerAdapter(Context context) {
+    public AnswerAdapter(Context context) {
         this.mContext = context;
     }
 

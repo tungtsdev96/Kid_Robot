@@ -26,6 +26,7 @@ import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1View;
 import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.constant.TestVocabConstant;
+import com.android.tupple.robot.view.testvocab.adapter.AnswerAdapter;
 
 import java.util.List;
 import java.util.Objects;

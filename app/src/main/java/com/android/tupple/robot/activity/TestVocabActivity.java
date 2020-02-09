@@ -10,6 +10,7 @@ import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.data.model.testvocab.TestVocabModelFactory;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocab;
+import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.data.TestVocabModel;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1Model;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1PresenterImpl;
@@ -54,6 +55,7 @@ public class TestVocabActivity extends BaseActivity {
         level1Presenter.setTestVocabModel(testVocabModel);
         level1Presenter.setLevel1Model(level1Model);
         mTestVocab.setLevel1Presenter(level1Presenter);
+        mTestVocab.setCurrentPresenter(TestVocabLevel.LEVEL1_1);
     }
 
     private void injectLevel2() {

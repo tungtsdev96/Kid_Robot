@@ -1,4 +1,4 @@
-package com.android.tupple.robot.view.testvocab.level1.item;
+package com.android.tupple.robot.view.testvocab.adapter.item;
 
 /**
  * Created by tungts on 2020-02-06.

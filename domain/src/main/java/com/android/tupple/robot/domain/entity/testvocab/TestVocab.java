@@ -20,15 +20,31 @@ public class TestVocab {
 
     public void setLevel1Presenter(Level1Presenter level1Presenter) {
         mTestVocabPresenterHolder.setLevel1Presenter(level1Presenter);
+        level1Presenter.setOnNextLevelObserver(this::switchLevel);
     }
 
     public void setLevel2Presenter(Level2Presenter level2Presenter) {
         mTestVocabPresenterHolder.setLevel2Presenter(level2Presenter);
     }
 
+    private void switchLevel(TestVocabLevel testVocabLevel) {
+        setCurrentPresenter(testVocabLevel);
+        start();
+    }
+
+    public void setCurrentPresenter(TestVocabLevel testVocabLevel) {
+        switch (testVocabLevel) {
+            case LEVEL1_1:
+                mCurrentLevelPresenter = mTestVocabPresenterHolder.get(TestVocabLevel.LEVEL1_1);
+                break;
+            case LEVEL2_1:
+                mCurrentLevelPresenter = mTestVocabPresenterHolder.get(TestVocabLevel.LEVEL2_1);
+                break;
+        }
+    }
+
     public void init(){
         // TODO init HeaderPresenter
-        mCurrentLevelPresenter = mTestVocabPresenterHolder.get(TestVocabLevel.LEVEL1_1);
         if (mCurrentLevelPresenter != null) {
             mCurrentLevelPresenter.init();
         }

@@ -1,4 +1,4 @@
-package com.android.tupple.robot.view.testvocab.level1;
+package com.android.tupple.robot.view.testvocab.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.constant.TestVocabConstant;
-import com.android.tupple.robot.view.testvocab.level1.item.AnswerItem;
-import com.android.tupple.robot.view.testvocab.level1.item.AnswerTextAndImageItem;
-import com.android.tupple.robot.view.testvocab.level1.item.AnswerTextItem;
+import com.android.tupple.robot.view.testvocab.adapter.item.AnswerItem;
+import com.android.tupple.robot.view.testvocab.adapter.item.AnswerTextAndImageItem;
+import com.android.tupple.robot.view.testvocab.adapter.item.AnswerTextItem;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package com.android.tupple.robot.view.testvocab.level1.item;
+package com.android.tupple.robot.view.testvocab.adapter.item;
 
 import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.utils.constant.TestVocabConstant;
