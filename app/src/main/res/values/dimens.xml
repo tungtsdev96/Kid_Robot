@@ -6,4 +6,12 @@
     <dimen name="menu_item_icon">85dp</dimen>
     <dimen name="menu_item_padding">15dp</dimen>
 
+    <!-- TestVocab -->
+
+    <!-- Level 1 -->
+
+    <!-- Level 2 -->
+    <dimen name="alphabet_view_margin_left">5dp</dimen>
+    <dimen name="alphabet_view_padding">8dp</dimen>
+
 </resources>
