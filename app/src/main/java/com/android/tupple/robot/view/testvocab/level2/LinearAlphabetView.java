@@ -42,10 +42,12 @@ public class LinearAlphabetView extends LinearLayout {
 
     public void generateView(char[] text) {
         for (int i = 0; i < text.length; i++) {
-//            AlphabetView view = new AlphabetView(mContext);
-//            LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//            layoutParams.setMarginStart(mContext.getResources().getDimensionPixelOffset(R.dimen.alphabet_view_margin_left));
-//            view.setLayoutParams();
+            char x = text[i];
+            AlphabetView view = new AlphabetView(mContext);
+            LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMarginStart(mContext.getResources().getDimensionPixelOffset(R.dimen.alphabet_view_margin_left));
+            view.setLayoutParams(layoutParams);
+            view.setContent(x);
         }
     }
 
