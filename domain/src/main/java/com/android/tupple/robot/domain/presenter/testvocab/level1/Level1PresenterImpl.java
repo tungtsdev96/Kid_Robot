@@ -73,7 +73,7 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     private void nextLevel() {
         if (mCurrentLevel == TestVocabLevel.LEVEL1_2) {
-            mLevel1View.setSelectedAnswer(false);
+            mLevel1View.setEnableBtnCheckAnswer(false);
             mCurrentQuestion = -1;
             showQuestion();
             return;
@@ -86,7 +86,7 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     private void setAnswerSelected(int answerSelected) {
         mCurrentAnserSelected = answerSelected;
-        mLevel1View.setSelectedAnswer(true);
+        mLevel1View.setEnableBtnCheckAnswer(true);
     }
 
     @Override
@@ -124,6 +124,7 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
         }
 
         // TODO get List Answer from model by vocab
+        mLevel1View.setEnableBtnCheckAnswer(false);
         mCurrentAnserSelected = -1;
         List<Vocabulary> listAnswers = mListVocabularyLearning; // for test
         mLevel1View.showQuestion(mCurrentLevel, mListVocabularyLearning.get(mCurrentQuestion), listAnswers);

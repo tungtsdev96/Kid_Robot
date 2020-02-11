@@ -3,6 +3,7 @@ package com.android.tupple.robot.view.testvocab.level2;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 
@@ -48,8 +49,9 @@ public class AlphabetView extends AppCompatTextView {
     }
 
     public void setContent(char content) {
-        this.setText(content);
+        Log.d("tungts", content + "");
         if (content >= 'a' && content <= 'z' || content >= 'A' && content <= 'Z') {
+            this.setText(String.format(getResources().getString(R.string.alphabet), content));
             setBackgroundResource(R.drawable.bg_alphabet);
         } if (content == '_') {
             setBackgroundResource(R.drawable.bg_text_answer_level_3);

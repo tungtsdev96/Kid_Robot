@@ -29,7 +29,7 @@ public class TestVocab {
 
     private void switchLevel(TestVocabLevel testVocabLevel) {
         setCurrentPresenter(testVocabLevel);
-        start();
+        init();
     }
 
     public void setCurrentPresenter(TestVocabLevel testVocabLevel) {

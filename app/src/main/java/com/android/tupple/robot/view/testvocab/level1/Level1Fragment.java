@@ -136,7 +136,7 @@ public class Level1Fragment extends Fragment implements Level1View<LessonData, T
     }
 
     @Override
-    public void setSelectedAnswer(boolean isSelected) {
+    public void setEnableBtnCheckAnswer(boolean isSelected) {
         mBtnCheckAnswer.setEnabled(isSelected);
         mBtnCheckAnswer.setTextColor(isSelected ? getResources().getColor(R.color.text_btn_answer_enable) : getResources().getColor(R.color.text_btn_answer_disable));
         mBtnCheckAnswer.setBackground(isSelected ? getResources().getDrawable(R.drawable.bg_btn_check_answer_enable) : getResources().getDrawable(R.drawable.bg_btn_check_answer_disable));

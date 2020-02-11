@@ -1,6 +1,5 @@
 package com.android.tupple.robot.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.android.tupple.robot.R;
@@ -15,6 +14,9 @@ import com.android.tupple.robot.domain.presenter.data.TestVocabModel;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1Model;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1PresenterImpl;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1ViewWrapper;
+import com.android.tupple.robot.domain.presenter.testvocab.level2.Level2Model;
+import com.android.tupple.robot.domain.presenter.testvocab.level2.Level2PresenterImpl;
+import com.android.tupple.robot.domain.presenter.testvocab.level2.Level2ViewWrapper;
 import com.android.tupple.robot.view.testvocab.TestVocabViewFactory;
 
 /**
@@ -59,7 +61,15 @@ public class TestVocabActivity extends BaseActivity {
     }
 
     private void injectLevel2() {
+        Level2PresenterImpl<LessonData, Topic, Vocabulary> level2Presenter = new Level2PresenterImpl<>();
+        Level2ViewWrapper<LessonData, Topic, Vocabulary> level2ViewWrapper = TestVocabViewFactory.newLevel2ViewWrapper(getSupportFragmentManager());
+        TestVocabModel<LessonData, Topic, Vocabulary> testVocabModel = TestVocabModelFactory.newTestVocabModel(this);
+        Level2Model<LessonData, Topic, Vocabulary> level2Model = TestVocabModelFactory.newLevel2Model(this);
 
+        level2Presenter.setLevel2ViewWrapper(level2ViewWrapper);
+        level2Presenter.setTestVocabModel(testVocabModel);
+        level2Presenter.setLevel2Model(level2Model);
+        mTestVocab.setLevel2Presenter(level2Presenter);
     }
 
     @Override

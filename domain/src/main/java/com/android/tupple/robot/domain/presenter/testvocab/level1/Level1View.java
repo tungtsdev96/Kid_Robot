@@ -15,7 +15,7 @@ public interface Level1View<LessonData, Topic, Vocabulary> {
 
     void notifyMustSelectedAnswer();
 
-    void setSelectedAnswer(boolean isSelected);
+    void setEnableBtnCheckAnswer(boolean isSelected);
 
     void showLayoutAnswerResult(boolean isAnswer);
 

@@ -1,6 +1,9 @@
 <resources>
+
     <string name="app_name">Kid Robot</string>
 
+    <!-- Test Vocab -->
     <string name="text_choose_right_answer">Chọn đáp án đúng</string>
+    <string name="alphabet">%c</string>
 
 </resources>

@@ -1,77 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3303A9F4">
+    android:gravity="center"
+    android:background="#FFF">
 
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:padding="16dp"
+        android:gravity="center_vertical">
 
         <TextView
+            android:text="Ghep tu hoan chinh tu cac chu cai sau"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_choose_right_answer"
+            android:layout_marginStart="16dp"
             android:textSize="18sp"
-            android:layout_gravity="center_horizontal"
             style="@style/CommonStyleText"/>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:padding="16dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/image_question_level3"
+            android:src="@drawable/a"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_weight="1"/>
+
         <LinearLayout
-            android:gravity="center"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_mic_max"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4">
+            android:layout_weight="1"
+            android:padding="16dp">
 
-            <include
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                layout="@layout/item_card_answer_level_1"/>
+            <LinearLayout
+                android:id="@+id/question_level2_containner"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
 
-            <include
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                layout="@layout/item_card_answer_level_1"/>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_mic_max"/>
 
-            <include
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                layout="@layout/item_card_answer_level_1"/>
+                <com.android.tupple.robot.view.testvocab.level2.LinearAlphabetView
+                    android:id="@+id/alphabet_question"
+                    android:gravity="bottom"
+                    android:layout_marginStart="20dp"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/bg_text_answer_level_3"/>
 
-            <include
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                layout="@layout/item_card_answer_level_1"/>
+            </LinearLayout>
+
+            <com.android.tupple.robot.view.testvocab.level2.LinearAlphabetView
+                android:id="@+id/alphabet_answer"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

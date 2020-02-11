@@ -48,6 +48,8 @@ public class LinearAlphabetView extends LinearLayout {
             layoutParams.setMarginStart(mContext.getResources().getDimensionPixelOffset(R.dimen.alphabet_view_margin_left));
             view.setLayoutParams(layoutParams);
             view.setContent(x);
+
+            this.addView(view);
         }
     }
 

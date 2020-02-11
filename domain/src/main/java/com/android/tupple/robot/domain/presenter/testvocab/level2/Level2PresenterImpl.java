@@ -23,6 +23,8 @@ public class Level2PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     private List<Vocabulary> mListVocabularyLearning;
     private int mCurrentQuestion = -1;
 
+    private boolean initialize = false;
+
     public Level2PresenterImpl() {
     }
 
@@ -34,13 +36,15 @@ public class Level2PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     public void setLevel2View(Level2View<LessonData, Topic, Vocabulary> level2View) {
         this.mLevel2View = level2View;
         // TODO init Observable
+
+        start();
     }
 
     public void setTestVocabModel(TestVocabModel<LessonData, Topic, Vocabulary> testVocabModel) {
-        this.mTestVocabModel = mTestVocabModel;
+        this.mTestVocabModel = testVocabModel;
     }
 
-    public void setmLevel2Model(Level2Model<LessonData, Topic, Vocabulary> mLevel2Model) {
+    public void setLevel2Model(Level2Model<LessonData, Topic, Vocabulary> mLevel2Model) {
         this.mLevel2Model = mLevel2Model;
     }
 
@@ -65,12 +69,16 @@ public class Level2PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     }
 
     private void requestData() {
-        mTestVocabModel.getAllVocabLearning().subscribe(listVocabs -> {
-            mListVocabularyLearning = listVocabs;
-            // TODO get listvocab learning, list vocab by lesson or topic
-            //      => Randomvocab -> answer -> show to screen
-            showQuestion();
-        });
+        if (!initialize) {
+            mTestVocabModel.getAllVocabLearning().subscribe(listVocabs -> {
+                mListVocabularyLearning = listVocabs;
+                // TODO get listvocab learning, list vocab by lesson or topic
+                //      => Randomvocab -> answer -> show to screen
+                showQuestion();
+            });
+
+            initialize = true;
+        }
     }
 
     private void showQuestion() {
@@ -82,6 +90,8 @@ public class Level2PresenterImpl<LessonData, Topic, Vocabulary> implements Level
         char[] content = new char[]{'t', 'u', '_', '_', 't', 's'};
         mLevel2View.showQuestion(content);
 
+        char[] answer = new char[]{'t', 'u', 't', 's'};
+        mLevel2View.showAnswer(answer);
     }
 
     @Override

@@ -27,7 +27,9 @@ public class Level2Fragment extends Fragment implements Level2View<LessonData, T
 
     private Context mContext;
 
-    private LinearAlphabetView mLinearAlphabetView;
+    private LinearAlphabetView mQuestionView;
+    private LinearAlphabetView mAnswerView;
+
 
     private CleanObserver<Level2View<LessonData, Topic, Vocabulary>> mViewCreatedObserver;
 
@@ -44,10 +46,9 @@ public class Level2Fragment extends Fragment implements Level2View<LessonData, T
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_test_vocab_level_3, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_test_vocab_level_2, container, false);
 
         initView(rootView);
-//        initRecycleView(rootView);
 
         if (mViewCreatedObserver != null) {
             mViewCreatedObserver.onNext(this);
@@ -56,18 +57,26 @@ public class Level2Fragment extends Fragment implements Level2View<LessonData, T
     }
 
     private void initView(View rootView) {
-        mLinearAlphabetView = rootView.findViewById(R.id.alphabet_question);
+        mQuestionView = rootView.findViewById(R.id.alphabet_question);
+        mAnswerView = rootView.findViewById(R.id.alphabet_answer);
+    }
+
+    public void setViewCreatedObserver(CleanObserver<Level2View<LessonData, Topic, Vocabulary>> onViewCreatedObserver) {
+        this.mViewCreatedObserver = onViewCreatedObserver;
     }
 
     @Override
     public void showQuestion(char[] question) {
-        if (mLinearAlphabetView != null) {
-            mLinearAlphabetView.generateView(question);
+        if (mQuestionView != null) {
+            mQuestionView.generateView(question);
         }
     }
 
     @Override
     public void showAnswer(char[] answer) {
-
+        if (mAnswerView != null) {
+            mAnswerView.generateView(answer);
+        }
     }
+
 }
