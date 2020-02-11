@@ -5,6 +5,8 @@ import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
 import com.android.tupple.robot.domain.presenter.data.TestVocabModel;
 
+import java.util.List;
+
 /**
  * Created by tungts on 2020-02-05.
  */
@@ -16,6 +18,13 @@ public class Level2PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     private TestVocabModel<LessonData, Topic, Vocabulary> mTestVocabModel;
     private Level2Model<LessonData, Topic, Vocabulary> mLevel2Model;
+
+    private TestVocabLevel mCurrentLevel = TestVocabLevel.LEVEL2_1;
+    private List<Vocabulary> mListVocabularyLearning;
+    private int mCurrentQuestion = -1;
+
+    public Level2PresenterImpl() {
+    }
 
     public void setLevel2ViewWrapper(Level2ViewWrapper<LessonData, Topic, Vocabulary> level2ViewWrapper) {
         this.mLevel2ViewWrapper = level2ViewWrapper;
@@ -42,7 +51,7 @@ public class Level2PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     @Override
     public void setOnNextLevelObserver(PresenterObserver<TestVocabLevel> onNextLevelObserver) {
-
+        // TODO onNext level
     }
 
     @Override
@@ -52,6 +61,26 @@ public class Level2PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     @Override
     public void start() {
+        requestData();
+    }
+
+    private void requestData() {
+        mTestVocabModel.getAllVocabLearning().subscribe(listVocabs -> {
+            mListVocabularyLearning = listVocabs;
+            // TODO get listvocab learning, list vocab by lesson or topic
+            //      => Randomvocab -> answer -> show to screen
+            showQuestion();
+        });
+    }
+
+    private void showQuestion() {
+        if (mCurrentQuestion == -1) {
+            mCurrentQuestion = 0;
+        }
+
+        // TODO get List Answer from model by vocab
+        char[] content = new char[]{'t', 'u', '_', '_', 't', 's'};
+        mLevel2View.showQuestion(content);
 
     }
 
