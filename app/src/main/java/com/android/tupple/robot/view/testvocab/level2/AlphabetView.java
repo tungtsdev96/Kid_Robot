@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.res.ResourcesCompat;
@@ -36,6 +37,7 @@ public class AlphabetView extends AppCompatTextView {
         setTypeface(typeface);
         setBackgroundResource(R.drawable.bg_alphabet_disable);
 
+        setGravity(Gravity.CENTER);
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
         setPadding(
                 context.getResources().getDimensionPixelOffset(R.dimen.alphabet_view_padding),
@@ -49,6 +51,8 @@ public class AlphabetView extends AppCompatTextView {
         this.setText(content);
         if (content >= 'a' && content <= 'z' || content >= 'A' && content <= 'Z') {
             setBackgroundResource(R.drawable.bg_alphabet);
+        } if (content == '_') {
+            setBackgroundResource(R.drawable.bg_text_answer_level_3);
         } else {
             setBackgroundResource(R.drawable.bg_alphabet_disable);
         }
