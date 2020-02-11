@@ -27,6 +27,8 @@ public class Level2Fragment extends Fragment implements Level2View<LessonData, T
 
     private Context mContext;
 
+    private LinearAlphabetView mLinearAlphabetView;
+
     private CleanObserver<Level2View<LessonData, Topic, Vocabulary>> mViewCreatedObserver;
 
     public static Level2Fragment newInstance() {
@@ -44,12 +46,28 @@ public class Level2Fragment extends Fragment implements Level2View<LessonData, T
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_test_vocab_level_3, container, false);
 
-//        initView(rootView);
+        initView(rootView);
 //        initRecycleView(rootView);
 
         if (mViewCreatedObserver != null) {
             mViewCreatedObserver.onNext(this);
         }
         return rootView;
+    }
+
+    private void initView(View rootView) {
+        mLinearAlphabetView = rootView.findViewById(R.id.alphabet_question);
+    }
+
+    @Override
+    public void showQuestion(char[] question) {
+        if (mLinearAlphabetView != null) {
+            mLinearAlphabetView.generateView(question);
+        }
+    }
+
+    @Override
+    public void showAnswer(char[] answer) {
+
     }
 }
