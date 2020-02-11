@@ -5,4 +5,9 @@ package com.android.tupple.robot.domain.presenter.testvocab.level2;
  */
 
 public interface Level2View<LessonData, Topic, Vocabulary> {
+
+    void showQuestion(char[] question);
+
+    void showAnswer(char[] answer);
+
 }
