@@ -51,6 +51,7 @@ public class MainActivity extends BaseActivity {
         injectDrawer(bundle);
         injectEnglishBook(bundle);
         injectEnglishTopic(bundle);
+
     }
 
     private void injectEnglishTopic(Bundle bundle) {

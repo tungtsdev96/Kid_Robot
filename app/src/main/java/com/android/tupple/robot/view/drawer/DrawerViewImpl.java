@@ -1,6 +1,8 @@
 package com.android.tupple.robot.view.drawer;
 
 import android.app.Activity;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
@@ -40,6 +42,11 @@ public class DrawerViewImpl implements DrawerView<MenuItemData> {
 
         mRcvDrawer.setOnViewSelectedListener((view, position) -> {
             // TODO handle selected menu -> change view selected -> change menu main
+            int value = position % 4 + 1;
+            Log.d("DrawerViewImpl:", "position + " + value);
+            if (mItemMenuSelectedObserver != null) {
+                mItemMenuSelectedObserver.onNext(MenuType.fromValue(value));
+            }
         });
     }
 
@@ -48,7 +55,7 @@ public class DrawerViewImpl implements DrawerView<MenuItemData> {
     public void setListMenu(List<MenuItemData> items) {
         items.add(new MenuItemData("Sach Giao Khoa", "ic_alphabet"));
         items.add(new MenuItemData("Chu de", "ic_alphabet"));
-        items.add(new MenuItemData("Bao thuc", "ic_alphabet"));
+       // items.add(new MenuItemData("Bao thuc", "ic_alphabet"));
         items.add(new MenuItemData("Gia tri", "ic_alphabet"));
         mDrawerAdapter.setListMenu(items);
         Objects.requireNonNull(mRcvDrawer.getLayoutManager()).scrollToPosition(500);

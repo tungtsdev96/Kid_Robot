@@ -12,7 +12,7 @@ public class MenuPresenterViewHolder {
 
     private EnglishBookPresenter mEnglishBookPresenter;
     private EnglishTopicPresenter mEnglishTopicPresenter;
-
+    private EntertainmentPresenter mEntertainmentPresenter;
     public MenuPresenterViewHolder() {
     }
 
@@ -23,10 +23,12 @@ public class MenuPresenterViewHolder {
     public void setEnglishTopicPresenter(EnglishTopicPresenter englishTopicPresenter) {
         this.mEnglishTopicPresenter = englishTopicPresenter;
     }
-
-    MenuPresenter get(MenuType calendarType) {
+    public void setEntertainmentPresenter(EntertainmentPresenter entertainmentPresenter) {
+        this.mEntertainmentPresenter = entertainmentPresenter;
+    }
+    MenuPresenter get(MenuType menuType) {
         MenuPresenter presenter;
-        switch (calendarType) {
+        switch (menuType) {
             case ENGLISH_BOOK:
                 presenter = mEnglishBookPresenter;
                 break;
@@ -35,13 +37,15 @@ public class MenuPresenterViewHolder {
                 break;
             case ALARM_CLOCK:
             case ENTERTAINMENT:
+                presenter = mEntertainmentPresenter;
+                break;
             case INVALID:
             default:
                 presenter = null;
         }
 
         if (presenter == null) {
-            CLog.printSecD(TAG, "get(), presenter is null, calendarType = " + calendarType);
+            CLog.printSecD(TAG, "get(), presenter is null, calendarType = " + menuType);
         }
 
         return presenter;

@@ -5,4 +5,5 @@ package com.android.tupple.robot.domain.presenter.drawer;
  */
 
 public interface DrawerModel<MenuItemData> {
+
 }

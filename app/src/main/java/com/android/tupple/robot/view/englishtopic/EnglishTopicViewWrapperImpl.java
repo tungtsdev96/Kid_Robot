@@ -47,7 +47,7 @@ public class EnglishTopicViewWrapperImpl implements EnglishTopicViewWrapper<Topi
         if (mEnglishTopicFragment == null) {
             mEnglishTopicFragment = EnglishTopicFragment.newInstance();
         }
-        fragmentTransaction.replace(R.id.content_menu, mEnglishTopicFragment, EnglishBookFragment.TAG);
+        fragmentTransaction.replace(R.id.content_menu, mEnglishTopicFragment, EnglishTopicFragment.TAG);
         fragmentTransaction.commitAllowingStateLoss();
     }
 

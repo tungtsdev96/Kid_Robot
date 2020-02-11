@@ -26,7 +26,10 @@ public class MenuMain {
         // TODO innit observer
         this.mMenuPresenterViewHolder.setEnglishTopicPresenter(englishTopicPresenter);
     }
-
+    public void setEntertainmentPresenter(EntertainmentPresenter entertainmentPresenter) {
+        // TODO innit observer
+        this.mMenuPresenterViewHolder.setEntertainmentPresenter(entertainmentPresenter);
+    }
     public void setEnglishBookPresenter(EnglishBookPresenter englishBookPresenter) {
         // TODO innit observer
         this.mMenuPresenterViewHolder.setEnglishBookPresenter(englishBookPresenter);
