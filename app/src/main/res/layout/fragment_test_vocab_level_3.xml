@@ -45,16 +45,20 @@
             android:layout_weight="1"
             android:padding="16dp">
 
-            <LinearLayout
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_mic_max"/>
+
+            <com.android.tupple.robot.view.testvocab.level2.LinearAlphabetView
+                android:id="@+id/alphabet_question"
                 android:gravity="bottom"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:background="@drawable/bg_text_answer_level_3">
-                
-            </LinearLayout>
+                android:background="@drawable/bg_text_answer_level_3"/>
 
         </LinearLayout>
 
