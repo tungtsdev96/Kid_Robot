@@ -5,5 +5,9 @@
     <dimen name="menu_item_size">120dp</dimen>
     <dimen name="menu_item_icon">85dp</dimen>
     <dimen name="menu_item_padding">15dp</dimen>
-
+    <dimen name="size5dp">5dp</dimen>
+    <dimen name="size220dp">220dp</dimen>
+    <dimen name="size75dp">75dp</dimen>
+    <dimen name="size15dp">15dp</dimen>
+    <dimen name="size60dp">60dp</dimen>
 </resources>

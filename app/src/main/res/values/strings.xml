@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Kid Robot</string>
+    <string name="recorder">Recorder</string>
+    <string name="stop_recorder">Stop</string>
 </resources>

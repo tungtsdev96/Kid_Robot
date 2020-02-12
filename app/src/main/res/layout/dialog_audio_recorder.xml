@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tittle"
+        style="@style/CommonStyleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size15dp"
+        android:layout_marginTop="@dimen/size5dp"
+        android:background="?attr/selectableItemBackground"
+        android:text="@string/recorder" />
+
+    <com.android.tupple.robot.common.customview.VisualizerView
+        android:id="@+id/visualizer"
+        android:layout_width="@dimen/size220dp"
+        android:layout_height="@dimen/size75dp"
+        android:layout_below="@id/tittle"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/size5dp"
+        android:background="#f0ebdf"
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/stop"
+        android:layout_width="@dimen/size60dp"
+        android:layout_height="@dimen/size60dp"
+        android:layout_below="@id/visualizer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/size5dp"
+        android:src="@drawable/stop"
+        android:text="stop" />
+
+    <TextView
+        style="@style/CommonStyleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stop"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/size5dp"
+        android:background="?attr/selectableItemBackground"
+        android:text="@string/stop_recorder" />
+</RelativeLayout>
