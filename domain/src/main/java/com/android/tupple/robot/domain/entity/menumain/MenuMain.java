@@ -1,5 +1,9 @@
 package com.android.tupple.robot.domain.entity.menumain;
 
+import android.util.Log;
+
+import com.android.tupple.robot.domain.log.CLog;
+
 /**
  * Created by tungts on 2020-01-12.
  */
@@ -18,26 +22,33 @@ public class MenuMain {
     }
 
     public void setDrawerViewPresenter(DrawerViewPresenter drawerViewPresenter) {
-        // TODO innit observer
         this.mDrawerViewPresenter = drawerViewPresenter;
+        mDrawerViewPresenter.setItemMenuSelectedObserver(this::onMenuSwitched);
     }
 
     public void setEnglishTopicPresenter(EnglishTopicPresenter englishTopicPresenter) {
-        // TODO innit observer
         this.mMenuPresenterViewHolder.setEnglishTopicPresenter(englishTopicPresenter);
     }
 
     public void setEnglishBookPresenter(EnglishBookPresenter englishBookPresenter) {
-        // TODO innit observer
         this.mMenuPresenterViewHolder.setEnglishBookPresenter(englishBookPresenter);
     }
 
+    public void setAlarmPresenter(AlarmPresenter alarmPresenter) {
+        this.mMenuPresenterViewHolder.setAlarmPresenter(alarmPresenter);
+    }
+
+    public void setEntertainmentPresenter(EntertainmentPresenter entertainmentPresenter) {
+        this.mMenuPresenterViewHolder.setEntertainmentPresenter(entertainmentPresenter);
+    }
+
     public void init(){
+        Log.d(TAG, "inti " + mCurrentPresenter);
+
         if (mDrawerViewPresenter != null) {
             mDrawerViewPresenter.init();
         }
 
-        mCurrentPresenter = mMenuPresenterViewHolder.get(MenuType.ENGLISH_BOOK);
         if (mCurrentPresenter != null) {
             mCurrentPresenter.init();
         }
@@ -58,22 +69,21 @@ public class MenuMain {
         mCurrentPresenter = mMenuPresenterViewHolder.get(menuType);
     }
 
-    private void onMenuswitched(MenuType menuType) {
-
+    private void onMenuSwitched(MenuType menuType) {
         if (mCurrentPresenter != null && mCurrentPresenter.getMenuType() == menuType) {
+            CLog.printD(TAG, "current presenter null: menuType = " + menuType);
             return;
         }
 
         changeMenu(menuType);
-
-//        if (mOnCalendarSwitchListener != null) {
-//            mOnCalendarSwitchListener.onCalendarSwitched(calendarType);
-//        }
     }
 
-    public void changeMenu(MenuType menuType) {
-//        mCurrentPresenter.release();
-//        mCurrentPresenter.stop();
+    private void changeMenu(MenuType menuType) {
+        if (mCurrentPresenter == null) {
+            return;
+        }
+
+        mCurrentPresenter.stop();
         setCurrentPresenterByMenuType(menuType);
         updateMenuMain();
     }
@@ -82,7 +92,6 @@ public class MenuMain {
         // TODO update header, drawer,...
         if (mCurrentPresenter != null) {
             mCurrentPresenter.init();
-            start();
         }
     }
 

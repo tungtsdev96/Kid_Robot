@@ -40,6 +40,7 @@ public class DrawerPresenterImpl<MenuItemData> implements DrawerViewPresenter {
         mDrawerView.setListMenu(new ArrayList<MenuItemData>());
     }
 
+    @Override
     public void setItemMenuSelectedObserver(PresenterObserver<MenuType> itemMenuSelectedObserver) {
         this.mItemMenuSelectedObserver = itemMenuSelectedObserver;
     }

@@ -7,8 +7,12 @@ import com.android.tupple.robot.common.base.BaseActivity;
 import com.android.tupple.robot.data.entity.MenuItemData;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;
+import com.android.tupple.robot.data.model.alarm.AlarmModelFactory;
 import com.android.tupple.robot.domain.entity.menumain.MenuMain;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
+import com.android.tupple.robot.domain.presenter.alarm.AlarmModel;
+import com.android.tupple.robot.domain.presenter.alarm.AlarmPresenterImpl;
+import com.android.tupple.robot.domain.presenter.alarm.AlarmViewWrapper;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerModel;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerPresenterImpl;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerView;
@@ -20,6 +24,7 @@ import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicPresen
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicViewWrapper;
 import com.android.tupple.robot.data.model.drawer.DrawerModelFactory;
 import com.android.tupple.robot.data.model.english.EnglishModelFactory;
+import com.android.tupple.robot.view.alarm.AlarmViewWrapperFactory;
 import com.android.tupple.robot.view.drawer.DrawerViewFactory;
 import com.android.tupple.robot.view.englishbook.EnglishBookViewWrapperFactory;
 import com.android.tupple.robot.view.englishtopic.EnglishTopicViewWrapperFactory;
@@ -51,17 +56,18 @@ public class MainActivity extends BaseActivity {
         injectDrawer(bundle);
         injectEnglishBook(bundle);
         injectEnglishTopic(bundle);
+        injectAlarmClock(bundle);
+        injectLearningSchedule(bundle);
     }
 
-    private void injectEnglishTopic(Bundle bundle) {
-        EnglishTopicPresenterImpl<Topic> englishTopicPresenter = new EnglishTopicPresenterImpl<>();
-        EnglishTopicViewWrapper<Topic> englishTopicViewWrapper = EnglishTopicViewWrapperFactory.newEnglishTopicViewWrapper(getSupportFragmentManager(), bundle);
-        EnglishTopicModel<Topic>  englishTopicModel = EnglishModelFactory.newEnglishTopicModel(this);
+    private void injectDrawer(Bundle bundle) {
+        DrawerPresenterImpl<MenuItemData> drawerPresenter = new DrawerPresenterImpl<>();
+        DrawerView<MenuItemData> drawerView = DrawerViewFactory.newDrawerView(this);
+        DrawerModel<MenuItemData> drawerModel = DrawerModelFactory.newDrawerModel(this);
 
-        englishTopicPresenter.setEnglishTopicViewWrapper(englishTopicViewWrapper);
-        englishTopicPresenter.setEnglishBookModel(englishTopicModel);
-        // TODO innit Observerable
-        mMenuMain.setEnglishTopicPresenter(englishTopicPresenter);
+        drawerPresenter.setDrawerView(drawerView);
+        drawerPresenter.setDrawerModel(drawerModel);
+        mMenuMain.setDrawerViewPresenter(drawerPresenter);
     }
 
     private void injectEnglishBook(Bundle bundle) {
@@ -75,20 +81,33 @@ public class MainActivity extends BaseActivity {
         // TODO innit Observerable
         englishBookPresenter.setOnItemBookClickedObserver(mActivityLauncher::launchUnitActivity);
 
-        mMenuMain.setCurrentPresenterByMenuType(MenuType.ENGLISH_BOOK);
         mMenuMain.setEnglishBookPresenter(englishBookPresenter);
+        mMenuMain.setCurrentPresenterByMenuType(MenuType.ENGLISH_BOOK);
     }
 
-    private void injectDrawer(Bundle bundle) {
-        DrawerPresenterImpl<MenuItemData> drawerPresenter = new DrawerPresenterImpl<>();
-        DrawerView<MenuItemData> drawerView = DrawerViewFactory.newDrawerView(this);
-        DrawerModel<MenuItemData> drawerModel = DrawerModelFactory.newDrawerModel(this);
+    private void injectEnglishTopic(Bundle bundle) {
+        EnglishTopicPresenterImpl<Topic> englishTopicPresenter = new EnglishTopicPresenterImpl<>();
+        EnglishTopicViewWrapper<Topic> englishTopicViewWrapper = EnglishTopicViewWrapperFactory.newEnglishTopicViewWrapper(getSupportFragmentManager(), bundle);
+        EnglishTopicModel<Topic>  englishTopicModel = EnglishModelFactory.newEnglishTopicModel(this);
 
-        drawerPresenter.setDrawerView(drawerView);
-        drawerPresenter.setDrawerModel(drawerModel);
-        mMenuMain.setDrawerViewPresenter(drawerPresenter);
+        englishTopicPresenter.setEnglishTopicViewWrapper(englishTopicViewWrapper);
+        englishTopicPresenter.setEnglishBookModel(englishTopicModel);
+        // TODO innit Observerable
+        mMenuMain.setEnglishTopicPresenter(englishTopicPresenter);
+    }
 
-        drawerPresenter.setItemMenuSelectedObserver(mMenuMain::changeMenu);
+    private void injectAlarmClock(Bundle bundle) {
+        AlarmPresenterImpl alarmPresenter = new AlarmPresenterImpl();
+        AlarmViewWrapper alarmViewWrapper = AlarmViewWrapperFactory.newAlarmViewWrapper(getSupportFragmentManager());
+        AlarmModel alarmModel = AlarmModelFactory.newAlarmModel(this);
+
+        alarmPresenter.setAlarmViewWrapper(alarmViewWrapper);
+        alarmPresenter.setAlarmModel(alarmModel);
+        mMenuMain.setAlarmPresenter(alarmPresenter);
+    }
+
+    private void injectLearningSchedule(Bundle bundle) {
+
     }
 
     @Override

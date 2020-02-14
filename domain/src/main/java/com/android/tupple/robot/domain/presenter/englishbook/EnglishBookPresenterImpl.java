@@ -16,6 +16,8 @@ public class EnglishBookPresenterImpl<SchoolBook> implements EnglishBookPresente
 
     private PresenterObserver<SchoolBook> mOnItemBookClickedObserver;
 
+    private boolean mIsInitializing = true;
+
     public EnglishBookPresenterImpl() {
     }
 
@@ -30,12 +32,16 @@ public class EnglishBookPresenterImpl<SchoolBook> implements EnglishBookPresente
 
     @Override
     public void init() {
+        mIsInitializing = true;
         mEnglishBookViewWrapper.show();
     }
 
     @Override
     public void start() {
-        loadData();
+        if (mIsInitializing) {
+            loadData();
+            mIsInitializing = false;
+        }
     }
 
     private void loadData() {
@@ -45,13 +51,16 @@ public class EnglishBookPresenterImpl<SchoolBook> implements EnglishBookPresente
 
     private void onViewCreated(EnglishBookView<SchoolBook> englishBookView) {
         this.mEnglishBookView = englishBookView;
-
         // TODO innit Observerable
-        mEnglishBookView.getOnItemBookClickedObservable().subscribe(book -> {
-            if (mOnItemBookClickedObserver != null) {
-                mOnItemBookClickedObserver.onComplete(book);
-            }
-        });
+        mEnglishBookView.getOnItemBookClickedObservable().subscribe(this::handleItemBookClicked);
+
+        start();
+    }
+
+    private void handleItemBookClicked(SchoolBook book) {
+        if (mOnItemBookClickedObserver != null) {
+            mOnItemBookClickedObserver.onComplete(book);
+        }
     }
 
     public void setOnItemBookClickedObserver(PresenterObserver<SchoolBook> onItemBookClickedObserver) {

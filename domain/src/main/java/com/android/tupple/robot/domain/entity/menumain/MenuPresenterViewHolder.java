@@ -12,6 +12,8 @@ public class MenuPresenterViewHolder {
 
     private EnglishBookPresenter mEnglishBookPresenter;
     private EnglishTopicPresenter mEnglishTopicPresenter;
+    private AlarmPresenter mAlarmPresenter;
+    private EntertainmentPresenter mEntertainmentPresenter;
 
     public MenuPresenterViewHolder() {
     }
@@ -24,6 +26,14 @@ public class MenuPresenterViewHolder {
         this.mEnglishTopicPresenter = englishTopicPresenter;
     }
 
+    public void setAlarmPresenter(AlarmPresenter alarmPresenter) {
+        this.mAlarmPresenter = alarmPresenter;
+    }
+
+    public void setEntertainmentPresenter(EntertainmentPresenter entertainmentPresenter) {
+        this.mEntertainmentPresenter = entertainmentPresenter;
+    }
+
     MenuPresenter get(MenuType calendarType) {
         MenuPresenter presenter;
         switch (calendarType) {
@@ -34,6 +44,8 @@ public class MenuPresenterViewHolder {
                 presenter = mEnglishTopicPresenter;
                 break;
             case ALARM_CLOCK:
+                presenter = mAlarmPresenter;
+                break;
             case ENTERTAINMENT:
             case INVALID:
             default:
@@ -57,6 +69,16 @@ public class MenuPresenterViewHolder {
         if (mEnglishTopicPresenter != null) {
             mEnglishTopicPresenter.finish();
             mEnglishTopicPresenter = null;
+        }
+
+        if (mAlarmPresenter != null) {
+            mAlarmPresenter.finish();
+            mAlarmPresenter = null;
+        }
+
+        if (mEntertainmentPresenter != null) {
+            mEntertainmentPresenter.finish();
+            mEntertainmentPresenter = null;
         }
 
     }
