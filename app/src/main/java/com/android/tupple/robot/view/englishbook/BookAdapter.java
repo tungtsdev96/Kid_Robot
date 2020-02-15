@@ -4,6 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +38,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ItemBookViewHo
 
         void onItemBookLongClicked(int positon);
 
+        void onButtonDownloadClicked(int position);
+
     }
 
     private OnBookFragmentItemClickListener mOnBookFragmentItemClickListener;
@@ -52,7 +58,19 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ItemBookViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ItemBookViewHolder holder, int position) {
+        holder.bind(mListBooks.get(position));
 
+        holder.itemContainer.setOnClickListener(v -> {
+            if (mOnBookFragmentItemClickListener != null) {
+                mOnBookFragmentItemClickListener.onItemBookClicked(position);
+            }
+        });
+
+        holder.btnDownload.setOnClickListener(v -> {
+            if (mOnBookFragmentItemClickListener != null) {
+                mOnBookFragmentItemClickListener.onButtonDownloadClicked(position);
+            }
+        });
     }
 
     @Override
@@ -75,13 +93,23 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ItemBookViewHo
 
     class ItemBookViewHolder extends RecyclerView.ViewHolder {
 
-        public ItemBookViewHolder(@NonNull View itemView) {
+        private ImageView imageBook;
+        private Button btnDownload;
+        private View itemContainer;
+        private TextView textTitleBook;
+        private ProgressBar progressDownload;
+
+        ItemBookViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(v -> {
-                if (mOnBookFragmentItemClickListener !=null) {
-                    mOnBookFragmentItemClickListener.onItemBookClicked(getAdapterPosition());
-                }
-            });
+            imageBook = itemView.findViewById(R.id.image_school_book);
+            btnDownload = itemView.findViewById(R.id.btn_download_school_book);
+            itemContainer = itemView.findViewById(R.id.image_school_book_mask);
+            textTitleBook = itemView.findViewById(R.id.text_title_school_book);
+            progressDownload = itemView.findViewById(R.id.progress_download);
+        }
+
+        void bind(SchoolBook book) {
+            textTitleBook.setText(book.getNameBook());
         }
 
     }

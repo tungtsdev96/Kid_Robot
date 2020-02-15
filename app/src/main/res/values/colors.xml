@@ -9,4 +9,15 @@
     <color name="text_btn_answer_disable">#666666</color>
     <color name="text_btn_answer_enable">#FFFFFF</color>
 
+    <!-- school book -->
+    <color name="color_item_school_book_disable">#80202020</color>
+
+    <!-- common ripple -->
+    <color name="common_control_area_ripple_color">#14000000</color><!-- app bar, bottom bar, etc color -->
+    <color name="common_list_ripple_color">#19000000</color>
+    <color name="common_controller_ripple_color">#19000000</color><!-- switch, check box, etc color -->
+    <color name="common_button_ripple_color">@color/common_controller_ripple_color</color>
+    <color name="common_fab_ripple_color">#19000000</color>
+    <color name="common_master_switch_ripple_color">#14000000</color>
+
 </resources>

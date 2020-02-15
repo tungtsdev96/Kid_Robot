@@ -16,4 +16,6 @@ public interface EnglishBookView<Book> {
 
     CleanObservable<Book> getOnItemBookLongClickedObservable();
 
+    CleanObservable<Book> getOnBtnDownloadClickedObservable();
+
 }

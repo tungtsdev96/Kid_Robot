@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
+import com.android.tupple.robot.common.customview.snaprecycleview.SnapRecycleView;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookView;
 
@@ -33,6 +34,7 @@ public class EnglishBookFragment extends Fragment implements EnglishBookView<Sch
 
     private CleanObserver<SchoolBook> mOnItemBookClickedObserver;
     private CleanObserver<SchoolBook> mOnItemBookLongClickedObserver;
+    private CleanObserver<SchoolBook> mOnBtnDowanloadClickedObserver;
 
     void setViewCreatedObserver(CleanObserver<EnglishBookView<SchoolBook>> viewCreatedObserver) {
         this.mViewCreatedObserver = viewCreatedObserver;
@@ -42,7 +44,7 @@ public class EnglishBookFragment extends Fragment implements EnglishBookView<Sch
         return new EnglishBookFragment();
     }
 
-    private RecyclerView mRcvListBooks;
+    private SnapRecycleView mRcvListBooks;
     private BookAdapter mBookAdapter;
 
     @Override
@@ -67,7 +69,7 @@ public class EnglishBookFragment extends Fragment implements EnglishBookView<Sch
     private void initView(View rootView) {
         mRcvListBooks = rootView.findViewById(R.id.rcv_english_book);
         mBookAdapter = new BookAdapter(mContext);
-        mRcvListBooks.setLayoutManager(new GridLayoutManager(mContext, 4));
+        mRcvListBooks.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
         mRcvListBooks.setAdapter(mBookAdapter);
         mBookAdapter.setOnBookFragmentItemClickListener(this);
     }
@@ -92,6 +94,13 @@ public class EnglishBookFragment extends Fragment implements EnglishBookView<Sch
     }
 
     @Override
+    public void onButtonDownloadClicked(int position) {
+        if (mOnBtnDowanloadClickedObserver != null) {
+            mOnBtnDowanloadClickedObserver.onNext(mBookAdapter.getBookByPosition(position));
+        }
+    }
+
+    @Override
     public CleanObservable<SchoolBook> getOnItemBookClickedObservable() {
         return CleanObservable.create(cleanObserver -> mOnItemBookClickedObserver = cleanObserver);
     }
@@ -99,6 +108,11 @@ public class EnglishBookFragment extends Fragment implements EnglishBookView<Sch
     @Override
     public CleanObservable<SchoolBook> getOnItemBookLongClickedObservable() {
         return CleanObservable.create(cleanObserver -> mOnItemBookClickedObserver = cleanObserver);
+    }
+
+    @Override
+    public CleanObservable<SchoolBook> getOnBtnDownloadClickedObservable() {
+        return CleanObservable.create(cleanObserver -> mOnBtnDowanloadClickedObserver = cleanObserver);
     }
 
 }

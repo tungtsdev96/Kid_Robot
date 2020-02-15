@@ -87,7 +87,7 @@ public class SchoolBook implements Parcelable {
         SchoolBook book = new SchoolBook();
         book.idBook = 1;
         book.imageBook = "adsa";
-        book.nameBook = "SGK";
+        book.nameBook = "SGK Lop 1";
 
         List<SchoolBook> schoolBooks = new ArrayList<>();
         schoolBooks.add(book);
