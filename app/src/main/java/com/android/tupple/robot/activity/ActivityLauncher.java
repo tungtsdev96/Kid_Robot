@@ -24,7 +24,7 @@ public class ActivityLauncher {
         mActivity = activity;
     }
 
-    public void launchUnitActivity(SchoolBook book) {
+    public void launchLessonActivity(SchoolBook book) {
         Intent intent = new Intent(mActivity, LessonActivity.class);
         intent.putExtra(BookConstant.EXTRA_BOOK, book);
         ActivityUtils.startActivty(mActivity, intent);

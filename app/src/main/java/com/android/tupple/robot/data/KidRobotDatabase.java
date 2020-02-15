@@ -11,6 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.android.tupple.robot.data.entity.LessonData;
 import com.android.tupple.robot.data.entity.SchoolBook;
+import com.android.tupple.robot.data.entity.Topic;
 
 /**
  * Created by tung.ts on 1/29/2020.
@@ -19,7 +20,7 @@ import com.android.tupple.robot.data.entity.SchoolBook;
  *   2, event, alarm_clock
  */
 
-@Database(entities = {SchoolBook.class, LessonData.class},
+@Database(entities = {SchoolBook.class, LessonData.class, Topic.class},
         version = 1, exportSchema = false)
 public abstract class KidRobotDatabase extends RoomDatabase {
 

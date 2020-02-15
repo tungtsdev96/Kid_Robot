@@ -4,6 +4,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="err_image">#DDDDDD</color>
 
     <!-- Test Vocab -->
     <color name="text_btn_answer_disable">#666666</color>

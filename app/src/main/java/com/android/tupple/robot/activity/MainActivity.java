@@ -78,8 +78,8 @@ public class MainActivity extends BaseActivity {
         englishBookPresenter.setEnglishTopicViewWrapper(englishBookViewWrapper);
         englishBookPresenter.setEnglishBookModel(englishBookModel);
 
-        // TODO innit Observerable
-        englishBookPresenter.setOnItemBookClickedObserver(mActivityLauncher::launchUnitActivity);
+        // innit Observerable
+        englishBookPresenter.setOnItemBookClickedObserver(mActivityLauncher::launchLessonActivity);
 
         mMenuMain.setEnglishBookPresenter(englishBookPresenter);
         mMenuMain.setCurrentPresenterByMenuType(MenuType.ENGLISH_BOOK);
@@ -92,7 +92,10 @@ public class MainActivity extends BaseActivity {
 
         englishTopicPresenter.setEnglishTopicViewWrapper(englishTopicViewWrapper);
         englishTopicPresenter.setEnglishBookModel(englishTopicModel);
-        // TODO innit Observerable
+
+        // innit Observerable
+        englishTopicPresenter.setOnItemBookClickedObserver(mActivityLauncher::launchLearningVocabActivity);
+
         mMenuMain.setEnglishTopicPresenter(englishTopicPresenter);
     }
 

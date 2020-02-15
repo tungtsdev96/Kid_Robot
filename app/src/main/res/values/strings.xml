@@ -7,5 +7,6 @@
     <string name="alphabet">%c</string>
 
     <string name="download">Tải về</string>
+    <string name="cancel_download">Hủy</string>
 
 </resources>

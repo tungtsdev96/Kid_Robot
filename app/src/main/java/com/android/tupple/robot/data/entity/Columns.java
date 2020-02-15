@@ -26,4 +26,12 @@ public class Columns {
         String TOTAL_VOCAB = "total_vocab";
     }
 
+    public interface Topic {
+        String _ID = BaseColumns._ID;
+        String TOPIC_TITLE = "lesson_title";
+        String IS_LEARNING = "is_learning";
+        String PROGRESS_LEARNING = "progress_learning";
+        String TOTAL_VOCAB = "total_vocab";
+    }
+
 }
