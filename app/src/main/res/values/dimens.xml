@@ -17,10 +17,19 @@
     <dimen name="image_topic_size">110dp</dimen>
     <dimen name="title_topic_margin_top">5dp</dimen>
 
+    <!-- lesson -->
+    <dimen name="text_lesson_number_size">18sp</dimen>
+    <dimen name="card_item_lesson_radius">5dp</dimen>
+    <dimen name="item_lesson_number_size">50dp</dimen>
+    <dimen name="item_lesson_padding">5dp</dimen>
+    <dimen name="lesson_header_padding">16dp</dimen>
+    <dimen name="text_lesson_header_size">25sp</dimen>
+
     <!-- Header-->
     <dimen name="btn_common_size">40dp</dimen>
     <dimen name="btn_margin">16dp</dimen>
     <dimen name="title_header_size">25sp</dimen>
+    <dimen name="common_header_padding">10dp</dimen>
 
     <!-- TestVocab -->
 

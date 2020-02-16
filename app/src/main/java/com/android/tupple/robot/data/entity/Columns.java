@@ -21,6 +21,7 @@ public class Columns {
         String _ID = BaseColumns._ID;
         String BOOK_GRADLE = "book_gradle";
         String LESSON_TITLE = "lesson_title";
+        String LESSON_PRIORITY = "lesson_priority";
         String IS_LEARNING = "is_learning";
         String PROGRESS_LEARNING = "progress_learning";
         String TOTAL_VOCAB = "total_vocab";

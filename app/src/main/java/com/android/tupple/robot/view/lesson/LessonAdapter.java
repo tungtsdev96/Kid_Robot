@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,9 +31,9 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.ItemLesson
 
     public interface ItemLessonListener {
 
-        void onClick(int position);
+        void onClicked(int position);
 
-        void onLongClick(int position);
+        void onLongClicked(int position);
 
     }
 
@@ -50,7 +52,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.ItemLesson
 
     @Override
     public void onBindViewHolder(@NonNull ItemLessonViewHolder holder, int position) {
-
+        holder.bind(mItems.get(position));
     }
 
     @Override
@@ -73,11 +75,28 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.ItemLesson
 
     class ItemLessonViewHolder extends RecyclerView.ViewHolder {
 
+        private TextView lessonNumber;
+        private ImageView imgLock;
+        private TextView totalVocab;
+
         public ItemLessonViewHolder(@NonNull View itemView) {
             super(itemView);
+            lessonNumber = itemView.findViewById(R.id.lesson_number);
+            imgLock = itemView.findViewById(R.id.img_lock);
+            totalVocab = itemView.findViewById(R.id.total_vocab);
+        }
+
+        void bind(LessonData lessonData) {
+            boolean isLearning = lessonData.isLearning();
+            imgLock.setVisibility(!isLearning ? View.VISIBLE: View.GONE);
+            itemView.setEnabled(isLearning);
+            totalVocab.setText(String.format(mContext.getString(R.string.text_total_vocabulary), lessonData.getTotalVocab()));
+            lessonNumber.setBackgroundResource(isLearning ? R.drawable.bg_item_lesson_enable : R.drawable.bg_item_lesson_disable);
+            lessonNumber.setText(isLearning ? String.format(mContext.getString(R.string.text_lesson_number), lessonData.getLessonPriority()): "");
+
             itemView.setOnClickListener(v -> {
-                if (mOnItemLessonListener != null) {
-                    mOnItemLessonListener.onClick(getAdapterPosition());
+                if(mOnItemLessonListener != null) {
+                    mOnItemLessonListener.onClicked(getAdapterPosition());
                 }
             });
         }

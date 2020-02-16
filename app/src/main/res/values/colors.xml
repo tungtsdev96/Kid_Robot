@@ -21,4 +21,7 @@
     <color name="common_fab_ripple_color">#19000000</color>
     <color name="common_master_switch_ripple_color">#14000000</color>
 
+    <!-- common color -->
+    <color name="color_disable">#D6D6D6</color>
+
 </resources>
