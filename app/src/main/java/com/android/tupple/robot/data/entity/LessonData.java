@@ -34,10 +34,10 @@ public class LessonData implements Parcelable {
     @ColumnInfo(name = Columns.LessonOfBook.LESSON_PRIORITY)
     private int lessonPriority;
 
-    @ColumnInfo(name = Columns.LessonOfBook.IS_LEARNING)
+    @ColumnInfo(name = Columns.LessonOfBook.IS_LEARNING, defaultValue = "0")
     private boolean isLearning;
 
-    @ColumnInfo(name = Columns.LessonOfBook.PROGRESS_LEARNING)
+    @ColumnInfo(name = Columns.LessonOfBook.PROGRESS_LEARNING, defaultValue = "0")
     private int progressLearning;
 
     @ColumnInfo(name = Columns.LessonOfBook.TOTAL_VOCAB)

@@ -3,6 +3,8 @@ package com.android.tupple.robot.data.model.lesson;
 import android.content.Context;
 
 import com.android.tupple.cleanobject.CleanObservable;
+import com.android.tupple.robot.data.KidRobotDatabase;
+import com.android.tupple.robot.data.dao.LessonDao;
 import com.android.tupple.robot.data.entity.LessonData;
 import com.android.tupple.robot.domain.presenter.lesson.LessonModel;
 
@@ -17,11 +19,13 @@ import io.reactivex.disposables.CompositeDisposable;
 public class LessonModelImpl implements LessonModel<LessonData> {
 
     private Context mContext;
+    private LessonDao mLessonDao;
 
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     public LessonModelImpl(Context mContext) {
         this.mContext = mContext;
+//        mLessonDao = KidRobotDatabase.getInstance(mContext).lessonDao();
     }
 
     @Override

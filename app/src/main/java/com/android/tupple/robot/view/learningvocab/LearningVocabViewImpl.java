@@ -76,7 +76,7 @@ public class LearningVocabViewImpl implements LearningVocabView<Vocabulary> {
 
     @Override
     public void setCurrentVocabLearning(Vocabulary currentVocab) {
-        Toast.makeText(mActivity, "" + currentVocab.vocabVi, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mActivity, "" + currentVocab.getVocabVi(), Toast.LENGTH_SHORT).show();
         mLearningVocabAdapter.setCurrentVocabLearning(currentVocab);
         mViewPagerVocab.setCurrentItem(0,false);
     }

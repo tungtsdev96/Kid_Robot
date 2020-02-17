@@ -17,7 +17,7 @@ public class AnswerTextItem implements AnswerItem {
     }
 
     public static AnswerTextItem create(Vocabulary vocabulary) {
-        return new AnswerTextItem(vocabulary.vocabEn);
+        return new AnswerTextItem(vocabulary.getVocabEn());
     }
 
     @Override

@@ -16,11 +16,20 @@ import com.android.tupple.trigger.TriggerService;
 
 public class KidRobotApplication extends Application {
 
+    private static KidRobotApplication sInstance;
+
+    public KidRobotApplication() {
+        super();
+        sInstance = this;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         initCLogger();
 //        initTriggerService();
+
+//        KidRobotDatabase.getInstance(sInstance);
     }
 
     private void initTriggerService() {

@@ -118,7 +118,7 @@ public class Level1Fragment extends Fragment implements Level1View<LessonData, T
             case LEVEL1_1:
                 mTextQuestionAnswer.setVisibility(View.VISIBLE);
                 mImageQuestionAnswer.setVisibility(View.GONE);
-                mTextQuestionAnswer.setText(vocabulary.vocabEn);
+                mTextQuestionAnswer.setText(vocabulary.getVocabEn());
                 mAnswerAdapter.setListAnswer(listAnswers, TestVocabConstant.ANSWER_TYPE.TEXT);
                 break;
             case LEVEL1_2:

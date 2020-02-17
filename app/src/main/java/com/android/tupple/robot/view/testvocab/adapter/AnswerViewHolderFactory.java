@@ -100,7 +100,7 @@ public class AnswerViewHolderFactory {
                 return;
             }
 
-            textAnswer.setText(textAndImageItem.getVocabulary().vocabEn);
+            textAnswer.setText(textAndImageItem.getVocabulary().getVocabEn());
             Objects.requireNonNull(GlideUtils.getRequestManager(itemView.getContext())).load(R.drawable.a).into(imageAnswer);
         }
 

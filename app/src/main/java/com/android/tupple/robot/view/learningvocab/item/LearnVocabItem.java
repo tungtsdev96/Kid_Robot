@@ -19,15 +19,15 @@ public abstract class LearnVocabItem {
     }
 
     public String getVocabImage() {
-        return mVocabulary.image;
+        return mVocabulary.getImageUrl();
     }
 
     public String getVocabEn() {
-        return mVocabulary.vocabEn;
+        return mVocabulary.getVocabEn();
     }
 
     public String getSound() {
-        return mVocabulary.audio;
+        return mVocabulary.getAudioUrl();
     }
 
     public abstract int getType();

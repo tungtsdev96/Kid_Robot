@@ -25,10 +25,10 @@ public class Topic implements Parcelable {
     @ColumnInfo(name = Columns.Topic.TOPIC_TITLE)
     private String topicTitle;
 
-    @ColumnInfo(name = Columns.Topic.IS_LEARNING)
+    @ColumnInfo(name = Columns.Topic.IS_LEARNING, defaultValue = "0")
     private boolean isLearning;
 
-    @ColumnInfo(name = Columns.Topic.PROGRESS_LEARNING)
+    @ColumnInfo(name = Columns.Topic.PROGRESS_LEARNING, defaultValue = "0")
     private int progressLearning;
 
     @ColumnInfo(name = Columns.Topic.TOTAL_VOCAB)
