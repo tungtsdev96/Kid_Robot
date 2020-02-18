@@ -22,6 +22,7 @@ public final class LearnVocabConstant {
     public interface TestVocab {
         String EXTRA_LIST_VOCAB_LEARNING = "extra_list_vocab_learning";
         String EXTRA_IS_LESSON = "extra_is_lesson";
+        String EXTRA_IS_TOPIC = "extra_is_topic";
     }
 
 }

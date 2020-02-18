@@ -23,6 +23,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -47,6 +48,19 @@ public class EnglishTopicModelImpl implements EnglishTopicModel<Topic> {
     @Override
     public CleanObservable<List<Topic>> getAllTopic() {
         return CleanObservable.create(cleanObserver -> {
+//            try {
+//                ArrayList<Topic> items = readJsonStream(mContext.getResources().openRawResource(R.raw.topic));
+//                mCompositeDisposable.add(
+//                        mTopicDao.insert(items).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+//                                .subscribe(
+//                                        longs -> cleanObserver.onNext(items),
+//                                        t -> {
+//                                            Log.d("tungts", t.getLocalizedMessage());
+//                                        })
+//                );
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
             // TODO insert DB first
             mCompositeDisposable.add(
                     mTopicDao.loadAllTopic()

@@ -31,7 +31,7 @@ public class Vocabulary {
     @ColumnInfo(name = Columns.Vocabulary.IMAGE_URL)
     private String imageUrl;
 
-    @ColumnInfo(name = Columns.Vocabulary.TOTAL_IMAGE)
+    @ColumnInfo(name = Columns.Vocabulary.TOTAL_IMAGE, defaultValue = "1")
     private int totalImage;
 
     @ColumnInfo(name = Columns.Vocabulary.AUDIO_URL)
@@ -44,10 +44,10 @@ public class Vocabulary {
     private int scoreWrong;
 
     @ColumnInfo(name = Columns.Vocabulary.TOPIC_ID, defaultValue = "-1")
-    private int topicId = -1;
+    private int topicId;
 
     @ColumnInfo(name = Columns.Vocabulary.LESSON_ID, defaultValue = "-1")
-    private int lessonId = -1;
+    private int lessonId;
 
     public int getVocabId() {
         return vocabId;

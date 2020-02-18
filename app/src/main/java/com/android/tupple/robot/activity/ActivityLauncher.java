@@ -40,7 +40,7 @@ public class ActivityLauncher {
     public void launchLearningVocabActivity(Topic topic) {
         Intent intent = new Intent(mActivity, LearningVocabActivity.class);
         intent.putExtra(TopicConstant.EXTRA_TOPIC, topic);
-        intent.putExtra(LearnVocabConstant.TestVocab.EXTRA_IS_LESSON, false);
+        intent.putExtra(LearnVocabConstant.TestVocab.EXTRA_IS_TOPIC, true);
         ActivityUtils.startActivty(mActivity, intent);
     }
 

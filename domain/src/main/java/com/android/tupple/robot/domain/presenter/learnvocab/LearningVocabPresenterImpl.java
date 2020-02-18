@@ -91,6 +91,7 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
             return;
         }
 
+        CLog.printD(TAG, "ListVocab size: " + listVocabularies.size());
         mListCurrentVocabLearning.clear();
         mListCurrentVocabLearning.addAll(listVocabularies);
         mCurrentVocabLearning = 0;
