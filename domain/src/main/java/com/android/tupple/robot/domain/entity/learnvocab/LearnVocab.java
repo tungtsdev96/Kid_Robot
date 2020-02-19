@@ -20,7 +20,7 @@ public class LearnVocab {
         mLearnVocabPresenter.start();
     }
 
-    public void stop() {
-
+    public void finish() {
+        mLearnVocabPresenter.finish();
     }
 }

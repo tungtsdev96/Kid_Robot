@@ -12,7 +12,7 @@ import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
 public class LearningVocabModelFactory {
 
     public static LearningVocabModel<Vocabulary> newLearningVocabModel(Context context) {
-        return new LearningVocabModelImpl(context);
+        return LearningVocabModelImpl.newInstance(context);
     }
 
 }

@@ -12,7 +12,7 @@ import com.android.tupple.robot.view.learningvocab.item.LearnVocabImage;
 import com.android.tupple.robot.view.learningvocab.item.LearnVocabItem;
 import com.android.tupple.robot.view.learningvocab.item.LearnVocabText;
 import com.android.tupple.robot.view.learningvocab.item.LearnVocabTextAndImage;
-import com.android.tupple.robot.view.learningvocab.viewholder.ItemViewholderFactory;
+import com.android.tupple.robot.view.learningvocab.viewholder.ItemViewHolderFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
  * Created by tungts on 2020-01-18.
  */
 
-public class LearningVocabAdapter extends RecyclerView.Adapter<ItemViewholderFactory.LearnVocabBaseViewHolder> {
+public class LearningVocabAdapter extends RecyclerView.Adapter<ItemViewHolderFactory.LearnVocabBaseViewHolder> {
 
     private Context mContext;
     private List<LearnVocabItem> mLearnVocabItem = new ArrayList<>();
@@ -33,12 +33,12 @@ public class LearningVocabAdapter extends RecyclerView.Adapter<ItemViewholderFac
 
     @NonNull
     @Override
-    public ItemViewholderFactory.LearnVocabBaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return ItemViewholderFactory.create(mContext, parent, viewType);
+    public ItemViewHolderFactory.LearnVocabBaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return ItemViewHolderFactory.create(mContext, parent, viewType);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewholderFactory.LearnVocabBaseViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemViewHolderFactory.LearnVocabBaseViewHolder holder, int position) {
         holder.bind(mLearnVocabItem.get(position));
     }
 
@@ -46,9 +46,9 @@ public class LearningVocabAdapter extends RecyclerView.Adapter<ItemViewholderFac
     public int getItemViewType(int position) {
         switch (position) {
             case 0:
-                return LearnVocabConstant.LEARN_TYPE.TEXT;
-            case 1:
                 return LearnVocabConstant.LEARN_TYPE.IMAGE;
+            case 1:
+                return LearnVocabConstant.LEARN_TYPE.TEXT;
             case 2:
                 return LearnVocabConstant.LEARN_TYPE.TEXT_AND_IMAGE;
         }
@@ -61,10 +61,10 @@ public class LearningVocabAdapter extends RecyclerView.Adapter<ItemViewholderFac
         return mLearnVocabItem.size();
     }
 
-    public void setCurrentVocabLearning(Vocabulary currentVocab) {
+    void setCurrentVocabLearning(Vocabulary currentVocab) {
         mLearnVocabItem.clear();
-        mLearnVocabItem.add(new LearnVocabText(currentVocab));
         mLearnVocabItem.add(new LearnVocabImage(currentVocab));
+        mLearnVocabItem.add(new LearnVocabText(currentVocab));
         mLearnVocabItem.add(new LearnVocabTextAndImage(currentVocab));
         notifyDataSetChanged();
     }

@@ -44,20 +44,10 @@ public class ActivityLauncher {
         ActivityUtils.startActivty(mActivity, intent);
     }
 
-    public void launchTestVocabActivity(LessonData lessonData) {
+    public void launchTestVocabActivity() {
         Intent intent = new Intent(mActivity, TestVocabActivity.class);
-//        intent.putExtra(LearnVocabConstant.TestVocab.EXTRA_LIST_VOCAB_LEARNING, vocabularies);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(LessonConstant.EXTRA_LESSON, lessonData);
-        intent.putExtra(LearnVocabConstant.TestVocab.EXTRA_IS_LESSON, true);
-        ActivityUtils.startActivty(mActivity, intent);    }
-
-    public void lanchTestVocabActivity(Topic topic) {
-        Intent intent = new Intent(mActivity, TestVocabActivity.class);
-//        intent.putExtra(LearnVocabConstant.TestVocab.EXTRA_LIST_VOCAB_LEARNING, vocabularies);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(TopicConstant.EXTRA_TOPIC, topic);
-        intent.putExtra(LearnVocabConstant.TestVocab.EXTRA_IS_LESSON, false);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityUtils.startActivty(mActivity, intent);
     }
+
 }

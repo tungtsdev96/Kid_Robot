@@ -27,9 +27,9 @@ public class TestVocabModelImpl implements TestVocabModel<LessonData, Topic, Voc
     }
 
     @Override
-    public CleanObservable<List<Vocabulary>> getAllVocabLearning() {
+    public CleanObservable<List<Vocabulary>> transformListVocabLearning(List<Vocabulary> vocabs) {
         return CleanObservable.create(cleanObserver -> {
-            cleanObserver.onNext(Vocabulary.fake());
+            cleanObserver.onNext(vocabs);
         });
     }
 

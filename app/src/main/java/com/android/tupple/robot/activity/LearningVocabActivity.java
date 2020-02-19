@@ -91,7 +91,7 @@ public class LearningVocabActivity extends BaseActivity {
     private void initObserver(LearningVocabPresenterImpl<Vocabulary> learningVocabPresenter) {
         learningVocabPresenter.setOnDoneLearningVocabListener(() -> {
             // TODO check LessonData or Topic
-            mActivityLauncher.launchTestVocabActivity(new LessonData());
+            mActivityLauncher.launchTestVocabActivity();
         });
     }
 
@@ -99,5 +99,11 @@ public class LearningVocabActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         mLearnVocab.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLearnVocab.finish();
     }
 }

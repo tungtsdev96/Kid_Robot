@@ -57,7 +57,7 @@ public class LearningVocabViewImpl implements LearningVocabView<Vocabulary> {
         mViewPagerVocab.registerOnPageChangeCallback(mOnPageChangeCallback);
     }
 
-    ViewPager2.OnPageChangeCallback mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+    private ViewPager2.OnPageChangeCallback mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             super.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -76,7 +76,6 @@ public class LearningVocabViewImpl implements LearningVocabView<Vocabulary> {
 
     @Override
     public void setCurrentVocabLearning(Vocabulary currentVocab) {
-        Toast.makeText(mActivity, "" + currentVocab.getVocabVi(), Toast.LENGTH_SHORT).show();
         mLearningVocabAdapter.setCurrentVocabLearning(currentVocab);
         mViewPagerVocab.setCurrentItem(0,false);
     }

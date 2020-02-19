@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface TestVocabModel<LessonData, Topic, Vocabulary> extends IModel {
 
-    CleanObservable<List<Vocabulary>> getAllVocabLearning();
+    CleanObservable<List<Vocabulary>> transformListVocabLearning(List<Vocabulary> vocabs);
 
 }

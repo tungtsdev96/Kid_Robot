@@ -73,12 +73,12 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
         //      2, update to view
 
         if (mLessonId > -1) {
-            mVocabularyModel.getListVocabularyByLessonId(mLessonId).subscribe(this::handleListVocab);
+            mLearningVocabModel.getListVocabLearningByLessonId(mLessonId).subscribe(this::handleListVocab);
             return;
         }
 
         if (mTopicId > -1) {
-            mVocabularyModel.getListVocabularyByTopicId(mTopicId).subscribe(this::handleListVocab);
+            mLearningVocabModel.makeListVocabLearningByTopicId(mTopicId).subscribe(this::handleListVocab);
             return;
         }
 
@@ -134,12 +134,11 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
 
     @Override
     public void stop() {
-
     }
 
     @Override
     public void finish() {
-
+        mLearningVocabModel.cancel();
     }
 
 

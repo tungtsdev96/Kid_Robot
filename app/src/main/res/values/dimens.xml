@@ -31,6 +31,9 @@
     <dimen name="title_header_size">25sp</dimen>
     <dimen name="common_header_padding">10dp</dimen>
 
+    <!-- Learning vocab -->
+    <dimen name="text_vocab_learning_big">60sp</dimen>
+
     <!-- TestVocab -->
 
     <!-- Level 1 -->

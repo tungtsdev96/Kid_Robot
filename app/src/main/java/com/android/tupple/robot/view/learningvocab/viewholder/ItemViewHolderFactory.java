@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +17,7 @@ import com.android.tupple.robot.view.learningvocab.item.LearnVocabItem;
  * Created by tungts on 2020-01-18.
  */
 
-public class ItemViewholderFactory {
+public class ItemViewHolderFactory {
 
     public abstract static class LearnVocabBaseViewHolder extends RecyclerView.ViewHolder {
 
@@ -29,13 +30,16 @@ public class ItemViewholderFactory {
 
     static class TextVocabViewHolder extends LearnVocabBaseViewHolder {
 
+        private TextView textVocab;
+
         TextVocabViewHolder(@NonNull View itemView) {
             super(itemView);
+            textVocab = itemView.findViewById(R.id.text_vocabulary);
         }
 
         @Override
         public void bind(LearnVocabItem learnVocabItem) {
-
+            textVocab.setText(learnVocabItem.getVocabEn());
         }
     }
 
@@ -53,13 +57,16 @@ public class ItemViewholderFactory {
 
    static class TextAndImageVocabViewHolder extends LearnVocabBaseViewHolder {
 
+        private TextView textVocab;
+
         TextAndImageVocabViewHolder(@NonNull View itemView) {
             super(itemView);
+            textVocab = itemView.findViewById(R.id.text_vocabulary);
         }
 
         @Override
         public void bind(LearnVocabItem learnVocabItem) {
-
+            textVocab.setText(learnVocabItem.getVocabEn());
         }
     }
 

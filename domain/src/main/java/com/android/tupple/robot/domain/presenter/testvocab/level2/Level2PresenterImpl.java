@@ -4,6 +4,7 @@ import com.android.tupple.robot.domain.entity.testvocab.Level2Presenter;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
 import com.android.tupple.robot.domain.presenter.data.TestVocabModel;
+import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Level2PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     private TestVocabModel<LessonData, Topic, Vocabulary> mTestVocabModel;
     private Level2Model<LessonData, Topic, Vocabulary> mLevel2Model;
+    private LearningVocabModel<Vocabulary> mLearningVocabModel;
 
     private TestVocabLevel mCurrentLevel = TestVocabLevel.LEVEL2_1;
     private List<Vocabulary> mListVocabularyLearning;
@@ -38,6 +40,10 @@ public class Level2PresenterImpl<LessonData, Topic, Vocabulary> implements Level
         // TODO init Observable
 
         start();
+    }
+
+    public void setLearningVocabModel(LearningVocabModel<Vocabulary> learningVocabModel) {
+        mLearningVocabModel = learningVocabModel;
     }
 
     public void setTestVocabModel(TestVocabModel<LessonData, Topic, Vocabulary> testVocabModel) {
@@ -70,7 +76,8 @@ public class Level2PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     private void requestData() {
         if (!initialize) {
-            mTestVocabModel.getAllVocabLearning().subscribe(listVocabs -> {
+            mListVocabularyLearning = mLearningVocabModel.getListVocabLearning();
+            mTestVocabModel.transformListVocabLearning(mListVocabularyLearning).subscribe(listVocabs -> {
                 mListVocabularyLearning = listVocabs;
                 // TODO get listvocab learning, list vocab by lesson or topic
                 //      => Randomvocab -> answer -> show to screen
