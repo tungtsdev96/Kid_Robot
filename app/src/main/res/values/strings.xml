@@ -7,11 +7,16 @@
     <string name="text_total_vocabulary">Số từ: %d</string>
     <string name="text_header_lesson">Lớp 1</string>
 
+    <!-- Learning Vocab -->
+    <string name="previous">Trước</string>
+    <string name="next">Tiếp</string>
+
     <!-- Test Vocab -->
     <string name="text_choose_right_answer">Chọn đáp án đúng</string>
     <string name="alphabet">%c</string>
 
     <string name="download">Tải về</string>
     <string name="cancel_download">Hủy</string>
+
 
 </resources>

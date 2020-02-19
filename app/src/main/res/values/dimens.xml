@@ -33,6 +33,8 @@
 
     <!-- Learning vocab -->
     <dimen name="text_vocab_learning_big">60sp</dimen>
+    <dimen name="text_vocab_learning_medium">25sp</dimen>
+    <dimen name="slide_learning_vocab_padding">16dp</dimen>
 
     <!-- TestVocab -->
 

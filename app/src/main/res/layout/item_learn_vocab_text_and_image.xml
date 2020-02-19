@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:layout_gravity="center"
+    <androidx.cardview.widget.CardView
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/b" />
+        android:layout_above="@+id/text_vocabulary"
+        android:layout_centerHorizontal="true"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/common_card_radius">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/b" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/text_vocabulary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="50dp"
-        android:text="TEXT AND IMAGE"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/text_vocab_learning_medium"
         style="@style/CommonStyleText"/>
 
-</FrameLayout>
+</RelativeLayout>

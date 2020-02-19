@@ -1,46 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/content_learning_english"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/slide_learning_vocab"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <TextView
-        android:id="@+id/btn_previous"
-        android:gravity="center"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PREVIOUS"
-        android:textSize="18sp"
-        android:layout_margin="16dp"
-        android:padding="8dp"
-        android:layout_gravity="start"
-        android:drawableStart="@drawable/ic_arrow_left"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackground"
-        style="@style/CommonStyleText"/>
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/btn_next"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NEXT"
-        android:textSize="18sp"
-        android:layout_margin="16dp"
-        android:padding="8dp"
-        android:layout_gravity="end"
-        android:drawableEnd="@drawable/ic_next"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackground"
-        style="@style/CommonStyleText"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"/>
 
-</FrameLayout>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/btn_previous"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/previous"
+            android:textSize="18sp"
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:drawableStart="@drawable/ic_arrow_left"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:textAllCaps="true"
+            style="@style/CommonStyleText"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/slide_learning_vocab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/btn_previous"
+            android:layout_toStartOf="@id/btn_next"
+            android:padding="@dimen/slide_learning_vocab_padding"/>
+
+        <TextView
+            android:id="@+id/btn_next"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            android:textSize="18sp"
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:drawableEnd="@drawable/ic_next"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:textAllCaps="true"
+            style="@style/CommonStyleText"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
