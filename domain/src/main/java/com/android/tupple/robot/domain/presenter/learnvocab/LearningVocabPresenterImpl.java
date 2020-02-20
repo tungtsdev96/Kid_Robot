@@ -13,6 +13,10 @@ import java.util.List;
 
 public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresenter {
 
+    public interface CloseButtonHandler {
+        void onClose();
+    }
+
     public interface DoneLearningVocabListener {
         void onComplete();
     }
@@ -29,6 +33,7 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
     private int mCurrentVocabLearning = -1;
     private List<Vocabulary> mListCurrentVocabLearning = new ArrayList<>();
 
+    private CloseButtonHandler mOnCloseButtonHandler;
     private DoneLearningVocabListener mOnDoneLearningVocabListener;
 
     public LearningVocabPresenterImpl() {
@@ -68,10 +73,6 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
     }
 
     private void loadData() {
-        // TODO loadData went start
-        //      1, load list vocabulary from DB (haven't yet learn, wrong many time)
-        //      2, update to view
-
         if (mLessonId > -1) {
             mLearningVocabModel.getListVocabLearningByLessonId(mLessonId).subscribe(this::handleListVocab);
             return;
@@ -95,25 +96,38 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
         mListCurrentVocabLearning.clear();
         mListCurrentVocabLearning.addAll(listVocabularies);
         mCurrentVocabLearning = 0;
-        mLearningVocabView.setCurrentVocabLearning(mListCurrentVocabLearning.get(mCurrentVocabLearning));
+        mLearningVocabView.enablePreviousButton(false);
+        mLearningVocabView.setListVocabLearning(mListCurrentVocabLearning);
+        mLearningVocabView.setTitleHeader(1, mListCurrentVocabLearning.size());
     }
 
     private void initObservable() {
-        mLearningVocabView.getNextButtonClickedObservable().subscribe(this::nextVocab);
-        mLearningVocabView.getPreviousButtonClickedObservable().subscribe(this::previousVocab);
+        mLearningVocabView.getCloseButtonClickedObservable().subscribe(this::handleCloseButton);
+        mLearningVocabView.getNextButtonClickedObservable().subscribe(this::handleNextButton);
+        mLearningVocabView.getPreviousButtonClickedObservable().subscribe(this::handlePreviousButton);
     }
 
-    private void previousVocab() {
+    private void handleCloseButton() {
+        if (mOnCloseButtonHandler != null) {
+            mOnCloseButtonHandler.onClose();
+        }
+    }
+
+    private void handlePreviousButton() {
         if (mCurrentVocabLearning == 0) {
             return;
         }
 
+        mLearningVocabView.enablePreviousButton(mCurrentVocabLearning != 1);
         mCurrentVocabLearning--;
-        mLearningVocabView.setCurrentVocabLearning(mListCurrentVocabLearning.get(mCurrentVocabLearning));
+        mLearningVocabView.setCurrentSlide(mCurrentVocabLearning);
+        if (mCurrentVocabLearning % 3 == 2) {
+            mLearningVocabView.setTitleHeader(mCurrentVocabLearning / 3 + 1, mListCurrentVocabLearning.size());
+        }
     }
 
-    private void nextVocab() {
-        if (mCurrentVocabLearning == mListCurrentVocabLearning.size() - 1) {
+    private void handleNextButton() {
+        if (mCurrentVocabLearning == mListCurrentVocabLearning.size() * 3 - 1) {
             if (mOnDoneLearningVocabListener != null) {
                 mOnDoneLearningVocabListener.onComplete();
             }
@@ -121,7 +135,19 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
         }
 
         mCurrentVocabLearning++;
-        mLearningVocabView.setCurrentVocabLearning(mListCurrentVocabLearning.get(mCurrentVocabLearning));
+        mLearningVocabView.enablePreviousButton(true);
+        mLearningVocabView.setCurrentSlide(mCurrentVocabLearning);
+        if (mCurrentVocabLearning % 3 == 0) {
+            mLearningVocabView.setTitleHeader(mCurrentVocabLearning / 3 + 1, mListCurrentVocabLearning.size());
+        }
+    }
+
+    public CloseButtonHandler getOnCloseButtonHandler() {
+        return mOnCloseButtonHandler;
+    }
+
+    public void setOnCloseButtonHandler(CloseButtonHandler onButtonCloseHandler) {
+        this.mOnCloseButtonHandler = onButtonCloseHandler;
     }
 
     public DoneLearningVocabListener getOnLearningVocabListener() {

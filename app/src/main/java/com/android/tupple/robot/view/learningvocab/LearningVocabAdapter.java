@@ -44,7 +44,7 @@ public class LearningVocabAdapter extends RecyclerView.Adapter<ItemViewHolderFac
 
     @Override
     public int getItemViewType(int position) {
-        switch (position) {
+        switch (position % 3) {
             case 0:
                 return LearnVocabConstant.LEARN_TYPE.IMAGE;
             case 1:
@@ -61,11 +61,13 @@ public class LearningVocabAdapter extends RecyclerView.Adapter<ItemViewHolderFac
         return mLearnVocabItem.size();
     }
 
-    void setCurrentVocabLearning(Vocabulary currentVocab) {
+    public void setListVocabLearning(List<Vocabulary> listVocabLearning) {
         mLearnVocabItem.clear();
-        mLearnVocabItem.add(new LearnVocabImage(currentVocab));
-        mLearnVocabItem.add(new LearnVocabText(currentVocab));
-        mLearnVocabItem.add(new LearnVocabTextAndImage(currentVocab));
+        for (Vocabulary vocabulary: listVocabLearning) {
+            mLearnVocabItem.add(new LearnVocabImage(vocabulary));
+            mLearnVocabItem.add(new LearnVocabText(vocabulary));
+            mLearnVocabItem.add(new LearnVocabTextAndImage(vocabulary));
+        }
         notifyDataSetChanged();
     }
 }

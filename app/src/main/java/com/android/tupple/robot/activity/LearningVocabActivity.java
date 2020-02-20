@@ -89,9 +89,10 @@ public class LearningVocabActivity extends BaseActivity {
     }
 
     private void initObserver(LearningVocabPresenterImpl<Vocabulary> learningVocabPresenter) {
+        learningVocabPresenter.setOnCloseButtonHandler(this::onBackPressed);
         learningVocabPresenter.setOnDoneLearningVocabListener(() -> {
-            // TODO check LessonData or Topic
             mActivityLauncher.launchTestVocabActivity();
+            finish();
         });
     }
 
