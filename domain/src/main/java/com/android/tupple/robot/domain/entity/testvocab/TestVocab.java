@@ -27,6 +27,10 @@ public class TestVocab {
         mTestVocabPresenterHolder.setLevel2Presenter(level2Presenter);
     }
 
+    public void setLevel3Presenter(Level3Presenter level3Presenter) {
+        mTestVocabPresenterHolder.setLevel3Presenter(level3Presenter);
+    }
+
     private void switchLevel(TestVocabLevel testVocabLevel) {
         setCurrentPresenter(testVocabLevel);
         init();
@@ -39,6 +43,9 @@ public class TestVocab {
                 break;
             case LEVEL2_1:
                 mCurrentLevelPresenter = mTestVocabPresenterHolder.get(TestVocabLevel.LEVEL2_1);
+                break;
+            case LEVEL3_1:
+                mCurrentLevelPresenter = mTestVocabPresenterHolder.get(TestVocabLevel.LEVEL3_1);
                 break;
         }
     }
@@ -80,6 +87,7 @@ public class TestVocab {
 
         private Level1Presenter mLevel1Presenter;
         private Level2Presenter mLevel2Presenter;
+        private Level3Presenter mLevel3Presenter;
 
         public TestVocabPresenterHolder() {
         }
@@ -90,6 +98,10 @@ public class TestVocab {
 
         public void setLevel2Presenter(Level2Presenter level2Presenter) {
             this.mLevel2Presenter = level2Presenter;
+        }
+
+        public void setLevel3Presenter(Level3Presenter level3Presenter) {
+            this.mLevel3Presenter = level3Presenter;
         }
 
         TestVocabPresenter get(TestVocabLevel testVocabLevel) {
@@ -103,6 +115,8 @@ public class TestVocab {
                     presenter = mLevel2Presenter;
                     break;
                 case LEVEL3_1:
+                    presenter = mLevel3Presenter;
+                    break;
                 default:
                     presenter = null;
             }
@@ -127,7 +141,6 @@ public class TestVocab {
             }
 
         }
-
     }
 
 }

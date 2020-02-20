@@ -19,6 +19,8 @@ import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1ViewWrap
 import com.android.tupple.robot.domain.presenter.testvocab.level2.Level2Model;
 import com.android.tupple.robot.domain.presenter.testvocab.level2.Level2PresenterImpl;
 import com.android.tupple.robot.domain.presenter.testvocab.level2.Level2ViewWrapper;
+import com.android.tupple.robot.domain.presenter.testvocab.level3.Level3PresenterImpl;
+import com.android.tupple.robot.domain.presenter.testvocab.level3.Level3ViewWrapper;
 import com.android.tupple.robot.view.testvocab.TestVocabViewFactory;
 
 /**
@@ -47,6 +49,7 @@ public class TestVocabActivity extends BaseActivity {
     private void inject() {
         injectLevel1();
         injectLevel2();
+        injectLevel3();
     }
 
     private void injectLevel1() {
@@ -76,6 +79,20 @@ public class TestVocabActivity extends BaseActivity {
         level2Presenter.setTestVocabModel(testVocabModel);
         level2Presenter.setLevel2Model(level2Model);
         mTestVocab.setLevel2Presenter(level2Presenter);
+    }
+
+    public void injectLevel3() {
+        Level3PresenterImpl<LessonData, Topic, Vocabulary> level3Presenter = new Level3PresenterImpl<>();
+        Level3ViewWrapper<LessonData, Topic, Vocabulary> level3ViewWrapper = TestVocabViewFactory.newLevel3ViewWrapper(getSupportFragmentManager());
+        TestVocabModel<LessonData, Topic, Vocabulary> testVocabModel = TestVocabModelFactory.newTestVocabModel(this);
+        LearningVocabModel<Vocabulary> learningVocabModel = LearningVocabModelFactory.newLearningVocabModel(this);
+//        Level2Model<LessonData, Topic, Vocabulary> level2Model = TestVocabModelFactory.newLevel2Model(this);
+
+        level3Presenter.setLevel3ViewWrapper(level3ViewWrapper);
+        level3Presenter.setLearningVocabModel(learningVocabModel);
+        level3Presenter.setTestVocabModel(testVocabModel);
+//        level3Presenter.setLevel3Model(level3Model);
+        mTestVocab.setLevel3Presenter(level3Presenter);
     }
 
     @Override
