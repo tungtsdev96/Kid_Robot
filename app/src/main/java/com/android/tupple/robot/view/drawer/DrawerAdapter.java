@@ -1,10 +1,12 @@
 package com.android.tupple.robot.view.drawer;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -64,18 +66,22 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerItem
                 this.mItems.add(new DrawerMenuItem(item));
             }
         }
+
         notifyDataSetChanged();
     }
+
+
 
     class DrawerItemViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView mIconMenuItem;
         private TextView mTitle;
-
+        private LinearLayout mLinearDrawer;
         public DrawerItemViewHolder(@NonNull View itemView) {
             super(itemView);
             mIconMenuItem = itemView.findViewById(R.id.icon_item_menu);
             mTitle = itemView.findViewById(R.id.tv_menu_title);
+            mLinearDrawer = itemView.findViewById(R.id.linear_drawer);
         }
 
         void bind(DrawerMenuItem menuItem) {

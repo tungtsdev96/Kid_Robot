@@ -13,4 +13,6 @@ public class MenuItemData {
         this.title = title;
         this.icon = icon;
     }
+
+
 }

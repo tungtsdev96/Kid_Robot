@@ -9,7 +9,6 @@ import com.android.tupple.robot.data.KidRobotDatabase;
 import com.android.tupple.robot.data.dao.VocabularyDao;
 import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.domain.presenter.data.VocabularyModel;
-import com.android.tupple.robot.utils.RxUtils;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
@@ -50,24 +49,49 @@ public class VocabularyModelImpl implements VocabularyModel<Vocabulary> {
     @Override
     public CleanObservable<List<Vocabulary>> getListVocabularyByLessonId(int lessonId) {
         return CleanObservable.create(cleanObserver -> {
-            mCompositeDisposable.add(
-                    mVocabularyDao
-                            .getListVocabularyByLessonId(lessonId)
-                            .compose(RxUtils.async())
-                            .subscribe(cleanObserver::onNext, Throwable::printStackTrace)
-            );        });
+            cleanObserver.onNext(Vocabulary.fake());
+        });
     }
 
     @Override
     public CleanObservable<List<Vocabulary>> getListVocabularyByTopicId(int topicId) {
         return CleanObservable.create(cleanObserver -> {
-            mCompositeDisposable.add(
-                    mVocabularyDao
-                            .getListVocabularyByTopicId(topicId)
-                            .compose(RxUtils.async())
-                            .subscribe(cleanObserver::onNext, Throwable::printStackTrace)
-            );
+//            try {
+//                ArrayList<Vocabulary> vocabularies = readJsonStream(mContext.getResources().openRawResource(R.raw.animals_t));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.alphabet_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.appliances_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.body_parts_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.clothing_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.colors_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.fruits_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.garden_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.job_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.kitchen_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.musical_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.numbers_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.school_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.shapes_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.sports_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.tools_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.transportation_t)));
+//                vocabularies.addAll(readJsonStream(mContext.getResources().openRawResource(R.raw.vegetables_t)));
+//                mCompositeDisposable.add(
+//                        mVocabularyDao.insert(vocabularies).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(longs -> {
+//                            cleanObserver.onNext(vocabularies);
+//                        })
+//                );
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
+            cleanObserver.onNext(Vocabulary.fake());
         });
+    }
+
+    public ArrayList<Vocabulary> readJsonStream(InputStream in) throws UnsupportedEncodingException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+        Type listType = new TypeToken<ArrayList<Vocabulary>>() {
+        }.getType();
+        return new GsonBuilder().create().fromJson(reader, listType);
     }
 
     @Override

@@ -7,10 +7,39 @@
     android:orientation="horizontal"
     tools:context=".activity.MainActivity">
 
-    <com.android.tupple.robot.common.customview.SnappingRecyclerView
-        android:id="@+id/rcv_menu_item"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10"
+            android:background="#2032a897"
+            android:layout_alignRight="@+id/rcv_menu_item"
+            >
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+
+                />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:background="#fff"
+                />
+
+        </LinearLayout>
+        <com.android.tupple.robot.common.customview.SnappingRecyclerView
+            android:id="@+id/rcv_menu_item"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,37 +52,37 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:visibility="gone"
                 android:id="@+id/btn_back"
                 android:layout_width="@dimen/btn_common_size"
                 android:layout_height="@dimen/btn_common_size"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:layout_margin="@dimen/btn_margin"
                 android:src="@drawable/btn_back"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/title_header"
-                android:layout_toEndOf="@id/btn_back"
-                android:layout_toStartOf="@id/btn_setting"
+                style="@style/CommonStyleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_margin="10dp"
+                android:layout_toStartOf="@id/btn_setting"
+                android:layout_toEndOf="@id/btn_back"
                 android:gravity="center"
-                android:textSize="@dimen/title_header_size"
                 android:text="This is Header"
-                android:layout_margin="20dp"
-                style="@style/CommonStyleText"/>
+                android:textSize="@dimen/title_header_size" />
 
             <ImageView
-                android:visibility="gone"
                 android:id="@+id/btn_setting"
                 android:layout_width="@dimen/btn_common_size"
                 android:layout_height="@dimen/btn_common_size"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_margin="@dimen/btn_margin"
                 android:src="@drawable/btn_settings"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
+                android:visibility="gone" />
 
         </RelativeLayout>
 

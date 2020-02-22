@@ -43,7 +43,7 @@ public class MenuMain {
     }
 
     public void init(){
-        Log.d(TAG, "inti " + mCurrentPresenter);
+        Log.d(TAG, "init " + mCurrentPresenter);
 
         if (mDrawerViewPresenter != null) {
             mDrawerViewPresenter.init();
@@ -78,7 +78,7 @@ public class MenuMain {
         changeMenu(menuType);
     }
 
-    private void changeMenu(MenuType menuType) {
+    public void changeMenu(MenuType menuType) {
         if (mCurrentPresenter == null) {
             return;
         }

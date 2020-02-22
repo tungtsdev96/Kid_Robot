@@ -8,6 +8,7 @@
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/text_vocabulary"
         android:layout_centerHorizontal="true"
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="@dimen/common_card_radius">
@@ -18,17 +19,15 @@
             android:layout_height="match_parent"
             android:src="@drawable/b" />
 
-        <TextView
-            android:id="@+id/text_vocabulary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:textSize="@dimen/text_vocab_learning_medium"
-            android:padding="10dp"
-            android:background="#80C0C0C0"
-            style="@style/CommonStyleText"/>
-
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/text_vocabulary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/text_vocab_learning_medium"
+        style="@style/CommonStyleText"/>
 
 </RelativeLayout>

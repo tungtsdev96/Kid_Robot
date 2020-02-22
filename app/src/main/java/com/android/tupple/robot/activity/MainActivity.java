@@ -24,10 +24,14 @@ import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicPresen
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicViewWrapper;
 import com.android.tupple.robot.data.model.drawer.DrawerModelFactory;
 import com.android.tupple.robot.data.model.english.EnglishModelFactory;
+import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentModel;
+import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentPresenterImpl;
+import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentViewWrapper;
 import com.android.tupple.robot.view.alarm.AlarmViewWrapperFactory;
 import com.android.tupple.robot.view.drawer.DrawerViewFactory;
 import com.android.tupple.robot.view.englishbook.EnglishBookViewWrapperFactory;
 import com.android.tupple.robot.view.englishtopic.EnglishTopicViewWrapperFactory;
+import com.android.tupple.robot.view.entertainment.EntertainmentViewWrapperFactory;
 
 public class MainActivity extends BaseActivity {
 
@@ -58,6 +62,7 @@ public class MainActivity extends BaseActivity {
         injectEnglishTopic(bundle);
         injectAlarmClock(bundle);
         injectLearningSchedule(bundle);
+        injectEntertainment(bundle);
     }
 
     private void injectDrawer(Bundle bundle) {
@@ -68,6 +73,7 @@ public class MainActivity extends BaseActivity {
         drawerPresenter.setDrawerView(drawerView);
         drawerPresenter.setDrawerModel(drawerModel);
         mMenuMain.setDrawerViewPresenter(drawerPresenter);
+        drawerPresenter.setItemMenuSelectedObserver(mMenuMain::changeMenu);
     }
 
     private void injectEnglishBook(Bundle bundle) {
@@ -88,7 +94,7 @@ public class MainActivity extends BaseActivity {
     private void injectEnglishTopic(Bundle bundle) {
         EnglishTopicPresenterImpl<Topic> englishTopicPresenter = new EnglishTopicPresenterImpl<>();
         EnglishTopicViewWrapper<Topic> englishTopicViewWrapper = EnglishTopicViewWrapperFactory.newEnglishTopicViewWrapper(getSupportFragmentManager(), bundle);
-        EnglishTopicModel<Topic>  englishTopicModel = EnglishModelFactory.newEnglishTopicModel(this);
+        EnglishTopicModel<Topic> englishTopicModel = EnglishModelFactory.newEnglishTopicModel(this);
 
         englishTopicPresenter.setEnglishTopicViewWrapper(englishTopicViewWrapper);
         englishTopicPresenter.setEnglishBookModel(englishTopicModel);
@@ -97,6 +103,20 @@ public class MainActivity extends BaseActivity {
         englishTopicPresenter.setOnItemBookClickedObserver(mActivityLauncher::launchLearningVocabActivity);
 
         mMenuMain.setEnglishTopicPresenter(englishTopicPresenter);
+    }
+
+    private void injectEntertainment(Bundle bundle) {
+        EntertainmentPresenterImpl entertainmentPresenter = new EntertainmentPresenterImpl();
+        EntertainmentViewWrapper entertainmentViewWrapper = EntertainmentViewWrapperFactory.newEntertainmentViewWrapper(getSupportFragmentManager(), bundle);
+
+
+        entertainmentPresenter.setEntertainmentViewWrapper(entertainmentViewWrapper);
+        // entertainmentPresenter.setEntertainmentModel(englishTopicModel);
+
+        // innit Observerable
+        //entertainmentPresenter.setOnItemBookClickedObserver(mActivityLauncher::launchLearningVocabActivity);
+
+        mMenuMain.setEntertainmentPresenter(entertainmentPresenter);
     }
 
     private void injectAlarmClock(Bundle bundle) {

@@ -1,6 +1,7 @@
 package com.android.tupple.robot.view.drawer;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
@@ -20,7 +21,7 @@ import java.util.Objects;
 public class DrawerViewImpl implements DrawerView<MenuItemData> {
 
     private Activity mActivity;
-
+    int position = 0;
     private SnappingRecyclerView mRcvDrawer;
     private DrawerAdapter mDrawerAdapter;
 
@@ -39,7 +40,10 @@ public class DrawerViewImpl implements DrawerView<MenuItemData> {
         mRcvDrawer.setAdapter(mDrawerAdapter);
 
         mRcvDrawer.setOnViewSelectedListener((view, position) -> {
-            MenuType menuType = MenuType.fromValue(position % 3 + 1);
+            this.position = position % 4 + 1;
+
+            MenuType menuType = MenuType.fromValue(position % 4 + 1);
+            Log.d("MInhtest", menuType.toString());
             if (mItemMenuSelectedObserver != null) {
                 mItemMenuSelectedObserver.onNext(menuType);
             }
@@ -49,10 +53,12 @@ public class DrawerViewImpl implements DrawerView<MenuItemData> {
 
     @Override
     public void setListMenu(List<MenuItemData> items) {
+
         items.add(new MenuItemData("Sach Giao Khoa", "ic_school_book"));
         items.add(new MenuItemData("Chu de", "ic_topic"));
         items.add(new MenuItemData("Bao thuc", "ic_alarm"));
-//        items.add(new MenuItemData("Giai tri", "ic_garden"));
+        items.add(new MenuItemData("Giai tri", "ic_entertainment"));
+        //items.add(new MenuItemData("Giai tri", "ic_garden"));
         mDrawerAdapter.setListMenu(items);
         Objects.requireNonNull(mRcvDrawer.getLayoutManager()).scrollToPosition(299);
     }

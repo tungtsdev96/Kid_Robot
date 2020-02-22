@@ -1,40 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/content_learning_english"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#1903A9F4">
+    android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/header_learning_vocab"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_close"
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:src="@drawable/ic_close"
-            android:clickable="true"
-            android:focusable="true"
-            app:backgroundTint="@android:color/white"
-            app:useCompatPadding="true"
-            app:fabSize="mini" />
-
-        <TextView
-            android:id="@+id/title_learning_vocab"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="@dimen/title_header_size"
-            style="@style/CommonStyleText"/>
-
-
+            android:text="Back"/>
 
     </FrameLayout>
 
@@ -42,19 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_previous"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_left"
-            android:layout_margin="@dimen/slide_learning_vocab_padding"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            app:backgroundTint="@android:color/white"
-            app:fabSize="normal" />
-
         <TextView
-            android:visibility="gone"
+            android:id="@+id/btn_previous"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,32 +44,12 @@
             android:id="@+id/slide_learning_vocab"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="never"
             android:layout_toEndOf="@+id/btn_previous"
             android:layout_toStartOf="@id/btn_next"
-            android:paddingBottom="@dimen/slide_learning_vocab_padding"/>
-
-        <ImageView
-            android:src="@drawable/ic_mic_max"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignTop="@+id/slide_learning_vocab"
-            android:layout_alignStart="@id/slide_learning_vocab"
-            android:layout_margin="16dp"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_next"
-            android:layout_margin="@dimen/slide_learning_vocab_padding"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            app:backgroundTint="@android:color/white"
-            app:fabSize="normal" />
+            android:padding="@dimen/slide_learning_vocab_padding"/>
 
         <TextView
-            android:visibility="gone"
+            android:id="@+id/btn_next"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

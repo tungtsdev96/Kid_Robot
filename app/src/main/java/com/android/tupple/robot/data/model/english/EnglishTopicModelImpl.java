@@ -48,12 +48,33 @@ public class EnglishTopicModelImpl implements EnglishTopicModel<Topic> {
     @Override
     public CleanObservable<List<Topic>> getAllTopic() {
         return CleanObservable.create(cleanObserver -> {
+//            try {
+//                ArrayList<Topic> items = readJsonStream(mContext.getResources().openRawResource(R.raw.topic));
+//                mCompositeDisposable.add(
+//                        mTopicDao.insert(items).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+//                                .subscribe(
+//                                        longs -> cleanObserver.onNext(items),
+//                                        t -> {
+//                                            Log.d("tungts", t.getLocalizedMessage());
+//                                        })
+//                );
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
+            // TODO insert DB first
             mCompositeDisposable.add(
                     mTopicDao.loadAllTopic()
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(cleanObserver::onNext, Throwable::printStackTrace));
         });
+    }
+
+    public ArrayList<Topic> readJsonStream(InputStream in) throws UnsupportedEncodingException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+        Type listType = new TypeToken<ArrayList<Topic>>() {
+        }.getType();
+        return new GsonBuilder().create().fromJson(reader, listType);
     }
 
     @Override
