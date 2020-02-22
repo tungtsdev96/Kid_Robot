@@ -15,6 +15,9 @@
     <string name="text_choose_right_answer">Chọn đáp án đúng</string>
     <string name="alphabet">%c</string>
     <string name="text_question_vocab">%s ?</string>
+    <string name="your_pronounce_answer">Kết quả phát âm:</string>
+    <string name="try_again">Thử lại</string>
+    <string name="text_duration_recording">%s/%s</string>
 
     <string name="download">Tải về</string>
     <string name="cancel_download">Hủy</string>

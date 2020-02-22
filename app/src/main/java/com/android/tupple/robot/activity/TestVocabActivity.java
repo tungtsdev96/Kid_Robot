@@ -21,7 +21,12 @@ import com.android.tupple.robot.domain.presenter.testvocab.level2.Level2Presente
 import com.android.tupple.robot.domain.presenter.testvocab.level2.Level2ViewWrapper;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.Level3PresenterImpl;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.Level3ViewWrapper;
+import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3ItemPresenterImpl;
+import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3ItemViewWrapper;
 import com.android.tupple.robot.view.testvocab.TestVocabViewFactory;
+import com.android.tupple.robot.view.testvocab.level3.item.Level3ItemViewWrapperFactory;
+
+import java.util.List;
 
 /**
  * Created by tung.ts on 1/29/2020.
@@ -91,8 +96,20 @@ public class TestVocabActivity extends BaseActivity {
         level3Presenter.setLevel3ViewWrapper(level3ViewWrapper);
         level3Presenter.setLearningVocabModel(learningVocabModel);
         level3Presenter.setTestVocabModel(testVocabModel);
+        level3Presenter.setListLearningVocabHandler(vocabularies -> this.handleListLearningVocab(vocabularies, level3Presenter));
 //        level3Presenter.setLevel3Model(level3Model);
         mTestVocab.setLevel3Presenter(level3Presenter);
+    }
+
+    private void handleListLearningVocab(List<Vocabulary> vocabularies, Level3PresenterImpl level3Presenter) {
+        // inject level3 item presenter
+        for (Vocabulary vocabulary: vocabularies) {
+            Level3ItemPresenterImpl<Vocabulary> level3ItemPresenter = new Level3ItemPresenterImpl<>(vocabulary);
+            Level3ItemViewWrapper<Vocabulary> level3ItemViewWrapper = Level3ItemViewWrapperFactory.newLevel3ItemViewWrapper(this, vocabulary.getVocabId());
+            level3ItemPresenter.setLevel3ItemViewWrapper(level3ItemViewWrapper);
+
+            level3Presenter.addLevel3ItemPresenter(level3ItemPresenter);
+        }
     }
 
     @Override

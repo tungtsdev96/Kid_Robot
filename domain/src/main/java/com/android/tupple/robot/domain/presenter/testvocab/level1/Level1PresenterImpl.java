@@ -68,7 +68,7 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     private void nextVocab() {
         if (mCurrentQuestion == mListVocabularyLearning.size() - 1) {
-            mCurrentLevel = mCurrentLevel == TestVocabLevel.LEVEL1_1 ? TestVocabLevel.LEVEL1_2 : TestVocabLevel.LEVEL2_1;
+            mCurrentLevel = mCurrentLevel == TestVocabLevel.LEVEL1_1 ? TestVocabLevel.LEVEL1_2 : TestVocabLevel.LEVEL3_1;
             nextLevel();
             return;
         }
