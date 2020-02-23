@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -48,18 +48,16 @@
             android:padding="12dp"/>
 
         <RelativeLayout
-            android:padding="16dp"
+            android:padding="12dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:visibility="gone"
+                android:visibility="visible"
                 android:id="@+id/text_answer_header_container"
                 android:layout_centerHorizontal="true"
-                android:layout_above="@+id/recording_container"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -76,7 +74,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:layout_gravity="center_horizontal"
                     android:textSize="30sp"
+                    android:text="Tungts"
                     style="@style/CommonStyleText"/>
 
             </LinearLayout>
@@ -95,7 +95,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible"/>
+                    android:visibility="gone"/>
 
                 <SeekBar
                     android:id="@+id/seek_bar_audio"
@@ -113,18 +113,19 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
+                    android:visibility="gone"
                     android:text="00:00"/>
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_try_again"
-                android:visibility="gone"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/recording_container"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_recording"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/try_again"/>
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/ic_recording"
+                app:fabSize="normal"/>
 
         </RelativeLayout>
 

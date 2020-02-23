@@ -1,7 +1,6 @@
 package com.android.tupple.robot.domain.presenter.testvocab.level3.item;
 
 import com.android.tupple.robot.domain.entity.testvocab.Level3ItemPresenter;
-import com.android.tupple.robot.domain.log.CLog;
 
 /**
  * Created by tungts on 2020-02-22.
@@ -24,7 +23,6 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
     }
 
     private void onViewCreated(Level3ItemView<Vocabulary> level3ItemView) {
-        CLog.printD("tungts", level3ItemView + "");
         this.mLevel3ItemView = level3ItemView;
         initObservable();
 
@@ -41,7 +39,7 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
     }
 
     private void doOnStart() {
-
+        mLevel3ItemView.setVocabulary(mVocabulary);
     }
 
     @Override

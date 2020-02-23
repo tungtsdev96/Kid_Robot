@@ -46,8 +46,8 @@ public class KidRobotApplication extends Application {
 //        initTriggerService();
 
 //        KidRobotDatabase.getInstance(sInstance);
-//        initTopic();
-//        initVocab();
+        initTopic();
+        initVocab();
     }
 
     private void initTopic() {
