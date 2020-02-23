@@ -7,7 +7,9 @@ import com.android.tupple.robot.common.base.BaseActivity;
 import com.android.tupple.robot.data.entity.MenuItemData;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;
+import com.android.tupple.robot.data.entity.Video;
 import com.android.tupple.robot.data.model.alarm.AlarmModelFactory;
+import com.android.tupple.robot.data.model.mediaobject.EntertainmentModelFactory;
 import com.android.tupple.robot.domain.entity.menumain.MenuMain;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
 import com.android.tupple.robot.domain.presenter.alarm.AlarmModel;
@@ -106,15 +108,15 @@ public class MainActivity extends BaseActivity {
     }
 
     private void injectEntertainment(Bundle bundle) {
-        EntertainmentPresenterImpl entertainmentPresenter = new EntertainmentPresenterImpl();
-        EntertainmentViewWrapper entertainmentViewWrapper = EntertainmentViewWrapperFactory.newEntertainmentViewWrapper(getSupportFragmentManager(), bundle);
-
+        EntertainmentPresenterImpl<Video> entertainmentPresenter = new EntertainmentPresenterImpl();
+        EntertainmentViewWrapper<Video> entertainmentViewWrapper = EntertainmentViewWrapperFactory.newEntertainmentViewWrapper(getSupportFragmentManager(), bundle);
+        EntertainmentModel<Video> entertainmentModel = EntertainmentModelFactory.newEntertainmentModel(this);
 
         entertainmentPresenter.setEntertainmentViewWrapper(entertainmentViewWrapper);
-        // entertainmentPresenter.setEntertainmentModel(englishTopicModel);
+        entertainmentPresenter.setEntertainmentModel(entertainmentModel);
 
         // innit Observerable
-        //entertainmentPresenter.setOnItemBookClickedObserver(mActivityLauncher::launchLearningVocabActivity);
+        entertainmentPresenter.setOnItemVideoClickObserver(mActivityLauncher::launchVideoPlayerActivity);
 
         mMenuMain.setEntertainmentPresenter(entertainmentPresenter);
     }

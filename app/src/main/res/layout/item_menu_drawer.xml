@@ -6,7 +6,6 @@
     android:layout_height="130dp"
     android:gravity="center_horizontal"
     android:paddingTop="@dimen/menu_item_padding"
-
     android:clickable="true"
     android:focusable="true"
     android:id="@+id/linear_drawer"

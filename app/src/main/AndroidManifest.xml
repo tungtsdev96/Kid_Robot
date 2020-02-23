@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.tupple.robot">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".KidRobotApplication"
         android:allowBackup="true"
@@ -10,45 +12,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".activity.VideoPlayerActivity"></activity>
         <activity
-            android:screenOrientation="landscape"
-            android:name=".activity.MainActivity">
+            android:name=".activity.MainActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.FaceSmileActivity"
             android:launchMode="singleTop"
             android:screenOrientation="landscape">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
 
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
         <activity
             android:name=".activity.LessonActivity"
-            android:screenOrientation="landscape"/>
-
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.LearningVocabActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTop"/>
-
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.TestVocabActivity"
             android:launchMode="singleTop"
             android:screenOrientation="landscape">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
 
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
     </application>
 
 </manifest>
