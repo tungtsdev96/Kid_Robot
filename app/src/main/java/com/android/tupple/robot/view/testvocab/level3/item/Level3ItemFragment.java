@@ -21,6 +21,7 @@ import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.customview.VisualizerView;
 import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3ItemView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -44,9 +45,10 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
     private VisualizerView mVisualizerViewRecording;
     private SeekBar mSeekBar;
     private TextView mTextDuration;
+    private FloatingActionButton btnRecording;
 
     // observer listener
-    CleanObserver mBtnPronounceClickedObserver;
+    private CleanObserver mBtnPronounceClickedObserver;
 
     private int mKeyView = -1;
 
@@ -88,6 +90,7 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
         mRecordingContainer = rootView.findViewById(R.id.recording_container);
         mSeekBar = rootView.findViewById(R.id.seek_bar_audio);
         mTextDuration = rootView.findViewById(R.id.text_duration);
+        btnRecording = rootView.findViewById(R.id.fab_recording);
     }
 
     @Override
@@ -96,7 +99,7 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
     }
 
     @Override
-    public CleanObservable getBtnPronouneClickedObservable() {
+    public CleanObservable getBtnPronounceClickedObservable() {
         return CleanObservable.create(cleanObserver -> mBtnPronounceClickedObserver = cleanObserver);
     }
 

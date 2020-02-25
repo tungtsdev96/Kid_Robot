@@ -10,6 +10,6 @@ public interface Level3ItemView<Vocabulary> {
 
     void setVocabulary(Vocabulary vocabulary);
 
-    CleanObservable getBtnPronouneClickedObservable();
+    CleanObservable getBtnPronounceClickedObservable();
 
 }
