@@ -35,7 +35,6 @@ public class Level3Fragment extends Fragment implements Level3View<LessonData, T
 
     private FloatingActionButton mFabPrevious;
     private FloatingActionButton mFabNext;
-    private FloatingActionButton mFabRecord;
 
     private ViewPager2 mViewpagerCheckProunce;
     private CheckPronouncePagerAdapter mCheckPronouncePagerAdapter;
@@ -75,12 +74,11 @@ public class Level3Fragment extends Fragment implements Level3View<LessonData, T
     private void initView(View rootView) {
         mFabPrevious = rootView.findViewById(R.id.btn_previous_vocab);
         mFabNext = rootView.findViewById(R.id.btn_next_vocab);
-        mFabRecord = rootView.findViewById(R.id.fab_recording);
 
         mViewpagerCheckProunce = rootView.findViewById(R.id.view_pager_check_pronounce);
         mCheckPronouncePagerAdapter = new CheckPronouncePagerAdapter(this);
         mViewpagerCheckProunce.setOffscreenPageLimit(3);
-        mViewpagerCheckProunce.setUserInputEnabled(true);
+        mViewpagerCheckProunce.setUserInputEnabled(false);
         mViewpagerCheckProunce.setAdapter(mCheckPronouncePagerAdapter);
     }
 

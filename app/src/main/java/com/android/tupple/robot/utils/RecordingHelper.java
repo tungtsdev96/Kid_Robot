@@ -2,6 +2,7 @@ package com.android.tupple.robot.utils;
 
 import android.content.Context;
 import android.media.MediaRecorder;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,8 +12,10 @@ import java.lang.ref.WeakReference;
  * Created by tungts on 2020-02-23.
  */
 
-// TODO check permission
+// TODO check permission, delete cache
 public class RecordingHelper {
+
+    private final String TAG = "RecordingHelper";
 
     private WeakReference<Context> mContext;
     private MediaRecorder mRecorder;
@@ -39,14 +42,13 @@ public class RecordingHelper {
             mRecorder = new MediaRecorder();
         }
 
-        File temp = null;
-        try {
-            temp = File.createTempFile(fileName, "mp3", mContext.get().getCacheDir());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return startRecorder(fileName);
+        File temp;
+        File cacheRecording = new File(mContext.get().getCacheDir(),"record");
+        if (!cacheRecording.exists()) {
+            boolean isSuccess = cacheRecording.mkdir();
         }
 
+        temp = new File(cacheRecording + "/" + fileName + ".mp3");
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
@@ -54,8 +56,10 @@ public class RecordingHelper {
         try {
             mRecorder.prepare();
             mRecorder.start();
+            Log.d(TAG, "Start Recording " + temp.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
+            Log.d(TAG, "" + e.getLocalizedMessage());
             return startRecorder(fileName);
         }
         return temp;
@@ -66,6 +70,7 @@ public class RecordingHelper {
             return;
         }
 
+        Log.d(TAG, "Stop Recording");
         mRecorder.stop();
         mRecorder.release();
         mRecorder = null;
@@ -73,8 +78,10 @@ public class RecordingHelper {
 
     public int getAmplitude() {
         if (mRecorder != null) {
+            Log.d(TAG, "getAmplitude " + mRecorder.getMaxAmplitude());
             return mRecorder.getMaxAmplitude();
         }
+        Log.d(TAG, "getAmplitude -1");
         return -1;
     }
 
