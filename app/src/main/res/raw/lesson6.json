@@ -1,0 +1,35 @@
+[
+  {
+    "vocabEn": "hens",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 12,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 6
+  },
+  {
+    "vocabEn": "umbrella",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 12,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 6
+  },
+  {
+    "vocabEn": "eggs",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 13,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 6
+  }
+]

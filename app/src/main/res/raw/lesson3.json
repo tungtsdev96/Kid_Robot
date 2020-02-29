@@ -1,0 +1,35 @@
+[
+  {
+    "vocabEn": "apple",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 8,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 3
+  },
+  {
+    "vocabEn": "hat",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 10,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 3
+  },
+  {
+    "vocabEn": "bag",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 0,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 3
+  }
+]

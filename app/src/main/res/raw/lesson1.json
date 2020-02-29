@@ -1,0 +1,24 @@
+[
+  {
+    "vocabEn": "ball",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 2,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 1
+  },
+  {
+    "vocabEn": "book",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 5,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 1
+  }
+]
