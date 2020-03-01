@@ -8,10 +8,13 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.android.tupple.robot.data.KidRobotDatabase;
+import com.android.tupple.robot.data.entity.LessonData;
+import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.domain.log.CLog;
 import com.android.tupple.robot.domain.log.CLogger;
+import com.android.tupple.robot.utils.ResourceUtils;
 import com.android.tupple.trigger.TriggerService;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -23,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -45,9 +49,47 @@ public class KidRobotApplication extends Application {
         initCLogger();
 //        initTriggerService();
 
-//        KidRobotDatabase.getInstance(sInstance);
+        // test data for school book
+        initBook();
+        initLesson();
+        initVocabLesson();
+
+        // test data for topic
         initTopic();
         initVocab();
+    }
+
+    private void initBook() {
+        SchoolBook book = new SchoolBook();
+        book.setIdBook(1);
+        book.setGradle(1);
+        book.setLearning(false);
+        book.setNameBook("SGK Tiếng Anh 1");
+        KidRobotDatabase.getInstance(getApplicationContext())
+                .schoolBookDao().insert(book).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+    }
+
+    private void initLesson() {
+        Context mContext = getApplicationContext();
+        try {
+            ArrayList<LessonData> listLesson = readJsonStreamLesson(mContext.getResources().openRawResource(R.raw.book_1));
+            KidRobotDatabase.getInstance(mContext).lessonDao()
+                    .insert(listLesson).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                    .subscribe();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initVocabLesson() {
+        Context mContext = getApplicationContext();
+        for (int i = 1; i <= 20; i++) {
+            int index = i;
+            Observable.fromCallable(() -> readJsonStreamVocabLesson(mContext.getResources().openRawResource(ResourceUtils.convertNameToRawRes(mContext, "lesson" + index))))
+                    .flatMap(listVocabs -> KidRobotDatabase.getInstance(mContext).vocabularyDao().insert(listVocabs).toObservable())
+                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+        }
     }
 
     private void initTopic() {
@@ -90,6 +132,20 @@ public class KidRobotApplication extends Application {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<Vocabulary> readJsonStreamVocabLesson(InputStream in) throws UnsupportedEncodingException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+        Type listType = new TypeToken<ArrayList<Vocabulary>>() {
+        }.getType();
+        return new GsonBuilder().create().fromJson(reader, listType);
+    }
+
+    public ArrayList<LessonData> readJsonStreamLesson(InputStream in) throws UnsupportedEncodingException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+        Type listType = new TypeToken<ArrayList<LessonData>>() {
+        }.getType();
+        return new GsonBuilder().create().fromJson(reader, listType);
     }
 
     public ArrayList<Topic> readJsonStream(InputStream in) throws UnsupportedEncodingException {
