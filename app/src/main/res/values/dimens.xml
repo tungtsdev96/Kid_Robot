@@ -38,6 +38,8 @@
     <dimen name="header_learning_vocab_padding">8dp</dimen>
 
     <!-- TestVocab -->
+    <dimen name="padding_view_result">16dp</dimen>
+    <dimen name="text_notify_result">18sp</dimen>
 
     <!-- Level 1 -->
 

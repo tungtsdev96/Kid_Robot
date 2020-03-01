@@ -5,6 +5,7 @@ import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
 import com.android.tupple.robot.domain.presenter.data.TestVocabModel;
 import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
+import com.android.tupple.robot.domain.presenter.testvocab.ResultAnswerHandler;
 
 import java.util.List;
 
@@ -14,7 +15,8 @@ import java.util.List;
 
 public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level1Presenter {
 
-    public PresenterObserver<TestVocabLevel> mNextLevelObserver;
+    private PresenterObserver<TestVocabLevel> mNextLevelObserver;
+    private ResultAnswerHandler mOnResultAnswerHandler;
 
     private Level1ViewWrapper<LessonData, Topic,Vocabulary> mLevel1ViewWrapper;
     private Level1View<LessonData, Topic, Vocabulary> mLevel1View;
@@ -61,9 +63,11 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
             return;
         }
 
+        // TODO update DB, show Dialog result
         mLevel1View.showLayoutAnswerResult(mCurrentAnswerSelected == mCurrentQuestion);
-        nextVocab();
-        // TODO update DB
+        if (mOnResultAnswerHandler != null) {
+            mOnResultAnswerHandler.onResult(mCurrentAnswerSelected == mCurrentQuestion, mCurrentQuestion);
+        }
     }
 
     private void nextVocab() {
@@ -101,8 +105,18 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     }
 
     @Override
+    public void nextQuestion() {
+        nextVocab();
+    }
+
+    @Override
     public void setOnNextLevelObserver(PresenterObserver<TestVocabLevel> onNextLevelObserver) {
         this.mNextLevelObserver = onNextLevelObserver;
+    }
+
+    @Override
+    public void setOnResultAnswerHandler(ResultAnswerHandler onResultAnswerHandler) {
+        this.mOnResultAnswerHandler = onResultAnswerHandler;
     }
 
     @Override

@@ -9,6 +9,10 @@
     <!-- Test Vocab -->
     <color name="text_btn_answer_disable">#666666</color>
     <color name="text_btn_answer_enable">#FFFFFF</color>
+    <color name="bg_result_answer_wrong">#80D32F2F</color>
+    <color name="bg_result_answer_right">#80388E3C</color>
+    <color name="color_text_notify_result_true">#388E3C</color>
+    <color name="color_text_notify_result_false">#B71C1C</color>
 
     <!-- school book -->
     <color name="color_item_school_book_disable">#80202020</color>

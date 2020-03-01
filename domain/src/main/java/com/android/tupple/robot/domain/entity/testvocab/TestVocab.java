@@ -1,6 +1,7 @@
 package com.android.tupple.robot.domain.entity.testvocab;
 
 import com.android.tupple.robot.domain.log.CLog;
+import com.android.tupple.robot.domain.presenter.testvocab.result.AnswerResultPresenterImpl;
 
 /**
  * Created by tung.ts on 1/29/2020.
@@ -13,6 +14,7 @@ public class TestVocab {
     private TestVocabPresenterHolder mTestVocabPresenterHolder;
 
     private TestVocabPresenter mCurrentLevelPresenter;
+    private AnswerResultPresenter mAnswerResultPresenter;
 
     public TestVocab() {
         mTestVocabPresenterHolder = new TestVocabPresenterHolder();
@@ -21,6 +23,7 @@ public class TestVocab {
     public void setLevel1Presenter(Level1Presenter level1Presenter) {
         mTestVocabPresenterHolder.setLevel1Presenter(level1Presenter);
         level1Presenter.setOnNextLevelObserver(this::switchLevel);
+        level1Presenter.setOnResultAnswerHandler(this::handleResultAnswer);
     }
 
     public void setLevel2Presenter(Level2Presenter level2Presenter) {
@@ -29,6 +32,24 @@ public class TestVocab {
 
     public void setLevel3Presenter(Level3Presenter level3Presenter) {
         mTestVocabPresenterHolder.setLevel3Presenter(level3Presenter);
+    }
+
+    public void setAnswerResultPresenter(AnswerResultPresenterImpl answerResultPresenter) {
+        mAnswerResultPresenter = answerResultPresenter;
+        mAnswerResultPresenter.setOnBtnContinueHandler(this::handleBtnContinueClick);
+    }
+
+    private void handleResultAnswer(boolean isResult, int result) {
+        if (mAnswerResultPresenter != null) {
+            int tmp = 65 + result;
+            mAnswerResultPresenter.showResult(isResult, Character.toString((char) tmp));
+        }
+    }
+
+    private void handleBtnContinueClick() {
+        if (mCurrentLevelPresenter != null) {
+            mCurrentLevelPresenter.nextQuestion();
+        }
     }
 
     private void switchLevel(TestVocabLevel testVocabLevel) {
@@ -76,6 +97,10 @@ public class TestVocab {
 
         if (mCurrentLevelPresenter != null) {
             mCurrentLevelPresenter.finish();
+        }
+
+        if (mAnswerResultPresenter != null) {
+            mAnswerResultPresenter.hide();
         }
 
         mCurrentLevelPresenter = null;

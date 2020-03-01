@@ -24,8 +24,11 @@ import com.android.tupple.robot.domain.presenter.testvocab.level3.Level3Presente
 import com.android.tupple.robot.domain.presenter.testvocab.level3.Level3ViewWrapper;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3ItemPresenterImpl;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3ItemViewWrapper;
+import com.android.tupple.robot.domain.presenter.testvocab.result.AnswerResultPresenterImpl;
+import com.android.tupple.robot.domain.presenter.testvocab.result.AnswerResultView;
 import com.android.tupple.robot.view.testvocab.TestVocabViewFactory;
 import com.android.tupple.robot.view.testvocab.level3.item.Level3ItemViewWrapperFactory;
+import com.android.tupple.robot.view.testvocab.result.AnswerResultViewFactory;
 
 import java.util.List;
 
@@ -53,9 +56,18 @@ public class TestVocabActivity extends BaseActivity {
     }
 
     private void inject() {
+        injectResultAnswer();
         injectLevel1();
         injectLevel2();
         injectLevel3();
+    }
+
+    private void injectResultAnswer() {
+        AnswerResultPresenterImpl answerResultPresenter = new AnswerResultPresenterImpl();
+        AnswerResultView answerResultView = AnswerResultViewFactory.newAnswerResultView(this);
+
+        answerResultPresenter.setAnswerResultView(answerResultView);
+        mTestVocab.setAnswerResultPresenter(answerResultPresenter);
     }
 
     private void injectLevel1() {

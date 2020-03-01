@@ -5,6 +5,7 @@ import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
 import com.android.tupple.robot.domain.presenter.data.TestVocabModel;
 import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
+import com.android.tupple.robot.domain.presenter.testvocab.ResultAnswerHandler;
 
 import java.util.List;
 
@@ -60,8 +61,18 @@ public class Level2PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     }
 
     @Override
+    public void nextQuestion() {
+
+    }
+
+    @Override
     public void setOnNextLevelObserver(PresenterObserver<TestVocabLevel> onNextLevelObserver) {
         // TODO onNext level
+    }
+
+    @Override
+    public void setOnResultAnswerHandler(ResultAnswerHandler onResultAnswerHandler) {
+
     }
 
     @Override

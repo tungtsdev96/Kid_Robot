@@ -18,6 +18,10 @@
     <string name="your_pronounce_answer">Kết quả phát âm:</string>
     <string name="try_again">Thử lại</string>
     <string name="text_duration_recording">%s/%s</string>
+    <string name="text_continue">Tiếp tục</string>
+    <string name="answer_true">Đáp án đúng là: %s</string>
+    <string name="header_answer_right">Trả lời đúng</string>
+    <string name="header_answer_wrong">Trả lời sai</string>
 
     <string name="text_state_record_error">Mình không nghe rõ bạn nói. Vui lòng thử lại?</string>
     <string name="text_state_record_prepare">Nhấn icon mic để bắt đầu phát âm từ</string>
