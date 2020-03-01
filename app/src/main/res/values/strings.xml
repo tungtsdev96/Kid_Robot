@@ -19,6 +19,17 @@
     <string name="try_again">Thử lại</string>
     <string name="text_duration_recording">%s/%s</string>
 
+    <string name="text_state_record_error">Mình không nghe rõ bạn nói. Vui lòng thử lại?</string>
+    <string name="text_state_record_prepare">Nhấn icon mic để bắt đầu phát âm từ</string>
+    <string name="text_state_record_start">Bắt đầu đọc</string>
+    <string name="text_state_record_doing">Mình đang nghe đây</string>
+    <string name="text_state_record_done">Chờ mình chút</string>
+
+    <string name="text_result_not_good">Chưa đúng lắm. Cố lên!</string>
+    <string name="text_result_good">Gần đúng rồi. Cố lên!</string>
+    <string name="text_result_very_good">Đúng rồi. Chúc mừng bạn!</string>
+    <string name="text_result_excellent">Tuyệt vời. Chúc mừng bạn!</string>
+
     <string name="download">Tải về</string>
     <string name="cancel_download">Hủy</string>
     <string name="learning_vocab_title">Học từ mới: %d/%d</string>

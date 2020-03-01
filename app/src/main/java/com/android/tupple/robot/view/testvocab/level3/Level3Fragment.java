@@ -42,7 +42,7 @@ public class Level3Fragment extends Fragment implements Level3View<LessonData, T
     private CleanObserver<Level3View<LessonData, Topic, Vocabulary>> mViewCreatedObserver;
     private CleanObserver mBtnPreviousClickedObserver;
     private CleanObserver mBtnNextClickedObserver;
-    private CleanObserver mBtnRecordingClickedObserver;
+    private CleanObserver<Integer> mPageChangeObserver;
 
     public static Level3Fragment newInstance() {
         return new Level3Fragment();
@@ -73,14 +73,37 @@ public class Level3Fragment extends Fragment implements Level3View<LessonData, T
 
     private void initView(View rootView) {
         mFabPrevious = rootView.findViewById(R.id.btn_previous_vocab);
+        mFabPrevious.setOnClickListener(v -> {
+            if (mBtnPreviousClickedObserver != null) {
+                mBtnPreviousClickedObserver.onNext();
+            }
+        });
         mFabNext = rootView.findViewById(R.id.btn_next_vocab);
+        mFabNext.setOnClickListener(v -> {
+            if (mBtnNextClickedObserver != null) {
+                mBtnNextClickedObserver.onNext();
+            }
+        });
 
         mViewpagerCheckProunce = rootView.findViewById(R.id.view_pager_check_pronounce);
         mCheckPronouncePagerAdapter = new CheckPronouncePagerAdapter(this);
         mViewpagerCheckProunce.setOffscreenPageLimit(3);
         mViewpagerCheckProunce.setUserInputEnabled(false);
         mViewpagerCheckProunce.setAdapter(mCheckPronouncePagerAdapter);
+        mViewpagerCheckProunce.registerOnPageChangeCallback(mOnPageChangeCallback);
     }
+
+    private ViewPager2.OnPageChangeCallback mOnPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+
+        @Override
+        public void onPageSelected(int position) {
+            super.onPageSelected(position);
+            if (mPageChangeObserver != null) {
+                mPageChangeObserver.onNext(position);
+            }
+        }
+
+    };
 
     @Override
     public void setListLearningVocab(List<Vocabulary> vocabularies) {
@@ -90,6 +113,11 @@ public class Level3Fragment extends Fragment implements Level3View<LessonData, T
             }
             mCheckPronouncePagerAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void setCurrentVocab(int position) {
+        mViewpagerCheckProunce.setCurrentItem(position);
     }
 
     @Override
@@ -103,7 +131,7 @@ public class Level3Fragment extends Fragment implements Level3View<LessonData, T
     }
 
     @Override
-    public CleanObservable getBtnRecordingClickedObservable() {
-        return CleanObservable.create(cleanObserver -> mBtnRecordingClickedObserver = cleanObserver);
+    public CleanObservable<Integer> getPageChangeObservable() {
+        return CleanObservable.create(cleanObserver -> mPageChangeObserver = cleanObserver);
     }
 }

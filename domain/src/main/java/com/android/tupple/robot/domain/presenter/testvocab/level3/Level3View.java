@@ -12,9 +12,12 @@ public interface Level3View<LessonData, Topic, Vocabulary> {
 
     void setListLearningVocab(List<Vocabulary> vocabularies);
 
+    void setCurrentVocab(int position);
+
     CleanObservable getBtnPreviousClickedObservable();
 
     CleanObservable getBtnNextClickedObservable();
 
-    CleanObservable getBtnRecordingClickedObservable();
+    CleanObservable<Integer> getPageChangeObservable();
+
 }

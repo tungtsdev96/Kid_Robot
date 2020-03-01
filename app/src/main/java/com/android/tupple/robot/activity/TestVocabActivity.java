@@ -1,6 +1,7 @@
 package com.android.tupple.robot.activity;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.base.BaseActivity;
@@ -98,6 +99,7 @@ public class TestVocabActivity extends BaseActivity {
         level3Presenter.setTestVocabModel(testVocabModel);
         level3Presenter.setListLearningVocabHandler(vocabularies -> this.handleListLearningVocab(vocabularies, level3Presenter));
 //        level3Presenter.setLevel3Model(level3Model);
+        level3Presenter.setOnNextLevelObserver(level -> Toast.makeText(this, "Done test", Toast.LENGTH_SHORT).show());
         mTestVocab.setLevel3Presenter(level3Presenter);
     }
 

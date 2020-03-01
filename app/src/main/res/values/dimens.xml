@@ -45,6 +45,10 @@
     <dimen name="alphabet_view_margin_left">5dp</dimen>
     <dimen name="alphabet_view_padding">8dp</dimen>
 
+    <!-- Level 3-->
+    <dimen name="btn_recording_size">80dp</dimen>
+    <dimen name="btn_recording_padding">16dp</dimen>
+
     <!-- CardView -->
     <dimen name="common_card_radius">8dp</dimen>
 

@@ -6,74 +6,66 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 
 /**
  * Created by tungts on 2020-02-23.
  */
 
-// TODO check permission, delete cache
 public class RecordingHelper {
 
     private final String TAG = "RecordingHelper";
 
-    private WeakReference<Context> mContext;
+    private Context mContext;
     private MediaRecorder mRecorder;
+    private boolean mIsRecording;
+    private File mFileTmp = null;
 
-    private static RecordingHelper mInstance;
-
-    private RecordingHelper() {
+    public RecordingHelper(Context context) {
+        mContext = context;
     }
 
-    public static RecordingHelper newInstance(Context context) {
-        if (mInstance == null) {
-            mInstance = new RecordingHelper();
-        }
-        return mInstance.setContext(context);
-    }
-
-    private RecordingHelper setContext(Context context) {
-        mContext = new WeakReference<>(context);
-        return mInstance;
-    }
-
-    public File startRecorder(String fileName) {
+    public void startRecord(String fileName) {
         if (mRecorder == null) {
             mRecorder = new MediaRecorder();
         }
 
-        File temp;
-        File cacheRecording = new File(mContext.get().getCacheDir(),"record");
+        File cacheRecording = new File(mContext.getCacheDir(),"record");
         if (!cacheRecording.exists()) {
             boolean isSuccess = cacheRecording.mkdir();
         }
 
-        temp = new File(cacheRecording + "/" + fileName + ".mp3");
+        mFileTmp = new File(cacheRecording + "/" + fileName + ".mp3");
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-        mRecorder.setOutputFile(temp.getAbsolutePath());
+        mRecorder.setOutputFile(mFileTmp.getAbsolutePath());
         try {
             mRecorder.prepare();
             mRecorder.start();
-            Log.d(TAG, "Start Recording " + temp.getAbsolutePath());
+            mIsRecording = true;
+            Log.d(TAG, "Start Recording " + mFileTmp.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
             Log.d(TAG, "" + e.getLocalizedMessage());
-            return startRecorder(fileName);
+            startRecord(fileName);
         }
-        return temp;
     }
 
-    public void stop() {
+    public boolean isRecording() {
+        return mIsRecording;
+    }
+
+    public File stopRecord() {
         if (mRecorder == null) {
-            return;
+            return null;
         }
 
         Log.d(TAG, "Stop Recording");
+        mIsRecording = true;
         mRecorder.stop();
         mRecorder.release();
         mRecorder = null;
+        return mFileTmp;
     }
 
     public int getAmplitude() {

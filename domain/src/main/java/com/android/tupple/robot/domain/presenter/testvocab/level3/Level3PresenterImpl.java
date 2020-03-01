@@ -16,10 +16,6 @@ import java.util.List;
 
 public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level3Presenter {
 
-    public interface ListLearningVocabHandler<Vocabulary> {
-        void onNext(List<Vocabulary> vocabularies);
-    }
-
     private List<Level3ItemPresenter> mListLevel3ItemPresenter = new ArrayList<>();
 
     private Level3ViewWrapper<LessonData, Topic, Vocabulary> mLevel3ViewWrapper;
@@ -30,9 +26,21 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     private LearningVocabModel<Vocabulary> mLearningVocabModel;
 
     private ListLearningVocabHandler<Vocabulary> mListLearningVocabHandler;
+    private PresenterObserver<TestVocabLevel> mOnNextLevelPresenterObserver;
+    private PageChangeListenerHandler mOnPageChangeListenerHandler;
 
     private List<Vocabulary> mListVocabulary = new ArrayList<>();
     private int mCurrentVocabulary = -1;
+
+    public Level3PresenterImpl(){}
+
+    public interface ListLearningVocabHandler<Vocabulary> {
+        void onNext(List<Vocabulary> vocabularies);
+    }
+
+    public interface PageChangeListenerHandler {
+        void onPageChange(int previousPage, int pageSelected);
+    }
 
     public void setLevel3Model(Level3Model<LessonData, Topic, Vocabulary> level3Model) {
         this.mLevel3Model = level3Model;
@@ -54,12 +62,44 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     public void setLevel3View(Level3View<LessonData, Topic, Vocabulary> level3View) {
         this.mLevel3View = level3View;
         initObservable();
-
         loadData();
     }
 
     private void initObservable() {
+        mLevel3View.getBtnPreviousClickedObservable().subscribe(this::handleOnPreviousBtnClicked);
+        mLevel3View.getBtnNextClickedObservable().subscribe(this::handleOnNextBtnClicked);
+        mLevel3View.getPageChangeObservable().subscribe(this::handlePageChangeListener);
+    }
 
+    private void handlePageChangeListener(Integer position) {
+        if (mCurrentVocabulary == position) {
+            return;
+        }
+
+        if (getPageChnageListenerHandler() != null) {
+           getPageChnageListenerHandler().onPageChange(mCurrentVocabulary, position);
+        }
+
+        mListLevel3ItemPresenter.get(mCurrentVocabulary).onPageChange();
+        mListLevel3ItemPresenter.get(position).onPageSelected();
+        mCurrentVocabulary = position;
+    }
+
+    private void handleOnNextBtnClicked() {
+        if (mCurrentVocabulary >= mListVocabulary.size() - 1) {
+            mOnNextLevelPresenterObserver.onComplete(TestVocabLevel.LEVEL3_1);
+            return;
+        }
+
+        mLevel3View.setCurrentVocab(mCurrentVocabulary + 1);
+    }
+
+    private void handleOnPreviousBtnClicked() {
+        if (mCurrentVocabulary <= 0) {
+            return;
+        }
+
+        mLevel3View.setCurrentVocab(mCurrentVocabulary - 1);
     }
 
     public void addLevel3ItemPresenter(Level3ItemPresenter item) {
@@ -73,7 +113,7 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     @Override
     public void setOnNextLevelObserver(PresenterObserver<TestVocabLevel> onNextLevelObserver) {
-        // TODO show dialog Result
+        this.mOnNextLevelPresenterObserver = onNextLevelObserver;
     }
 
     @Override
@@ -111,5 +151,13 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     public void setListLearningVocabHandler(ListLearningVocabHandler<Vocabulary> listLearningVocabHandler) {
         this.mListLearningVocabHandler = listLearningVocabHandler;
+    }
+
+    public PageChangeListenerHandler getPageChnageListenerHandler() {
+        return mOnPageChangeListenerHandler;
+    }
+
+    public void setPageChangeListenerHandler(PageChangeListenerHandler pageChangeListenerHandler) {
+        this.mOnPageChangeListenerHandler = pageChangeListenerHandler;
     }
 }

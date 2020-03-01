@@ -74,5 +74,4 @@ dependencies {
 
     implementation project(path: ':domain')
     implementation project(path: ':libtrigger')
-    implementation project(path: ':ripplerecordingview')
 }

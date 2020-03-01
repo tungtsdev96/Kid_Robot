@@ -1,12 +1,15 @@
 package com.android.tupple.robot.domain.presenter.testvocab.level3.item;
 
 import com.android.tupple.robot.domain.entity.testvocab.Level3ItemPresenter;
+import com.android.tupple.robot.domain.log.CLog;
 
 /**
  * Created by tungts on 2020-02-22.
  */
 
 public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter {
+
+    private final String TAG = "Level3ItemPresenter";
 
     private Level3ItemViewWrapper<Vocabulary> mLevel3ItemViewWrapper;
     private Level3ItemView<Vocabulary> mLevel3ItemView;
@@ -30,6 +33,20 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
     }
 
     private void initObservable() {
+        mLevel3ItemView.getBtnPronounceClickedObservable().subscribe(this::handleBtnPronounceClicked);
+        mLevel3ItemView.getBtnRecordingClickedObservable().subscribe(this::handleBtnRecord);
+        mLevel3ItemView.getRecordStateDoneObservable().subscribe(this::handleOnRecordDone);
+    }
+
+    private void handleOnRecordDone(String fileRecord) {
+        // TODO handle with server
+    }
+
+    private void handleBtnRecord(boolean isStart) {
+
+    }
+
+    private void handleBtnPronounceClicked() {
 
     }
 
@@ -47,6 +64,18 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
         if (mLevel3ItemViewWrapper != null) {
             mLevel3ItemViewWrapper.hide();
         }
+    }
+
+    @Override
+    public void onPageChange() {
+        // TODO check is recording, stop record, check vocab is tested
+
+    }
+
+    @Override
+    public void onPageSelected() {
+//        doOnStart();
+        CLog.printD(TAG, "onPageSelected");
     }
 
 
