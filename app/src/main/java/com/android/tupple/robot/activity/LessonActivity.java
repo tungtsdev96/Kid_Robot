@@ -34,6 +34,8 @@ public class LessonActivity extends BaseActivity {
         mLesson.init();
     }
 
+
+
     private void initFirstBatch(Bundle bundle) {
         mLesson = new Lesson();
         mActivityLauncher = new ActivityLauncher(this);

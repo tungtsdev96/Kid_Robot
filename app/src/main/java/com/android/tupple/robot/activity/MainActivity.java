@@ -1,13 +1,18 @@
 package com.android.tupple.robot.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.base.BaseActivity;
+import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.data.entity.MenuItemData;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;
-import com.android.tupple.robot.data.entity.Video;
 import com.android.tupple.robot.data.model.alarm.AlarmModelFactory;
 import com.android.tupple.robot.data.model.mediaobject.EntertainmentModelFactory;
 import com.android.tupple.robot.domain.entity.menumain.MenuMain;
@@ -49,8 +54,28 @@ public class MainActivity extends BaseActivity {
     protected void onCreatedActivity(Bundle savedInstanceState) {
         initFirstBatch(savedInstanceState);
         inject(savedInstanceState);
+        requestPermission();
 
         mMenuMain.init();
+
+
+    }
+
+
+    protected void requestPermission() {
+        if ((ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+            if ((ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) && (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE))) {
+
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                        100);
+            }
+        }
     }
 
     private void initFirstBatch(Bundle bundle) {
@@ -108,16 +133,16 @@ public class MainActivity extends BaseActivity {
     }
 
     private void injectEntertainment(Bundle bundle) {
-        EntertainmentPresenterImpl<Video> entertainmentPresenter = new EntertainmentPresenterImpl();
-        EntertainmentViewWrapper<Video> entertainmentViewWrapper = EntertainmentViewWrapperFactory.newEntertainmentViewWrapper(getSupportFragmentManager(), bundle);
-        EntertainmentModel<Video> entertainmentModel = EntertainmentModelFactory.newEntertainmentModel(this);
+        EntertainmentPresenterImpl<Media> entertainmentPresenter = new EntertainmentPresenterImpl();
+        EntertainmentViewWrapper<Media> entertainmentViewWrapper = EntertainmentViewWrapperFactory.newEntertainmentViewWrapper(getSupportFragmentManager(), bundle);
+        EntertainmentModel<Media> entertainmentModel = EntertainmentModelFactory.newEntertainmentModel(this);
 
         entertainmentPresenter.setEntertainmentViewWrapper(entertainmentViewWrapper);
         entertainmentPresenter.setEntertainmentModel(entertainmentModel);
 
         // innit Observerable
         entertainmentPresenter.setOnItemVideoClickObserver(mActivityLauncher::launchVideoPlayerActivity);
-
+        entertainmentPresenter.setOnItemAudioClickObserver(mActivityLauncher::launchAudioPlayerActivity);
         mMenuMain.setEntertainmentPresenter(entertainmentPresenter);
     }
 

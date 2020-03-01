@@ -1,0 +1,782 @@
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision 482cbdbacaea744d05409fea9f8ebe105e520564)
++++ app/build.gradle	(revision 8b24c91236dee106119ccd335d114e5a07448ece)
+@@ -50,6 +50,9 @@
+     implementation 'com.github.bumptech.glide:glide:4.11.0'
+     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+ 
++    //CircleImageView
++    implementation 'de.hdodenhof:circleimageview:3.1.0'
++
+     //EventBus
+     implementation 'org.greenrobot:eventbus:3.1.1'
+ 
+@@ -74,4 +77,9 @@
+ 
+     implementation project(path: ':domain')
+     implementation project(path: ':libtrigger')
++
++    //Exoplayer
++    implementation 'com.google.android.exoplayer:exoplayer-core:2.9.6'
++    implementation 'com.google.android.exoplayer:exoplayer-ui:2.9.6'
++    implementation 'com.google.android.exoplayer:extension-ima:2.9.6'
+ }
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 482cbdbacaea744d05409fea9f8ebe105e520564)
++++ app/src/main/AndroidManifest.xml	(revision 8b24c91236dee106119ccd335d114e5a07448ece)
+@@ -2,6 +2,10 @@
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     package="com.android.tupple.robot">
+ 
++    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
++    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
++    <uses-permission android:name="android.permission.RECORD_AUDIO" />
++    <uses-permission android:name="android.permission.INTERNET" />
+     <application
+         android:name=".KidRobotApplication"
+         android:allowBackup="true"
+@@ -10,39 +14,45 @@
+         android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+         android:theme="@style/AppTheme">
++        <activity android:name=".activity.VideoHelper"></activity>
++        <activity android:name=".activity.AudioRecorderActivity">
++            <intent-filter>
++<!--                <action android:name="android.intent.action.MAIN" />-->
+ 
++<!--                <category android:name="android.intent.category.LAUNCHER" />-->
++            </intent-filter>
++        </activity>
+         <activity
+-            android:screenOrientation="landscape"
+-            android:name=".activity.MainActivity">
+-<!--            <intent-filter>-->
+-<!--                <action android:name="android.intent.action.MAIN" />-->
+-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+-<!--            </intent-filter>-->
++            android:name=".activity.MainActivity"
++            android:screenOrientation="landscape">
++
++            <!-- <intent-filter> -->
++            <!-- <action android:name="android.intent.action.MAIN" /> -->
++
++
++            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
++            <!-- </intent-filter> -->
+         </activity>
+-
+         <activity
+             android:name=".activity.FaceSmileActivity"
+             android:launchMode="singleTop"
+             android:screenOrientation="landscape">
+-            <intent-filter>
+-                <action android:name="android.intent.action.MAIN" />
+-                <category android:name="android.intent.category.LAUNCHER" />
+-            </intent-filter>
++
++            <!-- <intent-filter> -->
++            <!-- <action android:name="android.intent.action.MAIN" /> -->
++            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
++            <!-- </intent-filter> -->
+         </activity>
+-
+         <activity
+             android:name=".activity.LessonActivity"
+-            android:screenOrientation="landscape"/>
+-
++            android:screenOrientation="landscape" />
+         <activity
+             android:name=".activity.LearningVocabActivity"
+-            android:screenOrientation="landscape"
+-            android:launchMode="singleTop"/>
+-
++            android:launchMode="singleTop"
++            android:screenOrientation="landscape" />
+         <activity
+             android:name=".activity.TestVocabActivity"
+-            android:screenOrientation="landscape"/>
+-
++            android:screenOrientation="landscape" />
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/java/com/android/tupple/robot/activity/AudioRecorderActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/android/tupple/robot/activity/AudioRecorderActivity.java	(revision 2e2da5fc308b2d9c7d63c3779313d005e1f9b3f6)
++++ app/src/main/java/com/android/tupple/robot/activity/AudioRecorderActivity.java	(revision 2e2da5fc308b2d9c7d63c3779313d005e1f9b3f6)
+@@ -0,0 +1,131 @@
++package com.android.tupple.robot.activity;
++
++import androidx.appcompat.app.AppCompatActivity;
++import androidx.core.app.ActivityCompat;
++import androidx.core.content.ContextCompat;
++
++import android.Manifest;
++import android.app.Activity;
++import android.app.Dialog;
++import android.app.ProgressDialog;
++import android.content.ContentValues;
++import android.content.DialogInterface;
++import android.content.pm.PackageManager;
++import android.media.MediaRecorder;
++import android.os.Bundle;
++import android.os.Handler;
++import android.provider.MediaStore;
++import android.view.View;
++import android.widget.Toast;
++
++import com.android.tupple.robot.R;
++import com.android.tupple.robot.base.BaseActivity;
++import com.android.tupple.robot.common.customview.VisualizerView;
++
++
++public class AudioRecorderActivity extends BaseActivity implements View.OnClickListener {
++
++    private ActivityLauncher mActivityLauncher;
++    private Handler handler;
++    public static final int REPEAT_INTERVAL = 40;
++    private boolean isRecording = false;
++    MediaRecorder recorder;
++    VisualizerView visualizerView;
++
++    @Override
++    protected int getLayoutContent() {
++        return R.layout.activity_audio_recorder;
++    }
++
++    @Override
++    protected void onCreatedActivity(Bundle savedInstanceState) {
++        mActivityLauncher = new ActivityLauncher(this);
++        checkPermission();
++        handler = new Handler();
++        findViewById(R.id.recoder).setOnClickListener(this);
++    }
++
++    @Override
++    public void onClick(View v) {
++        int id = v.getId();
++        switch (id) {
++            case R.id.recoder: {
++                startRecoder("test12345");
++                break;
++            }
++        }
++    }
++
++    private void startRecoder(String fileName) {
++        isRecording = true;
++        recorder = new MediaRecorder();
++        ContentValues values = new ContentValues(3);
++        values.put(MediaStore.MediaColumns.TITLE, fileName);
++        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
++        recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
++        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
++        recorder.setOutputFile("/sdcard/log/" + fileName + ".mp3");
++        try {
++
++            recorder.prepare();
++        } catch (Exception e) {
++            e.printStackTrace();
++        }
++        final Dialog dialog = new Dialog(this);
++        dialog.setTitle("Recoder");
++        dialog.setCancelable(false);
++        dialog.setContentView(R.layout.dialog_audio_recorder);
++        visualizerView = dialog.findViewById(R.id.visualizer);
++        dialog.findViewById(R.id.stop).setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                dialog.dismiss();
++                Toast.makeText(AudioRecorderActivity.this, "Finish Recoding", Toast.LENGTH_SHORT).show();
++                isRecording = false;
++                recorder.stop();
++                recorder.release();
++                handler.removeCallbacks(updateVisualizer);
++                visualizerView.clear();
++            }
++        });
++        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
++            @Override
++            public void onCancel(DialogInterface dialog) {
++                isRecording = false;
++                recorder.stop();
++                recorder.release();
++                handler.removeCallbacks(updateVisualizer);
++                visualizerView.clear();
++            }
++        });
++        recorder.start();
++        handler.post(updateVisualizer);
++        dialog.show();
++    }
++
++    void checkPermission() {
++        if (ContextCompat.checkSelfPermission(this,
++                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED && (ContextCompat.checkSelfPermission(this,
++                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
++
++            ActivityCompat.requestPermissions(this,
++                    new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE},
++                    100);
++        }
++    }
++
++    Runnable updateVisualizer = new Runnable() {
++        @Override
++        public void run() {
++            if (isRecording)
++            {
++                // get the current amplitude
++                int x = recorder.getMaxAmplitude();
++                visualizerView.addAmplitude(x); // update the VisualizeView
++                visualizerView.invalidate(); // refresh the VisualizerView
++                // update in 40 milliseconds
++                handler.postDelayed(this, REPEAT_INTERVAL);
++            }
++        }
++    };
++}
+\ No newline at end of file
+Index: app/src/main/java/com/android/tupple/robot/common/customview/VisualizerView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/android/tupple/robot/common/customview/VisualizerView.java	(revision 2e2da5fc308b2d9c7d63c3779313d005e1f9b3f6)
++++ app/src/main/java/com/android/tupple/robot/common/customview/VisualizerView.java	(revision 2e2da5fc308b2d9c7d63c3779313d005e1f9b3f6)
+@@ -0,0 +1,70 @@
++package com.android.tupple.robot.common.customview;
++
++import android.content.Context;
++import android.graphics.Canvas;
++import android.graphics.Color;
++import android.graphics.Paint;
++import android.util.AttributeSet;
++import android.view.View;
++
++import java.util.ArrayList;
++import java.util.List;
++
++
++public class VisualizerView extends View {
++    private static final int LINE_WIDTH = 1; // width of visualizer lines
++    private static final int LINE_SCALE = 75; // scales visualizer lines
++    private List<Float> amplitudes; // amplitudes for line lengths
++    private int width; // width of this View
++    private int height; // height of this View
++    private Paint linePaint; // specifies line drawing characteristics
++
++    // constructor
++    public VisualizerView(Context context, AttributeSet attrs) {
++        super(context, attrs); // call superclass constructor
++        linePaint = new Paint(); // create Paint for lines
++        linePaint.setColor(Color.GREEN); // set color to green
++        linePaint.setStrokeWidth(LINE_WIDTH); // set stroke width
++    }
++
++    // called when the dimensions of the View change
++    @Override
++    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
++        width = w; // new width of this View
++        height = h; // new height of this View
++        amplitudes = new ArrayList<Float>(width / LINE_WIDTH);
++    }
++
++    // clear all amplitudes to prepare for a new visualization
++    public void clear() {
++        amplitudes.clear();
++    }
++
++    // add the given amplitude to the amplitudes ArrayList
++    public void addAmplitude(float amplitude) {
++        amplitudes.add(amplitude); // add newest to the amplitudes ArrayList
++
++        // if the power lines completely fill the VisualizerView
++        if (amplitudes.size() * LINE_WIDTH >= width) {
++            amplitudes.remove(0); // remove oldest power value
++        }
++    }
++
++    // draw the visualizer with scaled lines representing the amplitudes
++    @Override
++    public void onDraw(Canvas canvas) {
++        int middle = height / 2; // get the middle of the View
++        float curX = 0; // start curX at zero
++
++        // for each item in the amplitudes ArrayList
++        for (float power : amplitudes) {
++            float scaledHeight = power / LINE_SCALE; // scale the power
++            curX += LINE_WIDTH; // increase X by LINE_WIDTH
++
++            // draw a line representing this item in the amplitudes ArrayList
++            canvas.drawLine(curX, middle + scaledHeight / 2, curX, middle
++                    - scaledHeight / 2, linePaint);
++        }
++    }
++
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_audio_recorder.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_audio_recorder.xml	(revision 2e2da5fc308b2d9c7d63c3779313d005e1f9b3f6)
++++ app/src/main/res/layout/activity_audio_recorder.xml	(revision 2e2da5fc308b2d9c7d63c3779313d005e1f9b3f6)
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="utf-8"?>
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".activity.AudioRecorderActivity">
++
++    <de.hdodenhof.circleimageview.CircleImageView
++        android:layout_width="@dimen/size60dp"
++        android:layout_height="@dimen/size60dp"
++        android:layout_centerInParent="true"
++        android:src="@drawable/microphone"
++        android:id="@+id/recoder"
++        />
++
++</RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/dialog_audio_recorder.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/dialog_audio_recorder.xml	(revision 2e2da5fc308b2d9c7d63c3779313d005e1f9b3f6)
++++ app/src/main/res/layout/dialog_audio_recorder.xml	(revision 2e2da5fc308b2d9c7d63c3779313d005e1f9b3f6)
+@@ -0,0 +1,46 @@
++<?xml version="1.0" encoding="utf-8"?>
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:orientation="vertical">
++
++    <TextView
++        android:id="@+id/tittle"
++        style="@style/CommonStyleText"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginLeft="@dimen/size15dp"
++        android:layout_marginTop="@dimen/size5dp"
++        android:background="?attr/selectableItemBackground"
++        android:text="@string/recorder" />
++
++    <com.android.tupple.robot.common.customview.VisualizerView
++        android:id="@+id/visualizer"
++        android:layout_width="@dimen/size220dp"
++        android:layout_height="@dimen/size75dp"
++        android:layout_below="@id/tittle"
++        android:layout_centerHorizontal="true"
++        android:layout_margin="@dimen/size5dp"
++        android:background="#f0ebdf"
++        />
++
++    <de.hdodenhof.circleimageview.CircleImageView
++        android:id="@+id/stop"
++        android:layout_width="@dimen/size60dp"
++        android:layout_height="@dimen/size60dp"
++        android:layout_below="@id/visualizer"
++        android:layout_centerHorizontal="true"
++        android:layout_marginTop="@dimen/size5dp"
++        android:src="@drawable/stop"
++        android:text="stop" />
++
++    <TextView
++        style="@style/CommonStyleText"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_below="@id/stop"
++        android:layout_centerHorizontal="true"
++        android:layout_marginTop="@dimen/size5dp"
++        android:background="?attr/selectableItemBackground"
++        android:text="@string/stop_recorder" />
++</RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/res/values/dimens.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/dimens.xml	(revision 482cbdbacaea744d05409fea9f8ebe105e520564)
++++ app/src/main/res/values/dimens.xml	(revision 2e2da5fc308b2d9c7d63c3779313d005e1f9b3f6)
+@@ -5,5 +5,9 @@
+     <dimen name="menu_item_size">120dp</dimen>
+     <dimen name="menu_item_icon">85dp</dimen>
+     <dimen name="menu_item_padding">15dp</dimen>
+-
++    <dimen name="size5dp">5dp</dimen>
++    <dimen name="size220dp">220dp</dimen>
++    <dimen name="size75dp">75dp</dimen>
++    <dimen name="size15dp">15dp</dimen>
++    <dimen name="size60dp">60dp</dimen>
+ </resources>
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision 482cbdbacaea744d05409fea9f8ebe105e520564)
++++ app/src/main/res/values/strings.xml	(revision 2e2da5fc308b2d9c7d63c3779313d005e1f9b3f6)
+@@ -1,3 +1,5 @@
+ <resources>
+     <string name="app_name">Kid Robot</string>
++    <string name="recorder">Recorder</string>
++    <string name="stop_recorder">Stop</string>
+ </resources>
+Index: app/src/main/java/com/android/tupple/robot/activity/VideoHelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/android/tupple/robot/activity/VideoHelper.java	(revision 8b24c91236dee106119ccd335d114e5a07448ece)
++++ app/src/main/java/com/android/tupple/robot/activity/VideoHelper.java	(revision 8b24c91236dee106119ccd335d114e5a07448ece)
+@@ -0,0 +1,61 @@
++package com.android.tupple.robot.activity;
++
++import androidx.appcompat.app.AppCompatActivity;
++
++import android.net.Uri;
++import android.os.Bundle;
++import android.widget.Toast;
++
++import com.android.tupple.robot.R;
++import com.google.android.exoplayer2.ExoPlayerFactory;
++import com.google.android.exoplayer2.SimpleExoPlayer;
++import com.google.android.exoplayer2.source.ExtractorMediaSource;
++import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
++import com.google.android.exoplayer2.ui.PlayerView;
++import com.google.android.exoplayer2.upstream.DataSource;
++import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
++import com.google.android.exoplayer2.util.Util;
++
++public class VideoHelper extends AppCompatActivity {
++
++    private PlayerView playerView;
++    private SimpleExoPlayer player;
++    public static final Uri MP4_URI = Uri.parse("https://storage.googleapis.com/exoplayer-test-media-0/firebase-animation.mp4");
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_video_helper);
++
++        playerView = findViewById(R.id.player_view);
++        Toast.makeText(this, "start", Toast.LENGTH_SHORT).show();
++    }
++
++    @Override
++    protected void onStart() {
++        super.onStart();
++        player = ExoPlayerFactory.newSimpleInstance(this, new DefaultTrackSelector());
++        playerView.setPlayer(player);
++        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(
++                this,
++                Util.getUserAgent(this, "VideoPlayer"));
++        ExtractorMediaSource mediaSource = new ExtractorMediaSource.Factory(dataSourceFactory)
++                .createMediaSource(MP4_URI);
++        player.prepare(mediaSource);
++        player.setPlayWhenReady(true);
++    }
++
++    @Override
++    protected void onStop() {
++        playerView.setPlayer(null);
++        player.release();
++        player = null;
++        super.onStop();
++    }
++
++    @Override
++    protected void onDestroy() {
++        super.onDestroy();
++    }
++
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_video_helper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_video_helper.xml	(revision 8b24c91236dee106119ccd335d114e5a07448ece)
++++ app/src/main/res/layout/activity_video_helper.xml	(revision 8b24c91236dee106119ccd335d114e5a07448ece)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++    <com.google.android.exoplayer2.ui.PlayerView
++        android:id="@+id/player_view"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent" />
++</FrameLayout>
+\ No newline at end of file
+diff --git app/src/main/res/drawable-v24/microphone.png app/src/main/res/drawable-v24/microphone.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..96d003a41a192a4c799b2ecdae732d197a119a57
+GIT binary patch
+literal 7504
+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
+
+diff --git app/src/main/res/drawable-v24/stop.png app/src/main/res/drawable-v24/stop.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..bdc0ceeb1ea62c502fd40d9b93857750570a7634
+GIT binary patch
+literal 5245
+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
+

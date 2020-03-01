@@ -1,0 +1,63 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:2:1-22:12
+	package
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:3:5-41
+		INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+		INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:2:1-22:12
+		INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:2:1-22:12
+		INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:5:5-68
+	android:name
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:5:22-65
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:6:5-71
+	android:name
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:6:22-68
+application
+ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:8:5-20:19
+activity#com.android.tupple.trigger.recording.RecordingActivity
+ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:10:9-13:58
+	android:screenOrientation
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:12:13-50
+	android:launchMode
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:11:13-43
+	android:name
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:13:13-56
+service#com.android.tupple.trigger.TriggerService
+ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:15:9-18:39
+	android:enabled
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:17:13-35
+	android:exported
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:18:13-36
+	android:name
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:16:13-43
+uses-sdk
+INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+		INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+		ADDED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+		INJECTED from /Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml

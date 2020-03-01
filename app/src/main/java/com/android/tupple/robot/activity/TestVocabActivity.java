@@ -44,6 +44,8 @@ public class TestVocabActivity extends BaseActivity {
         mTestVocab.init();
     }
 
+
+
     private void inject() {
         injectLevel1();
         injectLevel2();

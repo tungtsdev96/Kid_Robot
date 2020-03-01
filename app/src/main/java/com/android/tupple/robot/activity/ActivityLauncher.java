@@ -6,7 +6,7 @@ import android.content.Intent;
 import com.android.tupple.robot.data.entity.LessonData;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;
-import com.android.tupple.robot.data.entity.Video;
+import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.utils.ActivityUtils;
 import com.android.tupple.robot.utils.constant.BookConstant;
 import com.android.tupple.robot.utils.constant.LearnVocabConstant;
@@ -51,12 +51,17 @@ public class ActivityLauncher {
         ActivityUtils.startActivty(mActivity, intent);
     }
 
-    public void launchVideoPlayerActivity(Video video){
+    public void launchVideoPlayerActivity(Media media){
         Intent intent = new Intent(mActivity, VideoPlayerActivity.class);
-        intent.putExtra("test" , video.getTitle());
+        intent.putExtra("test" , media.getMedia_url());
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityUtils.startActivty(mActivity, intent);
     }
 
-
+    public void launchAudioPlayerActivity(Media media){
+        Intent intent = new Intent(mActivity, AudioPlayerActivity.class);
+        intent.putExtra("test" , media.getMedia_url());
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityUtils.startActivty(mActivity, intent);
+    }
 }

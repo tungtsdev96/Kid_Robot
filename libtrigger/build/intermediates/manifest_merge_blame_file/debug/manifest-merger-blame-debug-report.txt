@@ -1,0 +1,41 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.android.tupple.trigger"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+8-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.WAKE_LOCK" />
+11-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:5:5-68
+11-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:5:22-65
+12    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+12-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:6:5-71
+12-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:6:22-68
+13
+14    <application>
+14-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:8:5-20:19
+15        <activity
+15-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:10:9-13:58
+16            android:name="com.android.tupple.trigger.recording.RecordingActivity"
+16-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:13:13-56
+17            android:launchMode="singleTop"
+17-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:11:13-43
+18            android:screenOrientation="landscape" />
+18-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:12:13-50
+19
+20        <service
+20-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:15:9-18:39
+21            android:name="com.android.tupple.trigger.TriggerService"
+21-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:16:13-43
+22            android:enabled="true"
+22-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:17:13-35
+23            android:exported="true" />
+23-->/Users/nguyenquangminh/Documents/KidRobot/Kid_Robot/libtrigger/src/main/AndroidManifest.xml:18:13-36
+24    </application>
+25
+26</manifest>

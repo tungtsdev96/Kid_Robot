@@ -48,6 +48,8 @@ public class LearningVocabActivity extends BaseActivity {
         inject(bundle);
     }
 
+
+
     private void initFirstBatch() {
         mActivityLauncher = new ActivityLauncher(this);
         mLearnVocab = new LearnVocab();

@@ -1,0 +1,11 @@
+R_DEF: Internal format may change without notice
+local
+color color1
+color color2
+color color3
+color color4
+color color5
+id recognition_view
+layout activity_recording
+raw ant
+string app_name
