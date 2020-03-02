@@ -45,6 +45,7 @@ public class Level1Fragment extends Fragment implements Level1View<LessonData, T
     private ImageView mImageQuestionAnswer;
     private Button mBtnCheckAnswer;
 
+    private RecyclerView mRcvAnswer;
     private AnswerAdapter mAnswerAdapter;
 
     private CleanObserver<Level1View<LessonData, Topic, Vocabulary>> mViewCreatedObserver;
@@ -96,7 +97,7 @@ public class Level1Fragment extends Fragment implements Level1View<LessonData, T
     }
 
     private void initRecycleView(View rootView) {
-        RecyclerView mRcvAnswer = rootView.findViewById(R.id.rcv_answer_level_1);
+        mRcvAnswer = rootView.findViewById(R.id.rcv_answer_level_1);
         mAnswerAdapter = new AnswerAdapter(mContext);
         mRcvAnswer.setLayoutManager(new GridLayoutManager(mContext, 4));
         mRcvAnswer.setAdapter(mAnswerAdapter);

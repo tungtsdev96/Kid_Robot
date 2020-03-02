@@ -31,5 +31,4 @@ public abstract class VocabularyDao extends BaseDao<Vocabulary> {
     @Query("SELECT * FROM " + Vocabulary.TABLE_NAME + " WHERE " + Columns.Vocabulary.LESSON_ID + " = :lessonId")
     public abstract Observable<List<Vocabulary>> makeListVocabularyLearningFromLesson(int lessonId);
 
-
 }

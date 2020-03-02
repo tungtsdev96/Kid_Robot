@@ -34,7 +34,7 @@ public class EnglishBookFragment extends Fragment implements EnglishBookView<Sch
 
     private CleanObserver<SchoolBook> mOnItemBookClickedObserver;
     private CleanObserver<SchoolBook> mOnItemBookLongClickedObserver;
-    private CleanObserver<SchoolBook> mOnBtnDowanloadClickedObserver;
+    private CleanObserver<SchoolBook> mOnBtnDownloadClickedObserver;
 
     void setViewCreatedObserver(CleanObserver<EnglishBookView<SchoolBook>> viewCreatedObserver) {
         this.mViewCreatedObserver = viewCreatedObserver;
@@ -95,8 +95,8 @@ public class EnglishBookFragment extends Fragment implements EnglishBookView<Sch
 
     @Override
     public void onButtonDownloadClicked(int position) {
-        if (mOnBtnDowanloadClickedObserver != null) {
-            mOnBtnDowanloadClickedObserver.onNext(mBookAdapter.getBookByPosition(position));
+        if (mOnBtnDownloadClickedObserver != null) {
+            mOnBtnDownloadClickedObserver.onNext(mBookAdapter.getBookByPosition(position));
         }
     }
 
@@ -112,7 +112,7 @@ public class EnglishBookFragment extends Fragment implements EnglishBookView<Sch
 
     @Override
     public CleanObservable<SchoolBook> getOnBtnDownloadClickedObservable() {
-        return CleanObservable.create(cleanObserver -> mOnBtnDowanloadClickedObserver = cleanObserver);
+        return CleanObservable.create(cleanObserver -> mOnBtnDownloadClickedObserver = cleanObserver);
     }
 
 }

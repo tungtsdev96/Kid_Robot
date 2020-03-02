@@ -50,13 +50,13 @@ public class KidRobotApplication extends Application {
 //        initTriggerService();
 
         // test data for school book
-        initBook();
-        initLesson();
-        initVocabLesson();
-
-        // test data for topic
-        initTopic();
-        initVocab();
+//        initBook();
+//        initLesson();
+//        initVocabLesson();
+//
+//        // test data for topic
+//        initTopic();
+//        initVocab();
     }
 
     private void initBook() {
@@ -74,6 +74,9 @@ public class KidRobotApplication extends Application {
         Context mContext = getApplicationContext();
         try {
             ArrayList<LessonData> listLesson = readJsonStreamLesson(mContext.getResources().openRawResource(R.raw.book_1));
+            for (LessonData lesson: listLesson) {
+                lesson.setTotalVocab(lesson.getTotalVocab() - 2);
+            }
             KidRobotDatabase.getInstance(mContext).lessonDao()
                     .insert(listLesson).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                     .subscribe();

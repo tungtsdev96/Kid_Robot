@@ -158,7 +158,9 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     @Override
     public void finish() {
-
+        if (mTestVocabModel != null) {
+            mTestVocabModel.destroy();
+        }
     }
 
 }

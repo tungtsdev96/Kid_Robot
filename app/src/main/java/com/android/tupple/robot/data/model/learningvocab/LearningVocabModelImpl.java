@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by tungts on 2020-02-16.
@@ -65,7 +66,16 @@ public class LearningVocabModelImpl implements LearningVocabModel<Vocabulary> {
     @Override
     public CleanObservable<List<Vocabulary>> getListVocabLearningByLessonId(int lessonId) {
         return CleanObservable.create(cleanObserver -> {
-            cleanObserver.onNext(Vocabulary.fake());
+            Disposable disposable =
+                    mVocabularyDao.makeListVocabularyLearningFromLesson(lessonId)
+                            .compose(RxUtils.async())
+                            .subscribe(vocabularies -> {
+                                listVocabLearning.clear();
+                                listVocabLearning.addAll(vocabularies);
+                                cleanObserver.onNext(vocabularies);
+                            }, Throwable::printStackTrace);
+
+            mCompositeDisposable.add(disposable);
         });
     }
 
@@ -83,6 +93,8 @@ public class LearningVocabModelImpl implements LearningVocabModel<Vocabulary> {
 
     @Override
     public void destroy() {
+        mContext.clear();
+        mContext = null;
         mCompositeDisposable.dispose();
         listVocabLearning.clear();
     }

@@ -5,11 +5,13 @@ import android.os.Bundle;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.base.BaseActivity;
 import com.android.tupple.robot.data.entity.LessonData;
+import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.domain.entity.lesson.Lesson;
 import com.android.tupple.robot.domain.presenter.lesson.LessonModel;
 import com.android.tupple.robot.domain.presenter.lesson.LessonPresenterImpl;
 import com.android.tupple.robot.domain.presenter.lesson.LessonViewWrapper;
 import com.android.tupple.robot.data.model.lesson.LessonModelFactory;
+import com.android.tupple.robot.utils.constant.BookConstant;
 import com.android.tupple.robot.view.lesson.LessonViewWrapperFactory;
 
 /**
@@ -40,12 +42,18 @@ public class LessonActivity extends BaseActivity {
     }
 
     private void inject(Bundle bundle) {
+        SchoolBook book = getIntent().getParcelableExtra(BookConstant.EXTRA_BOOK);
+        if (book == null) {
+            return;
+        }
+
         LessonPresenterImpl<LessonData> lessonPresenter = new LessonPresenterImpl<>();
         LessonViewWrapper<LessonData> lessonViewWrapper = LessonViewWrapperFactory.newLessonViewWrapper(this, bundle);
         LessonModel<LessonData> lessonModel = LessonModelFactory.newLessonModel(this);
 
         lessonPresenter.setLessonViewWrapper(lessonViewWrapper);
         lessonPresenter.setLessonModel(lessonModel);
+        lessonPresenter.setBookId(book.getIdBook());
         initLessonPresenterObserver(lessonPresenter);
 
         mLesson.setLessonPresenter(lessonPresenter);
