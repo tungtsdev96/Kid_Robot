@@ -1,4 +1,4 @@
-package com.android.tupple.robot.view.testvocab.adapter;
+package com.android.tupple.robot.view.testvocab;
 
 import android.util.Log;
 import android.util.TypedValue;
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.constant.TestVocabConstant;
+import com.android.tupple.robot.view.testvocab.adapter.AnswerAdapter;
 import com.android.tupple.robot.view.testvocab.adapter.item.AnswerChoose;
 import com.android.tupple.robot.view.testvocab.adapter.item.AnswerImageItem;
 import com.android.tupple.robot.view.testvocab.adapter.item.AnswerItem;

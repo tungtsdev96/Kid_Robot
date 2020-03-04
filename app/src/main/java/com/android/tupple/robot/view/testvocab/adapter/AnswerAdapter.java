@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.utils.constant.TestVocabConstant;
+import com.android.tupple.robot.view.testvocab.adapter.item.AnswerChoose;
 import com.android.tupple.robot.view.testvocab.adapter.item.AnswerImageItem;
 import com.android.tupple.robot.view.testvocab.adapter.item.AnswerItem;
 import com.android.tupple.robot.view.testvocab.adapter.item.AnswerTextAndImageItem;
@@ -24,6 +25,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerViewHolderFactory.
 
     private Context mContext;
     private List<AnswerItem> mItems = new ArrayList<>();
+    private boolean mIsCanSelected = true;
 
     public AnswerAdapter(Context context) {
         this.mContext = context;
@@ -37,7 +39,16 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerViewHolderFactory.
 
     @Override
     public void onBindViewHolder(@NonNull AnswerViewHolderFactory.AnswerItemViewHolder holder, int position) {
-
+        holder.bind(mItems.get(position));
+        if (mIsCanSelected) {
+            holder.mAnswerItem.setOnClickListener(v -> {
+                if (mOnAnswerClickListener != null) {
+                    mOnAnswerClickListener.onClick(position);
+                }
+            });
+        } else {
+            holder.mAnswerItem.setOnClickListener(null);
+        }
     }
 
     @Override
@@ -52,6 +63,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerViewHolderFactory.
 
     public void setListAnswer(List<Vocabulary> listAnswer, int typeAnswer) {
         mItems.clear();
+        mIsCanSelected = true;
         for (Vocabulary vocabulary: listAnswer) {
             AnswerItem item;
             switch (typeAnswer) {
@@ -79,6 +91,29 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerViewHolderFactory.
         }
 
         return mItems.get(pos);
+    }
+
+    public void updateAnswerSelected(int position) {
+        if (mItems.get(position).getType() == TestVocabConstant.ANSWER_TYPE.TEXT_AND_IMAGE) {
+            return;
+        }
+
+        for (int i = 0; i < mItems.size(); i++) {
+            AnswerChoose item = (AnswerChoose) mItems.get(i);
+            item.setChoose(position == i);
+        }
+
+        notifyDataSetChanged();
+    }
+
+    public void updateAnswer(boolean isRight, int resultPosition) {
+        if (mItems.get(resultPosition).getType() == TestVocabConstant.ANSWER_TYPE.TEXT_AND_IMAGE) {
+            return;
+        }
+
+        mIsCanSelected = false;
+        ((AnswerChoose) mItems.get(resultPosition)).setAnswer(true);
+        notifyDataSetChanged();
     }
 
     public interface AnswerClickListener {

@@ -3,7 +3,7 @@ package com.android.tupple.robot.domain.presenter.testvocab.level1;
 import com.android.tupple.robot.domain.entity.testvocab.Level1Presenter;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
-import com.android.tupple.robot.domain.presenter.data.TestVocabModel;
+import com.android.tupple.robot.domain.presenter.testvocab.TestVocabModel;
 import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
 import com.android.tupple.robot.domain.presenter.testvocab.ResultAnswerHandler;
 
@@ -28,6 +28,7 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     private TestVocabLevel mCurrentLevel = TestVocabLevel.LEVEL1_1;
     private List<Vocabulary> mListVocabularyLearning;
     private int mCurrentQuestion = -1;
+    private int mAnswerRight = -1;
     private int mCurrentAnswerSelected = -1;
 
     public void setTestVocabModel(TestVocabModel<LessonData, Topic, Vocabulary> testVocabModel) {
@@ -64,9 +65,9 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
         }
 
         // TODO update DB, show Dialog result
-        mLevel1View.showLayoutAnswerResult(mCurrentAnswerSelected == mCurrentQuestion);
+        mLevel1View.showLayoutAnswerResult(mCurrentAnswerSelected == mAnswerRight, mAnswerRight);
         if (mOnResultAnswerHandler != null) {
-            mOnResultAnswerHandler.onResult(mCurrentAnswerSelected == mCurrentQuestion, mCurrentQuestion);
+            mOnResultAnswerHandler.onResult(mCurrentAnswerSelected == mAnswerRight, mAnswerRight);
         }
     }
 
@@ -96,6 +97,7 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     private void setAnswerSelected(int answerSelected) {
         mCurrentAnswerSelected = answerSelected;
+        mLevel1View.setAnswerSelected(answerSelected);
         mLevel1View.setEnableBtnCheckAnswer(true);
     }
 
@@ -133,8 +135,6 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
         mListVocabularyLearning = mLearningVocabModel.getListVocabLearning();
         mTestVocabModel.transformListVocabLearning(mListVocabularyLearning).subscribe(listVocabs -> {
             mListVocabularyLearning = listVocabs;
-            // TODO get listvocab learning, list vocab by lesson or topic
-            //      => Randomvocab -> answer -> show to screen
             showQuestion();
         });
     }
@@ -144,11 +144,13 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
             mCurrentQuestion = 0;
         }
 
-        // TODO get List Answer from model by vocab
-        mLevel1View.setEnableBtnCheckAnswer(false);
-        mCurrentAnswerSelected = -1;
-        List<Vocabulary> listAnswers = mListVocabularyLearning; // for test
-        mLevel1View.showQuestion(mCurrentLevel, mListVocabularyLearning.get(mCurrentQuestion), listAnswers);
+        Vocabulary question = mListVocabularyLearning.get(mCurrentQuestion);
+        mTestVocabModel.makeListAnswerFromVocab(mListVocabularyLearning, question).subscribe((listAnswers) -> {
+            mLevel1View.setEnableBtnCheckAnswer(false);
+            mCurrentAnswerSelected = -1;
+            mAnswerRight = mLevel1Model.getAnswerRight(listAnswers, question);
+            mLevel1View.showQuestion(mCurrentLevel, question, listAnswers);
+        });
     }
 
     @Override

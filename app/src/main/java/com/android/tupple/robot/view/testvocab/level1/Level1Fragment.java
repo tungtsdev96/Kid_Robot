@@ -144,8 +144,13 @@ public class Level1Fragment extends Fragment implements Level1View<LessonData, T
     }
 
     @Override
-    public void showLayoutAnswerResult(boolean isResult) {
-//        Toast.makeText(mContext, "Result " + isResult, Toast.LENGTH_SHORT).show();
+    public void setAnswerSelected(int answerSelected) {
+        mAnswerAdapter.updateAnswerSelected(answerSelected);
+    }
+
+    @Override
+    public void showLayoutAnswerResult(boolean isRight, int resultPosition) {
+        mAnswerAdapter.updateAnswer(isRight, resultPosition);
     }
 
     @Override

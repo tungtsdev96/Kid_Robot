@@ -1,4 +1,4 @@
-package com.android.tupple.robot.domain.presenter.data;
+package com.android.tupple.robot.domain.presenter.testvocab;
 
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.robot.domain.presenter.IModel;
@@ -12,5 +12,7 @@ import java.util.List;
 public interface TestVocabModel<LessonData, Topic, Vocabulary> extends IModel {
 
     CleanObservable<List<Vocabulary>> transformListVocabLearning(List<Vocabulary> vocabs);
+
+    CleanObservable<List<Vocabulary>> makeListAnswerFromVocab(List<Vocabulary> vocabLearning, Vocabulary vocabulary);
 
 }

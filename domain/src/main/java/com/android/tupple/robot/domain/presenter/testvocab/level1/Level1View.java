@@ -17,7 +17,9 @@ public interface Level1View<LessonData, Topic, Vocabulary> {
 
     void setEnableBtnCheckAnswer(boolean isSelected);
 
-    void showLayoutAnswerResult(boolean isAnswer);
+    void setAnswerSelected(int answerSelected);
+
+    void showLayoutAnswerResult(boolean isResult, int resultPosition);
 
     void hideLayoutAnswerResult();
 
@@ -26,4 +28,5 @@ public interface Level1View<LessonData, Topic, Vocabulary> {
     CleanObservable getBtnCheckAnswerClickedObservable();
 
     CleanObservable getBtnPronounceVocabClickedObservable();
+
 }

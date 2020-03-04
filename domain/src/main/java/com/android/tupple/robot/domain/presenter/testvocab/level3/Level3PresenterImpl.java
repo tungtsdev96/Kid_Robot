@@ -4,7 +4,7 @@ import com.android.tupple.robot.domain.entity.testvocab.Level3ItemPresenter;
 import com.android.tupple.robot.domain.entity.testvocab.Level3Presenter;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
-import com.android.tupple.robot.domain.presenter.data.TestVocabModel;
+import com.android.tupple.robot.domain.presenter.testvocab.TestVocabModel;
 import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
 import com.android.tupple.robot.domain.presenter.testvocab.ResultAnswerHandler;
 

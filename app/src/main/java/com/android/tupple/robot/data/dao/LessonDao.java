@@ -9,6 +9,7 @@ import com.android.tupple.robot.data.entity.LessonData;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Created by tung.ts on 1/29/2020.
@@ -23,4 +24,7 @@ public abstract class LessonDao extends BaseDao<LessonData> {
 
     @Query("SELECT * FROM " + LessonData.TABLE_NAME + " WHERE " + Columns.LessonOfBook.BOOK_GRADLE  + " = :bookId")
     public abstract Observable<List<LessonData>> loadListLessonByBook(int bookId);
+
+    @Query("SELECT " + Columns.LessonOfBook.BOOK_GRADLE + " FROM " + LessonData.TABLE_NAME + " WHERE " + Columns.LessonOfBook._ID + " = :lessonId")
+    public abstract int getBookGradleFromLessonId(int lessonId);
 }

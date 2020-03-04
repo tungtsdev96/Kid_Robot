@@ -7,7 +7,7 @@ import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.data.model.testvocab.level1.Level1ModelImpl;
 import com.android.tupple.robot.data.model.testvocab.level2.Level2ModelImpl;
-import com.android.tupple.robot.domain.presenter.data.TestVocabModel;
+import com.android.tupple.robot.domain.presenter.testvocab.TestVocabModel;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1Model;
 import com.android.tupple.robot.domain.presenter.testvocab.level2.Level2Model;
 

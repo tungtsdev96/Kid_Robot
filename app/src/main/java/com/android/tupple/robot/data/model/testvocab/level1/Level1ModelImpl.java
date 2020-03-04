@@ -7,6 +7,8 @@ import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1Model;
 
+import java.util.List;
+
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -32,5 +34,15 @@ public class Level1ModelImpl implements Level1Model<LessonData, Topic, Vocabular
     @Override
     public void destroy() {
 
+    }
+
+    @Override
+    public int getAnswerRight(List<Vocabulary> listAnswers, Vocabulary question) {
+        for (int i = 0; i < listAnswers.size(); i++) {
+            if (question.getVocabId() == listAnswers.get(i).getVocabId()) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
