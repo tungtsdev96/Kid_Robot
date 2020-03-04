@@ -4,9 +4,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.android.tupple.robot.data.entity.Vocabulary.TABLE_NAME;
 
 /**
@@ -129,17 +126,4 @@ public class Vocabulary {
         this.lessonId = lessonId;
     }
 
-    public static List<Vocabulary> fake() {
-        List<Vocabulary> vocabularies = new ArrayList<>();
-
-        for (int i = 0; i < 4; i++) {
-            Vocabulary vocabulary = new Vocabulary();
-            vocabulary.vocabId = 1;
-            vocabulary.vocabVi = "ads " + i;
-            vocabulary.vocabEn = "vocabEn " + i;
-            vocabularies.add(vocabulary);
-        }
-
-        return vocabularies;
-    }
 }
