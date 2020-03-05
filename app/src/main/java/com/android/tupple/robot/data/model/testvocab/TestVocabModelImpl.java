@@ -29,6 +29,8 @@ import io.reactivex.disposables.Disposable;
 
 public class TestVocabModelImpl implements TestVocabModel<LessonData, Topic, Vocabulary> {
 
+    private final String TAG = "TestVocabModelImpl";
+
     private Context mContext;
     private LessonDao mLessonDao;
     private TopicDao mTopicDao;
@@ -93,6 +95,9 @@ public class TestVocabModelImpl implements TestVocabModel<LessonData, Topic, Voc
                             answers.add(listVocabs.get(0));
                             answers.add(listVocabs.get(1));
                             answers.add(listVocabs.get(2));
+                            for (Vocabulary v: answers) {
+                                Log.d(TAG, v.getVocabEn());
+                            }
                             return pickRandom(answers, answers.size());
                         });
     }

@@ -35,5 +35,4 @@ public abstract class VocabularyDao extends BaseDao<Vocabulary> {
                                                                 " ORDER BY " + Columns.Vocabulary.SCORE_WRONG)
     public abstract Observable<List<Vocabulary>> getListVocabularyNotIncludeIds(List<Integer> ids, int topicId);
 
-
 }

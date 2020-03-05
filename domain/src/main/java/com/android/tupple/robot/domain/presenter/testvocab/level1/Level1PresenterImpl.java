@@ -25,6 +25,7 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     private TestVocabModel<LessonData, Topic, Vocabulary> mTestVocabModel;
     private LearningVocabModel<Vocabulary> mLearningVocabModel;
 
+    private boolean isNeedLoadData;
     private TestVocabLevel mCurrentLevel = TestVocabLevel.LEVEL1_1;
     private List<Vocabulary> mListVocabularyLearning;
     private int mCurrentQuestion = -1;
@@ -124,11 +125,15 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     @Override
     public void init() {
         mLevel1ViewWrapper.show();
+        isNeedLoadData = true;
     }
 
     @Override
     public void start() {
-        requestData();
+        if (isNeedLoadData) {
+            requestData();
+        }
+        isNeedLoadData = false;
     }
 
     private void requestData() {

@@ -5,4 +5,9 @@ package com.android.tupple.robot.data.file;
  */
 
 public class ImageUtils {
+
+    public static String getUrlImageTopic(String name, int idTopic) {
+        return FileConstants.FOLDER_DATA + "/topic/" + idTopic + "/" + name.toLowerCase() + "/image/" + name.toLowerCase() + ".jpg";
+    }
+
 }

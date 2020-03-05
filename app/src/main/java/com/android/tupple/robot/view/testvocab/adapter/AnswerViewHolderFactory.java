@@ -56,7 +56,7 @@ public class AnswerViewHolderFactory {
 
         @Override
         void bind(AnswerItem item) {
-            textAnswer.setText(((AnswerImageItem) item).getText());
+            textAnswer.setText(((AnswerTextItem) item).getText());
             boolean isChoose = ((AnswerChoose) item).isChoose();
             boolean isAnswer = item.isAnswerTrue();
             if (isChoose) mAnswerItem.setBackgroundResource(R.drawable.border_quiz_choose);
@@ -85,8 +85,8 @@ public class AnswerViewHolderFactory {
         }
 
         @Override
-        void bind(AnswerItem item) {
-            Objects.requireNonNull(GlideUtils.getRequestManager(itemView.getContext())).load(R.drawable.a).into(imageAnswer);
+        void bind(AnswerItem answerItem) {
+            AnswerImageItem item = (AnswerImageItem) answerItem;
             boolean isChoose = ((AnswerChoose) item).isChoose();
             boolean isAnswer = item.isAnswerTrue();
             if (isChoose) mAnswerItem.setBackgroundResource(R.drawable.border_quiz_choose);
@@ -94,6 +94,7 @@ public class AnswerViewHolderFactory {
                 TypedValue outValue = new TypedValue();
                 itemView.getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
                 mAnswerItem.setBackgroundResource(outValue.resourceId);
+                GlideUtils.loadImageFromStorage(itemView.getContext(), item.getImage(), imageAnswer);
             }
 
             if (isAnswer) {
@@ -126,7 +127,7 @@ public class AnswerViewHolderFactory {
             }
 
             textAnswer.setText(textAndImageItem.getVocabulary().getVocabEn());
-            Objects.requireNonNull(GlideUtils.getRequestManager(itemView.getContext())).load(R.drawable.a).into(imageAnswer);
+            GlideUtils.loadImageFromStorage(itemView.getContext(), textAndImageItem.getImage(), imageAnswer);
         }
 
     }

@@ -7,6 +7,7 @@
     app:cardCornerRadius="@dimen/common_card_radius">
 
     <ImageView
+        android:id="@+id/image_vocabulary"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

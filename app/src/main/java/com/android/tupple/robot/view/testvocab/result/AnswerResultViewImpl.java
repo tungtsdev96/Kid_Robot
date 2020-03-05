@@ -30,7 +30,7 @@ public class AnswerResultViewImpl implements AnswerResultView {
 
     AnswerResultViewImpl(Activity activity) {
         this.mActivity = activity;
-        View view = mActivity.getLayoutInflater().inflate(R.layout.view_bottom_sheet_answer_result, null);
+        View view = mActivity.getLayoutInflater().inflate(R.layout.view_answer_result, null);
         mBottomSheetDialog = new BottomSheetDialog(mActivity);
         mBottomSheetDialog.setContentView(view);
         initViews(view);

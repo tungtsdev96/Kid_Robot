@@ -120,13 +120,13 @@ public class Level1Fragment extends Fragment implements Level1View<LessonData, T
                 mTextQuestionAnswer.setVisibility(View.VISIBLE);
                 mImageQuestionAnswer.setVisibility(View.GONE);
                 mTextQuestionAnswer.setText(vocabulary.getVocabEn());
-                mAnswerAdapter.setListAnswer(listAnswers, TestVocabConstant.ANSWER_TYPE.TEXT);
+                mAnswerAdapter.setListAnswer(listAnswers, TestVocabConstant.ANSWER_TYPE.IMAGE);
                 break;
             case LEVEL1_2:
                 mTextQuestionAnswer.setVisibility(View.GONE);
                 mImageQuestionAnswer.setVisibility(View.VISIBLE);
-                Objects.requireNonNull(GlideUtils.getRequestManager(mContext)).load(R.drawable.a).into(mImageQuestionAnswer);
-                mAnswerAdapter.setListAnswer(listAnswers, TestVocabConstant.ANSWER_TYPE.IMAGE);
+                GlideUtils.loadImageFromStorage(mContext, vocabulary.getImageUrl(), mImageQuestionAnswer);
+                mAnswerAdapter.setListAnswer(listAnswers, TestVocabConstant.ANSWER_TYPE.TEXT);
                 break;
         }
     }
