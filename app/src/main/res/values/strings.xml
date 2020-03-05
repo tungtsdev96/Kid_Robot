@@ -1,3 +1,43 @@
 <resources>
+
     <string name="app_name">Kid Robot</string>
+
+    <!-- lesson -->
+    <string name="text_lesson_number">%d</string>
+    <string name="text_total_vocabulary">Số từ: %d</string>
+    <string name="text_header_lesson">Lớp 1</string>
+
+    <!-- Learning Vocab -->
+    <string name="previous">Trước</string>
+    <string name="next">Tiếp</string>
+
+    <!-- Test Vocab -->
+    <string name="text_choose_right_answer">Chọn đáp án đúng</string>
+    <string name="alphabet">%c</string>
+    <string name="text_question_vocab">%s ?</string>
+    <string name="your_pronounce_answer">Kết quả phát âm:</string>
+    <string name="try_again">Thử lại</string>
+    <string name="text_duration_recording">%s/%s</string>
+    <string name="text_continue">Tiếp tục</string>
+    <string name="answer_true">Đáp án đúng là: %s</string>
+    <string name="header_answer_right">Trả lời đúng</string>
+    <string name="header_answer_wrong">Trả lời sai</string>
+
+    <string name="text_state_record_error">Mình không nghe rõ bạn nói. Vui lòng thử lại?</string>
+    <string name="text_state_record_prepare">Nhấn icon mic để bắt đầu phát âm từ</string>
+    <string name="text_state_record_start">Bắt đầu đọc</string>
+    <string name="text_state_record_doing">Mình đang nghe đây</string>
+    <string name="text_state_record_done">Chờ mình chút</string>
+
+    <string name="text_result_not_good">Chưa đúng lắm. Cố lên!</string>
+    <string name="text_result_good">Gần đúng rồi. Cố lên!</string>
+    <string name="text_result_very_good">Đúng rồi. Chúc mừng bạn!</string>
+    <string name="text_result_excellent">Tuyệt vời. Chúc mừng bạn!</string>
+
+    <string name="download">Tải về</string>
+    <string name="cancel_download">Hủy</string>
+    <string name="learning_vocab_title">Học từ mới: %d/%d</string>
+    <string name="text_check_answer">Kiểm tra</string>
+
+
 </resources>

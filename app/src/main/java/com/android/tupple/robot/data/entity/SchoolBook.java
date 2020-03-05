@@ -35,7 +35,7 @@ public class SchoolBook implements Parcelable {
     @ColumnInfo(name = Columns.SchoolBook.BOOK_TITLE)
     private String nameBook;
 
-    @ColumnInfo(name = Columns.SchoolBook.IS_LEARNING)
+    @ColumnInfo(name = Columns.SchoolBook.IS_LEARNING, defaultValue = "0")
     private boolean isLearning;
 
     @ColumnInfo(name = Columns.SchoolBook.IMAGE)
@@ -87,7 +87,7 @@ public class SchoolBook implements Parcelable {
         SchoolBook book = new SchoolBook();
         book.idBook = 1;
         book.imageBook = "adsa";
-        book.nameBook = "SGK";
+        book.nameBook = "SGK Lop 1";
 
         List<SchoolBook> schoolBooks = new ArrayList<>();
         schoolBooks.add(book);

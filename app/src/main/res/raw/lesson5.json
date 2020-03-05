@@ -1,0 +1,35 @@
+[
+  {
+    "vocabEn": "chips",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 7,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 5
+  },
+  {
+    "vocabEn": "milk",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 7,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 5
+  },
+  {
+    "vocabEn": "fish",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 13,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 5
+  }
+]

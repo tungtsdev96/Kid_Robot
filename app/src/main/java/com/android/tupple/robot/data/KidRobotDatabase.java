@@ -9,21 +9,34 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.android.tupple.robot.data.dao.LessonDao;
+import com.android.tupple.robot.data.dao.SchoolBookDao;
+import com.android.tupple.robot.data.dao.TopicDao;
+import com.android.tupple.robot.data.dao.VocabularyDao;
 import com.android.tupple.robot.data.entity.LessonData;
 import com.android.tupple.robot.data.entity.SchoolBook;
+import com.android.tupple.robot.data.entity.Topic;
+import com.android.tupple.robot.data.entity.Vocabulary;
 
 /**
  * Created by tung.ts on 1/29/2020.
  * The database contains table:
- *   1, school_book, lesson_of_book, topic, vocabulary
+ *   1, school_book, lesson_of_book, topic, vocabulary <done>
  *   2, event, alarm_clock
  */
 
-@Database(entities = {SchoolBook.class, LessonData.class},
+@Database(entities = {SchoolBook.class, LessonData.class, Topic.class, Vocabulary.class},
         version = 1, exportSchema = false)
 public abstract class KidRobotDatabase extends RoomDatabase {
 
     public static final String TAG = "KidRobotDatabase";
+
+//    private static final Migration MIGRATION_1_9 = new Migration(1, 9) {
+//        @Override
+//        public void migrate(@NonNull SupportSQLiteDatabase database) {
+//            upgradeDB(database, 1);
+//        }
+//    };
 
     private static KidRobotDatabase INSTANCE;
 
@@ -33,7 +46,7 @@ public abstract class KidRobotDatabase extends RoomDatabase {
                     context.getApplicationContext(),
                     KidRobotDatabase.class,
                     "kid_robot.db")
-                    .addMigrations()
+                    .addMigrations() // add MIGRATION_1_9 to here
                     .addCallback(new Callback() {
                         @Override
                         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -58,4 +71,11 @@ public abstract class KidRobotDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    public abstract SchoolBookDao schoolBookDao();
+
+    public abstract LessonDao lessonDao();
+
+    public abstract TopicDao topicDao();
+
+    public abstract VocabularyDao vocabularyDao();
 }

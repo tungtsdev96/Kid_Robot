@@ -13,4 +13,6 @@ public interface LessonModel<LessonData> extends IModel {
 
     CleanObservable<List<LessonData>> getListLessonData();
 
+    CleanObservable<List<LessonData>> getListLessonDataByBook(int bookId);
+
 }

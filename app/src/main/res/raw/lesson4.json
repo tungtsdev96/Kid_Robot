@@ -1,0 +1,35 @@
+[
+  {
+    "vocabEn": "desk",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 9,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 4
+  },
+  {
+    "vocabEn": "dog",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 18,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 4
+  },
+  {
+    "vocabEn": "door",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 8,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 4
+  }
+]

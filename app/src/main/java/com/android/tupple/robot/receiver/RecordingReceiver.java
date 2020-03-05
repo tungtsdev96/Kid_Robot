@@ -3,10 +3,13 @@ package com.android.tupple.robot.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.tupple.robot.R;
+import com.android.tupple.robot.common.music.MultiPlayer;
 import com.android.tupple.trigger.TriggerService;
 import com.android.tupple.trigger.utils.TriggerConstant;
 
@@ -30,6 +33,9 @@ public class RecordingReceiver extends BroadcastReceiver {
         if (TriggerConstant.ACTION_RECOGNIZE_DONE.equals(action)) {
             String result = intent.getStringExtra(TriggerConstant.EXTRA_RECOGNIZE_DONE);
             Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+
+//            MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.ant);
+//            mediaPlayer.start();
         }
     }
 

@@ -1,24 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingTop="@dimen/item_lesson_padding"
+    android:paddingBottom="@dimen/item_lesson_padding"
+    android:clickable="true"
     android:focusable="true"
     android:background="?attr/selectableItemBackground">
 
-    <com.android.tupple.robot.common.customview.SquareImageView
-        android:src="@drawable/ic_garden"
-        android:layout_margin="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:text="Lesson TungTs"
-        android:layout_marginTop="5dp"
-        android:layout_gravity="center_horizontal"
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/card_item_lesson_radius">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lesson_number"
+                android:layout_width="@dimen/item_lesson_number_size"
+                android:layout_height="@dimen/item_lesson_number_size"
+                android:gravity="center"
+                android:textSize="@dimen/text_lesson_number_size"
+                style="@style/CommonStyleText"/>
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/img_lock"
+                android:layout_gravity="center"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_lock"/>
+
+        </FrameLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/total_vocab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
         style="@style/CommonStyleText"/>
 
 </LinearLayout>

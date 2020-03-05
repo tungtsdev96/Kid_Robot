@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="err_image">#DDDDDD</color>
+
+    <!-- Test Vocab -->
+    <color name="text_btn_answer_disable">#666666</color>
+    <color name="text_btn_answer_enable">#FFFFFF</color>
+    <color name="bg_result_answer_wrong">#80D32F2F</color>
+    <color name="bg_result_answer_right">#80388E3C</color>
+    <color name="color_text_notify_result_true">#388E3C</color>
+    <color name="color_text_notify_result_false">#B71C1C</color>
+
+    <!-- school book -->
+    <color name="color_item_school_book_disable">#80202020</color>
+
+    <!-- common ripple -->
+    <color name="common_control_area_ripple_color">#14000000</color><!-- app bar, bottom bar, etc color -->
+    <color name="common_list_ripple_color">#19000000</color>
+    <color name="common_controller_ripple_color">#19000000</color><!-- switch, check box, etc color -->
+    <color name="common_button_ripple_color">@color/common_controller_ripple_color</color>
+    <color name="common_fab_ripple_color">#19000000</color>
+    <color name="common_master_switch_ripple_color">#14000000</color>
+
+    <!-- common color -->
+    <color name="color_disable">#D6D6D6</color>
+
 </resources>

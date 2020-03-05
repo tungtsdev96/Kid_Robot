@@ -15,6 +15,7 @@ public class ActivityUtils {
     public static void startActivty(Activity activity, Intent intent) {
         try {
             activity.startActivity(intent);
+            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         } catch (Exception e) {
             Log.d(TAG, "Can not open activity " + intent.getPackage() + " from " + activity.getClass().getName());
         }
@@ -23,6 +24,7 @@ public class ActivityUtils {
     public static void startActivityForResults(Activity activity, Intent intent, int requestCode) {
         try {
             activity.startActivityForResult(intent, requestCode);
+            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         } catch (Exception e) {
             Log.d(TAG, "Can not open activity for result " + intent.getPackage() + " from " + activity.getClass().getName());
         }

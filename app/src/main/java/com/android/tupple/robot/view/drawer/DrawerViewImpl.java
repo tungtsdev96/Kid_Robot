@@ -39,19 +39,22 @@ public class DrawerViewImpl implements DrawerView<MenuItemData> {
         mRcvDrawer.setAdapter(mDrawerAdapter);
 
         mRcvDrawer.setOnViewSelectedListener((view, position) -> {
-            // TODO handle selected menu -> change view selected -> change menu main
+            MenuType menuType = MenuType.fromValue(position % 3 + 1);
+            if (mItemMenuSelectedObserver != null) {
+                mItemMenuSelectedObserver.onNext(menuType);
+            }
         });
     }
 
 
     @Override
     public void setListMenu(List<MenuItemData> items) {
-        items.add(new MenuItemData("Sach Giao Khoa", "ic_alphabet"));
-        items.add(new MenuItemData("Chu de", "ic_alphabet"));
-        items.add(new MenuItemData("Bao thuc", "ic_alphabet"));
-        items.add(new MenuItemData("Gia tri", "ic_alphabet"));
+        items.add(new MenuItemData("Sach Giao Khoa", "ic_school_book"));
+        items.add(new MenuItemData("Chu de", "ic_topic"));
+        items.add(new MenuItemData("Bao thuc", "ic_alarm"));
+//        items.add(new MenuItemData("Giai tri", "ic_garden"));
         mDrawerAdapter.setListMenu(items);
-        Objects.requireNonNull(mRcvDrawer.getLayoutManager()).scrollToPosition(500);
+        Objects.requireNonNull(mRcvDrawer.getLayoutManager()).scrollToPosition(299);
     }
 
     @Override

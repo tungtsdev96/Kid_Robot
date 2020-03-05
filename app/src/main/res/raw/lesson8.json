@@ -1,0 +1,35 @@
+[
+  {
+    "vocabEn": "hand",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 13,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 8
+  },
+  {
+    "vocabEn": "head",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 8,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 8
+  },
+  {
+    "vocabEn": "hair",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 9,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 8
+  }
+]

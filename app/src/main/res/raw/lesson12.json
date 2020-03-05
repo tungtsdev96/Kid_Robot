@@ -1,0 +1,35 @@
+[
+  {
+    "vocabEn": "leaf",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 12,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 12
+  },
+  {
+    "vocabEn": "lake",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 9,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 12
+  },
+  {
+    "vocabEn": "lemons",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 10,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 12
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "vocabEn": "running",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 13,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 11
+  },
+  {
+    "vocabEn": "sun",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 11,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 11
+  },
+  {
+    "vocabEn": "bus",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 13,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 11
+  },
+  {
+    "vocabEn": "truck",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 17,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 11
+  }
+]

@@ -6,15 +6,11 @@ import android.content.Intent;
 import com.android.tupple.robot.data.entity.LessonData;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;
-import com.android.tupple.robot.data.entity.Vocabulary;
-import com.android.tupple.robot.domain.entity.lesson.Lesson;
 import com.android.tupple.robot.utils.ActivityUtils;
 import com.android.tupple.robot.utils.constant.BookConstant;
 import com.android.tupple.robot.utils.constant.LearnVocabConstant;
 import com.android.tupple.robot.utils.constant.LessonConstant;
 import com.android.tupple.robot.utils.constant.TopicConstant;
-
-import java.util.List;
 
 /**
  * Created by tungts on 2020-01-12.
@@ -28,7 +24,7 @@ public class ActivityLauncher {
         mActivity = activity;
     }
 
-    public void launchUnitActivity(SchoolBook book) {
+    public void launchLessonActivity(SchoolBook book) {
         Intent intent = new Intent(mActivity, LessonActivity.class);
         intent.putExtra(BookConstant.EXTRA_BOOK, book);
         ActivityUtils.startActivty(mActivity, intent);
@@ -44,22 +40,14 @@ public class ActivityLauncher {
     public void launchLearningVocabActivity(Topic topic) {
         Intent intent = new Intent(mActivity, LearningVocabActivity.class);
         intent.putExtra(TopicConstant.EXTRA_TOPIC, topic);
-        intent.putExtra(LearnVocabConstant.TestVocab.EXTRA_IS_LESSON, false);
+        intent.putExtra(LearnVocabConstant.TestVocab.EXTRA_IS_TOPIC, true);
         ActivityUtils.startActivty(mActivity, intent);
     }
 
-    public void launchTestVocabActivity(LessonData lessonData) {
+    public void launchTestVocabActivity() {
         Intent intent = new Intent(mActivity, TestVocabActivity.class);
-//        intent.putExtra(LearnVocabConstant.TestVocab.EXTRA_LIST_VOCAB_LEARNING, vocabularies);
-        intent.putExtra(LessonConstant.EXTRA_LESSON, lessonData);
-        intent.putExtra(LearnVocabConstant.TestVocab.EXTRA_IS_LESSON, true);
-        ActivityUtils.startActivty(mActivity, intent);    }
-
-    public void lanchTestVocabActivity(Topic topic) {
-        Intent intent = new Intent(mActivity, TestVocabActivity.class);
-//        intent.putExtra(LearnVocabConstant.TestVocab.EXTRA_LIST_VOCAB_LEARNING, vocabularies);
-        intent.putExtra(TopicConstant.EXTRA_TOPIC, topic);
-        intent.putExtra(LearnVocabConstant.TestVocab.EXTRA_IS_LESSON, false);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityUtils.startActivty(mActivity, intent);
     }
+
 }

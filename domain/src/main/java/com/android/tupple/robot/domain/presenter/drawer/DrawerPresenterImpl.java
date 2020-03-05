@@ -17,6 +17,8 @@ public class DrawerPresenterImpl<MenuItemData> implements DrawerViewPresenter {
 
     private PresenterObserver<MenuType> mItemMenuSelectedObserver;
 
+    private boolean isLoadMenu = false;
+
     public void setDrawerView(DrawerView<MenuItemData> drawerView) {
         this.mDrawerView = drawerView;
         // TODO initObservable
@@ -33,13 +35,17 @@ public class DrawerPresenterImpl<MenuItemData> implements DrawerViewPresenter {
 
     @Override
     public void start() {
-        loadMenu();
+        if (!isLoadMenu) {
+            loadMenu();
+            isLoadMenu = true;
+        }
     }
 
     private void loadMenu() {
         mDrawerView.setListMenu(new ArrayList<MenuItemData>());
     }
 
+    @Override
     public void setItemMenuSelectedObserver(PresenterObserver<MenuType> itemMenuSelectedObserver) {
         this.mItemMenuSelectedObserver = itemMenuSelectedObserver;
     }

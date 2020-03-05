@@ -11,7 +11,6 @@ import com.android.tupple.robot.R;
 import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicView;
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicViewWrapper;
-import com.android.tupple.robot.view.englishbook.EnglishBookFragment;
 
 /**
  * Created by tungts on 2020-01-15.
@@ -47,7 +46,7 @@ public class EnglishTopicViewWrapperImpl implements EnglishTopicViewWrapper<Topi
         if (mEnglishTopicFragment == null) {
             mEnglishTopicFragment = EnglishTopicFragment.newInstance();
         }
-        fragmentTransaction.replace(R.id.content_menu, mEnglishTopicFragment, EnglishBookFragment.TAG);
+        fragmentTransaction.replace(R.id.content_menu, mEnglishTopicFragment, EnglishTopicFragment.TAG);
         fragmentTransaction.commitAllowingStateLoss();
     }
 

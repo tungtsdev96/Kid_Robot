@@ -65,7 +65,7 @@ public class LessonFragment extends Fragment implements LessonView<LessonData>, 
     private void initView(View rootView) {
         mRcvLesson = rootView.findViewById(R.id.rcv_lesson);
         mLessonAdapter = new LessonAdapter(mContext);
-        mRcvLesson.setLayoutManager(new GridLayoutManager(mContext, 4, RecyclerView.VERTICAL, false));
+        mRcvLesson.setLayoutManager(new GridLayoutManager(mContext, 7, RecyclerView.VERTICAL, false));
         mRcvLesson.setAdapter(mLessonAdapter);
         mLessonAdapter.setOnItemLessonListener(this);
     }
@@ -76,14 +76,14 @@ public class LessonFragment extends Fragment implements LessonView<LessonData>, 
     }
 
     @Override
-    public void onClick(int position) {
+    public void onClicked(int position) {
         if (mItemLessonClickedObserver != null) {
             mItemLessonClickedObserver.onNext(mLessonAdapter.getLessonByPosition(position));
         }
     }
 
     @Override
-    public void onLongClick(int position) {
+    public void onLongClicked(int position) {
 
     }
 

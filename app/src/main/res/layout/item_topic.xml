@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/item_topic_padding"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?attr/selectableItemBackground">
+
+    <FrameLayout
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/image_topic_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_topic"
+            android:layout_gravity="center"
+            android:padding="@dimen/item_topic_padding"
+            android:layout_width="@dimen/image_topic_size"
+            android:layout_height="@dimen/image_topic_size" />
+
+        <ImageView
+            android:id="@+id/image_mark"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/image_topic_size"
+            android:layout_height="@dimen/image_topic_size" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/text_title_topic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/title_topic_margin_top"
+        android:layout_gravity="center_horizontal"
+        android:visibility="visible"
+        style="@style/CommonStyleText"/>
+
+    <LinearLayout
+        android:id="@+id/container_download"
+        android:layout_marginTop="@dimen/title_topic_margin_top"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/progress_download"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/progress_download_height"
+            android:progress="50"
+            android:max="100"
+            android:progressDrawable="@drawable/bg_progress_download"
+            android:visibility="gone"
+            style="@android:style/Widget.ProgressBar.Horizontal" />
+
+        <TextView
+            android:id="@+id/btn_download_topic"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="@string/cancel_download"
+            android:background="@drawable/bg_btn_download_cancel"
+            android:textColor="@android:color/darker_gray"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="gone"
+            style="@style/CommonStyleText"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -31,10 +31,13 @@ public class LessonData implements Parcelable {
     @ColumnInfo(name = Columns.LessonOfBook.LESSON_TITLE)
     private String lessonTitle;
 
-    @ColumnInfo(name = Columns.LessonOfBook.IS_LEARNING)
+    @ColumnInfo(name = Columns.LessonOfBook.LESSON_PRIORITY)
+    private int lessonPriority;
+
+    @ColumnInfo(name = Columns.LessonOfBook.IS_LEARNING, defaultValue = "0")
     private boolean isLearning;
 
-    @ColumnInfo(name = Columns.LessonOfBook.PROGRESS_LEARNING)
+    @ColumnInfo(name = Columns.LessonOfBook.PROGRESS_LEARNING, defaultValue = "0")
     private int progressLearning;
 
     @ColumnInfo(name = Columns.LessonOfBook.TOTAL_VOCAB)
@@ -46,6 +49,7 @@ public class LessonData implements Parcelable {
         lessonId = in.readInt();
         bookGradle = in.readInt();
         lessonTitle = in.readString();
+        lessonPriority = in.readInt();
         isLearning = in.readByte() != 0;
         progressLearning = in.readInt();
         totalVocab = in.readInt();
@@ -73,27 +77,28 @@ public class LessonData implements Parcelable {
         dest.writeInt(lessonId);
         dest.writeInt(bookGradle);
         dest.writeString(lessonTitle);
+        dest.writeInt(lessonPriority);
         dest.writeByte((byte) (isLearning ? 1 : 0));
         dest.writeInt(progressLearning);
         dest.writeInt(totalVocab);
     }
 
     public static List<LessonData> fakeData() {
-        LessonData lessonData = new LessonData();
-        lessonData.lessonId = 1;
-        lessonData.bookGradle = 1;
-        lessonData.lessonTitle = "Hello World!!";
-        lessonData.isLearning = true;
-        lessonData.progressLearning = 50;
-        lessonData.totalVocab = 15;
-
         List<LessonData> list = new ArrayList<>();
-        list.add(lessonData);
-        list.add(lessonData);
-        list.add(lessonData);
-        list.add(lessonData);
-        list.add(lessonData);
-        list.add(lessonData);
+        for (int i = 0; i < 20; i++) {
+            LessonData lessonData = new LessonData();
+            lessonData.lessonId = 1;
+            lessonData.bookGradle = 1;
+            lessonData.lessonTitle = "Hello World!!";
+            lessonData.isLearning = true;
+            lessonData.progressLearning = 50;
+            lessonData.totalVocab = 15;
+            lessonData.lessonPriority = i + 1;
+            if (i > 10) {
+                lessonData.isLearning = false;
+            }
+            list.add(lessonData);
+        }
 
         return list;
     }
@@ -144,5 +149,13 @@ public class LessonData implements Parcelable {
 
     public void setTotalVocab(int totalVocab) {
         this.totalVocab = totalVocab;
+    }
+
+    public void setLessonPriority(int lessonPriority) {
+        this.lessonPriority = lessonPriority;
+    }
+
+    public int getLessonPriority() {
+        return lessonPriority;
     }
 }

@@ -1,0 +1,46 @@
+[
+  {
+    "vocabEn": "mops",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 17,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 9
+  },
+  {
+    "vocabEn": "pots",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 4,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 9
+  },
+  {
+    "vocabEn": "bottles",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 13,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 9
+  },
+  {
+    "vocabEn": "boxes",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 10,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 9
+  }
+]

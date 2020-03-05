@@ -13,10 +13,15 @@ public class LessonPresenterImpl<LessonData> implements LessonPresenter {
     private LessonView<LessonData> mLessonView;
     private LessonModel<LessonData> mLessonModel;
 
+    private int mBookId = -1;
+
     private PresenterObserver<LessonData> mItemLessonClickedObserver;
 
     public LessonPresenterImpl(){
+    }
 
+    public void setBookId(int bookId) {
+        mBookId = bookId;
     }
 
     public void setLessonViewWrapper(LessonViewWrapper<LessonData> lessonViewWrapper) {
@@ -24,19 +29,23 @@ public class LessonPresenterImpl<LessonData> implements LessonPresenter {
         mLessonViewWrapper.getViewCreatedObservable().subscribe(this::onViewCreated);
     }
 
-    private void onViewCreated(LessonView<LessonData> lessonView) {
-        this.mLessonView = lessonView;
-
-        // TODO init Observable
-        mLessonView.getItemLessonClickedObservable().subscribe(lessonData -> {
-           if (mItemLessonClickedObserver != null) {
-               mItemLessonClickedObserver.onComplete(lessonData);
-           }
-        });
-    }
-
     public void setLessonModel(LessonModel<LessonData> lessonModel) {
         this.mLessonModel = lessonModel;
+    }
+
+    private void onViewCreated(LessonView<LessonData> lessonView) {
+        this.mLessonView = lessonView;
+        initObservable();
+    }
+
+    private void initObservable() {
+        mLessonView.getItemLessonClickedObservable().subscribe(this::handleLessonClicked);
+    }
+
+    private void handleLessonClicked(LessonData lesson) {
+        if (mItemLessonClickedObserver != null) {
+            mItemLessonClickedObserver.onComplete(lesson);
+        }
     }
 
     @Override
@@ -50,7 +59,7 @@ public class LessonPresenterImpl<LessonData> implements LessonPresenter {
     }
 
     private void requestData() {
-        mLessonModel.getListLessonData().subscribe(mLessonView::setDataList);
+        mLessonModel.getListLessonDataByBook(mBookId).subscribe(mLessonView::setDataList);
     }
 
     @Override
@@ -60,7 +69,9 @@ public class LessonPresenterImpl<LessonData> implements LessonPresenter {
 
     @Override
     public void finish() {
-
+        if (mLessonModel != null) {
+            mLessonModel.destroy();
+        }
     }
 
     public void setItemLessonClickedObserver(PresenterObserver<LessonData> itemLessonClickedObserver) {

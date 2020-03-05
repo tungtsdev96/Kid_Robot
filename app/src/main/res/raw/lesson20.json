@@ -1,0 +1,35 @@
+[
+  {
+    "vocabEn": "bike",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 13,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 20
+  },
+  {
+    "vocabEn": "kite",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 12,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 20
+  },
+  {
+    "vocabEn": "kitten",
+    "vocabVi": "",
+    "imageUrl": "",
+    "totalImage": 13,
+    "audioUrl": "",
+    "scoreCorrect": 0,
+    "scoreWrong": 0,
+    "topicId": -1,
+    "lessonId": 20
+  }
+]
