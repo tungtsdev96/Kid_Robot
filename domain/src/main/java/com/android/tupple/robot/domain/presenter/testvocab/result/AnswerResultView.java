@@ -9,7 +9,7 @@ import com.android.tupple.robot.domain.presenter.IView;
 
 public interface AnswerResultView extends IView {
 
-    void showResult(boolean isResult);
+    void showResult(boolean isResult, String result);
 
     void setTextResult(String result);
 

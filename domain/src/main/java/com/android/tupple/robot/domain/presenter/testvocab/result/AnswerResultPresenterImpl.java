@@ -33,8 +33,7 @@ public class AnswerResultPresenterImpl implements AnswerResultPresenter {
 
     @Override
     public void showResult(boolean isResult, String result) {
-        mAnswerResultView.showResult(isResult);
-        mAnswerResultView.setTextResult(result);
+        mAnswerResultView.showResult(isResult, result);
 
     }
 
