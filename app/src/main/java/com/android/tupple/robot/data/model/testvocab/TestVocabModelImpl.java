@@ -88,7 +88,7 @@ public class TestVocabModelImpl implements TestVocabModel<LessonData, Topic, Voc
 
         return mVocabularyDao
                         .getListVocabularyNotIncludeIds(ids, vocabulary.getTopicId())
-                        .map(listVocabs -> pickRandom(listVocabs, 4))
+                        .map(listVocabs -> pickRandom(listVocabs, listVocabs.size()))
                         .map(listVocabs -> {
                             List<Vocabulary> answers = new ArrayList<>();
                             answers.add(vocabulary);

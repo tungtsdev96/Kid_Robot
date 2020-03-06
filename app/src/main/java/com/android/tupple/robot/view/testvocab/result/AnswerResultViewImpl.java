@@ -52,6 +52,7 @@ public class AnswerResultViewImpl implements AnswerResultView {
     public void show() {
         if (mBottomSheetDialog != null) {
             mBottomSheetDialog.show();
+            mBottomSheetDialog.setCancelable(false);
         }
     }
 
