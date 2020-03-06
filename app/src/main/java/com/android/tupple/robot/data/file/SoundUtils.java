@@ -5,4 +5,9 @@ package com.android.tupple.robot.data.file;
  */
 
 public class SoundUtils {
+
+    public static String getUrlSoundTopic(String name, int idTopic) {
+        return FileConstants.FOLDER_DATA + "/topic/" + idTopic + "/" + name.toLowerCase() + "/sound/" + name.toLowerCase() + ".mp3";
+    }
+
 }

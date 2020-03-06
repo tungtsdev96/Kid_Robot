@@ -34,8 +34,6 @@
             android:textSize="@dimen/title_header_size"
             style="@style/CommonStyleText"/>
 
-
-
     </FrameLayout>
 
     <RelativeLayout
@@ -79,14 +77,6 @@
             android:layout_toEndOf="@+id/btn_previous"
             android:layout_toStartOf="@id/btn_next"
             android:paddingBottom="@dimen/slide_learning_vocab_padding"/>
-
-        <ImageView
-            android:src="@drawable/ic_mic_max"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignTop="@+id/slide_learning_vocab"
-            android:layout_alignStart="@id/slide_learning_vocab"
-            android:layout_margin="16dp"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_next"

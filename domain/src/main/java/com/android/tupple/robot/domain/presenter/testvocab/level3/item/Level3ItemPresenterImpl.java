@@ -47,7 +47,7 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
     }
 
     private void handleBtnPronounceClicked() {
-
+        mLevel3ItemView.playPronounce(mVocabulary);
     }
 
     @Override

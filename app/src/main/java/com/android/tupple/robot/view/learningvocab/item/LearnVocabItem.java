@@ -38,6 +38,14 @@ public abstract class LearnVocabItem {
         return mVocabulary.getLessonId();
     }
 
+    public String getAudioUrl() {
+        return mVocabulary.getAudioUrl();
+    }
+
+    public int getVocabId() {
+        return mVocabulary.getVocabId();
+    }
+
     public abstract int getType();
 
 }

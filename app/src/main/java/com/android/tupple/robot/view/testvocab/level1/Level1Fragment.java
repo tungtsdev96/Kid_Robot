@@ -24,6 +24,7 @@ import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1View;
+import com.android.tupple.robot.sound.SoundPoolManagement;
 import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.constant.TestVocabConstant;
 import com.android.tupple.robot.view.testvocab.adapter.AnswerAdapter;
@@ -110,6 +111,11 @@ public class Level1Fragment extends Fragment implements Level1View<LessonData, T
 
     public void setViewCreatedObserver(CleanObserver<Level1View<LessonData, Topic, Vocabulary>> viewCreatedObserver) {
         this.mViewCreatedObserver = viewCreatedObserver;
+    }
+
+    @Override
+    public void playAudioVocab(Vocabulary question) {
+        SoundPoolManagement.getInstance().playSound(question.getVocabId());
     }
 
     @Override

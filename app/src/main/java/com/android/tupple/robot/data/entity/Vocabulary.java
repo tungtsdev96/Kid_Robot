@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.android.tupple.robot.data.file.ImageUtils;
+import com.android.tupple.robot.data.file.SoundUtils;
 
 import static com.android.tupple.robot.data.entity.Vocabulary.TABLE_NAME;
 
@@ -76,7 +77,7 @@ public class Vocabulary {
         if (topicId > 0) {
             return ImageUtils.getUrlImageTopic(vocabEn.toLowerCase(), topicId);
         } else {
-            return imageUrl;
+            return null;
         }
     }
 
@@ -93,7 +94,11 @@ public class Vocabulary {
     }
 
     public String getAudioUrl() {
-        return audioUrl;
+        if (topicId > 0) {
+            return SoundUtils.getUrlSoundTopic(vocabEn.toLowerCase(), topicId);
+        } else {
+            return null;
+        }
     }
 
     public void setAudioUrl(String audioUrl) {

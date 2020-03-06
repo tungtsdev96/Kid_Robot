@@ -1,4 +1,4 @@
-package com.android.tupple.robot.sound;
+package com.android.tupple.robot.sound.test;
 
 import android.content.Context;
 import android.media.AudioAttributes;
@@ -7,9 +7,9 @@ import android.media.SoundPool;
 
 import com.android.tupple.robot.R;
 
-import static com.android.tupple.robot.sound.SoundConstant.MAX_STREAMS;
-import static com.android.tupple.robot.sound.SoundConstant.SOUND_CLICK;
-import static com.android.tupple.robot.sound.SoundConstant.SOUND_CORRECT;
+import static com.android.tupple.robot.sound.test.SoundConstant.MAX_STREAMS;
+import static com.android.tupple.robot.sound.test.SoundConstant.SOUND_CLICK;
+import static com.android.tupple.robot.sound.test.SoundConstant.SOUND_CORRECT;
 
 /**
  * Created by tungts on 11/24/2017.
@@ -33,7 +33,7 @@ public class SoundDefaultManager implements SoundPool.OnLoadCompleteListener{
         this.soundClick = this.defaultSoundPool.load(context, R.raw.click,1);
         this.soundCorrect = this.defaultSoundPool.load(context, R.raw.test_true,1);
         this.soundInCorrect =  this.defaultSoundPool.load(context, R.raw.test_false, 1);
-        this.soundWrong = this.defaultSoundPool.load(context, R.raw.sai, 1);
+        this.soundWrong = this.defaultSoundPool.load(context, R.raw.test_wrong, 1);
     }
 
     public static SoundDefaultManager getDefaultSoundManager(Context context){

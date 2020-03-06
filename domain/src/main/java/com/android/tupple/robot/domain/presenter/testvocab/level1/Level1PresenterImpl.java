@@ -57,6 +57,12 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     private void initObservable() {
         mLevel1View.getAnswerSelectedObservable().subscribe(this::setAnswerSelected);
         mLevel1View.getBtnCheckAnswerClickedObservable().subscribe(this::checkAnswer);
+        mLevel1View.getBtnPronounceVocabClickedObservable().subscribe(this::playAudioVocab);
+    }
+
+    private void playAudioVocab() {
+        Vocabulary question = mListVocabularyLearning.get(mCurrentQuestion);
+        mLevel1View.playAudioVocab(question);
     }
 
     private void checkAnswer() {

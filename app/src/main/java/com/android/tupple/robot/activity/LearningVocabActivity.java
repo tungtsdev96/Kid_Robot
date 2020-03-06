@@ -99,7 +99,6 @@ public class LearningVocabActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mLearnVocab.start();
     }
 
     @Override

@@ -29,8 +29,11 @@ public class ItemViewHolderFactory {
 
     public abstract static class LearnVocabBaseViewHolder extends RecyclerView.ViewHolder {
 
+        public ImageView btnPronounce;
+
         LearnVocabBaseViewHolder(@NonNull View itemView) {
             super(itemView);
+            btnPronounce = itemView.findViewById(R.id.btn_pronounce);
         }
 
         public abstract void bind(LearnVocabItem learnVocabItem);

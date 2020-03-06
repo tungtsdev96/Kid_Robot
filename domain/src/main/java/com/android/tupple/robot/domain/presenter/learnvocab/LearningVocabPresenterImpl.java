@@ -42,6 +42,7 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
     public void setLearningVocabView(LearningVocabView<Vocabulary> learningVocabView) {
         this.mLearningVocabView = learningVocabView;
         initObservable();
+
     }
 
     public void setVocabularyModel(VocabularyModel<Vocabulary> vocabularyModel) {
@@ -65,6 +66,7 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
     @Override
     public void init() {
         mLearningVocabView.initLayout();
+        start();
     }
 
     @Override

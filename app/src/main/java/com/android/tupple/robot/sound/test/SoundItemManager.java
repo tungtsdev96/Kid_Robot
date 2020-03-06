@@ -1,4 +1,4 @@
-package com.android.tupple.robot.sound;
+package com.android.tupple.robot.sound.test;
 
 import android.content.Context;
 import android.media.AudioAttributes;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class SoundItemManager implements SoundPool.OnLoadCompleteListener{
 
     private static SoundItemManager soundItemManager;
-    private static SoundPool soundPool;
+    private SoundPool soundPool;
     private HashMap<String, Integer> mSoundPoolMap;
     private HashMap<String, String> mSoundItem;
 
@@ -29,17 +29,6 @@ public class SoundItemManager implements SoundPool.OnLoadCompleteListener{
     private SoundItemManager(){
         createSoundPool();
         mSoundPoolMap = new HashMap<>();
-    }
-
-    public void setmSoundPoolMap(HashMap<String, Integer> mSoundPoolMap, Context context) {
-        this.mSoundPoolMap = mSoundPoolMap;
-        for (String name:mSoundPoolMap.keySet()){
-            addSound(context,name,mSoundPoolMap.get(name));
-        }
-    }
-
-    public HashMap<String, Integer> getmSoundPoolMap() {
-        return mSoundPoolMap;
     }
 
     private void createSoundPool() {
@@ -73,13 +62,11 @@ public class SoundItemManager implements SoundPool.OnLoadCompleteListener{
 
     public void addSound(String name, String path){
         int i = soundPool.load(path, 1);
-        mSoundItem.put(name,path);
+        mSoundItem.put(name, path);
     }
 
     public void playItemSound(Context context, String name) {
-//        float volume = VolumeController.getCurentVolume(context)* SettingVolume.getInstance(context).getVolumeItem()/100;
-//        soundPool.play(mSoundPoolMap.get(name), volume, volume,
-//                1, 0, 1f);
+        soundPool.play(mSoundPoolMap.get(name), 1f, 1f, 1, 0, 1f);
     }
 
     public void reset(){
@@ -95,6 +82,8 @@ public class SoundItemManager implements SoundPool.OnLoadCompleteListener{
             throwable.printStackTrace();
         }
     }
+
+
 
     @Override
     public void onLoadComplete(SoundPool soundPool, int i, int i1) {

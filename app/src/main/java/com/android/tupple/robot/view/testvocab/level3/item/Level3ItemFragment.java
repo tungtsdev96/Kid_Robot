@@ -22,7 +22,10 @@ import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.RecordState;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.ResultState;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3ItemView;
+import com.android.tupple.robot.sound.SoundPoolManagement;
+import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.RecordingHelper;
+import com.android.tupple.robot.utils.SingleClickUtil;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -109,8 +112,14 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
 
     private void initView(View rootView) {
         mTextVocabulary = rootView.findViewById(R.id.text_vocabulary);
-        mBtnPronounce = rootView.findViewById(R.id.btn_pronounce);
         mImageVocabulary = rootView.findViewById(R.id.image_vocabulary);
+
+        mBtnPronounce = rootView.findViewById(R.id.btn_pronounce);
+        SingleClickUtil.registerListener(mBtnPronounce, v -> {
+            if (mBtnPronounceClickedObserver != null) {
+                mBtnPronounceClickedObserver.onNext();
+            }
+        });
 
         mTextAnswerHeaderContainer = rootView.findViewById(R.id.text_answer_header_container);
         mTextYourAnswer = rootView.findViewById(R.id.text_your_pronounce_answer);
@@ -121,6 +130,12 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
     @Override
     public void setVocabulary(Vocabulary vocabulary) {
         mTextVocabulary.setText(vocabulary.getVocabEn());
+        GlideUtils.loadImageFromStorage(mContext, vocabulary.getImageUrl(), mImageVocabulary);
+    }
+
+    @Override
+    public void playPronounce(Vocabulary vocabulary) {
+        SoundPoolManagement.getInstance().playSound(vocabulary.getVocabId());
     }
 
     @Override

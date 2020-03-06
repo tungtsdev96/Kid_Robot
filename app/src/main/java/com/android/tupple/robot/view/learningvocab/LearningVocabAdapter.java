@@ -1,12 +1,15 @@
 package com.android.tupple.robot.view.learningvocab;
 
 import android.content.Context;
+import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.tupple.robot.data.entity.Vocabulary;
+import com.android.tupple.robot.sound.SoundPoolManagement;
+import com.android.tupple.robot.utils.SingleClickUtil;
 import com.android.tupple.robot.utils.constant.LearnVocabConstant;
 import com.android.tupple.robot.view.learningvocab.item.LearnVocabImage;
 import com.android.tupple.robot.view.learningvocab.item.LearnVocabItem;
@@ -26,7 +29,6 @@ public class LearningVocabAdapter extends RecyclerView.Adapter<ItemViewHolderFac
     private Context mContext;
     private List<LearnVocabItem> mLearnVocabItem = new ArrayList<>();
 
-
     LearningVocabAdapter(Context context) {
         this.mContext = context;
     }
@@ -40,6 +42,8 @@ public class LearningVocabAdapter extends RecyclerView.Adapter<ItemViewHolderFac
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolderFactory.LearnVocabBaseViewHolder holder, int position) {
         holder.bind(mLearnVocabItem.get(position));
+        SingleClickUtil.registerListener(holder.btnPronounce, v -> SoundPoolManagement.getInstance().playSound(mLearnVocabItem.get(position).getVocabId()));
+        SingleClickUtil.registerListener(holder.itemView, v -> SoundPoolManagement.getInstance().playSound(mLearnVocabItem.get(position).getVocabId()));
     }
 
     @Override
@@ -61,13 +65,23 @@ public class LearningVocabAdapter extends RecyclerView.Adapter<ItemViewHolderFac
         return mLearnVocabItem.size();
     }
 
-    public void setListVocabLearning(List<Vocabulary> listVocabLearning) {
+    LearnVocabItem getItemByPosition(int pos) {
+        if (pos < 0) {
+            return null;
+        }
+        return mLearnVocabItem.get(pos);
+    }
+
+    void setListVocabLearning(List<Vocabulary> listVocabLearning) {
         mLearnVocabItem.clear();
+        SparseArray<String> listSoundItem = new SparseArray<>();
         for (Vocabulary vocabulary: listVocabLearning) {
+            listSoundItem.put(vocabulary.getVocabId(), vocabulary.getAudioUrl());
             mLearnVocabItem.add(new LearnVocabImage(vocabulary));
             mLearnVocabItem.add(new LearnVocabText(vocabulary));
             mLearnVocabItem.add(new LearnVocabTextAndImage(vocabulary));
         }
+        SoundPoolManagement.getInstance().init().loadSound(listSoundItem);
         notifyDataSetChanged();
     }
 }

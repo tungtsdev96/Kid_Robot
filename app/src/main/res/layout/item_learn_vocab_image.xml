@@ -7,6 +7,15 @@
     app:cardCornerRadius="@dimen/common_card_radius">
 
     <ImageView
+        android:id="@+id/btn_pronounce"
+        android:src="@drawable/ic_mic_max"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/slide_learning_vocab"
+        android:layout_alignStart="@id/slide_learning_vocab"
+        android:layout_margin="16dp"/>
+
+    <ImageView
         android:id="@+id/image_vocabulary"
         android:orientation="vertical"
         android:layout_width="match_parent"
