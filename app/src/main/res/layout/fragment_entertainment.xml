@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/txt_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xem Phim"
+            android:layout_marginLeft="16dp"
+            style="@style/CommonStyleText"
+            />
+
+        <com.android.tupple.robot.common.customview.snaprecycleview.SnapRecycleView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/txt_video"
+            android:id="@+id/recycler_video"
+            android:layout_marginLeft="16dp"
+            android:fadingEdge="horizontal"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/txt_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nghe Truyện"
+            android:layout_marginLeft="16dp"
+            style="@style/CommonStyleText"
+            />
+
+        <com.android.tupple.robot.common.customview.snaprecycleview.SnapRecycleView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/txt_audio"
+            android:id="@+id/recycler_audio"
+            android:layout_marginLeft="16dp"
+            android:fadingEdge="horizontal"
+            />
+    </RelativeLayout>
+</LinearLayout>

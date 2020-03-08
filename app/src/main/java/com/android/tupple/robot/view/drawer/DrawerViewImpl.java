@@ -39,7 +39,7 @@ public class DrawerViewImpl implements DrawerView<MenuItemData> {
         mRcvDrawer.setAdapter(mDrawerAdapter);
 
         mRcvDrawer.setOnViewSelectedListener((view, position) -> {
-            MenuType menuType = MenuType.fromValue(position % 3 + 1);
+            MenuType menuType = MenuType.fromValue(position % 4 + 1);
             if (mItemMenuSelectedObserver != null) {
                 mItemMenuSelectedObserver.onNext(menuType);
             }
@@ -52,6 +52,7 @@ public class DrawerViewImpl implements DrawerView<MenuItemData> {
         items.add(new MenuItemData("Sach Giao Khoa", "ic_school_book"));
         items.add(new MenuItemData("Chu de", "ic_topic"));
         items.add(new MenuItemData("Bao thuc", "ic_alarm"));
+        items.add(new MenuItemData("Giai tri", "ic_entertainment"));
 //        items.add(new MenuItemData("Giai tri", "ic_garden"));
         mDrawerAdapter.setListMenu(items);
         Objects.requireNonNull(mRcvDrawer.getLayoutManager()).scrollToPosition(299);

@@ -5,10 +5,12 @@ import android.os.Bundle;
 
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.base.BaseActivity;
+import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.data.entity.MenuItemData;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.data.model.alarm.AlarmModelFactory;
+import com.android.tupple.robot.data.model.mediaobject.EntertainmentModelFactory;
 import com.android.tupple.robot.domain.entity.menumain.MenuMain;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
 import com.android.tupple.robot.domain.presenter.alarm.AlarmModel;
@@ -25,10 +27,14 @@ import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicPresen
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicViewWrapper;
 import com.android.tupple.robot.data.model.drawer.DrawerModelFactory;
 import com.android.tupple.robot.data.model.english.EnglishModelFactory;
+import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentModel;
+import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentPresenterImpl;
+import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentViewWrapper;
 import com.android.tupple.robot.view.alarm.AlarmViewWrapperFactory;
 import com.android.tupple.robot.view.drawer.DrawerViewFactory;
 import com.android.tupple.robot.view.englishbook.EnglishBookViewWrapperFactory;
 import com.android.tupple.robot.view.englishtopic.EnglishTopicViewWrapperFactory;
+import com.android.tupple.robot.view.entertainment.EntertainmentViewWrapperFactory;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -61,7 +67,7 @@ public class MainActivity extends BaseActivity {
 
     private void checkPermission() {
         Dexter.withActivity(this)
-                .withPermissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withPermissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE , Manifest.permission.READ_EXTERNAL_STORAGE)
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
@@ -86,6 +92,7 @@ public class MainActivity extends BaseActivity {
         injectEnglishTopic(bundle);
         injectAlarmClock(bundle);
         injectLearningSchedule(bundle);
+        injectEntertainment(bundle);
     }
 
     private void injectDrawer(Bundle bundle) {
@@ -139,6 +146,19 @@ public class MainActivity extends BaseActivity {
 
     private void injectLearningSchedule(Bundle bundle) {
 
+    }
+    private void injectEntertainment(Bundle bundle) {
+        EntertainmentPresenterImpl<Media> entertainmentPresenter = new EntertainmentPresenterImpl();
+        EntertainmentViewWrapper<Media> entertainmentViewWrapper = EntertainmentViewWrapperFactory.newEntertainmentViewWrapper(getSupportFragmentManager(), bundle);
+        EntertainmentModel<Media> entertainmentModel = EntertainmentModelFactory.newEntertainmentModel(this);
+
+        entertainmentPresenter.setEntertainmentViewWrapper(entertainmentViewWrapper);
+        entertainmentPresenter.setEntertainmentModel(entertainmentModel);
+
+        // innit Observerable
+        entertainmentPresenter.setOnItemVideoClickObserver(mActivityLauncher::launchVideoPlayerActivity);
+        entertainmentPresenter.setOnItemAudioClickObserver(mActivityLauncher::launchAudioPlayerActivity);
+        mMenuMain.setEntertainmentPresenter(entertainmentPresenter);
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.android.tupple.robot.data.entity.LessonData;
+import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.utils.ActivityUtils;
@@ -49,5 +50,17 @@ public class ActivityLauncher {
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityUtils.startActivty(mActivity, intent);
     }
+    public void launchVideoPlayerActivity(Media media){
+        Intent intent = new Intent(mActivity, VideoPlayerActivity.class);
+        intent.putExtra("test" , media.getMedia_url());
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityUtils.startActivty(mActivity, intent);
+    }
 
+    public void launchAudioPlayerActivity(Media media){
+        Intent intent = new Intent(mActivity, AudioPlayerActivity.class);
+        intent.putExtra("test" , media.getMedia_url());
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityUtils.startActivty(mActivity, intent);
+    }
 }
