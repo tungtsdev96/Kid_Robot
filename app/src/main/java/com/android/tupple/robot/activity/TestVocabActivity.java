@@ -1,5 +1,6 @@
 package com.android.tupple.robot.activity;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -26,9 +27,16 @@ import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3Ite
 import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3ItemViewWrapper;
 import com.android.tupple.robot.domain.presenter.testvocab.result.AnswerResultPresenterImpl;
 import com.android.tupple.robot.domain.presenter.testvocab.result.AnswerResultView;
+import com.android.tupple.robot.utils.RecordingHelper;
 import com.android.tupple.robot.view.testvocab.TestVocabViewFactory;
 import com.android.tupple.robot.view.testvocab.level3.item.Level3ItemViewWrapperFactory;
 import com.android.tupple.robot.view.testvocab.result.AnswerResultViewFactory;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.util.List;
 
@@ -51,8 +59,29 @@ public class TestVocabActivity extends BaseActivity {
         mTestVocab = new TestVocab();
         mActivityLauncher = new ActivityLauncher(this);
 
+        checkPermission();
         inject();
         mTestVocab.init();
+    }
+
+    private void checkPermission() {
+        Dexter.withActivity(this)
+                .withPermission(Manifest.permission.RECORD_AUDIO)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        finish();
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+                    }
+                }).check();
     }
 
     private void inject() {

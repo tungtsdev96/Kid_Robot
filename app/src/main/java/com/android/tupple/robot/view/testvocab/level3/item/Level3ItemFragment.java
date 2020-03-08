@@ -1,8 +1,8 @@
 package com.android.tupple.robot.view.testvocab.level3.item;
 
-import android.Manifest;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,14 +26,10 @@ import com.android.tupple.robot.sound.SoundPoolManagement;
 import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.RecordingHelper;
 import com.android.tupple.robot.utils.SingleClickUtil;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.io.File;
 
 /**
  * Created by tungts on 2020-02-22.
@@ -71,6 +67,7 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.mContext = context;
+        mRecordingHelper = new RecordingHelper(mContext);
     }
 
     @Override
@@ -82,32 +79,10 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.item_check_prounce, container, false);
-        checkPermission();
         initView(rootView);
 
         EventBus.getDefault().post(new EventItemCreated(this, mKeyView));
         return rootView;
-    }
-
-    private void checkPermission() {
-        Dexter.withActivity(getActivity())
-                .withPermission(Manifest.permission.RECORD_AUDIO)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse response) {
-                        mRecordingHelper = new RecordingHelper(mContext);
-                    }
-
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse response) {
-                        getActivity().finish();
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-
-                    }
-                }).check();
     }
 
     private void initView(View rootView) {
@@ -124,7 +99,15 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
         mTextAnswerHeaderContainer = rootView.findViewById(R.id.text_answer_header_container);
         mTextYourAnswer = rootView.findViewById(R.id.text_your_pronounce_answer);
         mTextStateRecording = rootView.findViewById(R.id.text_state_recording);
+
         mBtnRecording = rootView.findViewById(R.id.btn_recording);
+        SingleClickUtil.registerListener(mBtnRecording, this::handleBtnRecordClicked);
+    }
+
+    private void handleBtnRecordClicked(View view) {
+        if (mBtnRecordClickedObserver != null) {
+            mBtnRecordClickedObserver.onNext(!mRecordingHelper.isRecording());
+        }
     }
 
     @Override
@@ -139,8 +122,26 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
     }
 
     @Override
-    public void startRecording() {
+    public void startRecording(Vocabulary vocabulary) {
+        mRecordingHelper.startRecord(vocabulary.getVocabEn());
+        mRecordStopHandler.postDelayed(mRunnableStopRecord, 10000);
         Toast.makeText(mContext, mContext.getString(R.string.text_state_record_start), Toast.LENGTH_SHORT).show();
+    }
+
+    private Handler mRecordStopHandler = new Handler();
+    private Runnable mRunnableStopRecord = this::stopRecording;
+
+    @Override
+    public void stopRecording() {
+        if (mRecordingHelper == null || !mRecordingHelper.isRecording()) {
+            return;
+        }
+
+        mRecordStopHandler.removeCallbacks(mRunnableStopRecord);
+        File file = mRecordingHelper.stopRecord();
+        if (mRecordStateDoneObserver != null) {
+            mRecordStateDoneObserver.onNext(file.getAbsolutePath());
+        }
     }
 
     @Override
@@ -178,16 +179,22 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
     public void setStateRecording(RecordState state) {
         switch (state) {
             case WAITING:
+                mBtnRecording.setEnabled(false);
                 mBtnRecording.setBackgroundResource(R.drawable.bg_btn_record_disable);
+                mBtnRecording.setImageResource(R.drawable.ic_recording);
                 mTextStateRecording.setText(mContext.getString(R.string.text_state_record_done));
                 break;
             case NORMAL:
             case PREPARING:
+                mBtnRecording.setEnabled(true);
                 mBtnRecording.setBackgroundResource(R.drawable.bg_btn_record);
+                mBtnRecording.setImageResource(R.drawable.ic_recording);
                 mTextStateRecording.setText(mContext.getString(R.string.text_state_record_prepare));
                 break;
             case RECORDING:
+                mBtnRecording.setEnabled(true);
                 mBtnRecording.setBackgroundResource(R.drawable.bg_btn_record_doing);
+                mBtnRecording.setImageResource(R.drawable.ic_pause);
                 mTextStateRecording.setText(mContext.getString(R.string.text_state_record_doing));
                 break;
         }

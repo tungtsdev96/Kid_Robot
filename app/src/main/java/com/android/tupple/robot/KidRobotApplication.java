@@ -1,11 +1,12 @@
 package com.android.tupple.robot;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 
 import com.android.tupple.robot.data.KidRobotDatabase;
 import com.android.tupple.robot.data.entity.LessonData;
@@ -34,13 +35,19 @@ import io.reactivex.schedulers.Schedulers;
  * Created by tungts on 2020-01-12.
  */
 
-public class KidRobotApplication extends Application {
+public class KidRobotApplication extends MultiDexApplication {
 
     private static KidRobotApplication sInstance;
 
     public KidRobotApplication() {
         super();
         sInstance = this;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     @Override

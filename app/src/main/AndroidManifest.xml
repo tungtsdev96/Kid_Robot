@@ -17,10 +17,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.VideoPlayerActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.AudioPlayerActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="landscape">

@@ -12,9 +12,11 @@ public interface Level3ItemView<Vocabulary> {
 
     void setVocabulary(Vocabulary vocabulary);
 
-    void playPronounce(Vocabulary mVocabulary);
+    void playPronounce(Vocabulary vocabulary);
 
-    void startRecording();
+    void startRecording(Vocabulary vocabulary);
+
+    void stopRecording();
 
     void setTextYourAnswer(String text);
 
