@@ -32,7 +32,7 @@ public abstract class VocabularyDao extends BaseDao<Vocabulary> {
     public abstract Observable<List<Vocabulary>> makeListVocabularyLearningFromLesson(int lessonId);
 
     @Query("SELECT * FROM " + Vocabulary.TABLE_NAME + " WHERE " + Columns.Vocabulary.TOPIC_ID + " = :topicId AND " + Columns.Vocabulary._ID + " NOT IN (:ids)" +
-                                                                " ORDER BY " + Columns.Vocabulary.SCORE_WRONG)
+                                                                " ORDER BY " + Columns.Vocabulary.SCORE_WRONG + " ASC LIMIT 3")
     public abstract Observable<List<Vocabulary>> getListVocabularyNotIncludeIds(List<Integer> ids, int topicId);
 
 }

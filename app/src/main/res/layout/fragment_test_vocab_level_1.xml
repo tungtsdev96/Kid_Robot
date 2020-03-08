@@ -67,7 +67,7 @@
 
             </FrameLayout>
 
-            <Button
+            <com.android.tupple.robot.view.testvocab.level1.ButtonCheckAnswer
                 android:visibility="visible"
                 android:id="@+id/btn_check_answer"
                 android:layout_marginStart="16dp"

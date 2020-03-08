@@ -1,5 +1,7 @@
 package com.android.tupple.robot.domain.presenter.testvocab.level1;
 
+import android.util.Log;
+
 import com.android.tupple.robot.domain.entity.testvocab.Level1Presenter;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
@@ -15,8 +17,10 @@ import java.util.List;
 
 public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level1Presenter {
 
+    private final String TAG = "Level1PresenterImpl";
+
     private PresenterObserver<TestVocabLevel> mNextLevelObserver;
-    private ResultAnswerHandler mOnResultAnswerHandler;
+//    private ResultAnswerHandler mOnResultAnswerHandler;
 
     private Level1ViewWrapper<LessonData, Topic,Vocabulary> mLevel1ViewWrapper;
     private Level1View<LessonData, Topic, Vocabulary> mLevel1View;
@@ -65,17 +69,21 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
         mLevel1View.playAudioVocab(question);
     }
 
-    private void checkAnswer() {
+    private void checkAnswer(boolean isCheck) {
         if (mCurrentAnswerSelected == -1) {
             mLevel1View.notifyMustSelectedAnswer();
             return;
         }
 
-        // TODO update DB, show Dialog result
-        mLevel1View.showLayoutAnswerResult(mCurrentAnswerSelected == mAnswerRight, mAnswerRight);
-        if (mOnResultAnswerHandler != null) {
-            mOnResultAnswerHandler.onResult(mCurrentAnswerSelected == mAnswerRight, mAnswerRight);
+        boolean isRight = mCurrentAnswerSelected == mAnswerRight;
+
+        if (!isCheck) {
+            mTestVocabModel.updateQuestionForVocab(isRight, mListVocabularyLearning.get(mCurrentQuestion));
+            nextQuestion();
+            return;
         }
+
+        mLevel1View.showLayoutAnswerResult(isRight, mAnswerRight);
     }
 
     private void nextVocab() {
@@ -125,7 +133,7 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     @Override
     public void setOnResultAnswerHandler(ResultAnswerHandler onResultAnswerHandler) {
-        this.mOnResultAnswerHandler = onResultAnswerHandler;
+//        this.mOnResultAnswerHandler = onResultAnswerHandler;
     }
 
     @Override
@@ -157,6 +165,7 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
         Vocabulary question = mListVocabularyLearning.get(mCurrentQuestion);
         mTestVocabModel.makeListAnswerFromVocab(mListVocabularyLearning, question).subscribe((listAnswers) -> {
+            Log.d(TAG, "show list answer " + listAnswers);
             mLevel1View.setEnableBtnCheckAnswer(false);
             mCurrentAnswerSelected = -1;
             mAnswerRight = mLevel1Model.getAnswerRight(listAnswers, question);

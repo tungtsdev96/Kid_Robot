@@ -15,4 +15,6 @@ public interface TestVocabModel<LessonData, Topic, Vocabulary> extends IModel {
 
     CleanObservable<List<Vocabulary>> makeListAnswerFromVocab(List<Vocabulary> vocabLearning, Vocabulary vocabulary);
 
+    void updateQuestionForVocab(boolean isRight, Vocabulary vocabulary);
+
 }

@@ -27,7 +27,7 @@ public interface Level1View<LessonData, Topic, Vocabulary> {
 
     CleanObservable<Integer> getAnswerSelectedObservable();
 
-    CleanObservable getBtnCheckAnswerClickedObservable();
+    CleanObservable<Boolean> getBtnCheckAnswerClickedObservable();
 
     CleanObservable getBtnPronounceVocabClickedObservable();
 

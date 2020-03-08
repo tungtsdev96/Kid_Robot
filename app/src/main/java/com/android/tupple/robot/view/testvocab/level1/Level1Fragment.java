@@ -2,10 +2,10 @@ package com.android.tupple.robot.view.testvocab.level1;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,11 +26,11 @@ import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1View;
 import com.android.tupple.robot.sound.SoundPoolManagement;
 import com.android.tupple.robot.utils.GlideUtils;
+import com.android.tupple.robot.utils.SingleClickUtil;
 import com.android.tupple.robot.utils.constant.TestVocabConstant;
 import com.android.tupple.robot.view.testvocab.adapter.AnswerAdapter;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by tungts on 2020-02-05.
@@ -44,14 +44,14 @@ public class Level1Fragment extends Fragment implements Level1View<LessonData, T
 
     private TextView mTextQuestionAnswer;
     private ImageView mImageQuestionAnswer;
-    private Button mBtnCheckAnswer;
+    private ButtonCheckAnswer mBtnCheckAnswer;
 
     private RecyclerView mRcvAnswer;
     private AnswerAdapter mAnswerAdapter;
 
     private CleanObserver<Level1View<LessonData, Topic, Vocabulary>> mViewCreatedObserver;
     private CleanObserver<Integer> mAnswerSelectedObserver;
-    private CleanObserver mBtnCheckAnswerClickedObserver;
+    private CleanObserver<Boolean> mBtnCheckAnswerClickedObserver;
     private CleanObserver mBtnPronounceVocabClicked;
 
     public static Level1Fragment newInstance() {
@@ -90,11 +90,13 @@ public class Level1Fragment extends Fragment implements Level1View<LessonData, T
         mImageQuestionAnswer = rootView.findViewById(R.id.image_question_vocab);
 
         mBtnCheckAnswer = rootView.findViewById(R.id.btn_check_answer);
-        mBtnCheckAnswer.setOnClickListener(v -> {
-            if (mBtnCheckAnswerClickedObserver != null) {
-                mBtnCheckAnswerClickedObserver.onNext();
-            }
-        });
+        SingleClickUtil.registerListener(mBtnCheckAnswer, this::handleBtnCheckAnswer);
+    }
+
+    private void handleBtnCheckAnswer(View view) {
+        if (mBtnCheckAnswerClickedObserver != null) {
+            mBtnCheckAnswerClickedObserver.onNext(mBtnCheckAnswer.isCheck());
+        }
     }
 
     private void initRecycleView(View rootView) {
@@ -120,6 +122,9 @@ public class Level1Fragment extends Fragment implements Level1View<LessonData, T
 
     @Override
     public void showQuestion(TestVocabLevel testVocabLevel, Vocabulary vocabulary, List<Vocabulary> listAnswers) {
+        mBtnCheckAnswer.setSate(true);
+        mBtnCheckAnswer.setText(mContext.getString(R.string.text_check_answer));
+
         switch (testVocabLevel) {
             default:
             case LEVEL1_1:
@@ -156,6 +161,10 @@ public class Level1Fragment extends Fragment implements Level1View<LessonData, T
 
     @Override
     public void showLayoutAnswerResult(boolean isRight, int resultPosition) {
+        Toast.makeText(mContext, isRight ? mContext.getString(R.string.header_answer_right) : mContext.getString(R.string.header_answer_wrong), Toast.LENGTH_LONG).show();
+        mBtnCheckAnswer.setSate(false);
+        mBtnCheckAnswer.setText(mContext.getString(R.string.text_continue));
+        mBtnCheckAnswer.setBackgroundResource(isRight ? R.drawable.bg_btn_continue_result_true : R.drawable.bg_btn_continue_result_false);
         mAnswerAdapter.updateAnswer(isRight, resultPosition);
     }
 
@@ -170,7 +179,7 @@ public class Level1Fragment extends Fragment implements Level1View<LessonData, T
     }
 
     @Override
-    public CleanObservable getBtnCheckAnswerClickedObservable() {
+    public CleanObservable<Boolean> getBtnCheckAnswerClickedObservable() {
         return CleanObservable.create(cleanObserver -> mBtnCheckAnswerClickedObserver = cleanObserver);
     }
 

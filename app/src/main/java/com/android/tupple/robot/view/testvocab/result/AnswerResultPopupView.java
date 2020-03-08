@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.tupple.robot.R;
+import com.android.tupple.robot.utils.WindowManagerUtils;
 
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
@@ -155,7 +156,7 @@ public class AnswerResultPopupView {
         window.setHeight(height);
         window.setOutsideTouchable(false);
         window.setAnimationStyle(R.style.StylePopupResultAnswer);
-        window.showAtLocation(mParentView, Gravity.START | Gravity.TOP, x, y);
+        window.showAtLocation(mParentView, Gravity.START | Gravity.TOP, x, y - WindowManagerUtils.getStatusBarHeight(mParentView.getContext()));
 
         return window;
     }
