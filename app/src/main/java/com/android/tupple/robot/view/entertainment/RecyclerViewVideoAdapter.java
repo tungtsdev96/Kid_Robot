@@ -130,8 +130,8 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
         try {
             mediaMetadataRetriever = new MediaMetadataRetriever();
             mediaMetadataRetriever.setDataSource(videoPath);
-
-            bitmap = mediaMetadataRetriever.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST);
+            if (mediaMetadataRetriever != null)
+                bitmap = mediaMetadataRetriever.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST);
         } catch (Exception e) {
             e.printStackTrace();
             throw new Throwable(
