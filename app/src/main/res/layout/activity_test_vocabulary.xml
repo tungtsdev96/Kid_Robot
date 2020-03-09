@@ -6,28 +6,9 @@
     android:layout_height="match_parent"
     android:id="@+id/container_test_vocab">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="center">
-
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/btn_back" />
-
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:progress="50"
-            android:layout_marginStart="16dp"
-            android:progressDrawable="@drawable/bg_progress_download"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
-
-    </LinearLayout>
+    <include
+        android:id="@+id/view_header_test_vocab"
+        layout="@layout/view_header_test_vocab"/>
 
     <FrameLayout
         android:id="@+id/content_test_vocab"

@@ -21,6 +21,7 @@ import java.util.List;
 
 import io.reactivex.CompletableObserver;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -69,7 +70,8 @@ public class TestVocabModelImpl implements TestVocabModel<LessonData, Topic, Voc
                 // TODO get answer from lesson
             } else {
                 Disposable d = makeListAnswerFromTopic(vocabulary)
-                        .compose(RxUtils.async())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(cleanObserver::onNext, Throwable::printStackTrace);
                 mCompositeDisposable.add(d);
             }
@@ -77,7 +79,7 @@ public class TestVocabModelImpl implements TestVocabModel<LessonData, Topic, Voc
     }
 
     // Random in the same topic -> easy => Need to be more difficult
-    private Observable<List<Vocabulary>> makeListAnswerFromTopic(Vocabulary vocabulary) {
+    private Single<List<Vocabulary>> makeListAnswerFromTopic(Vocabulary vocabulary) {
         List<Integer> ids = new ArrayList<>();
         ids.add(vocabulary.getVocabId());
         Log.d(TAG, "makeListAnswerFromTopic " + vocabulary.getVocabEn());

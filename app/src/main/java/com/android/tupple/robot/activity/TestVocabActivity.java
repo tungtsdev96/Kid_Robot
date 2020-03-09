@@ -14,7 +14,7 @@ import com.android.tupple.robot.data.model.testvocab.TestVocabModelFactory;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocab;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.testvocab.TestVocabModel;
-import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
+import com.android.tupple.robot.domain.presenter.data.LearningVocabModel;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1Model;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1PresenterImpl;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1ViewWrapper;
@@ -25,11 +25,13 @@ import com.android.tupple.robot.domain.presenter.testvocab.level3.Level3Presente
 import com.android.tupple.robot.domain.presenter.testvocab.level3.Level3ViewWrapper;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3ItemPresenterImpl;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3ItemViewWrapper;
+import com.android.tupple.robot.domain.presenter.testvocab.progress.TestProgressPresenterImpl;
+import com.android.tupple.robot.domain.presenter.testvocab.progress.TestProgressView;
 import com.android.tupple.robot.domain.presenter.testvocab.result.AnswerResultPresenterImpl;
 import com.android.tupple.robot.domain.presenter.testvocab.result.AnswerResultView;
-import com.android.tupple.robot.utils.RecordingHelper;
 import com.android.tupple.robot.view.testvocab.TestVocabViewFactory;
 import com.android.tupple.robot.view.testvocab.level3.item.Level3ItemViewWrapperFactory;
+import com.android.tupple.robot.view.testvocab.progress.TestProgressViewFactory;
 import com.android.tupple.robot.view.testvocab.result.AnswerResultViewFactory;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -85,10 +87,23 @@ public class TestVocabActivity extends BaseActivity {
     }
 
     private void inject() {
+        injectProgressTest();
         injectResultAnswer();
         injectLevel1();
         injectLevel2();
         injectLevel3();
+    }
+
+    private void injectProgressTest() {
+        TestProgressPresenterImpl testProgressPresenter = new TestProgressPresenterImpl();
+        TestProgressView testProgressView = TestProgressViewFactory.newTestProgressView(findViewById(R.id.view_header_test_vocab));
+        LearningVocabModel<Vocabulary> learningVocabModel = LearningVocabModelFactory.newLearningVocabModel(this);
+
+        testProgressPresenter.setTestProgressView(testProgressView);
+        testProgressPresenter.setLearningVocabModel(learningVocabModel);
+        testProgressPresenter.setBtnCloseHandler(this::onBackPressed);
+
+        mTestVocab.setTestProgressPresenter(testProgressPresenter);
     }
 
     private void injectResultAnswer() {

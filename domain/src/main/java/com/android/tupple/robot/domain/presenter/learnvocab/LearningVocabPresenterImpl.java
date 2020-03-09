@@ -2,6 +2,7 @@ package com.android.tupple.robot.domain.presenter.learnvocab;
 
 import com.android.tupple.robot.domain.entity.learnvocab.LearnVocabPresenter;
 import com.android.tupple.robot.domain.log.CLog;
+import com.android.tupple.robot.domain.presenter.data.LearningVocabModel;
 import com.android.tupple.robot.domain.presenter.data.VocabularyModel;
 
 import java.util.ArrayList;

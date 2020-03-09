@@ -6,6 +6,6 @@ package com.android.tupple.robot.domain.presenter.testvocab;
 
 public interface ResultAnswerHandler {
 
-    void onResult(boolean isResult, int result);
+    void onResult(boolean isResult, double progress);
 
 }

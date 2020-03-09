@@ -4,7 +4,7 @@ import com.android.tupple.robot.domain.entity.testvocab.Level2Presenter;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
 import com.android.tupple.robot.domain.presenter.testvocab.TestVocabModel;
-import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
+import com.android.tupple.robot.domain.presenter.data.LearningVocabModel;
 import com.android.tupple.robot.domain.presenter.testvocab.ResultAnswerHandler;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class Level2PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     public void setLevel2View(Level2View<LessonData, Topic, Vocabulary> level2View) {
         this.mLevel2View = level2View;
-        // TODO init Observable
+        // TODO start Observable
 
         start();
     }

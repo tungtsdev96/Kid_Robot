@@ -5,7 +5,7 @@ import com.android.tupple.robot.domain.entity.testvocab.Level3Presenter;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
 import com.android.tupple.robot.domain.presenter.testvocab.TestVocabModel;
-import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
+import com.android.tupple.robot.domain.presenter.data.LearningVocabModel;
 import com.android.tupple.robot.domain.presenter.testvocab.ResultAnswerHandler;
 
 import java.util.ArrayList;
@@ -32,6 +32,8 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     private List<Vocabulary> mListVocabulary = new ArrayList<>();
     private int mCurrentVocabulary = -1;
+
+    private ResultAnswerHandler mOnResultAnswerHandler;
 
     public Level3PresenterImpl(){}
 
@@ -93,6 +95,9 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
         }
 
         mLevel3View.setCurrentVocab(mCurrentVocabulary + 1);
+        if (mOnResultAnswerHandler != null) {
+            mOnResultAnswerHandler.onResult(true, 1);
+        }
     }
 
     private void handleOnPreviousBtnClicked() {
@@ -101,6 +106,9 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
         }
 
         mLevel3View.setCurrentVocab(mCurrentVocabulary - 1);
+        if (mOnResultAnswerHandler != null) {
+            mOnResultAnswerHandler.onResult(true, -1);
+        }
     }
 
     public void addLevel3ItemPresenter(Level3ItemPresenter item) {
@@ -124,7 +132,7 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     @Override
     public void setOnResultAnswerHandler(ResultAnswerHandler onResultAnswerHandler) {
-
+        this.mOnResultAnswerHandler = onResultAnswerHandler;
     }
 
     @Override

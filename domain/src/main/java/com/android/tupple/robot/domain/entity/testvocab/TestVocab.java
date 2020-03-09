@@ -15,6 +15,7 @@ public class TestVocab {
 
     private TestVocabPresenter mCurrentLevelPresenter;
     private AnswerResultPresenter mAnswerResultPresenter;
+    private TestProgressPresenter mTestProgressPresenter;
 
     public TestVocab() {
         mTestVocabPresenterHolder = new TestVocabPresenterHolder();
@@ -32,23 +33,20 @@ public class TestVocab {
 
     public void setLevel3Presenter(Level3Presenter level3Presenter) {
         mTestVocabPresenterHolder.setLevel3Presenter(level3Presenter);
+        level3Presenter.setOnResultAnswerHandler(this::handleResultAnswer);
     }
 
     public void setAnswerResultPresenter(AnswerResultPresenterImpl answerResultPresenter) {
         mAnswerResultPresenter = answerResultPresenter;
-        mAnswerResultPresenter.setOnBtnContinueHandler(this::handleBtnContinueClick);
     }
 
-    private void handleResultAnswer(boolean isResult, int result) {
-        if (mAnswerResultPresenter != null) {
-            int tmp = 65 + result;
-            mAnswerResultPresenter.showResult(isResult, Character.toString((char) tmp));
-        }
+    public void setTestProgressPresenter(TestProgressPresenter testProgressPresenter) {
+        this.mTestProgressPresenter = testProgressPresenter;
     }
 
-    private void handleBtnContinueClick() {
-        if (mCurrentLevelPresenter != null) {
-            mCurrentLevelPresenter.nextQuestion();
+    private void handleResultAnswer(boolean isRight, double progress) {
+        if (mTestProgressPresenter != null) {
+            mTestProgressPresenter.addRightAnswer(isRight, progress);
         }
     }
 
@@ -72,7 +70,6 @@ public class TestVocab {
     }
 
     public void init(){
-        // TODO init HeaderPresenter
         if (mCurrentLevelPresenter != null) {
             mCurrentLevelPresenter.init();
         }
@@ -81,6 +78,10 @@ public class TestVocab {
     public void start() {
         if (mCurrentLevelPresenter != null) {
             mCurrentLevelPresenter.start();
+        }
+
+        if (mTestProgressPresenter != null) {
+            mTestProgressPresenter.start();
         }
     }
 

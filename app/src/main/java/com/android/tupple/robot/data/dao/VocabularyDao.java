@@ -9,6 +9,7 @@ import com.android.tupple.robot.data.entity.Vocabulary;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Created by tung.ts on {2/17/2020}
@@ -33,6 +34,6 @@ public abstract class VocabularyDao extends BaseDao<Vocabulary> {
 
     @Query("SELECT * FROM " + Vocabulary.TABLE_NAME + " WHERE " + Columns.Vocabulary.TOPIC_ID + " = :topicId AND " + Columns.Vocabulary._ID + " NOT IN (:ids)" +
                                                                 " ORDER BY " + Columns.Vocabulary.SCORE_WRONG + " ASC LIMIT 3")
-    public abstract Observable<List<Vocabulary>> getListVocabularyNotIncludeIds(List<Integer> ids, int topicId);
+    public abstract Single<List<Vocabulary>> getListVocabularyNotIncludeIds(List<Integer> ids, int topicId);
 
 }

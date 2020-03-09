@@ -12,7 +12,7 @@ import com.android.tupple.robot.data.model.learningvocab.LearningVocabModelFacto
 import com.android.tupple.robot.data.model.vocabulary.VocabularyModelFactory;
 import com.android.tupple.robot.domain.entity.learnvocab.LearnVocab;
 import com.android.tupple.robot.domain.presenter.data.VocabularyModel;
-import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
+import com.android.tupple.robot.domain.presenter.data.LearningVocabModel;
 import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabPresenterImpl;
 import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabView;
 import com.android.tupple.robot.utils.constant.LearnVocabConstant;

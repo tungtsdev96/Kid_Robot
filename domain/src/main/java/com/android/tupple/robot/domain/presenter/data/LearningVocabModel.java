@@ -1,4 +1,4 @@
-package com.android.tupple.robot.domain.presenter.learnvocab;
+package com.android.tupple.robot.domain.presenter.data;
 
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.robot.domain.presenter.IModel;

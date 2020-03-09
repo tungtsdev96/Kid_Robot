@@ -6,7 +6,7 @@ import com.android.tupple.robot.domain.entity.testvocab.Level1Presenter;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
 import com.android.tupple.robot.domain.presenter.testvocab.TestVocabModel;
-import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
+import com.android.tupple.robot.domain.presenter.data.LearningVocabModel;
 import com.android.tupple.robot.domain.presenter.testvocab.ResultAnswerHandler;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     private final String TAG = "Level1PresenterImpl";
 
     private PresenterObserver<TestVocabLevel> mNextLevelObserver;
-//    private ResultAnswerHandler mOnResultAnswerHandler;
+    private ResultAnswerHandler mOnResultAnswerHandler;
 
     private Level1ViewWrapper<LessonData, Topic,Vocabulary> mLevel1ViewWrapper;
     private Level1View<LessonData, Topic, Vocabulary> mLevel1View;
@@ -80,6 +80,9 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
         if (!isCheck) {
             mTestVocabModel.updateQuestionForVocab(isRight, mListVocabularyLearning.get(mCurrentQuestion));
             nextQuestion();
+            if (mOnResultAnswerHandler != null) {
+                mOnResultAnswerHandler.onResult(isRight, 1);
+            }
             return;
         }
 
@@ -133,7 +136,7 @@ public class Level1PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     @Override
     public void setOnResultAnswerHandler(ResultAnswerHandler onResultAnswerHandler) {
-//        this.mOnResultAnswerHandler = onResultAnswerHandler;
+        this.mOnResultAnswerHandler = onResultAnswerHandler;
     }
 
     @Override
