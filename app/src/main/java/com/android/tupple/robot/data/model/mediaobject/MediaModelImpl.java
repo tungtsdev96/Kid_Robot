@@ -10,12 +10,12 @@ import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class VideoModelImpl implements EntertainmentModel<Media> {
+public class MediaModelImpl implements EntertainmentModel<Media> {
     private Context mContext;
 
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
-    public VideoModelImpl(Context mContext) {
+    public MediaModelImpl(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -35,5 +35,15 @@ public class VideoModelImpl implements EntertainmentModel<Media> {
                     cleanObserver.onNext(Media.fakeAudioData());
                 }
         );
+    }
+
+    @Override
+    public void cancel() {
+
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }

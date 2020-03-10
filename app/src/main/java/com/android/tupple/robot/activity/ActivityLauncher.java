@@ -59,7 +59,7 @@ public class ActivityLauncher {
 
     public void launchAudioPlayerActivity(Media media){
         Intent intent = new Intent(mActivity, AudioPlayerActivity.class);
-        intent.putExtra("test" , media.getMedia_url());
+        intent.putExtra("currentAudio" , media);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityUtils.startActivty(mActivity, intent);
     }

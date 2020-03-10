@@ -16,14 +16,21 @@ import android.widget.TextView;
 
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.base.BaseActivity;
+import com.android.tupple.robot.data.entity.Media;
+import com.android.tupple.robot.data.entity.Vocabulary;
+import com.android.tupple.robot.data.model.mediaobject.AudioPlayerModelFactory;
+import com.android.tupple.robot.domain.entity.audioplayer.PlayAudio;
+import com.android.tupple.robot.domain.entity.learnvocab.LearnVocab;
+import com.android.tupple.robot.domain.presenter.audioplayer.AudioPlayerPresenterImpl;
+import com.android.tupple.robot.domain.presenter.audioplayer.AudioPlayerView;
+import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentModel;
+import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabPresenterImpl;
+import com.android.tupple.robot.view.audioplayer.AudioPlayerViewFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AudioPlayerActivity extends BaseActivity {
-    SeekBar mSeekbar;
-    TextView txtCurrentTime, txtTotalTime , txtMediaTitle;
-    ImageView playIcon, backIcon, previousIcon, imageBackground;
-    FloatingActionButton go_back;
-    static MediaPlayer mMediaPlayer;
+    private ActivityLauncher activityLauncher;
+    private PlayAudio playAudio;
 
     @Override
     protected int getLayoutContent() {
@@ -32,169 +39,39 @@ public class AudioPlayerActivity extends BaseActivity {
 
     @Override
     protected void onCreatedActivity(Bundle savedInstanceState) {
-        initView();
-        String url = "";
-        String title = "";
+        Bundle bundle = null;
         Intent intent = getIntent();
         if (intent != null) {
-            url = intent.getStringExtra("audiourl");
-            title = intent.getStringExtra("audioname");
-            txtMediaTitle.setText(title);
+            bundle = intent.getExtras();
         }
-        if (mMediaPlayer != null) {
-            mMediaPlayer.stop();
-
-        }
-        initPlayer(url);
-        play();
-
-        playIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-            }
-        });
-        go_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        injectFirstBatch();
+        inject(bundle);
     }
 
-    protected void initView() {
-        mSeekbar = findViewById(R.id.seekbar);
-        txtCurrentTime = findViewById(R.id.current_time);
-        txtTotalTime = findViewById(R.id.total_time);
-        playIcon = findViewById(R.id.play_pause);
-        backIcon = findViewById(R.id.back_button);
-        previousIcon = findViewById(R.id.next_button);
-        imageBackground = findViewById(R.id.image_background);
-        go_back = findViewById(R.id.btn_close);
-        txtMediaTitle = findViewById(R.id.audioname);
+    private void injectFirstBatch() {
+        activityLauncher = new ActivityLauncher(this);
+        playAudio = new PlayAudio();
     }
 
-    protected void initPlayer(String url) {
-        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
-            mMediaPlayer.reset();
-        }
-        Uri audioUri = Uri.parse(url);
-        mMediaPlayer = MediaPlayer.create(getApplicationContext(), audioUri);
-        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                String totalTime = createTimeLabel(mMediaPlayer.getDuration());
-                txtTotalTime.setText(totalTime);
-                mSeekbar.setMax(mMediaPlayer.getDuration());
-                mMediaPlayer.start();
-                playIcon.setImageResource(R.drawable.stop_button);
-
-            }
-        });
-        mSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-                if (fromUser) {
-                    mMediaPlayer.seekTo(progress);
-                    mSeekbar.setProgress(progress);
-                }
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (mMediaPlayer != null) {
-                    try {
-//                        Log.i("Thread ", "Thread Called");
-                        // create new message to send to handler
-                        if (mMediaPlayer.isPlaying()) {
-                            Message msg = new Message();
-                            msg.what = mMediaPlayer.getCurrentPosition();
-                            handler.sendMessage(msg);
-                            Thread.sleep(1000);
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
+    private void inject(Bundle bundle) {
+        AudioPlayerPresenterImpl<Media> audioPlayerPresenter = new AudioPlayerPresenterImpl<>();
+        AudioPlayerView<Media> audioPlayerView = AudioPlayerViewFactory.newAudioPlayerView(this);
+        EntertainmentModel<Media> audioPlayerModel = AudioPlayerModelFactory.newAudioPlayerModelFactory(this);
+        audioPlayerPresenter.setAudioPlayerModel(audioPlayerModel);
+        audioPlayerPresenter.setAudioPlayerView(audioPlayerView);
+        setCurrentAudio(bundle, audioPlayerPresenter);
+        initObserver(audioPlayerPresenter);
+        playAudio.setPlayAudioPresenter(audioPlayerPresenter);
+        playAudio.init();
     }
 
-    @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            int current_position = msg.what;
-            mSeekbar.setProgress(current_position);
-            String cTime = createTimeLabel(current_position);
-            txtCurrentTime.setText(cTime);
-        }
-    };
-
-
-    private void play() {
-
-        if (mMediaPlayer != null && !mMediaPlayer.isPlaying()) {
-            mMediaPlayer.start();
-            playIcon.setImageResource(R.drawable.stop_button);
-        } else {
-            pause();
-        }
-
+    private void setCurrentAudio(Bundle bundle, AudioPlayerPresenterImpl<Media> audioPlayerPresenter) {
+        Media currentAudio = bundle.getParcelable("currentAudio");
+        audioPlayerPresenter.setCurrentAudio(currentAudio);
     }
 
-    private void pause() {
-        if (mMediaPlayer.isPlaying()) {
-            mMediaPlayer.pause();
-            playIcon.setImageResource(R.drawable.play_button);
+    private void initObserver(AudioPlayerPresenterImpl<Media> audioPlayerPresenter) {
+        audioPlayerPresenter.setOnCloseButtonHandler(this::onBackPressed);
 
-        }
-
-    }
-
-    public String createTimeLabel(int duration) {
-        String timeLabel = "";
-        int min = duration / 1000 / 60;
-        int sec = duration / 1000 % 60;
-
-        timeLabel += min + ":";
-        if (sec < 10) timeLabel += "0";
-        timeLabel += sec;
-
-        return timeLabel;
-
-
-    }
-
-    @Override
-    protected void onPause() {
-        mMediaPlayer.pause();
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        mMediaPlayer.start();
-        super.onResume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 }

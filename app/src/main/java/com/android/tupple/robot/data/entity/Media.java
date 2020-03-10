@@ -1,14 +1,40 @@
 package com.android.tupple.robot.data.entity;
 
+import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Media {
+public class Media implements Parcelable {
     private String title;
     private boolean is_audio;
     private String media_url;
     private String audio_thumbnail;
     private String description;
+
+    protected Media(Parcel in) {
+        title = in.readString();
+        is_audio = in.readByte() != 0;
+        media_url = in.readString();
+        audio_thumbnail = in.readString();
+        description = in.readString();
+    }
+
+    public static final Creator<Media> CREATOR = new Creator<Media>() {
+        @Override
+        public Media createFromParcel(Parcel in) {
+            return new Media(in);
+        }
+
+        @Override
+        public Media[] newArray(int size) {
+            return new Media[size];
+        }
+    };
 
     public boolean isIs_audio() {
         return is_audio;
@@ -129,5 +155,19 @@ public class Media {
                 "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png",
                 "Description for media object #1"));
         return media;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeByte((byte) (is_audio ? 1 : 0));
+        dest.writeString(media_url);
+        dest.writeString(audio_thumbnail);
+        dest.writeString(description);
     }
 }
