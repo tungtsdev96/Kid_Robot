@@ -13,6 +13,7 @@ import android.util.Log;
 
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.base.BaseActivity;
+import com.android.tupple.robot.utils.constant.EntertainmentConstant;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -40,7 +41,7 @@ public class VideoPlayerActivity extends BaseActivity {
         String url = "";
         Intent intent = getIntent();
         if (intent != null) {
-            url = intent.getStringExtra("test");
+            url = intent.getStringExtra(EntertainmentConstant.VIDEO_INTENT);
         }
 
         playVideoInLocalStorage(url);
@@ -90,6 +91,12 @@ public class VideoPlayerActivity extends BaseActivity {
 //        player.release();
         player = null;
         super.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        player.stop();
     }
 
     @Override
