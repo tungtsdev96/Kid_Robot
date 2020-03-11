@@ -25,6 +25,7 @@ import com.android.tupple.robot.domain.presenter.audioplayer.AudioPlayerPresente
 import com.android.tupple.robot.domain.presenter.audioplayer.AudioPlayerView;
 import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentModel;
 import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabPresenterImpl;
+import com.android.tupple.robot.utils.constant.EntertainmentConstant;
 import com.android.tupple.robot.view.audioplayer.AudioPlayerViewFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -66,12 +67,22 @@ public class AudioPlayerActivity extends BaseActivity {
     }
 
     private void setCurrentAudio(Bundle bundle, AudioPlayerPresenterImpl<Media> audioPlayerPresenter) {
-        Media currentAudio = bundle.getParcelable("currentAudio");
-        audioPlayerPresenter.setCurrentAudio(currentAudio);
+        Media currentAudio = bundle.getParcelable(EntertainmentConstant.AUDIO_INTENT);
+        int position = bundle.getInt(EntertainmentConstant.AUDIO_POSITION);
+        if (currentAudio != null) {
+            audioPlayerPresenter.setCurrentAudio(currentAudio);
+            audioPlayerPresenter.setCurrentPosition(position);
+        }
     }
 
     private void initObserver(AudioPlayerPresenterImpl<Media> audioPlayerPresenter) {
-        audioPlayerPresenter.setOnCloseButtonHandler(this::onBackPressed);
+        audioPlayerPresenter.setOnCloseButtonHandler(this::finish);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        playAudio.finish();
     }
 }

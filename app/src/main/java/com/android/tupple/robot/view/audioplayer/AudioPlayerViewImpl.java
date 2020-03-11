@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -16,20 +17,27 @@ import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.domain.presenter.audioplayer.AudioPlayerView;
+import com.android.tupple.robot.utils.GlideUtils;
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class AudioPlayerViewImpl implements AudioPlayerView<Media> {
     private Activity mActivity;
     SeekBar mSeekbar;
     TextView txtCurrentTime, txtTotalTime, txtMediaTitle;
-    ImageView playIcon, backIcon, previousIcon, imageBackground;
-    FloatingActionButton go_back;
+    ImageView imageBackground;
+    FloatingActionButton go_back, btnPrevious, btnNext, btnPlayStop;
+
+    static MediaPlayer mMediaPlayer;
+    private Media mCurrentAudio;
 
     private CleanObserver mCloseButtonClickedObserver;
     private CleanObserver mNextButtonClickedObserver;
     private CleanObserver mPreviousButtonClickedObserver;
+    private CleanObserver mStopPlayButtonClickedObserver;
 
-    static MediaPlayer mMediaPlayer;
 
     public AudioPlayerViewImpl(Activity activity) {
         this.mActivity = activity;
@@ -40,9 +48,9 @@ public class AudioPlayerViewImpl implements AudioPlayerView<Media> {
         mSeekbar = mActivity.findViewById(R.id.seekbar);
         txtCurrentTime = mActivity.findViewById(R.id.current_time);
         txtTotalTime = mActivity.findViewById(R.id.total_time);
-        playIcon = mActivity.findViewById(R.id.play_pause);
-        backIcon = mActivity.findViewById(R.id.back_button);
-        previousIcon = mActivity.findViewById(R.id.next_button);
+        btnPlayStop = mActivity.findViewById(R.id.btn_play);
+        btnPrevious = mActivity.findViewById(R.id.btn_previous);
+        btnNext = mActivity.findViewById(R.id.btn_next);
         imageBackground = mActivity.findViewById(R.id.image_background);
         go_back = mActivity.findViewById(R.id.btn_close);
         txtMediaTitle = mActivity.findViewById(R.id.audioname);
@@ -53,19 +61,43 @@ public class AudioPlayerViewImpl implements AudioPlayerView<Media> {
                 mCloseButtonClickedObserver.onNext();
             }
         });
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPreviousButtonClickedObserver.onNext();
+            }
+        });
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mNextButtonClickedObserver.onNext();
+            }
+        });
+        btnPlayStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mStopPlayButtonClickedObserver.onNext();
+            }
+        });
+
+    }
+
+
+    @Override
+    public void setCurrentAudio(Media media) {
+        this.mCurrentAudio = media;
+        Glide.with(mActivity).load(media.getAudio_thumbnail()).into(imageBackground);
+        Log.d("AudioPlayerViewImpl", media.getAudio_thumbnail());
+        txtMediaTitle.setText(media.getTitle());
     }
 
     @Override
-    public void getListAudio() {
-
-    }
-
-    @Override
-    public void preparePlayer(Media media) {
+    public void preparePlayer() {
         if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
             mMediaPlayer.reset();
         }
-        Uri audioUri = Uri.parse(media.getMedia_url());
+        Uri audioUri = Uri.parse(mCurrentAudio.getMedia_url());
+        Log.d("AudioPlayerViewImpl", mCurrentAudio.getMedia_url());
         mMediaPlayer = MediaPlayer.create(mActivity, audioUri);
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -74,7 +106,7 @@ public class AudioPlayerViewImpl implements AudioPlayerView<Media> {
                 txtTotalTime.setText(totalTime);
                 mSeekbar.setMax(mMediaPlayer.getDuration());
                 mMediaPlayer.start();
-                playIcon.setImageResource(R.drawable.stop_button);
+                btnPlayStop.setImageResource(R.drawable.stop_button);
 
             }
         });
@@ -106,8 +138,6 @@ public class AudioPlayerViewImpl implements AudioPlayerView<Media> {
             public void run() {
                 while (mMediaPlayer != null) {
                     try {
-//                        Log.i("Thread ", "Thread Called");
-                        // create new message to send to handler
                         if (mMediaPlayer.isPlaying()) {
                             Message msg = new Message();
                             msg.what = mMediaPlayer.getCurrentPosition();
@@ -123,19 +153,35 @@ public class AudioPlayerViewImpl implements AudioPlayerView<Media> {
     }
 
     @Override
-    public void playCurrentAudio(Media media) {
+    public void playAudio() {
         if (mMediaPlayer != null && !mMediaPlayer.isPlaying()) {
             mMediaPlayer.start();
-            playIcon.setImageResource(R.drawable.stop_button);
-        } else {
-            pause();
+            btnPlayStop.setImageResource(R.drawable.stop_button);
         }
     }
+
+    @Override
+    public void changeIconStopPlay(boolean isPlay) {
+        if (isPlay) {
+            btnPlayStop.setImageResource(R.drawable.stop_button);
+        } else btnPlayStop.setImageResource(R.drawable.play_button);
+    }
+
+    @Override
+    public void pauseAudio() {
+        pause();
+    }
+
+    @Override
+    public void stopAudio() {
+        mMediaPlayer.stop();
+    }
+
 
     private void pause() {
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.pause();
-            playIcon.setImageResource(R.drawable.play_button);
+            btnPlayStop.setImageResource(R.drawable.play_button);
 
         }
 
@@ -154,6 +200,12 @@ public class AudioPlayerViewImpl implements AudioPlayerView<Media> {
     @Override
     public CleanObservable getPreviousButtonClickedObservable() {
         return CleanObservable.create(cleanObserver -> mPreviousButtonClickedObserver = cleanObserver);
+    }
+
+    @Override
+    public CleanObservable getStopPlayButtonClickedObservable() {
+        return CleanObservable.create(cleanObserver -> mStopPlayButtonClickedObserver = cleanObserver);
+
     }
 
     @SuppressLint("HandlerLeak")

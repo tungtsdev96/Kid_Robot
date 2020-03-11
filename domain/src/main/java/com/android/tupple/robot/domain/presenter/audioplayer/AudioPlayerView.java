@@ -5,15 +5,23 @@ import com.android.tupple.cleanobject.CleanObservable;
 public interface AudioPlayerView<Media> {
     void initLayout();
 
-    void getListAudio();
+    void setCurrentAudio(Media media);
 
-    void preparePlayer(Media media);
+    void preparePlayer();
 
-    void playCurrentAudio(Media media);
+    void playAudio();
+
+    void changeIconStopPlay(boolean isPlay);
+
+    void pauseAudio();
+
+    void stopAudio();
 
     CleanObservable getCloseButtonClickedObservable();
 
     CleanObservable getNextButtonClickedObservable();
 
     CleanObservable getPreviousButtonClickedObservable();
+
+    CleanObservable getStopPlayButtonClickedObservable();
 }
