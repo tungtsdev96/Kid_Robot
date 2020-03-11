@@ -15,4 +15,6 @@ public interface Level3ItemPresenter {
     void onPageChange();
 
     void onPageSelected();
+
+    boolean checkCanNextVocab();
 }

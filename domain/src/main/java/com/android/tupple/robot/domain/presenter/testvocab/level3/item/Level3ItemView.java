@@ -26,6 +26,10 @@ public interface Level3ItemView<Vocabulary> {
 
     void setStateRecording(RecordState state);
 
+    void notifyHaveNotTested();
+
+    void showDialogStopRecord();
+
     CleanObservable getBtnPronounceClickedObservable();
 
     CleanObservable<Boolean> getBtnRecordingClickedObservable();

@@ -18,6 +18,8 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
 
     private Vocabulary mVocabulary;
     private int mVocabId;
+    private boolean isRecording;
+    private boolean isTested;
 
     public Level3ItemPresenterImpl(Vocabulary vocabulary) {
         this.mVocabulary = vocabulary;
@@ -50,6 +52,7 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
     }
 
     private void startRecord() {
+        isRecording = true;
         mLevel3ItemView.startRecording(mVocabulary);
         mLevel3ItemView.setStateRecording(RecordState.RECORDING);
         mLevel3ItemView.setTextResult(ResultState.INVALID);
@@ -64,7 +67,7 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
     private void handleOnRecordDone(String fileRecord) {
         // TODO handle with server
         CLog.printD("tungts", fileRecord);
-
+        isRecording = false;
     }
 
     private void handleBtnPronounceClicked() {
@@ -93,12 +96,27 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
     @Override
     public void onPageChange() {
         // TODO check is recording, stop record, check vocab is tested
-        stopRecord();
+
     }
 
     @Override
     public void onPageSelected() {
         doOnStart();
+    }
+
+    @Override
+    public boolean checkCanNextVocab() {
+        if (!isTested) {
+            mLevel3ItemView.notifyHaveNotTested();
+            return false;
+        }
+
+        if (isRecording) {
+            mLevel3ItemView.showDialogStopRecord();
+            return false;
+        }
+
+        return true;
     }
 
 

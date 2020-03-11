@@ -94,6 +94,11 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
             return;
         }
 
+        boolean isCanNext = mListLevel3ItemPresenter.get(mCurrentVocabulary).checkCanNextVocab();
+        if (!isCanNext) {
+            return;
+        }
+
         mLevel3View.setCurrentVocab(mCurrentVocabulary + 1);
         if (mOnResultAnswerHandler != null) {
             mOnResultAnswerHandler.onResult(true, 1);

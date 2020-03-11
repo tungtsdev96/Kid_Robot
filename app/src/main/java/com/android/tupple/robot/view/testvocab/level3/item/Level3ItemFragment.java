@@ -201,6 +201,16 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
     }
 
     @Override
+    public void notifyHaveNotTested() {
+        Toast.makeText(mContext, "Bạn hãy kiểm tra trước đã", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showDialogStopRecord() {
+        Toast.makeText(mContext, "Hỏi xem có muốn stop record không", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public CleanObservable getBtnPronounceClickedObservable() {
         return CleanObservable.create(cleanObserver -> mBtnPronounceClickedObserver = cleanObserver);
     }

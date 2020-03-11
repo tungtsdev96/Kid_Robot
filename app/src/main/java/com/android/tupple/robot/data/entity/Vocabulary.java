@@ -77,7 +77,7 @@ public class Vocabulary {
         if (topicId > 0) {
             return ImageUtils.getUrlImageTopic(vocabEn.toLowerCase(), topicId);
         } else {
-            return null;
+            return ImageUtils.getUrlImageLesson(vocabEn.toLowerCase(), lessonId, totalImage);
         }
     }
 
