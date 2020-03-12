@@ -1,5 +1,6 @@
 package com.android.tupple.robot;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.domain.log.CLog;
 import com.android.tupple.robot.domain.log.CLogger;
 import com.android.tupple.robot.utils.ResourceUtils;
+import com.android.tupple.robot.utils.Utils;
 import com.android.tupple.trigger.TriggerService;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -54,7 +56,7 @@ public class KidRobotApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         initCLogger();
-//        initTriggerService();
+        initTriggerService();
 
         // test data for school book
 //        initBook();
@@ -173,6 +175,10 @@ public class KidRobotApplication extends MultiDexApplication {
     }
 
     private void initTriggerService() {
+        if (Utils.isMyServiceRunning(getApplicationContext(), TriggerService.class)){
+            return;
+        }
+
         try {
             Intent intent = new Intent(getApplicationContext(), TriggerService.class);
             startService(intent);
@@ -202,5 +208,4 @@ public class KidRobotApplication extends MultiDexApplication {
             }
         });
     }
-
 }

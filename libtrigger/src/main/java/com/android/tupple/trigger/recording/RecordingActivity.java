@@ -30,6 +30,7 @@ import java.util.ArrayList;
 public class RecordingActivity extends Activity {
 
     private RecognitionProgressView mRecognitionProgressView;
+    private boolean isHasResult = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,8 @@ public class RecordingActivity extends Activity {
             @Override
             public void onResults(Bundle results) {
                 ArrayList<String> result = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                handleResultRecognize(result != null ? result.get(0) : null);
+                isHasResult = result != null && !result.isEmpty();
+                handleResultRecognize(isHasResult ? result.get(0) : null);
             }
 
             @Override
@@ -71,39 +73,42 @@ public class RecordingActivity extends Activity {
             @Override
             public void onEndOfSpeech() {
                 super.onEndOfSpeech();
-//                Toast.makeText(RecordingActivity.this, "End Speed", Toast.LENGTH_SHORT).show();
-                mRecognitionProgressView.stop();
-
-                startMediaPlayer();
-
-                new Handler().postDelayed(() -> finish(), 3000);
+                Log.d(TriggerService.TAG, "onEndOfSpeech");
+                if (!isHasResult) {
+                    mRecognitionProgressView.stop();
+                    finish();
+                }
             }
         });
 
         startRecognize(speechRecognizer);
     }
 
-    private void startMediaPlayer() {
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.ant);
-        mediaPlayer.start();
-    }
-
     private void handleErrorRecognize(int error) {
         switch (error) {
             case SpeechRecognizer.ERROR_NETWORK:
+                Log.d(TriggerService.TAG, "handleErrorRecognize network");
                 finish();
                 break;
         }
     }
 
     private void handleResultRecognize(String result) {
+        Log.d(TriggerService.TAG, "handleResultRecognize: " + result);
+
+        if (result == null) {
+            finish();
+            return;
+        }
+
+        Toast.makeText(this, "trigger: " + result, Toast.LENGTH_SHORT).show();
         mRecognitionProgressView.stop();
         Intent intent = new Intent();
+        intent.setPackage("com.android.tupple.robot");
         intent.setAction(TriggerConstant.ACTION_RECOGNIZE_DONE);
         intent.putExtra(TriggerConstant.EXTRA_RECOGNIZE_DONE, result);
         sendBroadcast(intent);
-        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-        Log.d(TriggerService.TAG, result);
+        finish();
     }
 
     private void startRecognize(SpeechRecognizer speechRecognizer) {

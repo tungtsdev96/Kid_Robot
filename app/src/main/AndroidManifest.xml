@@ -15,6 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <receiver
+            android:name=".receiver.RecordingReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.tuple.trigger.ACTION_RECOGNIZE_DONE"/>
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".activity.VideoPlayerActivity"
             android:screenOrientation="landscape"/>
@@ -24,21 +33,19 @@
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".activity.FaceSmileActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="landscape">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+            android:screenOrientation="sensorLandscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.LessonActivity"

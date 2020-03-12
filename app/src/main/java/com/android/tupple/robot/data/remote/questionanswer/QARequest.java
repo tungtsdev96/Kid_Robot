@@ -8,4 +8,7 @@ public class QARequest {
 
     private String entities;
 
+    public void setEntities(String entities) {
+        this.entities = entities;
+    }
 }

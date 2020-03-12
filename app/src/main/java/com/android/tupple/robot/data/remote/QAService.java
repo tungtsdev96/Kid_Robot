@@ -4,6 +4,7 @@ import com.android.tupple.robot.data.remote.questionanswer.QARequest;
 import com.android.tupple.robot.data.remote.questionanswer.QAResponse;
 
 import io.reactivex.Single;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
@@ -14,6 +15,6 @@ import retrofit2.http.POST;
 public interface QAService {
 
     @POST("/uploader")
-    Single<QAResponse> postTest(@Body QARequest request);
+    Call<QAResponse> postTest(@Body QARequest request);
 
 }

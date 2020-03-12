@@ -8,10 +8,21 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.music.MultiPlayer;
+import com.android.tupple.robot.data.remote.ApiFactory;
+import com.android.tupple.robot.data.remote.questionanswer.QARequest;
+import com.android.tupple.robot.data.remote.questionanswer.QAResponse;
 import com.android.tupple.trigger.TriggerService;
 import com.android.tupple.trigger.utils.TriggerConstant;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by tungts on 2020-02-01.
@@ -24,7 +35,7 @@ public class RecordingReceiver extends BroadcastReceiver {
 
         String action = intent.getAction();
 
-        Log.d(TriggerService.TAG, action);
+        Log.d(TriggerService.TAG, "RecordingReceiver " + action);
 
         if (TextUtils.isEmpty(action)) {
             return;
@@ -34,9 +45,31 @@ public class RecordingReceiver extends BroadcastReceiver {
             String result = intent.getStringExtra(TriggerConstant.EXTRA_RECOGNIZE_DONE);
             Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
 
-//            MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.ant);
-//            mediaPlayer.start();
+            handleQuestion(context, result);
         }
+    }
+
+    private void handleQuestion(Context context, String result) {
+        QARequest request = new QARequest();
+        request.setEntities(result);
+        ApiFactory.getQAService().postTest(request).enqueue(new Callback<QAResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<QAResponse> call, @NonNull Response<QAResponse> response) {
+                if  (!response.isSuccessful() || response.body() == null) {
+                    Log.d(TriggerService.TAG, " response answer success: " + response.isSuccessful());
+                    return;
+                }
+
+                // TODO show dialog result answer
+                QAResponse qaResponse = response.body();
+                Toast.makeText(context, qaResponse.getResultText() + " " + qaResponse.getLinkAudio(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<QAResponse> call, Throwable t) {
+                Log.d(TriggerService.TAG, "api err " + t.getLocalizedMessage());
+            }
+        });
     }
 
 }

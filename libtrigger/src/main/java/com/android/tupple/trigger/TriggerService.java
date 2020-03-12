@@ -67,7 +67,7 @@ public class TriggerService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        Log.d(TAG, "onCreate");
+        Log.d(TAG, "onCreate " + Thread.currentThread().getName());
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ALLOW_WAKE_UP_WORD);
@@ -84,7 +84,7 @@ public class TriggerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "OnstartCommand");
+        Log.d(TAG, "OnstartCommand " + Thread.currentThread().getName());
         return START_STICKY;
     }
 
@@ -140,7 +140,6 @@ public class TriggerService extends Service {
     }
 
     private void intiListRecord() {
-
         for (int i = 0; i < RECORDING_LENGTH; i++) {
             recordingBuffer.add((short) 0);
         }
@@ -237,7 +236,12 @@ public class TriggerService extends Service {
                 }
 
             }
-            System.arraycopy(recordingBuffer.toArray(new Short[RECORDING_LENGTH]), 0, inputBuffer, 0, RECORDING_LENGTH);
+
+            try {
+                System.arraycopy(recordingBuffer.toArray(new Short[RECORDING_LENGTH]), 0, inputBuffer, 0, RECORDING_LENGTH);
+            } catch (Exception e) {
+                Log.d(TAG, "FC in here " + e.getLocalizedMessage());
+            }
 
             float maxInput = -1;
 //                Log.d(TAG, String.valueOf(inputBuffer[0]));
@@ -266,20 +270,13 @@ public class TriggerService extends Service {
                 inferenceInterface.run(outputScoresNames);
                 inferenceInterface.fetch(OUTPUT_SCORES_NAME, outputScores);
 
-                Log.d(TAG, "recognize: " + outputScores[0] + "  " + outputScores[1]);
+                Log.d(TAG, Thread.currentThread().getName() + " recognize: " + outputScores[0] + "  " + outputScores[1]);
 
                 if (outputScores[1] > 0.7f && numberLoadIgnore == 0){
                     numberLoadIgnore = 2;
                     stopRecording();
                     stopRecognition();
-
-//                    Intent intent = new Intent("tungts");
-//                    intent.putExtra("text", String.valueOf(outputScores[1]));
-//                    LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-                    // TODO startActivity Recognizing
                     startRecordingActivity();
-
-//                    stopSelf();
                 }
                 if (numberLoadIgnore > 0) {
                     numberLoadIgnore -= 1;
