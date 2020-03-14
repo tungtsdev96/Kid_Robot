@@ -12,6 +12,7 @@ import com.android.tupple.robot.data.entity.MenuItemData;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.data.model.alarm.AlarmModelFactory;
+import com.android.tupple.robot.data.model.mediaobject.AudioListModelFactory;
 import com.android.tupple.robot.data.model.mediaobject.EntertainmentModelFactory;
 import com.android.tupple.robot.data.model.mediaobject.VideoListModelFactory;
 import com.android.tupple.robot.domain.entity.menumain.MenuMain;
@@ -19,6 +20,9 @@ import com.android.tupple.robot.domain.entity.menumain.MenuType;
 import com.android.tupple.robot.domain.presenter.alarm.AlarmModel;
 import com.android.tupple.robot.domain.presenter.alarm.AlarmPresenterImpl;
 import com.android.tupple.robot.domain.presenter.alarm.AlarmViewWrapper;
+import com.android.tupple.robot.domain.presenter.audiolist.AudioListModel;
+import com.android.tupple.robot.domain.presenter.audiolist.AudioListPresenterImpl;
+import com.android.tupple.robot.domain.presenter.audiolist.AudioListViewWrapper;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerModel;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerPresenterImpl;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerView;
@@ -37,6 +41,7 @@ import com.android.tupple.robot.domain.presenter.videolist.VideoListModel;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListPresenterImpl;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListViewWrapper;
 import com.android.tupple.robot.view.alarm.AlarmViewWrapperFactory;
+import com.android.tupple.robot.view.audiolist.AudioListViewWrapperFactory;
 import com.android.tupple.robot.view.drawer.DrawerViewFactory;
 import com.android.tupple.robot.view.englishbook.EnglishBookViewWrapperFactory;
 import com.android.tupple.robot.view.englishtopic.EnglishTopicViewWrapperFactory;
@@ -163,9 +168,18 @@ public class MainActivity extends BaseActivity {
         VideoListViewWrapper<Media> videoListViewWrapper = VideoListViewWrapperFactory.newVideoListViewWrapper(getSupportFragmentManager(), bundle);
         VideoListModel<Media> videoListModel = VideoListModelFactory.newVideoListModel(this);
         videoListPresenter.setVideoListViewWrapper(videoListViewWrapper);
-        videoListPresenter.setmVideoListModel(videoListModel);
-        //entertainmentPresenter.setmCurrentPresenter(videoListPresenter);
-        entertainmentPresenter.setmVideoListPresenter(videoListPresenter);
+        videoListPresenter.setVideoListModel(videoListModel);
+        videoListPresenter.setOnItemVideoClickObserver(mActivityLauncher::launchVideoPlayerActivity);
+
+        AudioListPresenterImpl<Media> audioListPresenter = new AudioListPresenterImpl<>();
+        AudioListViewWrapper<Media> audioListViewWrapper = AudioListViewWrapperFactory.newAudioListViewWrapper(getSupportFragmentManager(), bundle);
+        AudioListModel<Media> audioListModel = AudioListModelFactory.newAudioListModel(this);
+        audioListPresenter.setAudioListViewWrapper(audioListViewWrapper);
+        audioListPresenter.setAudioListModel(audioListModel);
+        audioListPresenter.setOnItemAudioClickObserver(mActivityLauncher::launchAudioPlayerActivity);
+
+        entertainmentPresenter.setVideoListPresenter(videoListPresenter);
+        entertainmentPresenter.setAudioListPresenter(audioListPresenter);
         mMenuMain.setEntertainmentPresenter(entertainmentPresenter);
     }
 

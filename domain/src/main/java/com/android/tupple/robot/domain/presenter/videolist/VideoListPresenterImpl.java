@@ -22,7 +22,7 @@ public class VideoListPresenterImpl<Media> implements MediaListPresenter {
         mVideoListViewWrapper.getViewCreatedObservable().subscribe(this::onViewCreated);
     }
 
-    public void setmVideoListModel(VideoListModel<Media> mVideoListModel) {
+    public void setVideoListModel(VideoListModel<Media> mVideoListModel) {
         this.mVideoListModel = mVideoListModel;
     }
 
@@ -47,7 +47,6 @@ public class VideoListPresenterImpl<Media> implements MediaListPresenter {
 
     private void initObserable() {
         mVideoListView.getItemVideoClickedObservable().subscribe(this::handleItemVideoClicked);
-
     }
 
     @Override

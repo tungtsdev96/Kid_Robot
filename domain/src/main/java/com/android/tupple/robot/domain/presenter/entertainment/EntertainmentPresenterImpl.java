@@ -15,13 +15,17 @@ public class EntertainmentPresenterImpl<Fragment> implements EntertainmentPresen
     private EntertainmentModel<Fragment> mEntertainmentModel;
     private PresenterObserver<Fragment> mButtonVideoClickedObserver;
     private PresenterObserver<Fragment> mButtonAudioClickedObserver;
-    private boolean mIsLoadData = false;
-
-    public void setmVideoListPresenter(VideoListPresenterImpl mCurrentPresenter){
-        this.mVideoListPresenter = mCurrentPresenter;
-    }
     private VideoListPresenterImpl mVideoListPresenter;
     private AudioListPresenterImpl mAudioListPresenter;
+    private boolean mIsLoadData = false;
+
+    public void setVideoListPresenter(VideoListPresenterImpl videoListPresenter){
+        this.mVideoListPresenter = videoListPresenter;
+    }
+    public void setAudioListPresenter(AudioListPresenterImpl audioListPresenter){
+        this.mAudioListPresenter = audioListPresenter;
+    }
+
     public EntertainmentPresenterImpl() {
 
     }
@@ -48,9 +52,9 @@ public class EntertainmentPresenterImpl<Fragment> implements EntertainmentPresen
     }
 
     private void handleButtonAudioClicked(Fragment fragment) {
-        mVideoListPresenter.stop();
-        if (mVideoListPresenter != null)
-            mVideoListPresenter.init();
+        mAudioListPresenter.stop();
+        if (mAudioListPresenter != null)
+            mAudioListPresenter.init();
     }
 
     @Override

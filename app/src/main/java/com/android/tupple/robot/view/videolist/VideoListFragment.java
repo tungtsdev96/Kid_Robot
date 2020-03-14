@@ -53,7 +53,6 @@ public class VideoListFragment extends Fragment implements VideoListView<Media> 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mRootView = inflater.inflate(R.layout.fragment_video_list, container, false);
         initView(mRootView);
-        Log.d("ahihi" , "create");
         if (mViewCreatedObserver != null) {
             mViewCreatedObserver.onNext(this);
         }
