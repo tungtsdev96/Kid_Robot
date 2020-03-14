@@ -4,9 +4,9 @@ import com.android.tupple.cleanobject.CleanObservable;
 
 import java.util.List;
 
-public interface EntertainmentView<Media> {
-    void setListVideo(List<Media> listVideo);
-    void setListAudio(List<Media> listAudio);
-    CleanObservable<Media> getItemVideoClickedObservable();
-    CleanObservable<Media> getItemAudioClickedObservable();
+public interface EntertainmentView<Fragment> {
+    void setTitleHeader(Fragment fragment);
+    void setCurrentFragment(Fragment fragment);
+    CleanObservable<Fragment> getButtonVideoClickedObservable();
+    CleanObservable<Fragment> getButtonAudioClickedObservable();
 }

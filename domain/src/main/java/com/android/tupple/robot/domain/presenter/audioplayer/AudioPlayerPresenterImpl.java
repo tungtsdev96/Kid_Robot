@@ -3,6 +3,7 @@ package com.android.tupple.robot.domain.presenter.audioplayer;
 import android.util.Log;
 
 import com.android.tupple.robot.domain.entity.audioplayer.PlayAudioPresenter;
+import com.android.tupple.robot.domain.presenter.audiolist.AudioListModel;
 import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentModel;
 import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentView;
 import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabPresenterImpl;
@@ -18,7 +19,7 @@ public class AudioPlayerPresenterImpl<Media> implements PlayAudioPresenter {
 
     private final String TAG = "AudioPlayerPreImpl";
     private AudioPlayerView<Media> mAudioPlayerView;
-    private EntertainmentModel<Media> mAudioPlayerModel;
+    private AudioListModel<Media> mAudioPlayerModel;
     private Media mCurrentAudio;
     private int mCurrentPosition;
     private boolean isPlay = false;
@@ -40,7 +41,7 @@ public class AudioPlayerPresenterImpl<Media> implements PlayAudioPresenter {
         initObservable();
     }
 
-    public void setAudioPlayerModel(EntertainmentModel<Media> audioPlayerModel) {
+    public void setAudioPlayerModel(AudioListModel<Media> audioPlayerModel) {
         this.mAudioPlayerModel = audioPlayerModel;
     }
 
@@ -75,14 +76,14 @@ public class AudioPlayerPresenterImpl<Media> implements PlayAudioPresenter {
     @Override
     public void start() {
         Log.d(TAG, "start");
-        getAudioData();
+//        getAudioData();
         mAudioPlayerView.playAudio();
         isPlay = true;
     }
 
-    private void getAudioData() {
-        mAudioPlayerModel.getAllAudio().subscribe(this::handleData);
-    }
+//    private void getAudioData() {
+//        mAudioPlayerModel.getAllAudio().subscribe(this::handleData);
+//    }
 
     private void handleData(List<Media> list) {
         mListAudio.clear();

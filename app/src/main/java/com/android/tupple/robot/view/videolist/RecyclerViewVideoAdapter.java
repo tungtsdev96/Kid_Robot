@@ -1,9 +1,8 @@
-package com.android.tupple.robot.view.entertainment;
+package com.android.tupple.robot.view.videolist;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +42,7 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new RecyclerViewVideoAdapter.ItemViewHolder(
+        return new ItemViewHolder(
                 LayoutInflater.from(mContext).inflate(R.layout.item_video_entertainment, parent, false)
         );
     }
@@ -90,7 +89,7 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
 
             File pictureFile = new File(mContext.getCacheDir(), media.getTitle() + ".png");
             if (pictureFile.exists()) {
-                Log.d("MInhtest", "khacnull");
+                Log.d("Minhtest", "khacnull");
                 Glide.with(mContext).load(pictureFile.getAbsolutePath()).into(thumbnailVideo);
             } else {
                 Observable.fromCallable(() -> {
@@ -130,8 +129,8 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
         try {
             mediaMetadataRetriever = new MediaMetadataRetriever();
             mediaMetadataRetriever.setDataSource(videoPath);
-            if (mediaMetadataRetriever != null)
-                bitmap = mediaMetadataRetriever.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST);
+
+            bitmap = mediaMetadataRetriever.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST);
         } catch (Exception e) {
             e.printStackTrace();
             throw new Throwable(

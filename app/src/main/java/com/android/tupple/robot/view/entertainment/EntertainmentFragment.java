@@ -2,13 +2,18 @@ package com.android.tupple.robot.view.entertainment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,23 +22,32 @@ import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.customview.snaprecycleview.SnapRecycleView;
 import com.android.tupple.robot.data.entity.Media;
+import com.android.tupple.robot.data.model.mediaobject.VideoListModelFactory;
 import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentView;
+import com.android.tupple.robot.domain.presenter.videolist.VideoListModel;
+import com.android.tupple.robot.domain.presenter.videolist.VideoListPresenterImpl;
+import com.android.tupple.robot.domain.presenter.videolist.VideoListViewWrapper;
+import com.android.tupple.robot.view.audiolist.AudioListFragment;
+import com.android.tupple.robot.view.lesson.LessonFragment;
+import com.android.tupple.robot.view.videolist.VideoListFragment;
+import com.android.tupple.robot.view.videolist.VideoListViewWrapperFactory;
 
 import java.util.List;
 
-public class EntertainmentFragment extends Fragment implements EntertainmentView<Media> {
+public class EntertainmentFragment extends Fragment implements EntertainmentView<Fragment> {
     public static final String TAG = "EntertainmentFragment";
+    private static FragmentManager mFragmentManager;
     private Context mContext;
 
-    private CleanObserver<EntertainmentView<Media>> mViewCreatedObserver;
-    private SnapRecycleView mRecyclerViewVideo;
-    private SnapRecycleView mRecyclerViewAudio;
-    private CleanObserver<Media> mItemVideoClickedObserver;
-    private CleanObserver<Media> mItemAudioClickedObserver;
-    private RecyclerViewVideoAdapter recyclerViewVideoAdapter;
-    private RecyclerViewAudioAdapter recyclerViewAudioAdapter;
 
-    public void setViewCreatedObserver(CleanObserver<EntertainmentView<Media>> viewCreatedObserver) {
+    private CleanObserver<EntertainmentView<Fragment>> mViewCreatedObserver;
+
+
+    private RadioButton mBtnAudio, mBtnVideo;
+    private CleanObserver<Fragment> mButtonVideoClickedObserver;
+    private CleanObserver<Fragment> mButtonAudioClickedObserver;
+
+    public void setViewCreatedObserver(CleanObserver<EntertainmentView<Fragment>> viewCreatedObserver) {
         this.mViewCreatedObserver = viewCreatedObserver;
     }
 
@@ -48,61 +62,55 @@ public class EntertainmentFragment extends Fragment implements EntertainmentView
     }
 
     private void initView(View rootView) {
-        mRecyclerViewVideo = rootView.findViewById(R.id.recycler_video);
-        recyclerViewVideoAdapter = new RecyclerViewVideoAdapter(mContext);
-        mRecyclerViewVideo.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
-        mRecyclerViewVideo.setAdapter(recyclerViewVideoAdapter);
-        recyclerViewVideoAdapter.setOnItemVideoClickedListener(this::handleItemVideoClicked);
-        /////////
-        mRecyclerViewAudio = rootView.findViewById(R.id.recycler_audio);
-        recyclerViewAudioAdapter = new RecyclerViewAudioAdapter(mContext);
-        mRecyclerViewAudio.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
-        mRecyclerViewAudio.setAdapter(recyclerViewAudioAdapter);
-        recyclerViewAudioAdapter.setOnItemAudioClickedListener(this::handleItemAudioClicked);
-
+        mBtnAudio = rootView.findViewById(R.id.btn_tab_audio);
+        mBtnVideo = rootView.findViewById(R.id.btn_tab_video);
+        mBtnVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "click video", Toast.LENGTH_SHORT).show();
+                mButtonVideoClickedObserver.onNext(new VideoListFragment());
+            }
+        });
+        mBtnAudio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "click audio", Toast.LENGTH_SHORT).show();
+                mButtonAudioClickedObserver.onNext(new AudioListFragment());
+            }
+        });
     }
 
-    private void handleItemVideoClicked(int position) {
-        if (mItemVideoClickedObserver != null) {
-            mItemVideoClickedObserver.onNext(recyclerViewVideoAdapter.getVideoByPosition(position));
-        }
-    }
-
-    private void handleItemAudioClicked(int position) {
-        if (mItemAudioClickedObserver != null) {
-            mItemAudioClickedObserver.onNext(recyclerViewAudioAdapter.getAudioByPosition(position));
-        }
-    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mRootView = inflater.inflate(R.layout.fragment_entertainment, container, false);
         initView(mRootView);
-
         if (mViewCreatedObserver != null) {
             mViewCreatedObserver.onNext(this);
         }
         return mRootView;
     }
 
+
     @Override
-    public void setListVideo(List listVideo) {
-        recyclerViewVideoAdapter.setListData(listVideo);
+    public void setTitleHeader(Fragment fragment) {
+
     }
 
     @Override
-    public void setListAudio(List<Media> listAudio) {
-        recyclerViewAudioAdapter.setListData(listAudio);
+    public void setCurrentFragment(Fragment fragment) {
+
     }
 
     @Override
-    public CleanObservable<Media> getItemVideoClickedObservable() {
-        return CleanObservable.create(cleanObserver -> mItemVideoClickedObserver = cleanObserver);
+    public CleanObservable<Fragment> getButtonVideoClickedObservable() {
+        return CleanObservable.create(cleanObserver -> mButtonVideoClickedObserver = cleanObserver);
     }
 
     @Override
-    public CleanObservable<Media> getItemAudioClickedObservable() {
-        return CleanObservable.create(cleanObserver -> mItemAudioClickedObserver = cleanObserver);
+    public CleanObservable<Fragment> getButtonAudioClickedObservable() {
+        return CleanObservable.create(cleanObserver -> mButtonAudioClickedObserver = cleanObserver);
     }
+
 }
