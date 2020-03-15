@@ -6,6 +6,6 @@ package com.android.tupple.robot.network;
 
 public final class ApiConfig {
 
-    public static final String BASE_URL = "https://api.androidhive.info/json/";
+    public static String BASE_URL = "https://api.androidhive.info/json/";
 
 }
