@@ -20,8 +20,8 @@
 
             <ImageView
                 android:id="@+id/icon_thumbnail_audio"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
+                android:layout_width="220dp"
+                android:layout_height="160dp"
                 android:scaleType="centerCrop" />
         </RelativeLayout>
 
@@ -37,7 +37,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textColor="#3F51B5"
+            />
 
 
     </FrameLayout>

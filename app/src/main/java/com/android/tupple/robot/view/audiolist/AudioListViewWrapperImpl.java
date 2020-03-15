@@ -11,8 +11,6 @@ import com.android.tupple.robot.R;
 import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.domain.presenter.audiolist.AudioListView;
 import com.android.tupple.robot.domain.presenter.audiolist.AudioListViewWrapper;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListView;
-import com.android.tupple.robot.view.videolist.VideoListFragment;
 
 public class AudioListViewWrapperImpl implements AudioListViewWrapper {
     private Bundle bundle;
@@ -41,11 +39,7 @@ public class AudioListViewWrapperImpl implements AudioListViewWrapper {
     }
     private void createVideoListFragment() {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        mAudioListFragment = (AudioListFragment) mFragmentManager.findFragmentByTag(mAudioListFragment.TAG);
-        //if (mVideoListFragment == null) {
         mAudioListFragment = AudioListFragment.newInstance();
-        //}
-
         fragmentTransaction.replace(R.id.content_entertainment, mAudioListFragment, mAudioListFragment.TAG);
         fragmentTransaction.commitAllowingStateLoss();
     }

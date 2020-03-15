@@ -20,7 +20,7 @@ public class VideoListViewWrapperImpl implements VideoListViewWrapper {
     private VideoListFragment mVideoListFragment;
     private CleanObserver<VideoListView<Media>> mViewCreatedObserver;
 
-    public VideoListViewWrapperImpl(FragmentManager mFragmentManager,Bundle bundle) {
+    public VideoListViewWrapperImpl(FragmentManager mFragmentManager, Bundle bundle) {
         this.bundle = bundle;
         this.mFragmentManager = mFragmentManager;
     }
@@ -35,21 +35,20 @@ public class VideoListViewWrapperImpl implements VideoListViewWrapper {
         createVideoListFragment();
         setViewCreatedObserverOnFragment();
     }
+
     private void setViewCreatedObserverOnFragment() {
         if (mViewCreatedObserver != null) {
             mVideoListFragment.setViewCreatedObserver(mViewCreatedObserver);
         }
     }
+
     private void createVideoListFragment() {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        mVideoListFragment = (VideoListFragment) mFragmentManager.findFragmentByTag(mVideoListFragment.TAG);
-        //if (mVideoListFragment == null) {
-            mVideoListFragment = VideoListFragment.newInstance();
-        //}
-
+        mVideoListFragment = VideoListFragment.newInstance();
         fragmentTransaction.replace(R.id.content_entertainment, mVideoListFragment, mVideoListFragment.TAG);
         fragmentTransaction.commitAllowingStateLoss();
     }
+
     @Override
     public void hide() {
 

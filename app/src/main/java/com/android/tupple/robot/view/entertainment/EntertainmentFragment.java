@@ -39,9 +39,7 @@ public class EntertainmentFragment extends Fragment implements EntertainmentView
     private static FragmentManager mFragmentManager;
     private Context mContext;
 
-
     private CleanObserver<EntertainmentView<Fragment>> mViewCreatedObserver;
-
 
     private RadioButton mBtnAudio, mBtnVideo;
     private CleanObserver<Fragment> mButtonVideoClickedObserver;
@@ -67,14 +65,14 @@ public class EntertainmentFragment extends Fragment implements EntertainmentView
         mBtnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "click video", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "click video", Toast.LENGTH_SHORT).show();
                 mButtonVideoClickedObserver.onNext(new VideoListFragment());
             }
         });
         mBtnAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "click audio", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "click audio", Toast.LENGTH_SHORT).show();
                 mButtonAudioClickedObserver.onNext(new AudioListFragment());
             }
         });
@@ -98,10 +96,6 @@ public class EntertainmentFragment extends Fragment implements EntertainmentView
 
     }
 
-    @Override
-    public void setCurrentFragment(Fragment fragment) {
-
-    }
 
     @Override
     public CleanObservable<Fragment> getButtonVideoClickedObservable() {

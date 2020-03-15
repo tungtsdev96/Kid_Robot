@@ -17,20 +17,20 @@ import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.domain.presenter.audioplayer.AudioPlayerView;
-import com.android.tupple.robot.utils.GlideUtils;
+
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.List;
 
 public class AudioPlayerViewImpl implements AudioPlayerView<Media> {
+    private static final String TAG = "AudioPlayerViewImpl";
     private Activity mActivity;
-    SeekBar mSeekbar;
-    TextView txtCurrentTime, txtTotalTime, txtMediaTitle;
-    ImageView imageBackground;
-    FloatingActionButton go_back, btnPrevious, btnNext, btnPlayStop;
+    private SeekBar mSeekbar;
+    private TextView txtCurrentTime, txtTotalTime, txtMediaTitle;
+    private ImageView imageBackground;
+    private FloatingActionButton go_back, btnPrevious, btnNext, btnPlayStop;
 
-    static MediaPlayer mMediaPlayer;
+    private MediaPlayer mMediaPlayer;
     private Media mCurrentAudio;
 
     private CleanObserver mCloseButtonClickedObserver;
@@ -58,25 +58,29 @@ public class AudioPlayerViewImpl implements AudioPlayerView<Media> {
         go_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCloseButtonClickedObserver.onNext();
+                if (mCloseButtonClickedObserver != null)
+                    mCloseButtonClickedObserver.onNext();
             }
         });
         btnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPreviousButtonClickedObserver.onNext();
+                if (mPreviousButtonClickedObserver != null)
+                    mPreviousButtonClickedObserver.onNext();
             }
         });
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mNextButtonClickedObserver.onNext();
+                if (mNextButtonClickedObserver != null)
+                    mNextButtonClickedObserver.onNext();
             }
         });
         btnPlayStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mStopPlayButtonClickedObserver.onNext();
+                if (mStopPlayButtonClickedObserver != null)
+                    mStopPlayButtonClickedObserver.onNext();
             }
         });
 
@@ -87,7 +91,7 @@ public class AudioPlayerViewImpl implements AudioPlayerView<Media> {
     public void setCurrentAudio(Media media) {
         this.mCurrentAudio = media;
         Glide.with(mActivity).load(media.getAudio_thumbnail()).into(imageBackground);
-        Log.d("AudioPlayerViewImpl", media.getAudio_thumbnail());
+        Log.d(TAG, media.getAudio_thumbnail());
         txtMediaTitle.setText(media.getTitle());
     }
 
@@ -97,7 +101,7 @@ public class AudioPlayerViewImpl implements AudioPlayerView<Media> {
             mMediaPlayer.reset();
         }
         Uri audioUri = Uri.parse(mCurrentAudio.getMedia_url());
-        Log.d("AudioPlayerViewImpl", mCurrentAudio.getMedia_url());
+        Log.d(TAG, mCurrentAudio.getMedia_url());
         mMediaPlayer = MediaPlayer.create(mActivity, audioUri);
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override

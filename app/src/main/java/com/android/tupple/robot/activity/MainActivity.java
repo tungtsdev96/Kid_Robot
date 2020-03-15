@@ -163,21 +163,21 @@ public class MainActivity extends BaseActivity {
 
         entertainmentPresenter.setEntertainmentViewWrapper(entertainmentViewWrapper);
         entertainmentPresenter.setEntertainmentModel(entertainmentModel);
-
+        ////////////////////////////////////////////
         VideoListPresenterImpl<Media> videoListPresenter = new VideoListPresenterImpl<>();
         VideoListViewWrapper<Media> videoListViewWrapper = VideoListViewWrapperFactory.newVideoListViewWrapper(getSupportFragmentManager(), bundle);
         VideoListModel<Media> videoListModel = VideoListModelFactory.newVideoListModel(this);
         videoListPresenter.setVideoListViewWrapper(videoListViewWrapper);
         videoListPresenter.setVideoListModel(videoListModel);
         videoListPresenter.setOnItemVideoClickObserver(mActivityLauncher::launchVideoPlayerActivity);
-
+        ///////////////////////////////////////////
         AudioListPresenterImpl<Media> audioListPresenter = new AudioListPresenterImpl<>();
         AudioListViewWrapper<Media> audioListViewWrapper = AudioListViewWrapperFactory.newAudioListViewWrapper(getSupportFragmentManager(), bundle);
         AudioListModel<Media> audioListModel = AudioListModelFactory.newAudioListModel(this);
         audioListPresenter.setAudioListViewWrapper(audioListViewWrapper);
         audioListPresenter.setAudioListModel(audioListModel);
         audioListPresenter.setOnItemAudioClickObserver(mActivityLauncher::launchAudioPlayerActivity);
-
+        ///////////////////////////////////////////
         entertainmentPresenter.setVideoListPresenter(videoListPresenter);
         entertainmentPresenter.setAudioListPresenter(audioListPresenter);
         mMenuMain.setEntertainmentPresenter(entertainmentPresenter);

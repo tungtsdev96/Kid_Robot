@@ -76,14 +76,14 @@ public class AudioPlayerPresenterImpl<Media> implements PlayAudioPresenter {
     @Override
     public void start() {
         Log.d(TAG, "start");
-//        getAudioData();
+        getAudioData();
         mAudioPlayerView.playAudio();
         isPlay = true;
     }
 
-//    private void getAudioData() {
-//        mAudioPlayerModel.getAllAudio().subscribe(this::handleData);
-//    }
+    private void getAudioData() {
+        mAudioPlayerModel.getAllAudio().subscribe(this::handleData);
+    }
 
     private void handleData(List<Media> list) {
         mListAudio.clear();

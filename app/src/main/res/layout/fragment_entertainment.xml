@@ -6,18 +6,21 @@
     android:orientation="vertical"
     android:weightSum="2">
 
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        app:cardCornerRadius="10dp">
+        android:background="@color/color_entertainment_background"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+
+            >
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -35,8 +38,12 @@
                     android:checked="true"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Phim"
-                    android:textSize="20sp" />
+                    android:text="Xem Phim"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"
+                    android:background="@drawable/custom_radio_button"
+                    style="@style/CommonStyleText"
+                    />
 
                 <RadioButton
                     android:id="@+id/btn_tab_audio"
@@ -44,11 +51,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:button="@android:color/transparent"
-                    android:checked="true"
+                    android:textColor="#ffffff"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="Truyen"
-                    android:textSize="20sp" />
+                    android:text="Nghe Truyện"
+                    android:textSize="20sp"
+                    android:background="@drawable/custom_radio_button"
+                    style="@style/CommonStyleText"
+                    />
             </RadioGroup>
 
             <FrameLayout
@@ -61,6 +71,6 @@
         </RelativeLayout>
 
 
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
 </LinearLayout>
