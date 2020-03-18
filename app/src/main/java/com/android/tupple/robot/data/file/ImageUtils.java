@@ -1,6 +1,10 @@
 package com.android.tupple.robot.data.file;
 
+import android.util.Log;
+
 import com.android.tupple.robot.utils.RandomUtils;
+
+import java.io.File;
 
 /**
  * Created by tungts on 2020-03-04.
@@ -13,8 +17,13 @@ public class ImageUtils {
     }
 
     public static String getUrlImageLesson(String name, int lessonId, int totalImage) {
-        int image = RandomUtils.randInt(1, totalImage);
-        return FileConstants.FOLDER_DATA + "/lesson/" + lessonId  + "/" + name.toLowerCase() + "/image/" + image + ".jpg";
+        int image = RandomUtils.randInt(0, totalImage - 1);
+        File f = new File(FileConstants.FOLDER_DATA + "/lesson/" + lessonId  + "/" + name.toLowerCase() + "/image");
+        if (!f.exists() || f.listFiles() == null) {
+            Log.d("ImageUtils", "null");
+            return null;
+        }
+        return f.listFiles()[image].getAbsolutePath();
     }
 
 }

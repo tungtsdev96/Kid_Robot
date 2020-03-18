@@ -2,6 +2,7 @@ package com.android.tupple.robot.view.learningvocab.viewholder;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,12 +66,8 @@ public class ItemViewHolderFactory {
 
         @Override
         public void bind(LearnVocabItem learnVocabItem) {
-            if (learnVocabItem.getTopicId() > 0) {
-                int topicId = learnVocabItem.getTopicId();
-                File image = new File(ImageUtils.getUrlImageTopic(learnVocabItem.getVocabEn(), topicId));
-                Uri imageUri = Uri.fromFile(image);
-                Objects.requireNonNull(GlideUtils.getRequestManager(itemView.getContext())).load(imageUri).into(imageVocabulary);
-            }
+            Log.d("tungts", learnVocabItem.toString());
+            GlideUtils.loadImageFromStorage(itemView.getContext(), learnVocabItem.getVocabImage(), imageVocabulary);
         }
     }
 
@@ -87,13 +84,9 @@ public class ItemViewHolderFactory {
 
         @Override
         public void bind(LearnVocabItem learnVocabItem) {
+            Log.d("tungts_", learnVocabItem.toString());
             textVocab.setText(learnVocabItem.getVocabEn());
-            if (learnVocabItem.getTopicId() > 0) {
-                int topicId = learnVocabItem.getTopicId();
-                File image = new File(ImageUtils.getUrlImageTopic(learnVocabItem.getVocabEn(), topicId));
-                Uri imageUri = Uri.fromFile(image);
-                Objects.requireNonNull(GlideUtils.getRequestManager(itemView.getContext())).load(imageUri).into(imageVocab);
-            }
+            GlideUtils.loadImageFromStorage(itemView.getContext(), learnVocabItem.getVocabImage(), imageVocab);
         }
     }
 

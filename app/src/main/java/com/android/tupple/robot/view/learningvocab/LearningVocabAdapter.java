@@ -76,12 +76,16 @@ public class LearningVocabAdapter extends RecyclerView.Adapter<ItemViewHolderFac
         mLearnVocabItem.clear();
         SparseArray<String> listSoundItem = new SparseArray<>();
         for (Vocabulary vocabulary: listVocabLearning) {
-            listSoundItem.put(vocabulary.getVocabId(), vocabulary.getAudioUrl());
+            if (vocabulary.getAudioUrl() != null) {
+                listSoundItem.put(vocabulary.getVocabId(), vocabulary.getAudioUrl());
+            }
             mLearnVocabItem.add(new LearnVocabImage(vocabulary));
             mLearnVocabItem.add(new LearnVocabText(vocabulary));
             mLearnVocabItem.add(new LearnVocabTextAndImage(vocabulary));
         }
-        SoundPoolManagement.getInstance().init().loadSound(listSoundItem);
+        if (!(listSoundItem.size() == 0)) {
+            SoundPoolManagement.getInstance().init().loadSound(listSoundItem);
+        }
         notifyDataSetChanged();
     }
 }

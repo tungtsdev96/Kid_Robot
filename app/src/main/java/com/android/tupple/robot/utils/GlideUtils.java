@@ -45,7 +45,7 @@ public class GlideUtils {
 
     public static void loadImageFromStorage(Context context, String path, ImageView imageView) {
         RequestManager requestManager = getRequestManager(context);
-        if (requestManager == null) {
+        if (requestManager == null || path == null) {
             return;
         }
 
