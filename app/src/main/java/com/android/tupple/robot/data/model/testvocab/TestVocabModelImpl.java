@@ -66,15 +66,13 @@ public class TestVocabModelImpl implements TestVocabModel<LessonData, Topic, Voc
     @Override
     public CleanObservable<List<Vocabulary>> makeListAnswerFromVocab(List<Vocabulary> vocabLearning, Vocabulary vocabulary) {
         return CleanObservable.create(cleanObserver -> {
-            if (vocabulary.getLessonId() != 0) {
-                // TODO get answer from lesson
-            } else {
-                Disposable d = makeListAnswerFromTopic(vocabulary)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(cleanObserver::onNext, Throwable::printStackTrace);
-                mCompositeDisposable.add(d);
-            }
+            Single<List<Vocabulary>> getAnswer =
+                    vocabulary.getLessonId() != 0 ? makeListAnswerFromLesson(vocabulary) : makeListAnswerFromTopic(vocabulary);
+            Disposable d = getAnswer
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(cleanObserver::onNext, Throwable::printStackTrace);
+            mCompositeDisposable.add(d);
         });
     }
 
@@ -85,8 +83,8 @@ public class TestVocabModelImpl implements TestVocabModel<LessonData, Topic, Voc
         Log.d(TAG, "makeListAnswerFromTopic " + vocabulary.getVocabEn());
 
         return mVocabularyDao
-                .getListVocabularyNotIncludeIds(ids, vocabulary.getTopicId())
-//                .map(listVocabs -> pickRandom(listVocabs, listVocabs.size()))
+                .makeListAnswerFromTopic(ids, vocabulary.getTopicId())
+                .map(listVocabs -> pickRandom(listVocabs, listVocabs.size()))
                 .map(listVocabs -> {
                     List<Vocabulary> answers = new ArrayList<>();
                     answers.add(vocabulary);
@@ -100,13 +98,24 @@ public class TestVocabModelImpl implements TestVocabModel<LessonData, Topic, Voc
                 });
     }
 
-    // TODO - make lisy vocab for lesson
-    private Observable<List<Vocabulary>> makeListAnswerFromLesson(Vocabulary vocabulary) {
-        List<Integer> ids = new ArrayList<>();
-        int bookGradle = mLessonDao.getBookGradleFromLessonId(vocabulary.getLessonId());
-
-
-        return null;
+    // Random in the book
+    private Single<List<Vocabulary>> makeListAnswerFromLesson(Vocabulary vocabulary) {
+        return Single.fromCallable(() -> mLessonDao.getBookGradleFromLessonId(vocabulary.getLessonId()))
+                .flatMap(bookGradle ->
+                        mVocabularyDao
+                        .makeListAnswerFromVocab(vocabulary, bookGradle)
+                        .map(listVocabs -> pickRandom(listVocabs, listVocabs.size()))
+                        .map(listVocabs -> {
+                            List<Vocabulary> answers = new ArrayList<>();
+                            answers.add(vocabulary);
+                            answers.add(listVocabs.get(0));
+                            answers.add(listVocabs.get(1));
+                            answers.add(listVocabs.get(2));
+                            for (Vocabulary v : answers) {
+                                Log.d(TAG, v.getVocabEn());
+                            }
+                            return pickRandom(answers, answers.size());
+                        }));
     }
 
     @Override
