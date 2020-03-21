@@ -12,15 +12,15 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
-import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import java.io.File;
+
 /*
-1: implement interface ShowDownloadProgress in your Activity
+1: implement interface DownloadInterface in your Activity
 2: constructor of this class require Activity, Url, filename
 3: after create a instance of DownloadUtils, call method download
-method download return the url of downloaded file.
+file path and file name in method onDownloadSuccess();
 example url: https://www.androidtutorialpoint.com/wp-content/uploads/2016/09/Beauty.jpg
  */
 public class DownloadUtils {
@@ -28,18 +28,17 @@ public class DownloadUtils {
     private String mDownloadUrl;
     private String mFileName;
     private long downloadId;
-    private ShowDownloadProgress showDownloadProgress;
+    private DownloadInterface downloadInterface;
+
     public DownloadUtils(Activity mActivity, String mDownloadUrl, String mFileName) {
         this.mActivity = mActivity;
         this.mDownloadUrl = mDownloadUrl;
         this.mFileName = mFileName;
-        showDownloadProgress = (ShowDownloadProgress) mActivity;
+        downloadInterface = (DownloadInterface) mActivity;
     }
 
-    public String download() {
+    public void download() {
         new DownloadAsyncTask().execute(mDownloadUrl, mFileName);
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), mFileName);
-        return file.getAbsolutePath();
     }
 
     private class DownloadAsyncTask extends AsyncTask<String, String, String> {
@@ -87,11 +86,10 @@ public class DownloadUtils {
 
                         cursor.close();
                         downloading = false;
-
                     }
                     final double dl_progress = (int) ((bytes_downloaded * 100l) / bytes_total);
-                    showDownloadProgress.showDownloadProgress(dl_progress);
-                    Log.d("DownloadUtils" , dl_progress + " ");
+                    downloadInterface.showDownloadProgress(dl_progress);
+                    Log.d("DownloadUtils", dl_progress + " ");
                 }
             }
         } catch (IllegalStateException e) {
@@ -107,9 +105,13 @@ public class DownloadUtils {
             if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
                 long id = intent.getLongExtra(
                         DownloadManager.EXTRA_DOWNLOAD_ID, 0);
-                if (downloadId== id){
-                    Toast.makeText(mActivity, "Success" , Toast.LENGTH_SHORT).show();
+                if (downloadId == id) {
+                    // Toast.makeText(mActivity, "Success" , Toast.LENGTH_SHORT).show();
+                    File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), mFileName);
+                    downloadInterface.onDownloadSuccess(file.getAbsolutePath(), mFileName);
                     mActivity.unregisterReceiver(DownloadCompleteReceive);
+                } else {
+                    downloadInterface.onDownloadFail();
                 }
             }
         }
