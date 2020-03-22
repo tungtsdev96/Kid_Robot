@@ -15,6 +15,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 
 /*
 1: implement interface DownloadInterface in your Activity
@@ -38,14 +39,20 @@ public class DownloadUtils {
     }
 
     public void download() {
-        new DownloadAsyncTask().execute(mDownloadUrl, mFileName);
+        new DownloadAsyncTask(mActivity).execute(mDownloadUrl, mFileName);
     }
 
     private class DownloadAsyncTask extends AsyncTask<String, String, String> {
+        private WeakReference<Activity> actvity;
+        public DownloadAsyncTask(Activity actvity) {
+            this.actvity = new WeakReference<>(actvity);
+        }
 
         @Override
         protected String doInBackground(String... strings) {
-            downloadFile(mActivity, strings[0], strings[1]);
+            if (actvity.get() != null) {
+                downloadFile(actvity.get(), strings[0], strings[1]);
+            }
             return null;
         }
 
