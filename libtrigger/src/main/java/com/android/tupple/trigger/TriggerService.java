@@ -207,7 +207,7 @@ public class TriggerService extends Service {
 
         short[] inputBuffer = new short[SAMPLE_RATE];
         double[] floatInputBuffer = new double[SAMPLE_RATE];
-        float[] outputScores = new float[7];
+        float[] outputScores = new float[2];
         String[] outputScoresNames = new String[]{OUTPUT_SCORES_NAME};
 
         float maxInput = -1;
@@ -256,29 +256,8 @@ public class TriggerService extends Service {
                             + " " + outputScores[5]);
                 }
 
-                if (outputScores[0] > 0.7f && numberLoadIgnore == 0) {
-                    pushEventToUI(0);
-                    continue;
-                }
-                if (outputScores[1] > 0.7f && numberLoadIgnore == 0) {
-                    pushEventToUI(1);
-                    continue;
-                }
-                if (outputScores[2] > 0.7f && numberLoadIgnore == 0) {
-                    pushEventToUI(2);
-                    continue;
-                }
-                if (outputScores[3] > 0.7f && numberLoadIgnore == 0) {
-                    pushEventToUI(3);
-                    continue;
-                }
-                if (outputScores[4] > 0.7f && numberLoadIgnore == 0) {
-                    pushEventToUI(4);
-                    continue;
-                }
-                if (outputScores[5] > 0.7f && numberLoadIgnore == 0) {
-                    pushEventToUI(5);
-                    continue;
+                if (outputScores[1] > 0.7f && numberLoadIgnore == 0){
+                    sendRecognitionEvent();
                 }
 
                 if (numberLoadIgnore > 0) {
@@ -308,7 +287,7 @@ public class TriggerService extends Service {
         }
     }
 
-    private void pushEventToUI(int type) {
+    private void sendRecognitionEvent() {
         numberLoadIgnore = 2;
         stopRecording();
         stopRecognition();
