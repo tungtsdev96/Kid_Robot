@@ -2,7 +2,6 @@ package com.android.tupple.robot.view.testvocab.level1;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.domain.entity.testvocab.TestVocabLevel;
 import com.android.tupple.robot.domain.presenter.testvocab.level1.Level1View;
-import com.android.tupple.robot.sound.SoundPoolManagement;
+import com.android.tupple.robot.common.sound.SoundPoolManagement;
 import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.SingleClickUtil;
 import com.android.tupple.robot.utils.constant.TestVocabConstant;

@@ -2,9 +2,7 @@ package com.android.tupple.trigger.recording;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
@@ -13,7 +11,6 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 
 import com.android.tupple.trigger.R;
-import com.android.tupple.trigger.TriggerHelper;
 import com.android.tupple.trigger.TriggerService;
 import com.android.tupple.trigger.utils.TriggerConstant;
 import com.android.tupple.trigger.utils.WindowManagerUtils;
@@ -123,12 +120,10 @@ public class RecordingActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        TriggerHelper.stopTrigger(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        TriggerHelper.startTrigger(this);
     }
 }

@@ -39,5 +39,8 @@
     <string name="learning_vocab_title">Học từ mới: %d/%d</string>
     <string name="text_check_answer">Kiểm tra</string>
 
+    <!-- smart Q&A -->
+    <string name="text_cant_hear_that">Mình không nghe rõ</string>
+
 
 </resources>

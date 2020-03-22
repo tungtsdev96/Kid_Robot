@@ -1,4 +1,4 @@
-package com.android.tupple.robot.sound;
+package com.android.tupple.robot.common.sound;
 
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -6,8 +6,6 @@ import android.media.SoundPool;
 import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
-
-import com.android.tupple.robot.sound.test.SoundConstant;
 
 /**
  * Created by tungts on 2020-03-06.

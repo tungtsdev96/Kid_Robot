@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.tupple.robot.data.entity.Vocabulary;
-import com.android.tupple.robot.sound.SoundPoolManagement;
+import com.android.tupple.robot.common.sound.SoundPoolManagement;
 import com.android.tupple.robot.utils.SingleClickUtil;
 import com.android.tupple.robot.utils.constant.LearnVocabConstant;
 import com.android.tupple.robot.view.learningvocab.item.LearnVocabImage;

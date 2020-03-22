@@ -8,21 +8,34 @@ import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * Created by tungts on 3/22/20.
+ */
+
 public class MultiPlayer implements
         MediaPlayer.OnPreparedListener,
         MediaPlayer.OnErrorListener,
         MediaPlayer.OnCompletionListener,
-        AudioManager.OnAudioFocusChangeListener{
+        AudioManager.OnAudioFocusChangeListener {
+
+    public interface MultiPlayerListener {
+        void onError();
+        void onCompletion();
+    }
 
     private final String TAG = "MultiPlayer";
 
     private WeakReference<Context> mContext;
-
     private MediaPlayer mCurrentMediaPlayer;
+    private MultiPlayerListener mMultiPlayerListener;
 
     public MultiPlayer(Context context) {
         mContext = new WeakReference<>(context);
         innitMediaPlayer();
+    }
+
+    private void setMultiPlayerListener(MultiPlayerListener multiPlayerListener) {
+        this.mMultiPlayerListener = multiPlayerListener;
     }
 
     private void innitMediaPlayer() {
@@ -42,11 +55,17 @@ public class MultiPlayer implements
     @Override
     public void onCompletion(MediaPlayer mp) {
         Log.d(TAG, "onCompletion " + mp);
+        if (mMultiPlayerListener != null) {
+            mMultiPlayerListener.onCompletion();
+        }
     }
 
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
         Log.d(TAG, "Override " + mp);
+        if (mMultiPlayerListener != null) {
+            mMultiPlayerListener.onError();
+        }
         return false;
     }
 
@@ -56,7 +75,7 @@ public class MultiPlayer implements
         mp.start();
     }
 
-    public void playSong(String url) {
+    public void play(String url) {
         if (mCurrentMediaPlayer != null) {
             mCurrentMediaPlayer.reset();
             try {

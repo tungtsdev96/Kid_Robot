@@ -18,11 +18,10 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".activity.ConfigActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <receiver
@@ -35,19 +34,22 @@
 
         <activity
             android:name=".activity.VideoPlayerActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
+
         <activity
             android:name=".activity.AudioPlayerActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
+
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="sensorLandscape">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+
         <activity
             android:name=".activity.FaceSmileActivity"
             android:launchMode="singleTop"
@@ -58,23 +60,35 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
+
         <activity
             android:name=".activity.LessonActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
+
         <activity
             android:name=".activity.LearningVocabActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
+
         <activity
             android:name=".activity.TestVocabActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="landscape">
+            android:screenOrientation="sensorLandscape">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-    </application>
 
+        <activity
+            android:name=".activity.SmartQAActivity"
+            android:screenOrientation="sensorLandscape">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+        </activity>
+
+    </application>
 </manifest>

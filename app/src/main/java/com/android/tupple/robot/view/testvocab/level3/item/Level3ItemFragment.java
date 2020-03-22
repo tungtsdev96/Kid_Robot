@@ -22,7 +22,7 @@ import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.RecordState;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.ResultState;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3ItemView;
-import com.android.tupple.robot.sound.SoundPoolManagement;
+import com.android.tupple.robot.common.sound.SoundPoolManagement;
 import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.RecordingHelper;
 import com.android.tupple.robot.utils.SingleClickUtil;

@@ -1,10 +1,10 @@
-package com.android.tupple.robot.sound.test;
+package com.android.tupple.robot.common.sound;
 
 /**
- * Created by tungts on 2020-03-02.
+ * Created by tungts on 3/22/20.
  */
 
-public class SoundConstant {
+public final class SoundConstant {
 
     ///Sound default
     public static final int SOUND_CLICK = 99;
