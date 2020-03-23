@@ -2,6 +2,7 @@ package com.android.tupple.robot.domain.presenter.learnvocab;
 
 import com.android.tupple.robot.domain.entity.learnvocab.LearnVocabPresenter;
 import com.android.tupple.robot.domain.log.CLog;
+import com.android.tupple.robot.domain.presenter.CloseButtonHandler;
 import com.android.tupple.robot.domain.presenter.data.LearningVocabModel;
 import com.android.tupple.robot.domain.presenter.data.VocabularyModel;
 
@@ -13,10 +14,6 @@ import java.util.List;
  */
 
 public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresenter {
-
-    public interface CloseButtonHandler {
-        void onClose();
-    }
 
     public interface DoneLearningVocabListener {
         void onComplete();
