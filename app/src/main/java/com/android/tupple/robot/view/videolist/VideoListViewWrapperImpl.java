@@ -1,7 +1,6 @@
 package com.android.tupple.robot.view.videolist;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,7 +11,6 @@ import com.android.tupple.robot.R;
 import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListView;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListViewWrapper;
-import com.android.tupple.robot.view.entertainment.EntertainmentFragment;
 
 public class VideoListViewWrapperImpl implements VideoListViewWrapper {
     private Bundle bundle;

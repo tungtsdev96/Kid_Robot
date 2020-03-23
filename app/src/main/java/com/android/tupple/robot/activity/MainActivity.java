@@ -176,7 +176,6 @@ public class MainActivity extends BaseActivity {
         AudioListModel<Media> audioListModel = AudioListModelFactory.newAudioListModel(this);
         audioListPresenter.setAudioListViewWrapper(audioListViewWrapper);
         audioListPresenter.setAudioListModel(audioListModel);
-        audioListPresenter.setOnItemAudioClickObserver(mActivityLauncher::launchAudioPlayerActivity);
         ///////////////////////////////////////////
         entertainmentPresenter.setVideoListPresenter(videoListPresenter);
         entertainmentPresenter.setAudioListPresenter(audioListPresenter);

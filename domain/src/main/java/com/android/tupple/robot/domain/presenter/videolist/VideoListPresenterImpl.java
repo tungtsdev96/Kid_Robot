@@ -1,10 +1,7 @@
 package com.android.tupple.robot.domain.presenter.videolist;
 
-import android.util.Log;
-
 import com.android.tupple.robot.domain.entity.medialist.MediaListPresenter;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
-import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentView;
 
 public class VideoListPresenterImpl<Media> implements MediaListPresenter {
     private VideoListViewWrapper<Media> mVideoListViewWrapper;

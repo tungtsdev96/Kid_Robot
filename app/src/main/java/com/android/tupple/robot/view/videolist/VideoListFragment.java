@@ -2,7 +2,6 @@ package com.android.tupple.robot.view.videolist;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.common.customview.SnappingRecyclerView;
 import com.android.tupple.robot.common.customview.snaprecycleview.SnapRecycleView;
 import com.android.tupple.robot.data.entity.Media;
-import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentView;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListView;
-import com.android.tupple.robot.view.entertainment.EntertainmentFragment;
 
 import java.util.List;
 

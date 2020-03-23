@@ -29,9 +29,13 @@
     <color name="color_disable">#D6D6D6</color>
 
     <!-- entertainment color -->
+    <color name="main_color_entertainment">#3F51B5</color>
     <color name="color_entertainment_background">#403F51B5</color>
     <color name="color_button_checked">#3F51B5</color>
     <color name="color_button_unchecked">#B0BEC5</color>
+    <color name="color_equalizer">#80ffffff</color>
+    <color name="color_item">#30ffffff</color>
+    <color name="color_item_focus">#95ffffff</color>
 
     <!-- smart question -->
     <color name="bg_dialog_smart_answer">@color/bg_result_answer_right</color>

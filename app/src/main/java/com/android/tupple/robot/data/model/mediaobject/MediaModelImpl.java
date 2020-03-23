@@ -5,7 +5,6 @@ import android.content.Context;
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.domain.presenter.audiolist.AudioListModel;
-import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentModel;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListModel;
 
 import java.util.List;

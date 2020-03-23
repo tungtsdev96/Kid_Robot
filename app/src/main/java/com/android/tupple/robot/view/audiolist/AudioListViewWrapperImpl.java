@@ -29,7 +29,7 @@ public class AudioListViewWrapperImpl implements AudioListViewWrapper {
 
     @Override
     public void show() {
-        createVideoListFragment();
+        createAudioListFragment();
         setViewCreatedObserverOnFragment();
     }
     private void setViewCreatedObserverOnFragment() {
@@ -37,7 +37,7 @@ public class AudioListViewWrapperImpl implements AudioListViewWrapper {
             mAudioListFragment.setViewCreatedObserver(mViewCreatedObserver);
         }
     }
-    private void createVideoListFragment() {
+    private void createAudioListFragment() {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         mAudioListFragment = AudioListFragment.newInstance();
         fragmentTransaction.replace(R.id.content_entertainment, mAudioListFragment, mAudioListFragment.TAG);

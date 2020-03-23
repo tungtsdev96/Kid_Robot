@@ -82,6 +82,8 @@ dependencies {
     // dexter
     implementation 'com.karumi:dexter:6.0.2'
 
+    implementation 'com.github.claucookie.miniequalizer:library:1.0.0'
+
     implementation project(path: ':domain')
     implementation project(path: ':libtrigger')
 }

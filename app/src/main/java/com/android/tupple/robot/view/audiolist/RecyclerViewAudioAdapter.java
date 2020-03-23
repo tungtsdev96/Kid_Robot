@@ -1,10 +1,13 @@
 package com.android.tupple.robot.view.audiolist;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,7 @@ public class RecyclerViewAudioAdapter extends RecyclerView.Adapter<RecyclerViewA
     Context mContext;
     List<Media> mMediaItems = new ArrayList<>();
     private ItemAudioClickedListener mOnItemAudioClickedListener;
+    int index = -1;
 
     public RecyclerViewAudioAdapter(Context mContext) {
         this.mContext = mContext;
@@ -33,13 +37,23 @@ public class RecyclerViewAudioAdapter extends RecyclerView.Adapter<RecyclerViewA
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new RecyclerViewAudioAdapter.ItemViewHolder(
+        return new ItemViewHolder(
                 LayoutInflater.from(mContext).inflate(R.layout.item_audio_entertainment, parent, false)
         );
     }
 
     public void setOnItemAudioClickedListener(ItemAudioClickedListener onItemAudioClickedListener) {
         this.mOnItemAudioClickedListener = onItemAudioClickedListener;
+    }
+
+    public void changeBackgroundItemClicked(Media media) {
+        for (int i = 0 ; i < mMediaItems.size() ; i++){
+            if (mMediaItems.get(i).getId() == media.getId()){
+                index = i;
+                break;
+            }
+        }
+        notifyDataSetChanged();
     }
 
     public void setListData(List<Media> listMedia) {
@@ -51,6 +65,7 @@ public class RecyclerViewAudioAdapter extends RecyclerView.Adapter<RecyclerViewA
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.bind(mMediaItems.get(position));
+        holder.background.setBackgroundColor(index == position ? mContext.getResources().getColor(R.color.color_item_focus) : mContext.getResources().getColor(R.color.color_item));
     }
 
     @Override
@@ -60,14 +75,13 @@ public class RecyclerViewAudioAdapter extends RecyclerView.Adapter<RecyclerViewA
 
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
-
-        private ImageView thumbnailAudio;
         private TextView titleAudio;
+        private RelativeLayout background;
 
         ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            thumbnailAudio = itemView.findViewById(R.id.icon_thumbnail_audio);
             titleAudio = itemView.findViewById(R.id.txt_title_audio);
+            background = itemView.findViewById(R.id.background);
             itemView.setOnClickListener(v -> {
                 if (mOnItemAudioClickedListener != null) {
                     mOnItemAudioClickedListener.onClicked(getAdapterPosition());
@@ -76,11 +90,11 @@ public class RecyclerViewAudioAdapter extends RecyclerView.Adapter<RecyclerViewA
         }
 
         void bind(Media media) {
-            Glide.with(mContext).load(media.getThumbnail()).into(thumbnailAudio);
             titleAudio.setText(media.getTitle());
         }
 
     }
+
     public Media getAudioByPosition(int pos) {
         if (pos < 0 || pos >= mMediaItems.size()) {
             return null;

@@ -1,7 +1,5 @@
 package com.android.tupple.robot.domain.presenter.entertainment;
 
-import android.util.Log;
-
 import com.android.tupple.robot.domain.entity.menumain.EntertainmentPresenter;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
