@@ -1,4 +1,4 @@
-package com.android.tupple.trigger.utils;
+package com.android.tupple.trigger;
 
 /**
  * Created by tungts on 2020-02-01.

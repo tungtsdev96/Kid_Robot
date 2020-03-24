@@ -14,8 +14,6 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.android.tupple.trigger.audio.MFCC;
-import com.android.tupple.trigger.recording.RecordingActivity;
-import com.android.tupple.trigger.utils.TriggerConstant;
 
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 
@@ -291,15 +289,15 @@ public class TriggerService extends Service {
         numberLoadIgnore = 2;
         stopRecording();
         stopRecognition();
-        startRecordingActivity();
+        sendActionShowSmartQA();
     }
 
-    private void startRecordingActivity() {
-        Log.d(TAG, "startRecordingActivity");
-        Intent intent = new Intent(this, RecordingActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(TriggerConstant.EXTRA_START_FROM_TRIGGER, true);
-        startActivity(intent);
+    private void sendActionShowSmartQA() {
+        Log.d(TAG, "sendActionShowSmartQA");
+        Intent intent = new Intent();
+        intent.setPackage("com.android.tupple.robot");
+        intent.setAction(TriggerConstant.ACTION_RECOGNIZE_DONE);
+        sendBroadcast(intent);
     }
 
     public synchronized void stopRecording() {

@@ -40,4 +40,11 @@
     <!-- smart question -->
     <color name="bg_dialog_smart_answer">@color/bg_result_answer_right</color>
 
+    <!-- speed to text google -->
+    <color name="color1">#3164d7</color>
+    <color name="color2">#d92d29</color>
+    <color name="color3">#eeaa10</color>
+    <color name="color4">#3164d7</color>
+    <color name="color5">#2e9641</color>
+
 </resources>

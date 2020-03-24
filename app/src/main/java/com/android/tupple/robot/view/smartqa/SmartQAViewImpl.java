@@ -2,10 +2,13 @@ package com.android.tupple.robot.view.smartqa;
 
 import android.app.Activity;
 
+import com.android.tupple.cleanobject.CleanObservable;
+import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.music.MultiPlayer;
 import com.android.tupple.robot.data.remote.questionanswer.QAResponse;
 import com.android.tupple.robot.domain.presenter.smartqa.SmartQAView;
+import com.android.tupple.robot.utils.SingleClickUtil;
 
 /**
  * Created by tungts on 3/22/20.
@@ -14,8 +17,9 @@ import com.android.tupple.robot.domain.presenter.smartqa.SmartQAView;
 public class SmartQAViewImpl implements SmartQAView<QAResponse> {
 
     private Activity mActivity;
-    private BubbleAnswerView mBubbleAnswerView;
     private MultiPlayer mMultiPlayer;
+
+    private CleanObserver mBtnCloseButtonClicked;
 
     public SmartQAViewImpl(Activity activity) {
         this.mActivity = activity;
@@ -24,7 +28,11 @@ public class SmartQAViewImpl implements SmartQAView<QAResponse> {
 
     @Override
     public void initView() {
-        mBubbleAnswerView = mActivity.findViewById(R.id.bubble_answer_view);
+        SingleClickUtil.registerListener(mActivity.findViewById(R.id.btn_close), v -> {
+           if (mBtnCloseButtonClicked != null) {
+               mBtnCloseButtonClicked.onNext();
+           }
+        });
     }
 
     @Override
@@ -34,7 +42,7 @@ public class SmartQAViewImpl implements SmartQAView<QAResponse> {
             return;
         }
 
-        mBubbleAnswerView.setText(qaResponse.getResultText());
+//        mBubbleAnswerView.setText(qaResponse.getResultText());
         playAnswer(qaResponse.getLinkAudio());
     }
 
@@ -44,7 +52,7 @@ public class SmartQAViewImpl implements SmartQAView<QAResponse> {
 
     @Override
     public void showError() {
-        mBubbleAnswerView.setText(mActivity.getResources().getString(R.string.text_cant_hear_that));
+//        mBubbleAnswerView.setText(mActivity.getResources().getString(R.string.text_cant_hear_that));
     }
 
     @Override
@@ -59,6 +67,11 @@ public class SmartQAViewImpl implements SmartQAView<QAResponse> {
         if (mMultiPlayer != null) {
             mMultiPlayer.destroy();
         }
+    }
+
+    @Override
+    public CleanObservable getCloseButtonClicked() {
+        return CleanObservable.create(cleanObserver -> mBtnCloseButtonClicked = cleanObserver);
     }
 
 }

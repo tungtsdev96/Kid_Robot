@@ -31,10 +31,6 @@ public class SmartQAActivity extends Activity {
         WindowManagerUtils.setFullScreenMode(this);
         setContentView(R.layout.activity_result_question_answer);
         TriggerHelper.stopTrigger(this);
-        findViewById(R.id.btn_close).setOnClickListener(v-> {
-            onBackPressed();
-        });
-
         mSmartQA = new SmartQA();
         mQuestion = getIntent().getStringExtra("question");
         inject();
@@ -49,6 +45,7 @@ public class SmartQAActivity extends Activity {
         smartQAPresenter.setQAView(smartQAView);
         smartQAPresenter.setQAModel(smartQAModel);
         smartQAPresenter.setQuestion(mQuestion);
+        smartQAPresenter.setCloseButtonHandler(this::onBackPressed);
         mSmartQA.setQAPresenter(smartQAPresenter);
     }
 

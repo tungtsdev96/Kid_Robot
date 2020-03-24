@@ -8,13 +8,13 @@ import android.util.Log;
 
 import com.android.tupple.robot.activity.SmartQAActivity;
 import com.android.tupple.trigger.TriggerService;
-import com.android.tupple.trigger.utils.TriggerConstant;
+import com.android.tupple.trigger.TriggerConstant;
 
 /**
  * Created by tungts on 2020-02-01.
  */
 
-public class RecordingReceiver extends BroadcastReceiver {
+public class TriggerReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -28,14 +28,13 @@ public class RecordingReceiver extends BroadcastReceiver {
         }
 
         if (TriggerConstant.ACTION_RECOGNIZE_DONE.equals(action)) {
-            String result = intent.getStringExtra(TriggerConstant.EXTRA_RECOGNIZE_DONE);
-            handleQuestion(context, result);
+            startSmartQAActivity(context);
         }
     }
 
-    private void handleQuestion(Context context, String result) {
+    private void startSmartQAActivity(Context context) {
         Intent intent = new Intent(context, SmartQAActivity.class);
-        intent.putExtra("question", result);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 

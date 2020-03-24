@@ -21,8 +21,6 @@ import com.karumi.dexter.listener.single.PermissionListener;
 
 import pl.droidsonroids.gif.GifImageView;
 
-import static com.android.tupple.trigger.utils.TriggerConstant.EXTRA_RECOGNIZE_DONE;
-
 /**
  * Created by tungts on 2020-01-12.
  */

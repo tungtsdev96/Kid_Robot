@@ -54,4 +54,8 @@
     <!-- CardView -->
     <dimen name="common_card_radius">8dp</dimen>
 
+    <!-- Smart QA -->
+    <dimen name="dialog_arrow_size">45dp</dimen>
+    <dimen name="dialog_border_radius">45dp</dimen>
+
 </resources>
