@@ -1,10 +1,7 @@
 package com.android.tupple.robot.data.entity;
 
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +13,8 @@ public class Media implements Parcelable {
     private String media_url;
     private String description;
     private boolean is_local;
+    private String thumbnail_video; // thumbnail for video if video not exist in local;
+
     protected Media(Parcel in) {
         id = in.readInt();
         title = in.readString();
@@ -23,24 +22,7 @@ public class Media implements Parcelable {
         media_url = in.readString();
         description = in.readString();
         is_local = in.readByte() != 0;
-    }
-
-    public boolean isIs_local() {
-        return is_local;
-    }
-
-    public void setIs_local(boolean is_local) {
-        this.is_local = is_local;
-    }
-
-
-    public Media(int id, String title, boolean is_audio, String media_url, String description, boolean is_local) {
-        this.id = id;
-        this.title = title;
-        this.is_audio = is_audio;
-        this.media_url = media_url;
-        this.description = description;
-        this.is_local = is_local;
+        thumbnail_video = in.readString();
     }
 
     public static final Creator<Media> CREATOR = new Creator<Media>() {
@@ -55,23 +37,32 @@ public class Media implements Parcelable {
         }
     };
 
-    public boolean isIs_audio() {
-        return is_audio;
-    }
-
-    public void setIs_audio(boolean is_audio) {
+    public Media(int id, String title, boolean is_audio, String media_url, String description, boolean is_local, String thumbnail_video) {
+        this.id = id;
+        this.title = title;
         this.is_audio = is_audio;
+        this.media_url = media_url;
+        this.description = description;
+        this.is_local = is_local;
+        this.thumbnail_video = thumbnail_video;
     }
 
+    public Media(int id, String title, boolean is_audio, String media_url, String description, boolean is_local) {
+        this.id = id;
+        this.title = title;
+        this.is_audio = is_audio;
+        this.media_url = media_url;
+        this.description = description;
+        this.is_local = is_local;
+    }
 
-    public Media(String title, boolean is_audio, String media_url,  String description) {
+    public Media(String title, boolean is_audio, String media_url, String description) {
         this.title = title;
         this.is_audio = is_audio;
         this.media_url = media_url;
 
         this.description = description;
     }
-
 
     public Media(String title, String media_url, String description) {
         this.title = title;
@@ -114,6 +105,29 @@ public class Media implements Parcelable {
         this.description = description;
     }
 
+    public boolean isLocal() {
+        return is_local;
+    }
+
+    public void setIs_local(boolean is_local) {
+        this.is_local = is_local;
+    }
+
+    public boolean isIs_audio() {
+        return is_audio;
+    }
+
+    public void setIs_audio(boolean is_audio) {
+        this.is_audio = is_audio;
+    }
+
+    public String getThumbnail_video() {
+        return thumbnail_video;
+    }
+
+    public void setThumbnail_video(String thumbnail_video) {
+        this.thumbnail_video = thumbnail_video;
+    }
 
     public static List<Media> fakeAudioData() {
         List<Media> media = new ArrayList<>();
@@ -152,20 +166,26 @@ public class Media implements Parcelable {
                 true));
         media.add(new Media(2, "Kimetsu No Yaiba 2", false,
                 "/storage/71ED-19F1/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 2.mp4",
-                "Description for media object #1",
+                "Description for media object #2",
                 true));
         media.add(new Media(3, "Kimetsu No Yaiba 3", false,
                 "/storage/71ED-19F1/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 3.mp4",
-                "Description for media object #1",
+                "Description for media object #3",
                 true));
         media.add(new Media(4, "Kimetsu No Yaiba 4", false,
                 "/storage/71ED-19F1/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 4 .mp4",
-                "Description for media object #1",
+                "Description for media object #4",
                 true));
         media.add(new Media(5, "Kimetsu No Yaiba 5", false,
                 "/storage/71ED-19F1/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 5 .mp4",
-                "Description for media object #1",
+                "Description for media object #5",
                 true));
+        media.add(new Media(6, "Kimetsu No Yaiba 6", false,
+                "https://www.androidtutorialpoint.com/wp-content/uploads/2016/09/Beauty.jpg",
+                "Description for media object #6",
+                false,
+                "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+        ));
         return media;
     }
 
@@ -190,5 +210,6 @@ public class Media implements Parcelable {
         dest.writeString(media_url);
         dest.writeString(description);
         dest.writeByte((byte) (is_local ? 1 : 0));
+        dest.writeString(thumbnail_video);
     }
 }

@@ -7,5 +7,8 @@ import java.util.List;
 public interface VideoListView<Media> {
     void setListVideo(List<Media> listMedia);
 
+    void showDialogDescription(Media media);
+
     CleanObservable<Media> getItemVideoClickedObservable();
+
 }
