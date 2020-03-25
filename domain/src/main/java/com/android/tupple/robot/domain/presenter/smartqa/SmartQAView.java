@@ -10,7 +10,16 @@ public interface SmartQAView<QAResponse> {
 
     void initView();
 
-    void showResult(QAResponse response);
+    void showPopUpSpeedToText();
+
+    // 0: way to ask robot, 1: updating get answer from server
+    void updateFromRobot(int type);
+
+    void addResultFromRobot(QAResponse response);
+
+    void addQuestionFromUser(String question);
+
+    void showHaveNotAnswer();
 
     void showError();
 
@@ -18,6 +27,10 @@ public interface SmartQAView<QAResponse> {
 
     void onDestroy();
 
-    CleanObservable getCloseButtonClicked();
+    CleanObservable getCloseButtonClickedObservable();
+
+    CleanObservable getAskRobotButtonClickedObservable();
+
+    CleanObservable<String> getResultSpeedToTextObservable();
 
 }

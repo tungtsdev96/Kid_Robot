@@ -30,7 +30,7 @@ public class SmartQAModelImpl implements SmartQAModel<QAResponse> {
     }
 
     @Override
-    public CleanObservable<QAResponse> getAnswer(String question) {
+    public CleanObservable<QAResponse> getAnswerObservable(String question) {
         return CleanObservable.create(cleanObserver -> {
             Disposable d = mSmartQAService
                     .postTest(new QARequest(question))

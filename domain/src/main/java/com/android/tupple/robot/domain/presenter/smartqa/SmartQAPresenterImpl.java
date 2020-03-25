@@ -11,11 +11,15 @@ public class SmartQAPresenterImpl<QAResponse> implements SmartQAPresenter {
 
     private SmartQAView<QAResponse> mQAView;
     private SmartQAModel<QAResponse> mQAModel;
-    private String mQuestion;
+    private boolean mIsNeedShowSpeedToTextPopup;
 
     private CloseButtonHandler mOnCloseButtonHandler;
 
     public SmartQAPresenterImpl() {}
+
+    public void setNeedShowPopUp(boolean isNeedShowSpeedToTextPopup) {
+        this.mIsNeedShowSpeedToTextPopup = isNeedShowSpeedToTextPopup;
+    }
 
     public void setQAModel(SmartQAModel<QAResponse> qAModel) {
         this.mQAModel = qAModel;
@@ -26,20 +30,22 @@ public class SmartQAPresenterImpl<QAResponse> implements SmartQAPresenter {
         initObservers();
     }
 
-    public void setQuestion(String question) {
-        this.mQuestion = question;
-    }
-
     public void setCloseButtonHandler(CloseButtonHandler closeButtonHandler) {
         this.mOnCloseButtonHandler = closeButtonHandler;
     }
 
     private void initObservers() {
-        mQAView.getCloseButtonClicked().subscribe(() -> {
+        mQAView.getCloseButtonClickedObservable().subscribe(() -> {
             if (mOnCloseButtonHandler != null) {
                 mOnCloseButtonHandler.onClose();
             }
         });
+        mQAView.getAskRobotButtonClickedObservable().subscribe(() -> mQAView.showPopUpSpeedToText());
+        mQAView.getResultSpeedToTextObservable().subscribe(this::handleQuestionFromUser);
+    }
+
+    private void handleQuestionFromUser(String question) {
+        mQAModel.getAnswerObservable(question).subscribe(mQAView::addResultFromRobot, (e) -> mQAView.showError());
     }
 
     @Override
@@ -50,12 +56,13 @@ public class SmartQAPresenterImpl<QAResponse> implements SmartQAPresenter {
 
     @Override
     public void start() {
-        if (mQuestion == null || mQuestion.isEmpty()) {
-            mQAView.showError();
-            return;
+        if (!mIsNeedShowSpeedToTextPopup) {
+            mQAView.updateFromRobot(0);
         }
 
-        mQAModel.getAnswer(mQuestion).subscribe(mQAView::showResult, e -> mQAView.showError());
+        if (mIsNeedShowSpeedToTextPopup) {
+            mQAView.showPopUpSpeedToText();
+        }
     }
 
     @Override

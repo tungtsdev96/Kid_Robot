@@ -18,12 +18,6 @@ public class SmartQA {
         }
     }
 
-    public void start() {
-        if (mSmartQAPresenter != null) {
-            mSmartQAPresenter.start();
-        }
-    }
-
     public void stop() {
         if (mSmartQAPresenter != null) {
             mSmartQAPresenter.stop();

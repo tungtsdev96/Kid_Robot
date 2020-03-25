@@ -29,7 +29,7 @@ public class SmartQAActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WindowManagerUtils.setFullScreenMode(this);
-        setContentView(R.layout.activity_result_question_answer);
+        setContentView(R.layout.activity_smart_qa);
         TriggerHelper.stopTrigger(this);
         mSmartQA = new SmartQA();
         mQuestion = getIntent().getStringExtra("question");
@@ -37,14 +37,23 @@ public class SmartQAActivity extends Activity {
         mSmartQA.init();
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            WindowManagerUtils.setFullScreenMode(this);
+        }
+    }
+
     private void inject() {
+        boolean isNeedShowSpeedToText = true;
         SmartQAPresenterImpl<QAResponse> smartQAPresenter = new SmartQAPresenterImpl<>();
         SmartQAView<QAResponse> smartQAView = SmartQAViewFactory.newSmartQAView(this);
         SmartQAModel<QAResponse> smartQAModel = SmartQAModelFactory.newSmartQAModel(this);
 
         smartQAPresenter.setQAView(smartQAView);
         smartQAPresenter.setQAModel(smartQAModel);
-        smartQAPresenter.setQuestion(mQuestion);
+        smartQAPresenter.setNeedShowPopUp(isNeedShowSpeedToText);
         smartQAPresenter.setCloseButtonHandler(this::onBackPressed);
         mSmartQA.setQAPresenter(smartQAPresenter);
     }

@@ -8,7 +8,7 @@ import com.android.tupple.cleanobject.CleanObservable;
 
 public interface SmartQAModel<QAResponse> {
 
-   CleanObservable<QAResponse> getAnswer(String question);
+   CleanObservable<QAResponse> getAnswerObservable(String question);
 
     void stop();
 

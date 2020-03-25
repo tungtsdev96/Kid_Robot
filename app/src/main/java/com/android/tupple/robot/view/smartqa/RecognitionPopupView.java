@@ -10,13 +10,12 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 
 import androidx.core.content.ContextCompat;
 
 import com.android.tupple.robot.R;
-import com.android.tupple.trigger.TriggerService;
 import com.github.zagum.speechrecognitionview.RecognitionProgressView;
 import com.github.zagum.speechrecognitionview.adapters.RecognitionListenerAdapter;
 
@@ -49,14 +48,16 @@ public class RecognitionPopupView {
     private int mScreenHeight = 0;
     private int mTryShowCount = 0;
 
+    private boolean mIsNeedDelay = true;
     private RecognitionProgressView mRecognitionProgressView;
-    private boolean isHasResult = false;
+    private boolean mIsHasResult = false;
 
     public static synchronized RecognitionPopupView getInstance(int hashCode) {
         synchronized (sInstances) {
             RecognitionPopupView instance = sInstances.get(hashCode);
             if (instance == null) {
                 instance = new RecognitionPopupView();
+                instance.mIsNeedDelay = true;
                 sInstances.put(hashCode, instance);
                 Log.d(TAG, "create AnswerResultPopupView instance, context hash : " + hashCode);
             }
@@ -103,7 +104,6 @@ public class RecognitionPopupView {
         }
 
         mTryShowCount++;
-
         mCompositeDisposable.add(Single.timer(POPUP_DISPLAY_DELAY, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(z1 -> {
@@ -115,7 +115,6 @@ public class RecognitionPopupView {
                     }
 
                     mTryShowCount = 0;
-
                     showTipCard(position);
                 }));
     }
@@ -137,7 +136,7 @@ public class RecognitionPopupView {
         mRecognitionPopupView.update();
 
         if (mOnRecognitionPopupListener != null) {
-            mOnRecognitionPopupListener.onShowComplete();
+            mOnRecognitionPopupListener.onShowPopupSpeedToTextComplete();
         }
     }
 
@@ -150,18 +149,19 @@ public class RecognitionPopupView {
 
         Resources res = mParentView.getContext().getResources();
 
-        final int width = mScreenWidth;
-        final int height = getMeasuredHeight(popupView, width);
+        final int width = mParentView.getWidth() / 2;
+        final int height = mParentView.getHeight() / 2;
 
-        PopupWindow window = new PopupWindow(popupView, RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        PopupWindow window = new PopupWindow(popupView, FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT);
         window.setContentView(popupView);
         window.setWidth(width);
         window.setHeight(height);
         window.setOutsideTouchable(false);
         window.setAnimationStyle(R.style.StylePopupResultAnswer);
-        window.showAtLocation(mParentView, Gravity.CENTER, mParentView.getWidth() / 2 - x / 2, mParentView.getHeight() / 2 - y / 2);
-
+        int[] parentPos = new int[2];
+        mParentView.getLocationInWindow(parentPos);
+        window.showAtLocation(mParentView, Gravity.NO_GRAVITY, parentPos[0] + (mParentView.getWidth() - width) / 2, parentPos[1] + (mParentView.getHeight() - height) / 2);
         return window;
     }
 
@@ -182,7 +182,15 @@ public class RecognitionPopupView {
         mRecognitionProgressView.play();
         mRecognitionProgressView.setSpeechRecognizer(speechRecognizer);
         mRecognitionProgressView.setRecognitionListener(mRecognitionListenerAdapter);
-        startRecognize(speechRecognizer);
+        if (mIsNeedDelay) {
+            mCompositeDisposable.add(
+                    Single.timer(500, TimeUnit.MILLISECONDS)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(z -> startRecognize(speechRecognizer)));
+            mIsNeedDelay = false;
+        } else {
+            startRecognize(speechRecognizer);
+        }
         return view;
     }
 
@@ -190,8 +198,8 @@ public class RecognitionPopupView {
         @Override
         public void onResults(Bundle results) {
             ArrayList<String> result = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            isHasResult = result != null && !result.isEmpty();
-            handleResultRecognize(isHasResult ? result.get(0) : null);
+            mIsHasResult = result != null && !result.isEmpty();
+            handleResultRecognize(mIsHasResult ? result.get(0) : null);
         }
 
         @Override
@@ -203,18 +211,14 @@ public class RecognitionPopupView {
         @Override
         public void onEndOfSpeech() {
             super.onEndOfSpeech();
-            Log.d(TriggerService.TAG, "onEndOfSpeech");
-            if (!isHasResult) {
-                mRecognitionProgressView.stop();
-                hide();
-            }
+            Log.d(TAG, "onEndOfSpeech");
         }
     };
 
     private void handleResultRecognize(String result) {
         if (result == null) {
             if (mOnRecognitionPopupListener != null) {
-                mOnRecognitionPopupListener.onError(SpeechRecognizer.ERROR_NETWORK);
+                mOnRecognitionPopupListener.onErrorSpeedToText(SpeechRecognizer.ERROR_NETWORK);
             }
             hide();
             return;
@@ -222,20 +226,17 @@ public class RecognitionPopupView {
 
         mRecognitionProgressView.stop();
         if (mOnRecognitionPopupListener != null) {
-            mOnRecognitionPopupListener.onResult(result);
+            mOnRecognitionPopupListener.onResultSpeedToText(result);
         }
         hide();
     }
 
     private void handleErrorRecognize(int error) {
-        switch (error) {
-            case SpeechRecognizer.ERROR_NETWORK:
-                if (mOnRecognitionPopupListener != null) {
-                    mOnRecognitionPopupListener.onError(SpeechRecognizer.ERROR_NETWORK);
-                }
-                hide();
-                break;
+        Log.d(TAG, "err " + error);
+        if (mOnRecognitionPopupListener != null) {
+            mOnRecognitionPopupListener.onErrorSpeedToText(error);
         }
+        hide();
     }
 
     private void startRecognize(SpeechRecognizer speechRecognizer) {
@@ -270,7 +271,7 @@ public class RecognitionPopupView {
                 0 < mScreenWidth && position[0] < mScreenWidth;
     }
 
-    private boolean isShowing() {
+    public boolean isShowing() {
         return mRecognitionPopupView != null && mRecognitionPopupView.isShowing();
     }
 
@@ -290,9 +291,11 @@ public class RecognitionPopupView {
     }
 
     public interface OnRecognitionPopupListener {
-        void onShowComplete();
-        void onResult(String result);
-        void onError(int type);
+        void onShowPopupSpeedToTextComplete();
+
+        void onResultSpeedToText(String result);
+
+        void onErrorSpeedToText(int type);
     }
 
 }
