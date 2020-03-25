@@ -22,6 +22,7 @@
     <string name="answer_true">Đáp án đúng là: %s</string>
     <string name="header_answer_right">Trả lời đúng</string>
     <string name="header_answer_wrong">Trả lời sai</string>
+    <string name="text_please_tested_first">Hãy kiểm tra phát âm trước.</string>
 
     <string name="text_state_record_error">Mình không nghe rõ bạn nói. Vui lòng thử lại?</string>
     <string name="text_state_record_prepare">Nhấn icon mic để bắt đầu phát âm từ</string>
@@ -29,7 +30,7 @@
     <string name="text_state_record_doing">Mình đang nghe đây</string>
     <string name="text_state_record_done">Chờ mình chút</string>
 
-    <string name="text_result_not_good">Chưa đúng lắm. Cố lên!</string>
+    <string name="text_result_not_good">Chưa đúng rồi. Cố lên!</string>
     <string name="text_result_good">Gần đúng rồi. Cố lên!</string>
     <string name="text_result_very_good">Đúng rồi. Chúc mừng bạn!</string>
     <string name="text_result_excellent">Tuyệt vời. Chúc mừng bạn!</string>

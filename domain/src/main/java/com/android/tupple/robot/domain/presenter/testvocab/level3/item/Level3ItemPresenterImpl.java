@@ -15,6 +15,7 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
 
     private Level3ItemViewWrapper<Vocabulary> mLevel3ItemViewWrapper;
     private Level3ItemView<Vocabulary> mLevel3ItemView;
+    private Level3ItemModel<Vocabulary> mLevel3ItemModel;
 
     private Vocabulary mVocabulary;
     private int mVocabId;
@@ -25,6 +26,10 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
         this.mVocabulary = vocabulary;
     }
 
+    public void setLevel3ItemModel(Level3ItemModel<Vocabulary> level3ItemModel) {
+        this.mLevel3ItemModel = level3ItemModel;
+    }
+
     public void setLevel3ItemViewWrapper(Level3ItemViewWrapper<Vocabulary> level3ItemViewWrapper) {
         this.mLevel3ItemViewWrapper = level3ItemViewWrapper;
         this.mLevel3ItemViewWrapper.getViewCreatedObservable().subscribe(this::onViewCreated);
@@ -33,40 +38,42 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
     private void onViewCreated(Level3ItemView<Vocabulary> level3ItemView) {
         this.mLevel3ItemView = level3ItemView;
         initObservable();
-
         doOnStart();
     }
 
     private void initObservable() {
         mLevel3ItemView.getBtnPronounceClickedObservable().subscribe(this::handleBtnPronounceClicked);
-        mLevel3ItemView.getBtnRecordingClickedObservable().subscribe(this::handleBtnRecord);
+        mLevel3ItemView.getBtnRecordingClickedObservable().subscribe(this::startRecord);
         mLevel3ItemView.getRecordStateDoneObservable().subscribe(this::handleOnRecordDone);
+        mLevel3ItemView.getResultSpeedToTextObservable().subscribe(this::handleSpeedToText);
     }
 
-    private void handleBtnRecord(boolean isStart) {
-        if (isStart) {
-            startRecord();
-        } else{
-            stopRecord();
-        }
+    private void handleSpeedToText(String text) {
+        mLevel3ItemView.setStateRecording(RecordState.WAITING);
+        mLevel3ItemModel.getAnswerFromUserObservable(text, mVocabulary).subscribe(listRightCharacter -> this.handleResult(listRightCharacter, text));
+    }
+
+    private void handleResult(boolean[] listRightCharacter, String yourAnswer) {
+        mLevel3ItemView.setTextYourAnswer(listRightCharacter, yourAnswer);
+        isTested = true;
     }
 
     private void startRecord() {
         isRecording = true;
         mLevel3ItemView.startRecording(mVocabulary);
         mLevel3ItemView.setStateRecording(RecordState.RECORDING);
-        mLevel3ItemView.setTextResult(ResultState.INVALID);
+        mLevel3ItemView.setTextResultState(ResultState.INVALID);
     }
 
-    private void stopRecord() {
-        mLevel3ItemView.stopRecording();
-        mLevel3ItemView.setStateRecording(RecordState.WAITING);
-        mLevel3ItemView.setTextResult(ResultState.INVALID);
-    }
+//    private void stopRecord() {
+//        mLevel3ItemView.stopRecording();
+//        mLevel3ItemView.setStateRecording(RecordState.WAITING);
+//        mLevel3ItemView.setTextResult(ResultState.INVALID);
+//    }
 
     private void handleOnRecordDone(String fileRecord) {
         // TODO handle with server
-        CLog.printD("tungts", fileRecord);
+        CLog.printD(TAG, fileRecord);
         isRecording = false;
     }
 
@@ -83,7 +90,7 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
     public void doOnStart() {
         mLevel3ItemView.setVocabulary(mVocabulary);
         mLevel3ItemView.setStateRecording(RecordState.PREPARING);
-        mLevel3ItemView.setTextResult(ResultState.INVALID);
+        mLevel3ItemView.setTextResultState(ResultState.INVALID);
     }
 
     @Override
@@ -96,7 +103,6 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
     @Override
     public void onPageChange() {
         // TODO check is recording, stop record, check vocab is tested
-
     }
 
     @Override
@@ -112,8 +118,7 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
         }
 
         if (isRecording) {
-            mLevel3ItemView.showDialogStopRecord();
-            return false;
+            mLevel3ItemView.stop();
         }
 
         return true;

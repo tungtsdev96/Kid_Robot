@@ -2,7 +2,10 @@ package com.android.tupple.robot.view.testvocab.level3.item;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -26,6 +30,7 @@ import com.android.tupple.robot.common.sound.SoundPoolManagement;
 import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.RecordingHelper;
 import com.android.tupple.robot.utils.SingleClickUtil;
+import com.android.tupple.robot.view.smartqa.RecognitionPopupView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -35,7 +40,7 @@ import java.io.File;
  * Created by tungts on 2020-02-22.
  */
 
-public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocabulary> {
+public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocabulary>, RecognitionPopupView.OnRecognitionPopupListener {
 
     private Context mContext;
 
@@ -53,6 +58,7 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
     private CleanObserver mBtnPronounceClickedObserver;
     private CleanObserver<Boolean> mBtnRecordClickedObserver;
     private CleanObserver<String> mRecordStateDoneObserver;
+    private CleanObserver<String> mSpeedToTextDoneObserver;
 
     private RecordingHelper mRecordingHelper;
     private int mKeyView = -1;
@@ -106,7 +112,7 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
 
     private void handleBtnRecordClicked(View view) {
         if (mBtnRecordClickedObserver != null) {
-            mBtnRecordClickedObserver.onNext(!mRecordingHelper.isRecording());
+            mBtnRecordClickedObserver.onNext();
         }
     }
 
@@ -123,39 +129,70 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
 
     @Override
     public void startRecording(Vocabulary vocabulary) {
-        mRecordingHelper.startRecord(vocabulary.getVocabEn());
-        mRecordStopHandler.postDelayed(mRunnableStopRecord, 10000);
+//        mRecordingHelper.startRecord(vocabulary.getVocabEn());
+//        mRecordStopHandler.postDelayed(mRunnableStopRecord, 10000);
+        showSpeedToTextPopup();
         Toast.makeText(mContext, mContext.getString(R.string.text_state_record_start), Toast.LENGTH_SHORT).show();
     }
 
-    private Handler mRecordStopHandler = new Handler();
-    private Runnable mRunnableStopRecord = this::stopRecording;
-
-    @Override
-    public void stopRecording() {
-        if (mRecordingHelper == null || !mRecordingHelper.isRecording()) {
-            return;
-        }
-
-        mRecordStopHandler.removeCallbacks(mRunnableStopRecord);
-        File file = mRecordingHelper.stopRecord();
-        if (mRecordStateDoneObserver != null) {
-            mRecordStateDoneObserver.onNext(file.getAbsolutePath());
-        }
+    private void showSpeedToTextPopup() {
+        RecognitionPopupView.getInstance(mContext.hashCode())
+                .init(mContext.getResources())
+                .setParentView(getView().findViewById(R.id.right_record_container))
+                .setOnShowCompleteListener(this)
+                .show();
     }
 
+//    private Handler mRecordStopHandler = new Handler();
+//    private Runnable mRunnableStopRecord = this::stopRecording;
+
+//    @Override
+//    public void stopRecording() {
+//        if (mRecordingHelper == null || !mRecordingHelper.isRecording()) {
+//            return;
+//        }
+//
+//        mRecordStopHandler.removeCallbacks(mRunnableStopRecord);
+//        File file = mRecordingHelper.stopRecord();
+//        if (mRecordStateDoneObserver != null) {
+//            mRecordStateDoneObserver.onNext(file.getAbsolutePath());
+//        }
+//    }
+
     @Override
-    public void setTextYourAnswer(String text) {
-        mTextYourAnswer.setText(text);
+    public void setTextYourAnswer(boolean[] listRightCharacter, String text) {
+        int countRight = 0;
+        SpannableStringBuilder yourAnswer = new SpannableStringBuilder();
+        for (int i = 0; i < listRightCharacter.length; i++) {
+            SpannableString spannableChar = new SpannableString(String.valueOf(text.charAt(i)));
+            @ColorInt int color = listRightCharacter[i]
+                            ? mContext.getResources().getColor(R.color.color_text_notify_result_true)
+                            : mContext.getResources().getColor(R.color.color_text_notify_result_false);
+            countRight = listRightCharacter[i] ? countRight + 1 : countRight;
+            ForegroundColorSpan fcs = new ForegroundColorSpan(color);
+            spannableChar.setSpan(fcs, 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            yourAnswer.append(spannableChar);
+        }
+
+        if (countRight == listRightCharacter.length) {
+            setTextResultState(ResultState.EXCELLENT);
+        } else if (countRight >= listRightCharacter.length - 2) {
+            setTextResultState(ResultState.GOOD);
+        } else {
+            setTextResultState(ResultState.NOT_GOOD);
+        }
+        mTextYourAnswer.setText(yourAnswer.toString());
     }
 
     @Override
     public void setError() {
+        mBtnRecording.setBackgroundResource(R.drawable.bg_btn_record);
+        mBtnRecording.setImageResource(R.drawable.ic_recording);
         mTextStateRecording.setText(mContext.getString(R.string.text_state_record_error));
     }
 
     @Override
-    public void setTextResult(ResultState state) {
+    public void setTextResultState(ResultState state) {
         switch (state) {
             case INVALID:
                 mTextYourAnswer.setText("");
@@ -202,13 +239,18 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
 
     @Override
     public void notifyHaveNotTested() {
-        Toast.makeText(mContext, "Bạn hãy kiểm tra trước đã", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, mContext.getString(R.string.text_please_tested_first), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showDialogStopRecord() {
-        Toast.makeText(mContext, "Hỏi xem có muốn stop record không", Toast.LENGTH_SHORT).show();
+    public void stop() {
+        RecognitionPopupView.removeInstance(mContext.hashCode());
     }
+
+//    @Override
+//    public void showDialogStopRecord() {
+//        Toast.makeText(mContext, "Hỏi xem có muốn stop record không", Toast.LENGTH_SHORT).show();
+//    }
 
     @Override
     public CleanObservable getBtnPronounceClickedObservable() {
@@ -226,7 +268,39 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
     }
 
     @Override
+    public CleanObservable<String> getResultSpeedToTextObservable() {
+        return CleanObservable.create(cleanObserver -> mSpeedToTextDoneObserver = cleanObserver);
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public void onShowPopupSpeedToTextComplete() {
+    }
+
+    @Override
+    public void onResultSpeedToText(String result) {
+//        File file = mRecordingHelper.stopRecord();
+//        if (mRecordStateDoneObserver != null) {
+//            mRecordStateDoneObserver.onNext(file.getAbsolutePath());
+//        }
+
+        if (mSpeedToTextDoneObserver != null) {
+            mSpeedToTextDoneObserver.onNext(result);
+        }
+    }
+
+    @Override
+    public void onErrorSpeedToText(int type) {
+//        File file = mRecordingHelper.stopRecord();
+//        if (mRecordStateDoneObserver != null) {
+//            mRecordStateDoneObserver.onNext(file.getAbsolutePath());
+//        }
+
+        setError();
+        setTextResultState(ResultState.INVALID);
     }
 }

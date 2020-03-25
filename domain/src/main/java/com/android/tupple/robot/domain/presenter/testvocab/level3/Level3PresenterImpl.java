@@ -22,7 +22,6 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
     private Level3ViewWrapper<LessonData, Topic, Vocabulary> mLevel3ViewWrapper;
     private Level3View<LessonData, Topic, Vocabulary> mLevel3View;
 
-    private Level3Model<LessonData, Topic, Vocabulary> mLevel3Model;
     private TestVocabModel<LessonData, Topic, Vocabulary> mTestVocabModel;
     private LearningVocabModel<Vocabulary> mLearningVocabModel;
 
@@ -43,10 +42,6 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     public interface PageChangeListenerHandler {
         void onPageChange(int previousPage, int pageSelected);
-    }
-
-    public void setLevel3Model(Level3Model<LessonData, Topic, Vocabulary> level3Model) {
-        this.mLevel3Model = level3Model;
     }
 
     public void setTestVocabModel(TestVocabModel<LessonData, Topic, Vocabulary> testVocabModel) {

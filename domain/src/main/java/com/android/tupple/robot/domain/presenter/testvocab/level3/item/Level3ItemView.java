@@ -16,24 +16,28 @@ public interface Level3ItemView<Vocabulary> {
 
     void startRecording(Vocabulary vocabulary);
 
-    void stopRecording();
+//    void stopRecording();
 
-    void setTextYourAnswer(String text);
+    void setTextYourAnswer(boolean[] listRightCharacter, String text);
 
     void setError();
 
-    void setTextResult(ResultState state);
+    void setTextResultState(ResultState state);
 
     void setStateRecording(RecordState state);
 
     void notifyHaveNotTested();
 
-    void showDialogStopRecord();
+//    void showDialogStopRecord();
+
+    void stop();
 
     CleanObservable getBtnPronounceClickedObservable();
 
     CleanObservable<Boolean> getBtnRecordingClickedObservable();
 
     CleanObservable<String> getRecordStateDoneObservable();
+
+    CleanObservable<String> getResultSpeedToTextObservable();
 
 }

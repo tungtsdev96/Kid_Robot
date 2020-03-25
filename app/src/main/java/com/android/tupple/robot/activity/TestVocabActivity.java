@@ -23,6 +23,7 @@ import com.android.tupple.robot.domain.presenter.testvocab.level2.Level2Presente
 import com.android.tupple.robot.domain.presenter.testvocab.level2.Level2ViewWrapper;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.Level3PresenterImpl;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.Level3ViewWrapper;
+import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3ItemModel;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3ItemPresenterImpl;
 import com.android.tupple.robot.domain.presenter.testvocab.level3.item.Level3ItemViewWrapper;
 import com.android.tupple.robot.domain.presenter.testvocab.progress.TestProgressPresenterImpl;
@@ -164,7 +165,9 @@ public class TestVocabActivity extends BaseActivity {
         for (Vocabulary vocabulary: vocabularies) {
             Level3ItemPresenterImpl<Vocabulary> level3ItemPresenter = new Level3ItemPresenterImpl<>(vocabulary);
             Level3ItemViewWrapper<Vocabulary> level3ItemViewWrapper = Level3ItemViewWrapperFactory.newLevel3ItemViewWrapper(this, vocabulary.getVocabId());
+            Level3ItemModel<Vocabulary> level3ItemModel = TestVocabModelFactory.newLevel3ItemModel(this);
             level3ItemPresenter.setLevel3ItemViewWrapper(level3ItemViewWrapper);
+            level3ItemPresenter.setLevel3ItemModel(level3ItemModel);
 
             level3Presenter.addLevel3ItemPresenter(level3ItemPresenter);
         }

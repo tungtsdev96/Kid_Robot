@@ -24,7 +24,7 @@ public class Level3ItemViewWrapperImpl implements Level3ItemViewWrapper<Vocabula
 
     private int mKeyView;
 
-    CleanObserver<Level3ItemView<Vocabulary>> mOnViewCreated;
+    private CleanObserver<Level3ItemView<Vocabulary>> mOnViewCreated;
 
     Level3ItemViewWrapperImpl(Context context, int keyView) {
         this.mContext = context;

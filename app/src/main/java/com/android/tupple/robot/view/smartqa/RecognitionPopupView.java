@@ -151,6 +151,7 @@ public class RecognitionPopupView {
 
         final int width = mParentView.getWidth() / 2;
         final int height = mParentView.getHeight() / 2;
+        Log.d(TAG, "width " + width + " " + " height " + height);
 
         PopupWindow window = new PopupWindow(popupView, FrameLayout.LayoutParams.WRAP_CONTENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT);
