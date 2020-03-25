@@ -36,6 +36,7 @@
     <color name="color_equalizer">#80ffffff</color>
     <color name="color_item">#30ffffff</color>
     <color name="color_item_focus">#95ffffff</color>
+    <color name="color_relative_icon_download">#80000000</color>
 
     <!-- smart question -->
     <color name="bg_dialog_smart_answer">@color/bg_result_answer_right</color>

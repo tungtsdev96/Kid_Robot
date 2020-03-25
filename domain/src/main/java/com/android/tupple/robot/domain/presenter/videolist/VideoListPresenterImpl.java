@@ -24,9 +24,7 @@ public class VideoListPresenterImpl<Media> implements MediaListPresenter {
     }
 
     private void handleItemVideoClicked(Media media) {
-        if (mItemVideoClickedObserver != null) {
-            mItemVideoClickedObserver.onComplete(media);
-        }
+       mVideoListView.showDialogDescription(media);
     }
 
     @Override

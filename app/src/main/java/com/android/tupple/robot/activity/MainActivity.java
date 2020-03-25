@@ -169,7 +169,7 @@ public class MainActivity extends BaseActivity {
         VideoListModel<Media> videoListModel = VideoListModelFactory.newVideoListModel(this);
         videoListPresenter.setVideoListViewWrapper(videoListViewWrapper);
         videoListPresenter.setVideoListModel(videoListModel);
-        videoListPresenter.setOnItemVideoClickObserver(mActivityLauncher::launchVideoPlayerActivity);
+        //videoListPresenter.setOnItemVideoClickObserver(mActivityLauncher::launchVideoPlayerActivity);
         ///////////////////////////////////////////
         AudioListPresenterImpl<Media> audioListPresenter = new AudioListPresenterImpl<>();
         AudioListViewWrapper<Media> audioListViewWrapper = AudioListViewWrapperFactory.newAudioListViewWrapper(getSupportFragmentManager(), bundle);
