@@ -13,20 +13,35 @@
         app:cardCornerRadius="@dimen/common_card_radius">
 
         <ImageView
+            android:id="@+id/image_vocabulary"
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <TextView
-            android:id="@+id/text_vocabulary"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:textSize="@dimen/text_vocab_learning_medium"
-            android:padding="10dp"
-            android:background="#80C0C0C0"
-            style="@style/CommonStyleText"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/text_vocabulary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:textSize="@dimen/text_vocab_learning_medium"
+                android:padding="10dp"
+                android:background="#80C0C0C0"
+                style="@style/CommonStyleText"/>
+
+            <ImageView
+                android:id="@+id/btn_pronounce"
+                android:src="@drawable/ic_mic_max"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_gravity="center_vertical"/>
+
+        </FrameLayout>
 
     </androidx.cardview.widget.CardView>
 

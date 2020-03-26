@@ -1,11 +1,13 @@
 package com.android.tupple.robot;
 
-import android.app.Application;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 
 import com.android.tupple.robot.data.KidRobotDatabase;
 import com.android.tupple.robot.data.entity.LessonData;
@@ -15,6 +17,7 @@ import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.domain.log.CLog;
 import com.android.tupple.robot.domain.log.CLogger;
 import com.android.tupple.robot.utils.ResourceUtils;
+import com.android.tupple.robot.utils.Utils;
 import com.android.tupple.trigger.TriggerService;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -34,7 +37,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by tungts on 2020-01-12.
  */
 
-public class KidRobotApplication extends Application {
+public class KidRobotApplication extends MultiDexApplication {
 
     private static KidRobotApplication sInstance;
 
@@ -44,10 +47,16 @@ public class KidRobotApplication extends Application {
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
         initCLogger();
-//        initTriggerService();
+        initTriggerService();
 
         // test data for school book
 //        initBook();
@@ -166,12 +175,16 @@ public class KidRobotApplication extends Application {
     }
 
     private void initTriggerService() {
-        try {
-            Intent intent = new Intent(getApplicationContext(), TriggerService.class);
-            startService(intent);
-        } catch (Exception e) {
-            Log.e(TriggerService.TAG, "Can not start service");
-        }
+//        if (Utils.isMyServiceRunning(getApplicationContext(), TriggerService.class)){
+//            return;
+//        }
+//
+//        try {
+//            Intent intent = new Intent(getApplicationContext(), TriggerService.class);
+//            startService(intent);
+//        } catch (Exception e) {
+//            Log.e(TriggerService.TAG, "Can not start service");
+//        }
     }
 
     private void initCLogger() {
@@ -195,5 +208,4 @@ public class KidRobotApplication extends Application {
             }
         });
     }
-
 }

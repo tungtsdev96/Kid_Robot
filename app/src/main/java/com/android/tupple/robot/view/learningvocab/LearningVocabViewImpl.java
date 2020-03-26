@@ -3,7 +3,6 @@ package com.android.tupple.robot.view.learningvocab;
 import android.app.Activity;
 import android.os.Build;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.viewpager2.widget.ViewPager2;
@@ -16,7 +15,6 @@ import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by tungts on 2020-01-18.

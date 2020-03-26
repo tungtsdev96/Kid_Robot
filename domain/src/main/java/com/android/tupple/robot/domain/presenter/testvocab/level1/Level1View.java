@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface Level1View<LessonData, Topic, Vocabulary> {
 
+    void playAudioVocab(Vocabulary question);
+
     void showQuestion(TestVocabLevel testVocabLevel, Vocabulary vocabulary, List<Vocabulary> listAnswers);
 
     void notifyMustSelectedAnswer();
@@ -25,7 +27,7 @@ public interface Level1View<LessonData, Topic, Vocabulary> {
 
     CleanObservable<Integer> getAnswerSelectedObservable();
 
-    CleanObservable getBtnCheckAnswerClickedObservable();
+    CleanObservable<Boolean> getBtnCheckAnswerClickedObservable();
 
     CleanObservable getBtnPronounceVocabClickedObservable();
 

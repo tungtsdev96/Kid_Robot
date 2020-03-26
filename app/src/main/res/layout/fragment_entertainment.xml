@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/color_entertainment_background"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/radiobutton"
+                >
+
+                <RadioButton
+                    android:id="@+id/btn_tab_video"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:button="@android:color/transparent"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Xem Phim"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"
+                    android:background="@drawable/custom_radio_button"
+                    style="@style/CommonStyleText"
+                    />
+
+                <RadioButton
+                    android:id="@+id/btn_tab_audio"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:button="@android:color/transparent"
+                    android:textColor="#ffffff"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Nghe Truyện"
+                    android:textSize="20sp"
+                    android:background="@drawable/custom_radio_button"
+                    style="@style/CommonStyleText"
+                    />
+            </RadioGroup>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/radiobutton"
+                android:id="@+id/content_entertainment"
+                />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

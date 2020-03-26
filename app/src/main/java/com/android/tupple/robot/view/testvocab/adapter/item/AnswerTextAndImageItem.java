@@ -34,4 +34,8 @@ public class AnswerTextAndImageItem implements AnswerItem {
         return this.vocabulary;
     }
 
+    public String getImage() {
+        return vocabulary.getImageUrl();
+    }
+
 }

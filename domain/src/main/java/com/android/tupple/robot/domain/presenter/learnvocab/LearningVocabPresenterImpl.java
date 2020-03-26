@@ -2,6 +2,8 @@ package com.android.tupple.robot.domain.presenter.learnvocab;
 
 import com.android.tupple.robot.domain.entity.learnvocab.LearnVocabPresenter;
 import com.android.tupple.robot.domain.log.CLog;
+import com.android.tupple.robot.domain.presenter.CloseButtonHandler;
+import com.android.tupple.robot.domain.presenter.data.LearningVocabModel;
 import com.android.tupple.robot.domain.presenter.data.VocabularyModel;
 
 import java.util.ArrayList;
@@ -12,10 +14,6 @@ import java.util.List;
  */
 
 public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresenter {
-
-    public interface CloseButtonHandler {
-        void onClose();
-    }
 
     public interface DoneLearningVocabListener {
         void onComplete();
@@ -42,6 +40,7 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
     public void setLearningVocabView(LearningVocabView<Vocabulary> learningVocabView) {
         this.mLearningVocabView = learningVocabView;
         initObservable();
+
     }
 
     public void setVocabularyModel(VocabularyModel<Vocabulary> vocabularyModel) {
@@ -65,6 +64,7 @@ public class LearningVocabPresenterImpl<Vocabulary> implements LearnVocabPresent
     @Override
     public void init() {
         mLearningVocabView.initLayout();
+        start();
     }
 
     @Override

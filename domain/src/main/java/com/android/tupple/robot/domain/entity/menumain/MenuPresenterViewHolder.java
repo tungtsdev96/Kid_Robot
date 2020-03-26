@@ -47,6 +47,8 @@ public class MenuPresenterViewHolder {
                 presenter = mAlarmPresenter;
                 break;
             case ENTERTAINMENT:
+                presenter = mEntertainmentPresenter;
+                break;
             case INVALID:
             default:
                 presenter = null;

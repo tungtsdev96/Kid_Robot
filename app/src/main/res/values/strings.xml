@@ -22,6 +22,7 @@
     <string name="answer_true">Đáp án đúng là: %s</string>
     <string name="header_answer_right">Trả lời đúng</string>
     <string name="header_answer_wrong">Trả lời sai</string>
+    <string name="text_please_tested_first">Hãy kiểm tra phát âm trước.</string>
 
     <string name="text_state_record_error">Mình không nghe rõ bạn nói. Vui lòng thử lại?</string>
     <string name="text_state_record_prepare">Nhấn icon mic để bắt đầu phát âm từ</string>
@@ -29,7 +30,7 @@
     <string name="text_state_record_doing">Mình đang nghe đây</string>
     <string name="text_state_record_done">Chờ mình chút</string>
 
-    <string name="text_result_not_good">Chưa đúng lắm. Cố lên!</string>
+    <string name="text_result_not_good">Chưa đúng rồi. Cố lên!</string>
     <string name="text_result_good">Gần đúng rồi. Cố lên!</string>
     <string name="text_result_very_good">Đúng rồi. Chúc mừng bạn!</string>
     <string name="text_result_excellent">Tuyệt vời. Chúc mừng bạn!</string>
@@ -38,6 +39,12 @@
     <string name="cancel_download">Hủy</string>
     <string name="learning_vocab_title">Học từ mới: %d/%d</string>
     <string name="text_check_answer">Kiểm tra</string>
+
+    <!-- smart Q&A -->
+    <string name="text_cant_hear_that">Mình không nghe rõ</string>
+    <string name="text_err_net_work">Dường như kết nối mạng có vấn đề! Hãy giúp mình kiểm tra lại nhé.</string>
+    <string name="text_have_not_answer">Xin lỗi. Mình chưa trả lời được câu hỏi này. Mình sẽ bổ sung kiến thức để có thể trả lời bạn sau nhé!</string>
+    <string name="text_way_to_ask_robot">Nhấn vào nút bên dưới để hỏi bất cứ thứ gì.</string>
 
 
 </resources>

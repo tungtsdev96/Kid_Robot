@@ -1,18 +1,28 @@
 package com.android.tupple.robot.activity;
 
+import android.Manifest;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
 
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.base.BaseActivity;
+import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.data.entity.MenuItemData;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.data.model.alarm.AlarmModelFactory;
+import com.android.tupple.robot.data.model.mediaobject.AudioListModelFactory;
+import com.android.tupple.robot.data.model.mediaobject.EntertainmentModelFactory;
+import com.android.tupple.robot.data.model.mediaobject.VideoListModelFactory;
 import com.android.tupple.robot.domain.entity.menumain.MenuMain;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
 import com.android.tupple.robot.domain.presenter.alarm.AlarmModel;
 import com.android.tupple.robot.domain.presenter.alarm.AlarmPresenterImpl;
 import com.android.tupple.robot.domain.presenter.alarm.AlarmViewWrapper;
+import com.android.tupple.robot.domain.presenter.audiolist.AudioListModel;
+import com.android.tupple.robot.domain.presenter.audiolist.AudioListPresenterImpl;
+import com.android.tupple.robot.domain.presenter.audiolist.AudioListViewWrapper;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerModel;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerPresenterImpl;
 import com.android.tupple.robot.domain.presenter.drawer.DrawerView;
@@ -24,10 +34,26 @@ import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicPresen
 import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicViewWrapper;
 import com.android.tupple.robot.data.model.drawer.DrawerModelFactory;
 import com.android.tupple.robot.data.model.english.EnglishModelFactory;
+import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentModel;
+import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentPresenterImpl;
+import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentViewWrapper;
+import com.android.tupple.robot.domain.presenter.videolist.VideoListModel;
+import com.android.tupple.robot.domain.presenter.videolist.VideoListPresenterImpl;
+import com.android.tupple.robot.domain.presenter.videolist.VideoListViewWrapper;
 import com.android.tupple.robot.view.alarm.AlarmViewWrapperFactory;
+import com.android.tupple.robot.view.audiolist.AudioListViewWrapperFactory;
 import com.android.tupple.robot.view.drawer.DrawerViewFactory;
 import com.android.tupple.robot.view.englishbook.EnglishBookViewWrapperFactory;
 import com.android.tupple.robot.view.englishtopic.EnglishTopicViewWrapperFactory;
+import com.android.tupple.robot.view.entertainment.EntertainmentViewWrapperFactory;
+import com.android.tupple.robot.view.videolist.VideoListViewWrapperFactory;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
@@ -41,10 +67,27 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreatedActivity(Bundle savedInstanceState) {
+        checkPermission();
         initFirstBatch(savedInstanceState);
         inject(savedInstanceState);
 
         mMenuMain.init();
+    }
+
+    private void checkPermission() {
+        Dexter.withActivity(this)
+                .withPermissions(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE , Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+                    }
+                }).check();
     }
 
     private void initFirstBatch(Bundle bundle) {
@@ -58,6 +101,7 @@ public class MainActivity extends BaseActivity {
         injectEnglishTopic(bundle);
         injectAlarmClock(bundle);
         injectLearningSchedule(bundle);
+        injectEntertainment(bundle);
     }
 
     private void injectDrawer(Bundle bundle) {
@@ -111,6 +155,31 @@ public class MainActivity extends BaseActivity {
 
     private void injectLearningSchedule(Bundle bundle) {
 
+    }
+    private void injectEntertainment(Bundle bundle) {
+        EntertainmentPresenterImpl<Fragment> entertainmentPresenter = new EntertainmentPresenterImpl();
+        EntertainmentViewWrapper<Fragment> entertainmentViewWrapper = EntertainmentViewWrapperFactory.newEntertainmentViewWrapper(getSupportFragmentManager(), bundle);
+        EntertainmentModel<Fragment> entertainmentModel = EntertainmentModelFactory.newEntertainmentModel(this);
+
+        entertainmentPresenter.setEntertainmentViewWrapper(entertainmentViewWrapper);
+        entertainmentPresenter.setEntertainmentModel(entertainmentModel);
+        ////////////////////////////////////////////
+        VideoListPresenterImpl<Media> videoListPresenter = new VideoListPresenterImpl<>();
+        VideoListViewWrapper<Media> videoListViewWrapper = VideoListViewWrapperFactory.newVideoListViewWrapper(getSupportFragmentManager(), bundle);
+        VideoListModel<Media> videoListModel = VideoListModelFactory.newVideoListModel(this);
+        videoListPresenter.setVideoListViewWrapper(videoListViewWrapper);
+        videoListPresenter.setVideoListModel(videoListModel);
+        //videoListPresenter.setOnItemVideoClickObserver(mActivityLauncher::launchVideoPlayerActivity);
+        ///////////////////////////////////////////
+        AudioListPresenterImpl<Media> audioListPresenter = new AudioListPresenterImpl<>();
+        AudioListViewWrapper<Media> audioListViewWrapper = AudioListViewWrapperFactory.newAudioListViewWrapper(getSupportFragmentManager(), bundle);
+        AudioListModel<Media> audioListModel = AudioListModelFactory.newAudioListModel(this);
+        audioListPresenter.setAudioListViewWrapper(audioListViewWrapper);
+        audioListPresenter.setAudioListModel(audioListModel);
+        ///////////////////////////////////////////
+        entertainmentPresenter.setVideoListPresenter(videoListPresenter);
+        entertainmentPresenter.setAudioListPresenter(audioListPresenter);
+        mMenuMain.setEntertainmentPresenter(entertainmentPresenter);
     }
 
     @Override

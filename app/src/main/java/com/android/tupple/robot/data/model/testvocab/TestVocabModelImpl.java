@@ -19,15 +19,21 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.reactivex.CompletableObserver;
 import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by tungts on 2020-02-05.
  */
 
 public class TestVocabModelImpl implements TestVocabModel<LessonData, Topic, Vocabulary> {
+
+    private final String TAG = "TestVocabModelImpl";
 
     private Context mContext;
     private LessonDao mLessonDao;
@@ -60,51 +66,97 @@ public class TestVocabModelImpl implements TestVocabModel<LessonData, Topic, Voc
     @Override
     public CleanObservable<List<Vocabulary>> makeListAnswerFromVocab(List<Vocabulary> vocabLearning, Vocabulary vocabulary) {
         return CleanObservable.create(cleanObserver -> {
-            if (vocabulary.getLessonId() != 0) {
-                // TODO get answer from lesson
-            } else {
-                Disposable d = makeListAnswerFromTopic(vocabulary)
-                        .compose(RxUtils.async())
-                        .subscribe(cleanObserver::onNext, Throwable::printStackTrace);
-                mCompositeDisposable.add(d);
-            }
+            Single<List<Vocabulary>> getAnswer =
+                    vocabulary.getLessonId() != 0 ? makeListAnswerFromLesson(vocabulary) : makeListAnswerFromTopic(vocabulary);
+            Disposable d = getAnswer
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(cleanObserver::onNext, Throwable::printStackTrace);
+            mCompositeDisposable.add(d);
         });
     }
 
-    private Observable<List<Vocabulary>> makeListAnswerFromLesson(Vocabulary vocabulary) {
-        List<Integer> ids = new ArrayList<>();
-        int bookGradle = mLessonDao.getBookGradleFromLessonId(vocabulary.getLessonId());
-
-
-        return null;
-    }
-
     // Random in the same topic -> easy => Need to be more difficult
-    private Observable<List<Vocabulary>> makeListAnswerFromTopic(Vocabulary vocabulary) {
+    private Single<List<Vocabulary>> makeListAnswerFromTopic(Vocabulary vocabulary) {
         List<Integer> ids = new ArrayList<>();
         ids.add(vocabulary.getVocabId());
+        Log.d(TAG, "makeListAnswerFromTopic " + vocabulary.getVocabEn());
 
         return mVocabularyDao
-                        .getListVocabularyNotIncludeIds(ids, vocabulary.getTopicId())
-                        .map(listVocabs -> pickRandom(listVocabs, 4))
+                .makeListAnswerFromTopic(ids, vocabulary.getTopicId())
+                .map(listVocabs -> pickRandom(listVocabs, listVocabs.size()))
+                .map(listVocabs -> {
+                    List<Vocabulary> answers = new ArrayList<>();
+                    answers.add(vocabulary);
+                    answers.add(listVocabs.get(0));
+                    answers.add(listVocabs.get(1));
+                    answers.add(listVocabs.get(2));
+                    for (Vocabulary v : answers) {
+                        Log.d(TAG, v.getVocabEn());
+                    }
+                    return pickRandom(answers, answers.size());
+                });
+    }
+
+    // Random in the book
+    private Single<List<Vocabulary>> makeListAnswerFromLesson(Vocabulary vocabulary) {
+        return Single.fromCallable(() -> mLessonDao.getBookGradleFromLessonId(vocabulary.getLessonId()))
+                .flatMap(bookGradle ->
+                        mVocabularyDao
+                        .makeListAnswerFromVocab(vocabulary, bookGradle)
+                        .map(listVocabs -> pickRandom(listVocabs, listVocabs.size()))
                         .map(listVocabs -> {
                             List<Vocabulary> answers = new ArrayList<>();
                             answers.add(vocabulary);
                             answers.add(listVocabs.get(0));
                             answers.add(listVocabs.get(1));
                             answers.add(listVocabs.get(2));
+                            for (Vocabulary v : answers) {
+                                Log.d(TAG, v.getVocabEn());
+                            }
                             return pickRandom(answers, answers.size());
-                        });
+                        }));
+    }
+
+    @Override
+    public void updateQuestionForVocab(boolean isRight, Vocabulary vocabulary) {
+        Log.d(TAG, "updateQuestionForVocab " + vocabulary.getVocabEn() + " " + isRight);
+        if (isRight) {
+            vocabulary.setScoreCorrect(vocabulary.getScoreCorrect() + 1);
+        } else {
+            vocabulary.setScoreWrong(vocabulary.getScoreWrong() + 1);
+        }
+
+        mVocabularyDao
+                .update(vocabulary)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "update complete " + vocabulary.getVocabEn() + " " + vocabulary.getScoreCorrect() + " " + vocabulary.getScoreWrong());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
     }
 
     @Override
     public void cancel() {
-
+        mCompositeDisposable.clear();
     }
 
     @Override
     public void destroy() {
-
+        mCompositeDisposable.dispose();
     }
 
 }

@@ -28,4 +28,24 @@
     <!-- common color -->
     <color name="color_disable">#D6D6D6</color>
 
+    <!-- entertainment color -->
+    <color name="main_color_entertainment">#3F51B5</color>
+    <color name="color_entertainment_background">#403F51B5</color>
+    <color name="color_button_checked">#3F51B5</color>
+    <color name="color_button_unchecked">#B0BEC5</color>
+    <color name="color_equalizer">#80ffffff</color>
+    <color name="color_item">#30ffffff</color>
+    <color name="color_item_focus">#95ffffff</color>
+    <color name="color_relative_icon_download">#80000000</color>
+
+    <!-- smart question -->
+    <color name="bg_dialog_smart_answer">@color/bg_result_answer_right</color>
+
+    <!-- speed to text google -->
+    <color name="color1">#3164d7</color>
+    <color name="color2">#d92d29</color>
+    <color name="color3">#eeaa10</color>
+    <color name="color4">#3164d7</color>
+    <color name="color5">#2e9641</color>
+
 </resources>

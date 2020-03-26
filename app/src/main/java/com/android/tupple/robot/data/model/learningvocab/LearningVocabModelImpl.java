@@ -6,7 +6,7 @@ import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.robot.data.KidRobotDatabase;
 import com.android.tupple.robot.data.dao.VocabularyDao;
 import com.android.tupple.robot.data.entity.Vocabulary;
-import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
+import com.android.tupple.robot.domain.presenter.data.LearningVocabModel;
 import com.android.tupple.robot.utils.RxUtils;
 
 import java.lang.ref.WeakReference;

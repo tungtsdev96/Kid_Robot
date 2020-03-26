@@ -13,7 +13,7 @@ public class Lesson {
     public void setLessonPresenter(LessonPresenter mLessonPresenter) {
         this.mLessonPresenter = mLessonPresenter;
         if (mLessonPresenter != null) {
-            // TODO init Observer
+            // TODO start Observer
 
         }
     }

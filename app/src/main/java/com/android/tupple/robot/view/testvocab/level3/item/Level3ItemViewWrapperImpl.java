@@ -24,7 +24,7 @@ public class Level3ItemViewWrapperImpl implements Level3ItemViewWrapper<Vocabula
 
     private int mKeyView;
 
-    CleanObserver<Level3ItemView<Vocabulary>> mOnViewCreated;
+    private CleanObserver<Level3ItemView<Vocabulary>> mOnViewCreated;
 
     Level3ItemViewWrapperImpl(Context context, int keyView) {
         this.mContext = context;
@@ -48,7 +48,6 @@ public class Level3ItemViewWrapperImpl implements Level3ItemViewWrapper<Vocabula
             return;
         }
 
-        Log.d(TAG, "tungts onViewCreated " + itemCreated.keyView + " " + itemCreated.level3ItemView);
         if (mOnViewCreated != null) {
             mOnViewCreated.onNext(itemCreated.level3ItemView);
         }

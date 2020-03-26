@@ -2,10 +2,14 @@ package com.android.tupple.robot.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+
+import java.io.File;
 
 public class GlideUtils {
 
@@ -39,6 +43,16 @@ public class GlideUtils {
         }
     }
 
+    public static void loadImageFromStorage(Context context, String path, ImageView imageView) {
+        RequestManager requestManager = getRequestManager(context);
+        if (requestManager == null || path == null) {
+            return;
+        }
+
+        File image = new File(path);
+        Uri uri = Uri.fromFile(image);
+        requestManager.load(uri).into(imageView);
+    }
 
 //    RequestOptions requestOptions = new RequestOptions()
 //            .transforms(new CenterCrop(), new RoundedCorners(mThumbnailRoundRadius))

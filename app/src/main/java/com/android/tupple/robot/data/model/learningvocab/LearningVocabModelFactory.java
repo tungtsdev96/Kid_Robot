@@ -3,7 +3,7 @@ package com.android.tupple.robot.data.model.learningvocab;
 import android.content.Context;
 
 import com.android.tupple.robot.data.entity.Vocabulary;
-import com.android.tupple.robot.domain.presenter.learnvocab.LearningVocabModel;
+import com.android.tupple.robot.domain.presenter.data.LearningVocabModel;
 
 /**
  * Created by tungts on 2020-02-16.

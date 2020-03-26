@@ -39,7 +39,4 @@ dependencies {
 
     // Tensorflow
     implementation 'org.tensorflow:tensorflow-android:1.13.1'
-
-    // SpeedRecognitionView
-    implementation 'com.github.zagum:SpeechRecognitionView:1.2.2'
 }

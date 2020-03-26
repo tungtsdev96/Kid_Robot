@@ -9,30 +9,26 @@ import com.android.tupple.robot.utils.constant.TestVocabConstant;
 
 public class AnswerImageItem implements AnswerChoose {
 
-    private String text;
+    private String image;
     private boolean isAnswer;
     private boolean isChoose = false;
 
-    private AnswerImageItem(String text) {
-        this.text = text;
+    private AnswerImageItem(Vocabulary vocabulary) {
+        this.image = vocabulary.getImageUrl();
     }
 
     public static AnswerImageItem create(Vocabulary vocabulary) {
-        return new AnswerImageItem(vocabulary.getVocabEn());
+        return new AnswerImageItem(vocabulary);
     }
 
     @Override
     public int getType() {
-        return TestVocabConstant.ANSWER_TYPE.TEXT;
+        return TestVocabConstant.ANSWER_TYPE.IMAGE;
     }
 
     @Override
     public boolean isAnswerTrue() {
         return isAnswer;
-    }
-
-    public String getText() {
-        return this.text;
     }
 
     @Override
@@ -48,5 +44,9 @@ public class AnswerImageItem implements AnswerChoose {
     @Override
     public void setAnswer(boolean isAnswer) {
         this.isAnswer = isAnswer;
+    }
+
+    public String getImage() {
+        return this.image;
     }
 }

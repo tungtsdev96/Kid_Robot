@@ -8,8 +8,8 @@ import com.android.tupple.robot.network.ApiClient;
 
 public class ApiFactory {
 
-    public static QAService getQAService() {
-        return ApiClient.getClient().create(QAService.class);
+    public static SmartQAService getQAService() {
+        return ApiClient.getClient().create(SmartQAService.class);
     }
 
 }

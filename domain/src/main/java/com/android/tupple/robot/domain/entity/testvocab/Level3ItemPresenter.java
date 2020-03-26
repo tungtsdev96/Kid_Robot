@@ -8,9 +8,13 @@ public interface Level3ItemPresenter {
 
     void init();
 
+    void doOnStart();
+
     void stop();
 
     void onPageChange();
 
     void onPageSelected();
+
+    boolean checkCanNextVocab();
 }

@@ -60,8 +60,8 @@ public class RecordingHelper {
             return null;
         }
 
-        Log.d(TAG, "Stop Recording");
-        mIsRecording = true;
+        Log.d(TAG, "Stop Recording " + mFileTmp.getAbsolutePath());
+        mIsRecording = false;
         mRecorder.stop();
         mRecorder.release();
         mRecorder = null;
