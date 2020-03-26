@@ -65,7 +65,15 @@
             android:name=".activity.LearningVocabActivity"
             android:launchMode="singleTop"
             android:screenOrientation="sensorLandscape" />
-
+        <activity
+            android:name=".activity.EnglishBookActivity"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name=".activity.TopicActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".activity.EntertainmentActivity"
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".activity.TestVocabActivity"
             android:launchMode="singleTop"
@@ -80,10 +88,10 @@
         <activity
             android:name=".activity.SmartQAActivity"
             android:screenOrientation="sensorLandscape">
-<!--                         <intent-filter>-->
-<!--                             <action android:name="android.intent.action.MAIN" />-->
-<!--                             <category android:name="android.intent.category.LAUNCHER" />-->
-<!--                         </intent-filter>-->
+            <!--                         <intent-filter>-->
+            <!--                             <action android:name="android.intent.action.MAIN" />-->
+            <!--                             <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--                         </intent-filter>-->
         </activity>
 
     </application>

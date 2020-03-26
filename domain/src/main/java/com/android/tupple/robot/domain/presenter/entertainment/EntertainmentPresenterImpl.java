@@ -1,6 +1,7 @@
 package com.android.tupple.robot.domain.presenter.entertainment;
 
-import com.android.tupple.robot.domain.entity.menumain.EntertainmentPresenter;
+
+import com.android.tupple.robot.domain.entity.entertainment.EntertainmentPresenter;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
 import com.android.tupple.robot.domain.presenter.audiolist.AudioListPresenterImpl;
@@ -8,7 +9,6 @@ import com.android.tupple.robot.domain.presenter.videolist.VideoListPresenterImp
 
 public class EntertainmentPresenterImpl<Fragment> implements EntertainmentPresenter {
 
-    private EntertainmentViewWrapper<Fragment> mEntertainmentViewWrapper;
     private EntertainmentView<Fragment> mEntertainmentView;
     private EntertainmentModel<Fragment> mEntertainmentModel;
     private PresenterObserver<Fragment> mButtonVideoClickedObserver;
@@ -23,20 +23,8 @@ public class EntertainmentPresenterImpl<Fragment> implements EntertainmentPresen
     public void setAudioListPresenter(AudioListPresenterImpl audioListPresenter){
         this.mAudioListPresenter = audioListPresenter;
     }
-
-    public EntertainmentPresenterImpl() {
-
-    }
-
-    public void setEntertainmentViewWrapper(EntertainmentViewWrapper<Fragment> entertainmentViewWrapper) {
-        this.mEntertainmentViewWrapper = entertainmentViewWrapper;
-        mEntertainmentViewWrapper.getViewCreatedObservable().subscribe(this::onViewCreated);
-        // TODO innit Observerable
-    }
-
-    @Override
-    public MenuType getMenuType() {
-        return MenuType.ENTERTAINMENT;
+    public void setEntertainmentView(EntertainmentView entertainmentView){
+        this.mEntertainmentView = entertainmentView;
     }
 
     public void setEntertainmentModel(EntertainmentModel<Fragment> entertainmentModel) {
@@ -57,21 +45,28 @@ public class EntertainmentPresenterImpl<Fragment> implements EntertainmentPresen
 
     @Override
     public void init() {
-        mEntertainmentViewWrapper.show();
+        mEntertainmentView.initLayout();
         mIsLoadData = false;
-    }
-
-    private void onViewCreated(EntertainmentView entertainmentView) {
-        this.mEntertainmentView = entertainmentView;
         start();
         initObserable();
         mVideoListPresenter.init();
-        // TODO innit Observerable
     }
+
+//    private void onViewCreated(EntertainmentView entertainmentView) {
+//        this.mEntertainmentView = entertainmentView;
+//        start();
+//
+//        // TODO innit Observerable
+//    }
 
     private void initObserable() {
         mEntertainmentView.getButtonVideoClickedObservable().subscribe(this::handleButtonVideoClicked);
         mEntertainmentView.getButtonAudioClickedObservable().subscribe(this::handleButtonAudioClicked);
+        mEntertainmentView.getButtonCloseClickedObservable().subscribe(this::closeEntertainmentActivity);
+    }
+
+    private void closeEntertainmentActivity() {
+        mEntertainmentView.closeEntertainmentActivity();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.android.tupple.robot.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.android.tupple.robot.data.entity.LessonData;
 import com.android.tupple.robot.data.entity.Media;
@@ -59,5 +60,22 @@ public class ActivityLauncher {
         ActivityUtils.startActivty(mActivity, intent);
     }
 
+    public void launchEntertainmentActivity() {
+        Toast.makeText(mActivity, "ahihi", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(mActivity, EntertainmentActivity.class);
+        ActivityUtils.startActivty(mActivity, intent);
+    }
+
+    public void launchTopictActivity() {
+        Toast.makeText(mActivity, "ahihi", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(mActivity, TopicActivity.class);
+        ActivityUtils.startActivty(mActivity, intent);
+    }
+
+    public void launchEnglishBookActivity() {
+        Toast.makeText(mActivity, "ahihi", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(mActivity, EnglishBookActivity.class);
+        ActivityUtils.startActivty(mActivity, intent);
+    }
 
 }
