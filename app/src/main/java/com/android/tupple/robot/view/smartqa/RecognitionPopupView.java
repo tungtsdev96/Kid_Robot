@@ -122,6 +122,7 @@ public class RecognitionPopupView {
                     }
 
                     mTryShowCount = 0;
+                    mIsHasResult = false;
                     showTipCard(position);
                 }));
     }
@@ -174,6 +175,7 @@ public class RecognitionPopupView {
     }
 
     private View initLayout() {
+        Log.d(TAG, "initLayout");
         Context context = mParentView.getContext();
 
         if (context == null) {
@@ -206,8 +208,8 @@ public class RecognitionPopupView {
         @Override
         public void onResults(Bundle results) {
             ArrayList<String> result = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            mIsHasResult = result != null && !result.isEmpty();
-            handleResultRecognize(mIsHasResult ? result.get(0) : null);
+            boolean isSuccess = result != null && !result.isEmpty();
+            handleResultRecognize(isSuccess ? result.get(0) : null);
         }
 
         @Override
@@ -224,6 +226,7 @@ public class RecognitionPopupView {
     };
 
     private void handleResultRecognize(String result) {
+        Log.d(TAG, "handleResultRecognize " + result);
         if (result == null) {
             if (mOnRecognitionPopupListener != null) {
                 mOnRecognitionPopupListener.onErrorSpeedToText(SpeechRecognizer.ERROR_NETWORK);
@@ -233,7 +236,8 @@ public class RecognitionPopupView {
         }
 
         mRecognitionProgressView.stop();
-        if (mOnRecognitionPopupListener != null) {
+        if (mOnRecognitionPopupListener != null && !mIsHasResult) {
+            mIsHasResult = true;
             mOnRecognitionPopupListener.onResultSpeedToText(result);
         }
         hide();

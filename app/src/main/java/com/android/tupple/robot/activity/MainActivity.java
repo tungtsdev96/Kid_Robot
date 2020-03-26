@@ -1,6 +1,7 @@
 package com.android.tupple.robot.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -86,6 +87,9 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 mActivityLauncher.launchEnglishBookActivity();
             }
+        });
+        findViewById(R.id.rlt_demo).setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, SmartQAActivity.class));
         });
     }
 
