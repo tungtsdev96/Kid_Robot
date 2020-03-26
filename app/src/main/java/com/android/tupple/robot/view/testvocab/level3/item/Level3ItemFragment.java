@@ -161,27 +161,25 @@ public class Level3ItemFragment extends Fragment implements Level3ItemView<Vocab
 
     @Override
     public void setTextYourAnswer(boolean[] listRightCharacter, String text) {
-        int countRight = 0;
-        SpannableStringBuilder yourAnswer = new SpannableStringBuilder();
+        int countWrong = 0;
+        SpannableString spannableChar = new SpannableString(text);
         for (int i = 0; i < listRightCharacter.length; i++) {
-            SpannableString spannableChar = new SpannableString(String.valueOf(text.charAt(i)));
             @ColorInt int color = listRightCharacter[i]
                             ? mContext.getResources().getColor(R.color.color_text_notify_result_true)
                             : mContext.getResources().getColor(R.color.color_text_notify_result_false);
-            countRight = listRightCharacter[i] ? countRight + 1 : countRight;
+            countWrong = !listRightCharacter[i] ? countWrong + 1 : countWrong;
             ForegroundColorSpan fcs = new ForegroundColorSpan(color);
-            spannableChar.setSpan(fcs, 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-            yourAnswer.append(spannableChar);
+            spannableChar.setSpan(fcs, i, i + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         }
 
-        if (countRight == listRightCharacter.length) {
+        mTextYourAnswer.setText(spannableChar);
+        if (countWrong == 0) {
             setTextResultState(ResultState.EXCELLENT);
-        } else if (countRight >= listRightCharacter.length - 2) {
+        } else if (countWrong == 1 && listRightCharacter.length <= 3 || listRightCharacter.length > 3 && countWrong <= 2) {
             setTextResultState(ResultState.GOOD);
         } else {
             setTextResultState(ResultState.NOT_GOOD);
         }
-        mTextYourAnswer.setText(yourAnswer.toString());
     }
 
     @Override

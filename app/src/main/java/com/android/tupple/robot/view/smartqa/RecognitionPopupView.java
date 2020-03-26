@@ -21,6 +21,7 @@ import com.github.zagum.speechrecognitionview.adapters.RecognitionListenerAdapte
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
@@ -51,6 +52,7 @@ public class RecognitionPopupView {
     private boolean mIsNeedDelay = true;
     private RecognitionProgressView mRecognitionProgressView;
     private boolean mIsHasResult = false;
+    private String mLanguage = "";
 
     public static synchronized RecognitionPopupView getInstance(int hashCode) {
         synchronized (sInstances) {
@@ -95,6 +97,11 @@ public class RecognitionPopupView {
 
     public RecognitionPopupView setParentView(View itemView) {
         mParentView = itemView;
+        return this;
+    }
+
+    public RecognitionPopupView setLanguage(String language) {
+        this.mLanguage = language;
         return this;
     }
 
@@ -242,9 +249,18 @@ public class RecognitionPopupView {
 
     private void startRecognize(SpeechRecognizer speechRecognizer) {
         Intent intent = new Intent(RecognizerIntent.ACTION_GET_LANGUAGE_DETAILS);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "vi-VN");
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "vi-VN");
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "vi-VN");
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, mParentView.getContext().getPackageName());
+
+        if ("VN".equalsIgnoreCase(mLanguage)) {
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "vi-VN");
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "vi-VN");
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "vi-VN");
+        } else {
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en");
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en");
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "en");
+        }
+
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 6);
         speechRecognizer.startListening(intent);
     }

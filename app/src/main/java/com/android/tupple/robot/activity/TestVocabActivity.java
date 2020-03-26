@@ -156,7 +156,7 @@ public class TestVocabActivity extends BaseActivity {
         level3Presenter.setTestVocabModel(testVocabModel);
         level3Presenter.setListLearningVocabHandler(vocabularies -> this.handleListLearningVocab(vocabularies, level3Presenter));
 //        level3Presenter.setLevel3Model(level3Model);
-        level3Presenter.setOnNextLevelObserver(level -> Toast.makeText(this, "Done test", Toast.LENGTH_SHORT).show());
+        level3Presenter.setOnNextLevelObserver(level -> onBackPressed());
         mTestVocab.setLevel3Presenter(level3Presenter);
     }
 

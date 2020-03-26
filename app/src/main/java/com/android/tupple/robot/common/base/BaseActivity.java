@@ -33,4 +33,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void onCreatedActivity(Bundle savedInstanceState);
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
 }

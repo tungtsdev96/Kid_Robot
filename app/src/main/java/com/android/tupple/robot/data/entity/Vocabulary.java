@@ -28,14 +28,8 @@ public class Vocabulary {
     @ColumnInfo(name = Columns.Vocabulary.VOCAB_VI)
     private String vocabVi;
 
-    @ColumnInfo(name = Columns.Vocabulary.IMAGE_URL)
-    private String imageUrl;
-
     @ColumnInfo(name = Columns.Vocabulary.TOTAL_IMAGE, defaultValue = "1")
     private int totalImage;
-
-    @ColumnInfo(name = Columns.Vocabulary.AUDIO_URL)
-    private String audioUrl;
 
     @ColumnInfo(name = Columns.Vocabulary.SCORE_CORRECT, defaultValue = "0")
     private int scoreCorrect;
@@ -81,10 +75,6 @@ public class Vocabulary {
         }
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public int getTotalImage() {
         return totalImage;
     }
@@ -99,10 +89,6 @@ public class Vocabulary {
         } else {
             return null;
         }
-    }
-
-    public void setAudioUrl(String audioUrl) {
-        this.audioUrl = audioUrl;
     }
 
     public int getScoreCorrect() {

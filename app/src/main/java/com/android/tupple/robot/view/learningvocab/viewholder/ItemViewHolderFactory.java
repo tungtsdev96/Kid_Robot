@@ -1,26 +1,19 @@
 package com.android.tupple.robot.view.learningvocab.viewholder;
 
 import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.data.file.ImageUtils;
 import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.constant.LearnVocabConstant;
 import com.android.tupple.robot.view.learningvocab.item.LearnVocabItem;
-
-import java.io.File;
-import java.util.Objects;
 
 /**
  * Created by tungts on 2020-01-18.
@@ -66,7 +59,6 @@ public class ItemViewHolderFactory {
 
         @Override
         public void bind(LearnVocabItem learnVocabItem) {
-            Log.d("tungts", learnVocabItem.toString());
             GlideUtils.loadImageFromStorage(itemView.getContext(), learnVocabItem.getVocabImage(), imageVocabulary);
         }
     }
@@ -84,7 +76,6 @@ public class ItemViewHolderFactory {
 
         @Override
         public void bind(LearnVocabItem learnVocabItem) {
-            Log.d("tungts_", learnVocabItem.toString());
             textVocab.setText(learnVocabItem.getVocabEn());
             GlideUtils.loadImageFromStorage(itemView.getContext(), learnVocabItem.getVocabImage(), imageVocab);
         }
