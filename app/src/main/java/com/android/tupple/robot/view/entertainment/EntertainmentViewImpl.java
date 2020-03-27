@@ -83,48 +83,6 @@ public class EntertainmentViewImpl implements EntertainmentView {
     public CleanObservable getButtonCloseClickedObservable() {
         return CleanObservable.create(cleanObserver -> mButtonCloseClickedObserver = cleanObserver);
     }
-//    private Bundle mBundle;
-//
-//    private static FragmentManager mFragmentManager;
-//    private EntertainmentActivity mEntertainmentActivity;
-//    private CleanObserver<EntertainmentView<Fragment>> mViewCreatedObserver;
-//    EntertainmentViewImpl(FragmentManager fragmentManager, Bundle bundle) {
-//        mFragmentManager = fragmentManager;
-//        this.mBundle = bundle;
-//    }
-//    @Override
-//    public CleanObservable<EntertainmentView<Fragment>> getViewCreatedObservable() {
-//        return CleanObservable.create(cleanObserver -> mViewCreatedObserver = cleanObserver);
-//    }
-//
-//    @Override
-//    public void show() {
-//        //createEntertainmentFragment();
-//        setViewCreatedObserverOnFragment();
-//    }
-////    private void createEntertainmentFragment() {
-////        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-////        mEntertainmentActivity = (EntertainmentActivity) mFragmentManager.findFragmentByTag(EntertainmentActivity.TAG);
-////        if (mEntertainmentActivity == null) {
-////            mEntertainmentActivity = EntertainmentActivity.newInstance();
-////        }
-////        fragmentTransaction.replace(R.id.content_menu, mEntertainmentActivity, EntertainmentActivity.TAG);
-////        fragmentTransaction.commitAllowingStateLoss();
-////    }
-//
-//    private void setViewCreatedObserverOnFragment() {
-//        if (mViewCreatedObserver != null) {
-//            mEntertainmentActivity.setViewCreatedObserver(mViewCreatedObserver);
-//        }
-//    }
-//    @Override
-//    public void hide() {
-//
-//    }
-//
-//    @Override
-//    public void invalidate() {
-//
-//    }
+
 
 }

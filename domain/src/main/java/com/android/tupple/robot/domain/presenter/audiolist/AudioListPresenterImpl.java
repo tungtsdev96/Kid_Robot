@@ -124,7 +124,7 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
     }
     @Override
     public void stop() {
-
+        mAudioListView.stopPlayer();
     }
 
 
