@@ -132,27 +132,27 @@ public class Media implements Parcelable {
     public static List<Media> fakeAudioData() {
         List<Media> media = new ArrayList<>();
         media.add(new Media(1, "Anh Khác Hay Em Khác", true,
-                "/storage/71ED-19F1/New Folder/Anh Khác Hay Em Khác_Khắc Việt_-1074066567.mp3",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Anh Khác Hay Em Khác_Khắc Việt_-1074066567.mp3",
                 "Description for media object #1",
                 true));
         media.add(new Media(2, "Apologize", true,
-                "/storage/71ED-19F1/New Folder/Apologize.mp3",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Apologize.mp3",
                 "Description for media object #1",
                 true));
         media.add(new Media(3, "Chi Can Em Hanh Phuc - Ho Quang Hieu", true,
-                "/storage/71ED-19F1/New Folder/Chi Can Em Hanh Phuc - Ho Quang Hieu.mp3",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Chi Can Em Hanh Phuc - Ho Quang Hieu.mp3",
                 "Description for media object #1",
                 true));
         media.add(new Media(4, "Chuc-Em-Ngu-Ngon-Ngo-Kien-Huy-Thanh-Thao", true,
-                "/storage/71ED-19F1/New Folder/Chuc-Em-Ngu-Ngon-Ngo-Kien-Huy-Thanh-Thao.mp3",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Chuc-Em-Ngu-Ngon-Ngo-Kien-Huy-Thanh-Thao.mp3",
                 "Description for media object #1",
                 true));
         media.add(new Media(5, "Cam On Nguoi Da Roi Xa Toi", true,
-                "/storage/71ED-19F1/New Folder/Cam On Nguoi Da Roi Xa Toi - Pham Hong Phuoc.mp3",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Cam On Nguoi Da Roi Xa Toi - Pham Hong Phuoc.mp3",
                 "Description for media object #1",
                 true));
         media.add(new Media(6, "Bệnh Của Anh_Khói", true,
-                "/storage/71ED-19F1/New Folder/Bệnh Của Anh_Khói_-1075451153.mp3",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Bệnh Của Anh_Khói_-1075451153.mp3",
                 "Description for media object #1",
                 true));
         return media;
@@ -161,23 +161,23 @@ public class Media implements Parcelable {
     public static List<Media> fakeVideoData() {
         List<Media> media = new ArrayList<>();
         media.add(new Media(1, "Kimetsu No Yaiba 1", false,
-                "/storage/71ED-19F1/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 1.mp4",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 1.mp4",
                 "Description for media object #1",
                 true));
         media.add(new Media(2, "Kimetsu No Yaiba 2", false,
-                "/storage/71ED-19F1/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 2.mp4",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 2.mp4",
                 "Description for media object #2",
                 true));
         media.add(new Media(3, "Kimetsu No Yaiba 3", false,
-                "/storage/71ED-19F1/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 3.mp4",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 3.mp4",
                 "Description for media object #3",
                 true));
         media.add(new Media(4, "Kimetsu No Yaiba 4", false,
-                "/storage/71ED-19F1/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 4 .mp4",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 4 .mp4",
                 "Description for media object #4",
                 true));
         media.add(new Media(5, "Kimetsu No Yaiba 5", false,
-                "/storage/71ED-19F1/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 5 .mp4",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 5 .mp4",
                 "Description for media object #5",
                 true));
         media.add(new Media(6, "Kimetsu No Yaiba 6", false,
