@@ -113,7 +113,18 @@
                                     android:layout_height="0dp"
                                     android:layout_weight="2"
                                     >
+
+                                    <TextClock
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:textSize="50sp"
+                                        android:textColor="@color/main_color_entertainment"
+                                        android:format24Hour="HH:mm"
+                                        style="@style/CommonStyleText"
+                                        android:gravity="center"/>
+
                                     <TextView
+                                        android:visibility="gone"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:text="14:20"
@@ -129,6 +140,7 @@
                                     android:layout_weight="1"
                                     >
                                     <TextView
+                                        android:id="@+id/tv_current_date"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="26-03-2020"
@@ -272,6 +284,7 @@
                         app:cardElevation="0dp"
                         >
                         <RelativeLayout
+                            android:id="@+id/rlt_smart_qa"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
                             <LinearLayout
@@ -290,7 +303,7 @@
                                     <ImageView
                                         android:layout_width="80dp"
                                         android:layout_height="80dp"
-                                        android:src="@drawable/ic_alarm"
+                                        android:src="@drawable/ic_smart_qa"
                                         android:layout_margin="10dp"
                                         android:layout_centerInParent="true"
                                         />
@@ -303,7 +316,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Hẹn giờ"
+                                        android:text="Hỏi đáp"
                                         android:layout_centerHorizontal="true"
                                         android:textColor="@color/main_color_entertainment"
                                         style="@style/CommonStyleText"

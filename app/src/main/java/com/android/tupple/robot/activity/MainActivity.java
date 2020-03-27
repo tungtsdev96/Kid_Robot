@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -51,6 +52,7 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
@@ -88,9 +90,19 @@ public class MainActivity extends BaseActivity {
                 mActivityLauncher.launchEnglishBookActivity();
             }
         });
-        findViewById(R.id.rlt_demo).setOnClickListener(v -> {
+        findViewById(R.id.rlt_smart_qa).setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, SmartQAActivity.class));
         });
+
+        Calendar calendar = Calendar.getInstance();
+        TextView tvDate = findViewById(R.id.tv_current_date);
+        StringBuilder s = new StringBuilder();
+        s.append(calendar.get(Calendar.DAY_OF_MONTH));
+        s.append('-');
+        s.append("0" + calendar.get(Calendar.MONTH));
+        s.append('-');
+        s.append(calendar.get(Calendar.YEAR));
+        tvDate.setText(s.toString());
     }
 
     private void checkPermission() {

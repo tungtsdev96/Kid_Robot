@@ -131,10 +131,10 @@ public class Media implements Parcelable {
 
     public static List<Media> fakeAudioData() {
         List<Media> media = new ArrayList<>();
-        media.add(new Media(1, "Anh Khác Hay Em Khác", true,
-                "/storage/emulated/0/DataMediaKidRobot/Audio/Anh Khác Hay Em Khác_Khắc Việt_-1074066567.mp3",
-                "Description for media object #1",
-                true));
+//        media.add(new Media(1, "Anh Khác Hay Em Khác", true,
+//                "/storage/emulated/0/DataMediaKidRobot/Audio/Anh Khác Hay Em Khác_Khắc Việt_-1074066567.mp3",
+//                "Description for media object #1",
+//                true));
         media.add(new Media(2, "Apologize", true,
                 "/storage/emulated/0/DataMediaKidRobot/Audio/Apologize.mp3",
                 "Description for media object #1",
@@ -151,10 +151,10 @@ public class Media implements Parcelable {
                 "/storage/emulated/0/DataMediaKidRobot/Audio/Cam On Nguoi Da Roi Xa Toi - Pham Hong Phuoc.mp3",
                 "Description for media object #1",
                 true));
-        media.add(new Media(6, "Bệnh Của Anh_Khói", true,
-                "/storage/emulated/0/DataMediaKidRobot/Audio/Bệnh Của Anh_Khói_-1075451153.mp3",
-                "Description for media object #1",
-                true));
+//        media.add(new Media(6, "Bệnh Của Anh_Khói", true,
+//                "/storage/emulated/0/DataMediaKidRobot/Audio/Bệnh Của Anh_Khói_-1075451153.mp3",
+//                "Description for media object #1",
+//                true));
         return media;
     }
 
@@ -180,12 +180,12 @@ public class Media implements Parcelable {
                 "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 5 .mp4",
                 "Description for media object #5",
                 true));
-        media.add(new Media(6, "Kimetsu No Yaiba 6", false,
-                "https://www.androidtutorialpoint.com/wp-content/uploads/2016/09/Beauty.jpg",
-                "Description for media object #6",
-                false,
-                "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
-        ));
+//        media.add(new Media(6, "Kimetsu No Yaiba 6", false,
+//                "https://www.androidtutorialpoint.com/wp-content/uploads/2016/09/Beauty.jpg",
+//                "Description for media object #6",
+//                false,
+//                "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+//        ));
         return media;
     }
 

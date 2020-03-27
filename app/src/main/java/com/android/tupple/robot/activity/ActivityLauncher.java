@@ -61,20 +61,19 @@ public class ActivityLauncher {
     }
 
     public void launchEntertainmentActivity() {
-        Toast.makeText(mActivity, "ahihi", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(mActivity, EntertainmentActivity.class);
         ActivityUtils.startActivty(mActivity, intent);
     }
 
     public void launchTopictActivity() {
-        Toast.makeText(mActivity, "ahihi", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(mActivity, TopicActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityUtils.startActivty(mActivity, intent);
     }
 
     public void launchEnglishBookActivity() {
-        Toast.makeText(mActivity, "ahihi", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(mActivity, EnglishBookActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityUtils.startActivty(mActivity, intent);
     }
 
