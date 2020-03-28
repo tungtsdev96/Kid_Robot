@@ -77,7 +77,7 @@ public class AudioListFragment extends Fragment implements AudioListView<Media> 
         if (mItemAudioClickedObserver != null) {
             mItemAudioClickedObserver.onNext(recyclerViewAudioAdapter.getAudioByPosition(position));
         }
-       // recyclerViewAudioAdapter.set
+        // recyclerViewAudioAdapter.set
     }
 
     private void initView(View rootView) {
@@ -130,12 +130,11 @@ public class AudioListFragment extends Fragment implements AudioListView<Media> 
     }
 
 
-
     @Override
     public void setCurrentAudio(Media media) {
         this.mCurrentAudio = media;
         txtMediaTitle.setText(media.getTitle());
-        Log.d("Adapterr", media.getId()+" ") ;
+        Log.d("Adapterr", media.getId() + " ");
         recyclerViewAudioAdapter.changeBackgroundItemClicked(media);
         //mRecyclerViewAudio.scrollToPosition(media.getId()+1);
     }
@@ -248,7 +247,8 @@ public class AudioListFragment extends Fragment implements AudioListView<Media> 
 
     @Override
     public void stopPlayer() {
-        mMediaPlayer.stop();
+        if (mMediaPlayer != null)
+            mMediaPlayer.stop();
     }
 
 
