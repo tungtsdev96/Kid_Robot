@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface EnglishBookView<Book> {
 
+    void initLayout();
+
     void setListData(List<Book> listBooks);
 
     CleanObservable<Book> getOnItemBookClickedObservable();

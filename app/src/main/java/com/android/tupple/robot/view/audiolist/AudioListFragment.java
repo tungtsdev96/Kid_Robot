@@ -69,6 +69,7 @@ public class AudioListFragment extends Fragment implements AudioListView<Media> 
         if (mViewCreatedObserver != null) {
             mViewCreatedObserver.onNext(this);
         }
+        btnPlayStop.setEnabled(false);
         return mRootView;
     }
 
@@ -76,7 +77,7 @@ public class AudioListFragment extends Fragment implements AudioListView<Media> 
         if (mItemAudioClickedObserver != null) {
             mItemAudioClickedObserver.onNext(recyclerViewAudioAdapter.getAudioByPosition(position));
         }
-       // recyclerViewAudioAdapter.set
+        // recyclerViewAudioAdapter.set
     }
 
     private void initView(View rootView) {
@@ -129,18 +130,18 @@ public class AudioListFragment extends Fragment implements AudioListView<Media> 
     }
 
 
-
     @Override
     public void setCurrentAudio(Media media) {
         this.mCurrentAudio = media;
         txtMediaTitle.setText(media.getTitle());
-        Log.d("Adapterr", media.getId()+" ") ;
+        Log.d("Adapterr", media.getId() + " ");
         recyclerViewAudioAdapter.changeBackgroundItemClicked(media);
         //mRecyclerViewAudio.scrollToPosition(media.getId()+1);
     }
 
     @Override
     public void preparePlayer() {
+        btnPlayStop.setEnabled(true);
         if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
             mMediaPlayer.reset();
         }
@@ -244,6 +245,12 @@ public class AudioListFragment extends Fragment implements AudioListView<Media> 
         mRecyclerViewAudio.getLayoutManager().scrollToPosition(position);
     }
 
+    @Override
+    public void stopPlayer() {
+        if (mMediaPlayer != null)
+            mMediaPlayer.stop();
+    }
+
 
     @Override
     public CleanObservable<Media> getItemAudioClickedObservable() {
@@ -287,7 +294,6 @@ public class AudioListFragment extends Fragment implements AudioListView<Media> 
         timeLabel += sec;
 
         return timeLabel;
-
 
     }
 }

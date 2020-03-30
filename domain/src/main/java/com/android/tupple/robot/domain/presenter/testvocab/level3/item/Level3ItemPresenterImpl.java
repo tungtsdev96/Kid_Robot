@@ -54,6 +54,7 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
     }
 
     private void handleResult(boolean[] listRightCharacter, String yourAnswer) {
+        mLevel3ItemView.setStateRecording(RecordState.PREPARING);
         mLevel3ItemView.setTextYourAnswer(listRightCharacter, yourAnswer);
         isTested = true;
     }
@@ -107,7 +108,9 @@ public class Level3ItemPresenterImpl<Vocabulary> implements Level3ItemPresenter 
 
     @Override
     public void onPageSelected() {
-        doOnStart();
+        if (!isTested) {
+            doOnStart();
+        }
     }
 
     @Override

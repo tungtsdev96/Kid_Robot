@@ -63,9 +63,9 @@ public class KidRobotApplication extends MultiDexApplication {
 //        initLesson();
 //        initVocabLesson();
 //
-//        // test data for topic
-//        initTopic();
-//        initVocab();
+        // test data for topic
+        initTopic();
+        initVocab();
     }
 
     private void initBook() {

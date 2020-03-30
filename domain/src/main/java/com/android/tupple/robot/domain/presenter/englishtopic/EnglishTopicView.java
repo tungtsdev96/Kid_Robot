@@ -10,8 +10,13 @@ import java.util.List;
 
 public interface EnglishTopicView<Topic> {
 
+    void initLayout();
+
     void setListTopic(List<Topic> listTopic);
+
+    void closeActivity();
 
     CleanObservable<Topic> getItemTopicClickedObservable();
 
+    CleanObservable getButtonCloseClickedObservable();
 }

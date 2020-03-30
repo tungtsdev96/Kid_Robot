@@ -1,5 +1,6 @@
 package com.android.tupple.robot.domain.presenter.englishtopic;
 
+import com.android.tupple.robot.domain.entity.englishtopic.MyEnglishTopicPresenter;
 import com.android.tupple.robot.domain.entity.menumain.EnglishTopicPresenter;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
@@ -8,9 +9,8 @@ import com.android.tupple.robot.domain.presenter.PresenterObserver;
  * Created by tungts on 2020-01-12.
  */
 
-public class EnglishTopicPresenterImpl<Topic> implements EnglishTopicPresenter {
+public class EnglishTopicPresenterImpl<Topic> implements MyEnglishTopicPresenter {
 
-    private EnglishTopicViewWrapper<Topic> mEnglishTopicViewWrapper;
     private EnglishTopicView<Topic> mEnglishTopicView;
     private EnglishTopicModel<Topic> mEnglishTopicModel;
 
@@ -21,29 +21,31 @@ public class EnglishTopicPresenterImpl<Topic> implements EnglishTopicPresenter {
     public EnglishTopicPresenterImpl() {
     }
 
-    public void setEnglishTopicViewWrapper(EnglishTopicViewWrapper<Topic> englishTopicViewWrapper) {
-        this.mEnglishTopicViewWrapper = englishTopicViewWrapper;
-        mEnglishTopicViewWrapper.getViewCreatedObservable().subscribe(this::onViewCreated);
-    }
 
     public void setEnglishBookModel(EnglishTopicModel<Topic> englishTopicView) {
         this.mEnglishTopicModel = englishTopicView;
     }
 
-    @Override
-    public void init() {
-        mEnglishTopicViewWrapper.show();
-        mIsLoadData = false;
-    }
-
-    private void onViewCreated(EnglishTopicView<Topic> englishTopicView) {
+    public void setmEnglishTopicView(EnglishTopicView<Topic> englishTopicView){
         this.mEnglishTopicView = englishTopicView;
         initObservable();
+    }
+
+    @Override
+    public void init() {
+        mEnglishTopicView.initLayout();
+        mIsLoadData = false;
         start();
     }
 
+
     private void initObservable() {
         mEnglishTopicView.getItemTopicClickedObservable().subscribe(this::handleItemTopicClicked);
+        mEnglishTopicView.getButtonCloseClickedObservable().subscribe(this::closeTopicActivity);
+    }
+
+    private void closeTopicActivity() {
+        mEnglishTopicView.closeActivity();
     }
 
     private void handleItemTopicClicked(Topic topic) {
@@ -78,9 +80,6 @@ public class EnglishTopicPresenterImpl<Topic> implements EnglishTopicPresenter {
 
     }
 
-    @Override
-    public MenuType getMenuType() {
-        return MenuType.ENGLISH_TOPIC;
-    }
+
 
 }

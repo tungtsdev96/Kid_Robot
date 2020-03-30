@@ -15,21 +15,25 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
     private AudioListViewWrapper<Media> mAudioListViewWrapper;
     private AudioListView<Media> mAudioListView;
     private AudioListModel<Media> mAudioListModel;
-   // private PresenterObserver<Media> mItemAudioClickedObserver;
+    // private PresenterObserver<Media> mItemAudioClickedObserver;
     private boolean mIsLoadData = false;
     private Media mCurrentAudio;
     private int mCurrentPosition;
     private boolean isPlay = false;
     private List<Media> mListAudio = new ArrayList<>();
+
     public AudioListPresenterImpl() {
     }
+
     public void setAudioListViewWrapper(AudioListViewWrapper<Media> audioListViewWrapper) {
         this.mAudioListViewWrapper = audioListViewWrapper;
         mAudioListViewWrapper.getViewCreatedObservable().subscribe(this::onViewCreated);
     }
+
     public void setAudioListModel(AudioListModel<Media> mAudioListModel) {
         this.mAudioListModel = mAudioListModel;
     }
+
     public void setCurrentAudio(Media currentAudio) {
         this.mCurrentAudio = currentAudio;
     }
@@ -41,11 +45,12 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
     public void setCurrentPosition(int mCurrentPosition) {
         this.mCurrentPosition = mCurrentPosition;
     }
+
     @Override
     public void init() {
         mAudioListViewWrapper.show();
         mIsLoadData = false;
-       // mAudioListView.initLayout();
+        // mAudioListView.initLayout();
 
     }
 
@@ -56,6 +61,7 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
         initObserable();
         // TODO innit Observerable
     }
+
     private void initObserable() {
         mAudioListView.getItemAudioClickedObservable().subscribe(this::handleItemAudioClicked);
         mAudioListView.getNextButtonClickedObservable().subscribe(this::handleNextButton);
@@ -63,12 +69,14 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
         mAudioListView.getStopPlayButtonClickedObservable().subscribe(this::handleStopPlayButton);
 
     }
+
     private void handleItemAudioClicked(Media media) {
         mAudioListView.setCurrentAudio(media);
-        Log.d("AudioListPresenterImpl" , "prepare");
+        Log.d("AudioListPresenterImpl", "prepare");
         mAudioListView.preparePlayer();
         isPlay = true;
     }
+
     private void handleNextButton() {
         if (mCurrentPosition < mListAudio.size() - 1) {
             mCurrentPosition++;
@@ -106,6 +114,7 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
         }
 
     }
+
     @Override
     public void start() {
         if (!mIsLoadData) {
@@ -113,6 +122,7 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
             mIsLoadData = true;
         }
     }
+
     private void requestAudioData() {
         mAudioListModel.getAllAudio().subscribe(mAudioListView::setListAudio);
         mAudioListModel.getAllAudio().subscribe(this::handleData);
@@ -122,9 +132,11 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
         mListAudio.clear();
         mListAudio.addAll(list);
     }
+
     @Override
     public void stop() {
-
+        if (mAudioListView != null)
+            mAudioListView.stopPlayer();
     }
 
 

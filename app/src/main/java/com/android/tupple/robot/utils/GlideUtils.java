@@ -8,6 +8,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.signature.ObjectKey;
 
 import java.io.File;
 
@@ -49,9 +52,17 @@ public class GlideUtils {
             return;
         }
 
-        File image = new File(path);
-        Uri uri = Uri.fromFile(image);
-        requestManager.load(uri).into(imageView);
+        final long lastModified = FileManager.getLastModified(path);
+        RequestOptions requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .signature(new ObjectKey(lastModified));
+
+        File imagePath = new File(path);
+        Uri uri = Uri.fromFile(imagePath);
+        requestManager
+                .load(uri)
+                .apply(requestOptions)
+                .into(imageView);
     }
 
 //    RequestOptions requestOptions = new RequestOptions()

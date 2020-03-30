@@ -1,6 +1,7 @@
 package com.android.tupple.robot.domain.presenter.englishbook;
 
-import com.android.tupple.robot.domain.entity.menumain.EnglishBookPresenter;
+
+import com.android.tupple.robot.domain.entity.englishbook.EnglishBookPresenter;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
 
@@ -10,7 +11,6 @@ import com.android.tupple.robot.domain.presenter.PresenterObserver;
 
 public class EnglishBookPresenterImpl<SchoolBook> implements EnglishBookPresenter {
 
-    private EnglishBookViewWrapper<SchoolBook> mEnglishBookViewWrapper;
     private EnglishBookView<SchoolBook> mEnglishBookView;
     private EnglishBookModel<SchoolBook> mEnglishBookModel;
 
@@ -21,19 +21,21 @@ public class EnglishBookPresenterImpl<SchoolBook> implements EnglishBookPresente
     public EnglishBookPresenterImpl() {
     }
 
-    public void setEnglishTopicViewWrapper(EnglishBookViewWrapper<SchoolBook> englishBookViewWrapper) {
-        this.mEnglishBookViewWrapper = englishBookViewWrapper;
-        mEnglishBookViewWrapper.getViewCreatedObservable().subscribe(this::onViewCreated);
+    public void setEnglishBookView(EnglishBookView<SchoolBook> mEnglishBookView) {
+        this.mEnglishBookView = mEnglishBookView;
+        initObservable();
     }
 
     public void setEnglishBookModel(EnglishBookModel<SchoolBook> englishBookModel) {
         this.mEnglishBookModel = englishBookModel;
+
     }
 
     @Override
     public void init() {
+        mEnglishBookView.initLayout();
         mIsInitializing = true;
-        mEnglishBookViewWrapper.show();
+        start();
     }
 
     @Override
@@ -49,13 +51,10 @@ public class EnglishBookPresenterImpl<SchoolBook> implements EnglishBookPresente
         mEnglishBookModel.getListBook().subscribe(mEnglishBookView::setListData);
     }
 
-    private void onViewCreated(EnglishBookView<SchoolBook> englishBookView) {
-        this.mEnglishBookView = englishBookView;
-        // TODO innit Observerable
+    private void initObservable() {
         mEnglishBookView.getOnItemBookClickedObservable().subscribe(this::handleItemBookClicked);
-
-        start();
     }
+
 
     private void handleItemBookClicked(SchoolBook book) {
         if (mOnItemBookClickedObserver != null) {
@@ -77,8 +76,4 @@ public class EnglishBookPresenterImpl<SchoolBook> implements EnglishBookPresente
 
     }
 
-    @Override
-    public MenuType getMenuType() {
-        return MenuType.ENGLISH_BOOK;
-    }
 }

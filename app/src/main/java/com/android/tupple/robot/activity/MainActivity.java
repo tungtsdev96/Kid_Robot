@@ -1,7 +1,10 @@
 package com.android.tupple.robot.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -42,10 +45,6 @@ import com.android.tupple.robot.domain.presenter.videolist.VideoListPresenterImp
 import com.android.tupple.robot.domain.presenter.videolist.VideoListViewWrapper;
 import com.android.tupple.robot.view.alarm.AlarmViewWrapperFactory;
 import com.android.tupple.robot.view.audiolist.AudioListViewWrapperFactory;
-import com.android.tupple.robot.view.drawer.DrawerViewFactory;
-import com.android.tupple.robot.view.englishbook.EnglishBookViewWrapperFactory;
-import com.android.tupple.robot.view.englishtopic.EnglishTopicViewWrapperFactory;
-import com.android.tupple.robot.view.entertainment.EntertainmentViewWrapperFactory;
 import com.android.tupple.robot.view.videolist.VideoListViewWrapperFactory;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -53,6 +52,7 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
@@ -69,9 +69,40 @@ public class MainActivity extends BaseActivity {
     protected void onCreatedActivity(Bundle savedInstanceState) {
         checkPermission();
         initFirstBatch(savedInstanceState);
-        inject(savedInstanceState);
+        //inject(savedInstanceState);
 
         mMenuMain.init();
+        findViewById(R.id.topic).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivityLauncher.launchTopictActivity();
+            }
+        });
+        findViewById(R.id.entertainment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivityLauncher.launchEntertainmentActivity();
+            }
+        });
+        findViewById(R.id.school_book).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivityLauncher.launchEnglishBookActivity();
+            }
+        });
+        findViewById(R.id.rlt_smart_qa).setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, SmartQAActivity.class));
+        });
+
+        Calendar calendar = Calendar.getInstance();
+        TextView tvDate = findViewById(R.id.tv_current_date);
+        StringBuilder s = new StringBuilder();
+        s.append(calendar.get(Calendar.DAY_OF_MONTH));
+        s.append('-');
+        s.append("0" + calendar.get(Calendar.MONTH));
+        s.append('-');
+        s.append(calendar.get(Calendar.YEAR));
+        tvDate.setText(s.toString());
     }
 
     private void checkPermission() {
@@ -95,92 +126,92 @@ public class MainActivity extends BaseActivity {
         mActivityLauncher = new ActivityLauncher(this);
     }
 
-    private void inject(Bundle bundle) {
-        injectDrawer(bundle);
-        injectEnglishBook(bundle);
-        injectEnglishTopic(bundle);
-        injectAlarmClock(bundle);
-        injectLearningSchedule(bundle);
-        injectEntertainment(bundle);
-    }
-
-    private void injectDrawer(Bundle bundle) {
-        DrawerPresenterImpl<MenuItemData> drawerPresenter = new DrawerPresenterImpl<>();
-        DrawerView<MenuItemData> drawerView = DrawerViewFactory.newDrawerView(this);
-        DrawerModel<MenuItemData> drawerModel = DrawerModelFactory.newDrawerModel(this);
-
-        drawerPresenter.setDrawerView(drawerView);
-        drawerPresenter.setDrawerModel(drawerModel);
-        mMenuMain.setDrawerViewPresenter(drawerPresenter);
-    }
-
-    private void injectEnglishBook(Bundle bundle) {
-        EnglishBookPresenterImpl<SchoolBook> englishBookPresenter = new EnglishBookPresenterImpl<>();
-        EnglishBookViewWrapper<SchoolBook> englishBookViewWrapper = EnglishBookViewWrapperFactory.newSchoolBookEnglishBookViewWrapper(getSupportFragmentManager(), bundle);
-        EnglishBookModel<SchoolBook> englishBookModel = EnglishModelFactory.newEnglishBookModel(this);
-
-        englishBookPresenter.setEnglishTopicViewWrapper(englishBookViewWrapper);
-        englishBookPresenter.setEnglishBookModel(englishBookModel);
-
-        // innit Observerable
-        englishBookPresenter.setOnItemBookClickedObserver(mActivityLauncher::launchLessonActivity);
-
-        mMenuMain.setEnglishBookPresenter(englishBookPresenter);
-        mMenuMain.setCurrentPresenterByMenuType(MenuType.ENGLISH_BOOK);
-    }
-
-    private void injectEnglishTopic(Bundle bundle) {
-        EnglishTopicPresenterImpl<Topic> englishTopicPresenter = new EnglishTopicPresenterImpl<>();
-        EnglishTopicViewWrapper<Topic> englishTopicViewWrapper = EnglishTopicViewWrapperFactory.newEnglishTopicViewWrapper(getSupportFragmentManager(), bundle);
-        EnglishTopicModel<Topic>  englishTopicModel = EnglishModelFactory.newEnglishTopicModel(this);
-
-        englishTopicPresenter.setEnglishTopicViewWrapper(englishTopicViewWrapper);
-        englishTopicPresenter.setEnglishBookModel(englishTopicModel);
-
-        // innit Observerable
-        englishTopicPresenter.setOnItemBookClickedObserver(mActivityLauncher::launchLearningVocabActivity);
-
-        mMenuMain.setEnglishTopicPresenter(englishTopicPresenter);
-    }
-
-    private void injectAlarmClock(Bundle bundle) {
-        AlarmPresenterImpl alarmPresenter = new AlarmPresenterImpl();
-        AlarmViewWrapper alarmViewWrapper = AlarmViewWrapperFactory.newAlarmViewWrapper(getSupportFragmentManager());
-        AlarmModel alarmModel = AlarmModelFactory.newAlarmModel(this);
-
-        alarmPresenter.setAlarmViewWrapper(alarmViewWrapper);
-        alarmPresenter.setAlarmModel(alarmModel);
-        mMenuMain.setAlarmPresenter(alarmPresenter);
-    }
-
-    private void injectLearningSchedule(Bundle bundle) {
-
-    }
-    private void injectEntertainment(Bundle bundle) {
-        EntertainmentPresenterImpl<Fragment> entertainmentPresenter = new EntertainmentPresenterImpl();
-        EntertainmentViewWrapper<Fragment> entertainmentViewWrapper = EntertainmentViewWrapperFactory.newEntertainmentViewWrapper(getSupportFragmentManager(), bundle);
-        EntertainmentModel<Fragment> entertainmentModel = EntertainmentModelFactory.newEntertainmentModel(this);
-
-        entertainmentPresenter.setEntertainmentViewWrapper(entertainmentViewWrapper);
-        entertainmentPresenter.setEntertainmentModel(entertainmentModel);
-        ////////////////////////////////////////////
-        VideoListPresenterImpl<Media> videoListPresenter = new VideoListPresenterImpl<>();
-        VideoListViewWrapper<Media> videoListViewWrapper = VideoListViewWrapperFactory.newVideoListViewWrapper(getSupportFragmentManager(), bundle);
-        VideoListModel<Media> videoListModel = VideoListModelFactory.newVideoListModel(this);
-        videoListPresenter.setVideoListViewWrapper(videoListViewWrapper);
-        videoListPresenter.setVideoListModel(videoListModel);
-        //videoListPresenter.setOnItemVideoClickObserver(mActivityLauncher::launchVideoPlayerActivity);
-        ///////////////////////////////////////////
-        AudioListPresenterImpl<Media> audioListPresenter = new AudioListPresenterImpl<>();
-        AudioListViewWrapper<Media> audioListViewWrapper = AudioListViewWrapperFactory.newAudioListViewWrapper(getSupportFragmentManager(), bundle);
-        AudioListModel<Media> audioListModel = AudioListModelFactory.newAudioListModel(this);
-        audioListPresenter.setAudioListViewWrapper(audioListViewWrapper);
-        audioListPresenter.setAudioListModel(audioListModel);
-        ///////////////////////////////////////////
-        entertainmentPresenter.setVideoListPresenter(videoListPresenter);
-        entertainmentPresenter.setAudioListPresenter(audioListPresenter);
-        mMenuMain.setEntertainmentPresenter(entertainmentPresenter);
-    }
+//    private void inject(Bundle bundle) {
+//        injectDrawer(bundle);
+//        injectEnglishBook(bundle);
+//        injectEnglishTopic(bundle);
+//        injectAlarmClock(bundle);
+//        injectLearningSchedule(bundle);
+//        injectEntertainment(bundle);
+//    }
+//
+//    private void injectDrawer(Bundle bundle) {
+//        DrawerPresenterImpl<MenuItemData> drawerPresenter = new DrawerPresenterImpl<>();
+//        DrawerView<MenuItemData> drawerView = DrawerViewFactory.newDrawerView(this);
+//        DrawerModel<MenuItemData> drawerModel = DrawerModelFactory.newDrawerModel(this);
+//
+//        drawerPresenter.setDrawerView(drawerView);
+//        drawerPresenter.setDrawerModel(drawerModel);
+//        mMenuMain.setDrawerViewPresenter(drawerPresenter);
+//    }
+//
+//    private void injectEnglishBook(Bundle bundle) {
+//        EnglishBookPresenterImpl<SchoolBook> englishBookPresenter = new EnglishBookPresenterImpl<>();
+//        EnglishBookViewWrapper<SchoolBook> englishBookViewWrapper = EnglishBookViewWrapperFactory.newSchoolBookEnglishBookViewWrapper(getSupportFragmentManager(), bundle);
+//        EnglishBookModel<SchoolBook> englishBookModel = EnglishModelFactory.newEnglishBookModel(this);
+//
+//        englishBookPresenter.setEnglishTopicViewWrapper(englishBookViewWrapper);
+//        englishBookPresenter.setEnglishBookModel(englishBookModel);
+//
+//        // innit Observerable
+//        englishBookPresenter.setOnItemBookClickedObserver(mActivityLauncher::launchLessonActivity);
+//
+//        mMenuMain.setEnglishBookPresenter(englishBookPresenter);
+//        mMenuMain.setCurrentPresenterByMenuType(MenuType.ENGLISH_BOOK);
+//    }
+//
+//    private void injectEnglishTopic(Bundle bundle) {
+//        EnglishTopicPresenterImpl<Topic> englishTopicPresenter = new EnglishTopicPresenterImpl<>();
+//        EnglishTopicViewWrapper<Topic> englishTopicViewWrapper = EnglishTopicViewWrapperFactory.newEnglishTopicViewWrapper(getSupportFragmentManager(), bundle);
+//        EnglishTopicModel<Topic>  englishTopicModel = EnglishModelFactory.newEnglishTopicModel(this);
+//
+//        englishTopicPresenter.setEnglishTopicViewWrapper(englishTopicViewWrapper);
+//        englishTopicPresenter.setEnglishBookModel(englishTopicModel);
+//
+//        // innit Observerable
+//        englishTopicPresenter.setOnItemBookClickedObserver(mActivityLauncher::launchLearningVocabActivity);
+//
+//        mMenuMain.setEnglishTopicPresenter(englishTopicPresenter);
+//    }
+//
+//    private void injectAlarmClock(Bundle bundle) {
+//        AlarmPresenterImpl alarmPresenter = new AlarmPresenterImpl();
+//        AlarmViewWrapper alarmViewWrapper = AlarmViewWrapperFactory.newAlarmViewWrapper(getSupportFragmentManager());
+//        AlarmModel alarmModel = AlarmModelFactory.newAlarmModel(this);
+//
+//        alarmPresenter.setAlarmViewWrapper(alarmViewWrapper);
+//        alarmPresenter.setAlarmModel(alarmModel);
+//        mMenuMain.setAlarmPresenter(alarmPresenter);
+//    }
+//
+//    private void injectLearningSchedule(Bundle bundle) {
+//
+//    }
+//    private void injectEntertainment(Bundle bundle) {
+//        EntertainmentPresenterImpl<Fragment> entertainmentPresenter = new EntertainmentPresenterImpl();
+//        EntertainmentViewWrapper<Fragment> entertainmentViewWrapper = EntertainmentViewWrapperFactory.newEntertainmentViewWrapper(getSupportFragmentManager(), bundle);
+//        EntertainmentModel<Fragment> entertainmentModel = EntertainmentModelFactory.newEntertainmentModel(this);
+//
+//        entertainmentPresenter.setEntertainmentViewWrapper(entertainmentViewWrapper);
+//        entertainmentPresenter.setEntertainmentModel(entertainmentModel);
+//        ////////////////////////////////////////////
+//        VideoListPresenterImpl<Media> videoListPresenter = new VideoListPresenterImpl<>();
+//        VideoListViewWrapper<Media> videoListViewWrapper = VideoListViewWrapperFactory.newVideoListViewWrapper(getSupportFragmentManager(), bundle);
+//        VideoListModel<Media> videoListModel = VideoListModelFactory.newVideoListModel(this);
+//        videoListPresenter.setVideoListViewWrapper(videoListViewWrapper);
+//        videoListPresenter.setVideoListModel(videoListModel);
+//        //videoListPresenter.setOnItemVideoClickObserver(mActivityLauncher::launchVideoPlayerActivity);
+//        ///////////////////////////////////////////
+//        AudioListPresenterImpl<Media> audioListPresenter = new AudioListPresenterImpl<>();
+//        AudioListViewWrapper<Media> audioListViewWrapper = AudioListViewWrapperFactory.newAudioListViewWrapper(getSupportFragmentManager(), bundle);
+//        AudioListModel<Media> audioListModel = AudioListModelFactory.newAudioListModel(this);
+//        audioListPresenter.setAudioListViewWrapper(audioListViewWrapper);
+//        audioListPresenter.setAudioListModel(audioListModel);
+//        ///////////////////////////////////////////
+//        entertainmentPresenter.setVideoListPresenter(videoListPresenter);
+//        entertainmentPresenter.setAudioListPresenter(audioListPresenter);
+//        mMenuMain.setEntertainmentPresenter(entertainmentPresenter);
+//    }
 
     @Override
     protected void onResume() {

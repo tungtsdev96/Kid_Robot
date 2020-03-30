@@ -41,7 +41,7 @@ public class Level3ItemModelImpl implements Level3ItemModel<Vocabulary> {
 
                         if (lengthResult < lengthRightAnswer || lengthResult > lengthRightAnswer) {
                             for (int i = 0; i < lengthResult; i++) {
-                                listCharacter[i] = true;
+                                listCharacter[i] = false;
                             }
                         } else {
                             for (int i = 0; i < lengthResult; i++) {
@@ -49,7 +49,7 @@ public class Level3ItemModelImpl implements Level3ItemModel<Vocabulary> {
                             }
                         }
                         return listCharacter;
-                    }).compose(RxUtils.async()).subscribe(cleanObserver::onNext)
+                    }).compose(RxUtils.async()).subscribe(cleanObserver::onNext, Throwable::printStackTrace)
             );
         });
     }

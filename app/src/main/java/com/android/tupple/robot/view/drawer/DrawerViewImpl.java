@@ -1,10 +1,14 @@
 package com.android.tupple.robot.view.drawer;
 
 import android.app.Activity;
+import android.view.View;
+
+import androidx.cardview.widget.CardView;
 
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
+import com.android.tupple.robot.activity.ActivityLauncher;
 import com.android.tupple.robot.common.customview.SnappingRecyclerView;
 import com.android.tupple.robot.data.entity.MenuItemData;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
@@ -20,46 +24,53 @@ import java.util.Objects;
 public class DrawerViewImpl implements DrawerView<MenuItemData> {
 
     private Activity mActivity;
+    private CardView cardSchool, cardTopic, cardEntertainment, cardAlarm;
 
-    private SnappingRecyclerView mRcvDrawer;
-    private DrawerAdapter mDrawerAdapter;
-
-    private CleanObserver<MenuType> mItemMenuSelectedObserver;
-
+    private CleanObserver<MenuType> mItemSchoolSelectedObserver;
+    private CleanObserver<MenuType> mItemTopicSelectedObserver;
+    private CleanObserver<MenuType> mItemEntertainmentSelectedObserver;
     public DrawerViewImpl(Activity activity) {
         this.mActivity = activity;
-        initRecycleView();
+        initView();
     }
 
-    private void initRecycleView() {
-        mRcvDrawer = mActivity.findViewById(R.id.rcv_menu_item);
-        mRcvDrawer.enableViewScaling(true);
-        mRcvDrawer.setOrientation(SnappingRecyclerView.Orientation.VERTICAL);
-        mDrawerAdapter = new DrawerAdapter(mActivity);
-        mRcvDrawer.setAdapter(mDrawerAdapter);
+    private void initView() {
+        ActivityLauncher activityLauncher = new ActivityLauncher(mActivity);
 
-        mRcvDrawer.setOnViewSelectedListener((view, position) -> {
-            MenuType menuType = MenuType.fromValue(position % 4 + 1);
-            if (mItemMenuSelectedObserver != null) {
-                mItemMenuSelectedObserver.onNext(menuType);
+        cardSchool = mActivity.findViewById(R.id.school_book);
+        cardEntertainment = mActivity.findViewById(R.id.entertainment);
+        cardTopic = mActivity.findViewById(R.id.topic);
+        cardTopic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mItemTopicSelectedObserver.onNext(MenuType.ENGLISH_TOPIC);
+            }
+        });
+        cardSchool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mItemSchoolSelectedObserver.onNext(MenuType.ENGLISH_BOOK);
+            }
+        });
+        cardEntertainment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityLauncher.launchEntertainmentActivity();
             }
         });
     }
 
 
+
+
+
     @Override
     public void setListMenu(List<MenuItemData> items) {
-        items.add(new MenuItemData("Sach Giao Khoa", "ic_school_book"));
-        items.add(new MenuItemData("Chu de", "ic_topic"));
-        items.add(new MenuItemData("Bao thuc", "ic_alarm"));
-        items.add(new MenuItemData("Giai tri", "ic_entertainment"));
-//        items.add(new MenuItemData("Giai tri", "ic_garden"));
-        mDrawerAdapter.setListMenu(items);
-        Objects.requireNonNull(mRcvDrawer.getLayoutManager()).scrollToPosition(299);
+
     }
 
     @Override
     public CleanObservable<MenuType> getItemMenuSelectedObservable() {
-        return CleanObservable.create(cleanObserver -> mItemMenuSelectedObserver = cleanObserver);
+        return null;
     }
 }

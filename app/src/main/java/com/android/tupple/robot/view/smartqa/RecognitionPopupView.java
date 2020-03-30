@@ -21,6 +21,7 @@ import com.github.zagum.speechrecognitionview.adapters.RecognitionListenerAdapte
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
@@ -51,6 +52,7 @@ public class RecognitionPopupView {
     private boolean mIsNeedDelay = true;
     private RecognitionProgressView mRecognitionProgressView;
     private boolean mIsHasResult = false;
+    private String mLanguage = "";
 
     public static synchronized RecognitionPopupView getInstance(int hashCode) {
         synchronized (sInstances) {
@@ -98,6 +100,11 @@ public class RecognitionPopupView {
         return this;
     }
 
+    public RecognitionPopupView setLanguage(String language) {
+        this.mLanguage = language;
+        return this;
+    }
+
     public void show() {
         if (mParentView == null || mTryShowCount > MAX_TRY_SHOW_COUNT) {
             return;
@@ -115,6 +122,7 @@ public class RecognitionPopupView {
                     }
 
                     mTryShowCount = 0;
+                    mIsHasResult = false;
                     showTipCard(position);
                 }));
     }
@@ -167,6 +175,7 @@ public class RecognitionPopupView {
     }
 
     private View initLayout() {
+        Log.d(TAG, "initLayout");
         Context context = mParentView.getContext();
 
         if (context == null) {
@@ -199,8 +208,8 @@ public class RecognitionPopupView {
         @Override
         public void onResults(Bundle results) {
             ArrayList<String> result = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            mIsHasResult = result != null && !result.isEmpty();
-            handleResultRecognize(mIsHasResult ? result.get(0) : null);
+            boolean isSuccess = result != null && !result.isEmpty();
+            handleResultRecognize(isSuccess ? result.get(0) : null);
         }
 
         @Override
@@ -217,6 +226,7 @@ public class RecognitionPopupView {
     };
 
     private void handleResultRecognize(String result) {
+        Log.d(TAG, "handleResultRecognize " + result);
         if (result == null) {
             if (mOnRecognitionPopupListener != null) {
                 mOnRecognitionPopupListener.onErrorSpeedToText(SpeechRecognizer.ERROR_NETWORK);
@@ -226,7 +236,8 @@ public class RecognitionPopupView {
         }
 
         mRecognitionProgressView.stop();
-        if (mOnRecognitionPopupListener != null) {
+        if (mOnRecognitionPopupListener != null && !mIsHasResult) {
+            mIsHasResult = true;
             mOnRecognitionPopupListener.onResultSpeedToText(result);
         }
         hide();
@@ -242,9 +253,18 @@ public class RecognitionPopupView {
 
     private void startRecognize(SpeechRecognizer speechRecognizer) {
         Intent intent = new Intent(RecognizerIntent.ACTION_GET_LANGUAGE_DETAILS);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "vi-VN");
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "vi-VN");
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "vi-VN");
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, mParentView.getContext().getPackageName());
+
+        if ("VN".equalsIgnoreCase(mLanguage)) {
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "vi-VN");
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "vi-VN");
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "vi-VN");
+        } else {
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en");
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en");
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "en");
+        }
+
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 6);
         speechRecognizer.startListening(intent);
     }

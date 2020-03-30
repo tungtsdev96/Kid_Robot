@@ -67,6 +67,7 @@ public class SmartQAViewImpl implements SmartQAView<QAResponse>, RecognitionPopu
                 .init(mActivity.getResources())
                 .setParentView(mActivity.findViewById(R.id.bubble_answer_view))
                 .setOnShowCompleteListener(this)
+                .setLanguage("VN")
                 .show();
     }
 
