@@ -1,24 +1,17 @@
 package com.android.tupple.robot.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.RadioButton;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import com.android.tupple.cleanobject.CleanObservable;
-import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
-import com.android.tupple.robot.activity.ActivityLauncher;
 import com.android.tupple.robot.common.base.BaseActivity;
 import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.data.model.mediaobject.AudioListModelFactory;
 import com.android.tupple.robot.data.model.mediaobject.EntertainmentModelFactory;
 import com.android.tupple.robot.data.model.mediaobject.VideoListModelFactory;
-import com.android.tupple.robot.domain.entity.englishtopic.EnglishTopic;
+import com.android.tupple.robot.data.model.mediaobject.VideoYoutubeListModelFactory;
 import com.android.tupple.robot.domain.entity.entertainment.Entertainment;
 import com.android.tupple.robot.domain.presenter.audiolist.AudioListModel;
 import com.android.tupple.robot.domain.presenter.audiolist.AudioListPresenterImpl;
@@ -29,18 +22,20 @@ import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentView
 import com.android.tupple.robot.domain.presenter.videolist.VideoListModel;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListPresenterImpl;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListViewWrapper;
-import com.android.tupple.robot.view.audiolist.AudioListFragment;
+import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListModel;
+import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListPresenterImpl;
+import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListViewWrapper;
 import com.android.tupple.robot.view.audiolist.AudioListViewWrapperFactory;
 import com.android.tupple.robot.view.entertainment.EntertainmentViewFactory;
-import com.android.tupple.robot.view.videolist.VideoListFragment;
 import com.android.tupple.robot.view.videolist.VideoListViewWrapperFactory;
+import com.android.tupple.robot.view.videoyoutubelist.VideoYoutubeListViewWrapperFactory;
 
 public class EntertainmentActivity extends BaseActivity {
     private ActivityLauncher activityLauncher;
     private Entertainment entertainment;
     @Override
     protected int getLayoutContent() {
-        return R.layout.fragment_entertainment;
+        return R.layout.activity_entertainment;
     }
 
     @Override
@@ -80,8 +75,16 @@ public class EntertainmentActivity extends BaseActivity {
         audioListPresenter.setAudioListViewWrapper(audioListViewWrapper);
         audioListPresenter.setAudioListModel(audioListModel);
         ///////////////////////////////////////////
+        VideoYoutubeListPresenterImpl<Media> videoYoutubeListPresenter = new VideoYoutubeListPresenterImpl<>();
+        VideoYoutubeListViewWrapper<Media> videoYoutubeListViewWrapper = VideoYoutubeListViewWrapperFactory.newVideoYoutubeListViewWrapper(getSupportFragmentManager(), bundle);
+        VideoYoutubeListModel<Media> videoYoutubeListModel = VideoYoutubeListModelFactory.newVideoListModel(this);
+        videoYoutubeListPresenter.setVideoListViewWrapper(videoYoutubeListViewWrapper);
+        videoYoutubeListPresenter.setVideoYoutubeListModel(videoYoutubeListModel);
+        videoYoutubeListPresenter.setOnItemVideoClickObserver(activityLauncher::launchVideoPlayerActivity);
+        ///////////////////////////////////////////
         entertainmentPresenter.setVideoListPresenter(videoListPresenter);
         entertainmentPresenter.setAudioListPresenter(audioListPresenter);
+        entertainmentPresenter.setVideoYoutubeListPresenter(videoYoutubeListPresenter);
         entertainment.setEntertainmentPresenter(entertainmentPresenter);
         entertainment.init();
     }
@@ -135,7 +138,7 @@ public class EntertainmentActivity extends BaseActivity {
 //
 //    @Override
 //    protected int getLayoutContent() {
-//        return R.layout.fragment_entertainment;
+//        return R.layout.activity_entertainment;
 //    }
 //
 //    @Override

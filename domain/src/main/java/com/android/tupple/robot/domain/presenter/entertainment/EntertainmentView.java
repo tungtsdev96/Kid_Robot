@@ -2,8 +2,6 @@ package com.android.tupple.robot.domain.presenter.entertainment;
 
 import com.android.tupple.cleanobject.CleanObservable;
 
-import java.util.List;
-
 public interface EntertainmentView<Fragment> {
     void initLayout();
 
@@ -12,6 +10,8 @@ public interface EntertainmentView<Fragment> {
     CleanObservable<Fragment> getButtonVideoClickedObservable();
 
     CleanObservable<Fragment> getButtonAudioClickedObservable();
+
+    CleanObservable<Fragment> getButtonVideoYoutubeClickedObservable();
 
     CleanObservable getButtonCloseClickedObservable();
 }

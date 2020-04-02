@@ -85,6 +85,20 @@
                     android:background="@drawable/custom_radio_button"
                     style="@style/CommonStyleText"
                     />
+                <RadioButton
+                    android:id="@+id/btn_tab_video_youtube"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:button="@android:color/transparent"
+                    android:textColor="#ffffff"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="học TA qua bài hát"
+                    android:textSize="20sp"
+                    android:background="@drawable/custom_radio_button"
+                    style="@style/CommonStyleText"
+                    />
             </RadioGroup>
 
             <FrameLayout

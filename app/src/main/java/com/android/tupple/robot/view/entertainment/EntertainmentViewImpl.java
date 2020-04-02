@@ -15,6 +15,7 @@ import com.android.tupple.robot.R;
 import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentView;
 import com.android.tupple.robot.view.audiolist.AudioListFragment;
 import com.android.tupple.robot.view.videolist.VideoListFragment;
+import com.android.tupple.robot.view.videoyoutubelist.VideoYoutubeListFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class EntertainmentViewImpl implements EntertainmentView {
@@ -24,9 +25,10 @@ public class EntertainmentViewImpl implements EntertainmentView {
     private FloatingActionButton mBtnClose;
     private CleanObserver<EntertainmentView<Fragment>> mViewCreatedObserver;
 
-    private RadioButton mBtnAudio, mBtnVideo;
+    private RadioButton mBtnAudio, mBtnVideo, mBtnVideoYoutube;
     private CleanObserver<Fragment> mButtonVideoClickedObserver;
     private CleanObserver<Fragment> mButtonAudioClickedObserver;
+    private CleanObserver<Fragment> mButtonVideoYoutubeClickedObserver;
     private CleanObserver mButtonCloseClickedObserver;
 
     public EntertainmentViewImpl(Activity mActivity, Bundle bundle) {
@@ -38,6 +40,7 @@ public class EntertainmentViewImpl implements EntertainmentView {
     public void initLayout() {
         mBtnAudio = mActivity.findViewById(R.id.btn_tab_audio);
         mBtnVideo = mActivity.findViewById(R.id.btn_tab_video);
+        mBtnVideoYoutube = mActivity.findViewById(R.id.btn_tab_video_youtube);
         mBtnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +55,14 @@ public class EntertainmentViewImpl implements EntertainmentView {
                 //Toast.makeText(mContext, "click audio", Toast.LENGTH_SHORT).show();
                 if (mButtonAudioClickedObserver != null)
                     mButtonAudioClickedObserver.onNext(new AudioListFragment());
+            }
+        });
+        mBtnVideoYoutube.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(mContext, "click audio", Toast.LENGTH_SHORT).show();
+                if (mButtonVideoYoutubeClickedObserver != null)
+                    mButtonVideoYoutubeClickedObserver.onNext(new VideoYoutubeListFragment());
             }
         });
         mBtnClose = mActivity.findViewById(R.id.btn_close);
@@ -77,6 +88,11 @@ public class EntertainmentViewImpl implements EntertainmentView {
     @Override
     public CleanObservable<Fragment> getButtonAudioClickedObservable() {
         return CleanObservable.create(cleanObserver -> mButtonAudioClickedObserver = cleanObserver);
+    }
+
+    @Override
+    public CleanObservable<Fragment> getButtonVideoYoutubeClickedObservable() {
+        return CleanObservable.create(cleanObserver -> mButtonVideoYoutubeClickedObserver = cleanObserver);
     }
 
     @Override

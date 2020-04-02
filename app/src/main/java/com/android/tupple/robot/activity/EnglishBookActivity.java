@@ -1,7 +1,5 @@
 package com.android.tupple.robot.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,9 +8,6 @@ import com.android.tupple.robot.common.base.BaseActivity;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.model.english.EnglishModelFactory;
 import com.android.tupple.robot.domain.entity.englishbook.EnglishBook;
-import com.android.tupple.robot.domain.entity.englishtopic.EnglishTopic;
-import com.android.tupple.robot.domain.entity.entertainment.Entertainment;
-import com.android.tupple.robot.domain.entity.menumain.MenuType;
 import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookModel;
 import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookPresenterImpl;
 import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookView;
@@ -24,7 +19,7 @@ public class EnglishBookActivity extends BaseActivity {
 
     @Override
     protected int getLayoutContent() {
-        return R.layout.fragment_english_book;
+        return R.layout.activity_english_book;
     }
 
     @Override

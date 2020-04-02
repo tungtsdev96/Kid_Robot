@@ -177,7 +177,38 @@ public class Media implements Parcelable {
                 "Description for media object #4",
                 true));
         media.add(new Media(5, "Kimetsu No Yaiba 5", false,
-                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 5 .mp4",
+                "https://www.youtube.com/watch?v=Kg2MnWw6NqY",
+                "Description for media object #5",
+                true));
+//        media.add(new Media(6, "Kimetsu No Yaiba 6", false,
+//                "https://www.androidtutorialpoint.com/wp-content/uploads/2016/09/Beauty.jpg",
+//                "Description for media object #6",
+//                false,
+//                "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+//        ));
+        return media;
+    }
+
+    public static List<Media> fakeVideoYoutubeData() {
+        List<Media> media = new ArrayList<>();
+        media.add(new Media(1, "Kimetsu No Yaiba 1", false,
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 1.mp4",
+                "Description for media object #1",
+                true));
+        media.add(new Media(2, "Kimetsu No Yaiba 2", false,
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 2.mp4",
+                "Description for media object #2",
+                true));
+        media.add(new Media(3, "Kimetsu No Yaiba 3", false,
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 3.mp4",
+                "Description for media object #3",
+                true));
+        media.add(new Media(4, "Kimetsu No Yaiba 4", false,
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 4 .mp4",
+                "Description for media object #4",
+                true));
+        media.add(new Media(5, "Kimetsu No Yaiba 5", false,
+                "https://www.youtube.com/watch?v=Kg2MnWw6NqY",
                 "Description for media object #5",
                 true));
 //        media.add(new Media(6, "Kimetsu No Yaiba 6", false,
