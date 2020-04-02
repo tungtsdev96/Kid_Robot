@@ -17,12 +17,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".activity.YoutubeVideoPlayerActivity"
+            android:screenOrientation="sensorLandscape"
+            ></activity>
         <activity android:name=".activity.ConfigActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
 
         <receiver
@@ -36,38 +39,37 @@
         <activity
             android:name=".activity.VideoPlayerActivity"
             android:screenOrientation="sensorLandscape" />
-
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.FaceSmileActivity"
             android:launchMode="singleTop"
             android:screenOrientation="sensorLandscape">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-
         <activity
             android:name=".activity.LessonActivity"
             android:screenOrientation="sensorLandscape" />
-
         <activity
             android:name=".activity.LearningVocabActivity"
             android:launchMode="singleTop"
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".activity.EnglishBookActivity"
-            android:screenOrientation="sensorLandscape"></activity>
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".activity.TopicActivity"
             android:screenOrientation="sensorLandscape" />
@@ -84,15 +86,15 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-
         <activity
             android:name=".activity.SmartQAActivity"
             android:screenOrientation="sensorLandscape">
-            <!--                         <intent-filter>-->
-            <!--                             <action android:name="android.intent.action.MAIN" />-->
-            <!--                             <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--                         </intent-filter>-->
-        </activity>
 
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
     </application>
+
 </manifest>
