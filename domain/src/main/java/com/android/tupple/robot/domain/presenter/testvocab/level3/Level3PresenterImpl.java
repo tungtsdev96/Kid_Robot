@@ -74,8 +74,8 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
             return;
         }
 
-        if (getPageChnageListenerHandler() != null) {
-           getPageChnageListenerHandler().onPageChange(mCurrentVocabulary, position);
+        if (getPageChangeListenerHandler() != null) {
+           getPageChangeListenerHandler().onPageChange(mCurrentVocabulary, position);
         }
 
         mListLevel3ItemPresenter.get(mCurrentVocabulary).onPageChange();
@@ -85,18 +85,19 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
 
     private void handleOnNextBtnClicked() {
         if (mCurrentVocabulary >= mListVocabulary.size() - 1) {
-            mOnNextLevelPresenterObserver.onComplete(TestVocabLevel.LEVEL3_1);
-            return;
-        }
+            mLearningVocabModel.updateLearnLessonDone().subscribe(isSuccess -> {
+                mOnNextLevelPresenterObserver.onComplete(TestVocabLevel.LEVEL3_1);
+            });
+        } else {
+            boolean isCanNext = mListLevel3ItemPresenter.get(mCurrentVocabulary).checkCanNextVocab();
+            if (!isCanNext) {
+                return;
+            }
 
-        boolean isCanNext = mListLevel3ItemPresenter.get(mCurrentVocabulary).checkCanNextVocab();
-        if (!isCanNext) {
-            return;
-        }
-
-        mLevel3View.setCurrentVocab(mCurrentVocabulary + 1);
-        if (mOnResultAnswerHandler != null) {
-            mOnResultAnswerHandler.onResult(true, 1);
+            mLevel3View.setCurrentVocab(mCurrentVocabulary + 1);
+            if (mOnResultAnswerHandler != null) {
+                mOnResultAnswerHandler.onResult(true, 1);
+            }
         }
     }
 
@@ -172,7 +173,7 @@ public class Level3PresenterImpl<LessonData, Topic, Vocabulary> implements Level
         this.mListLearningVocabHandler = listLearningVocabHandler;
     }
 
-    public PageChangeListenerHandler getPageChnageListenerHandler() {
+    public PageChangeListenerHandler getPageChangeListenerHandler() {
         return mOnPageChangeListenerHandler;
     }
 
