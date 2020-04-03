@@ -43,6 +43,8 @@ public class EnglishBookActivity extends BaseActivity {
 
         // innit Observerable
         englishBookPresenter.setOnItemBookClickedObserver(activityLauncher::launchLessonActivity);
+        englishBookPresenter.setCloseButtonHandler(this::onBackPressed);
+
         englishBook.setEnglishBookPresenter(englishBookPresenter);
         englishBook.init();
     }

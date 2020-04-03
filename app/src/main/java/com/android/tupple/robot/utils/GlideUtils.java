@@ -6,6 +6,9 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.DrawableRes;
+
+import com.android.tupple.robot.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -44,6 +47,22 @@ public class GlideUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void loadImageFromDrawable(Context context, @DrawableRes int drawable, ImageView imageView, String key) {
+        RequestManager requestManager = getRequestManager(context);
+        if (requestManager == null || drawable == 0) {
+            return;
+        }
+
+        RequestOptions requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .signature(new ObjectKey(key));
+
+        requestManager
+                .load(R.drawable.kid_background2)
+                .apply(requestOptions)
+                .into(imageView);
     }
 
     public static void loadImageFromStorage(Context context, String path, ImageView imageView) {
