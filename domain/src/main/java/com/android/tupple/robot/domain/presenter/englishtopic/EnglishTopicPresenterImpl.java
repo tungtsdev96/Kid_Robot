@@ -3,6 +3,7 @@ package com.android.tupple.robot.domain.presenter.englishtopic;
 import com.android.tupple.robot.domain.entity.englishtopic.MyEnglishTopicPresenter;
 import com.android.tupple.robot.domain.entity.menumain.EnglishTopicPresenter;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
+import com.android.tupple.robot.domain.presenter.CloseButtonHandler;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
 
 /**
@@ -15,7 +16,7 @@ public class EnglishTopicPresenterImpl<Topic> implements MyEnglishTopicPresenter
     private EnglishTopicModel<Topic> mEnglishTopicModel;
 
     private PresenterObserver<Topic> mItemTopicClickedObserver;
-
+    private CloseButtonHandler mOnCloseButtonHandler;
     private boolean mIsLoadData = false;
 
     public EnglishTopicPresenterImpl() {
@@ -41,13 +42,17 @@ public class EnglishTopicPresenterImpl<Topic> implements MyEnglishTopicPresenter
 
     private void initObservable() {
         mEnglishTopicView.getItemTopicClickedObservable().subscribe(this::handleItemTopicClicked);
-        mEnglishTopicView.getButtonCloseClickedObservable().subscribe(this::closeTopicActivity);
+        mEnglishTopicView.getButtonCloseClickedObservable().subscribe(this::handleCloseButton);
+    }
+    public void setOnCloseButtonHandler(CloseButtonHandler onButtonCloseHandler) {
+        this.mOnCloseButtonHandler = onButtonCloseHandler;
     }
 
-    private void closeTopicActivity() {
-        mEnglishTopicView.closeActivity();
+    private void handleCloseButton() {
+        if (mOnCloseButtonHandler != null) {
+            mOnCloseButtonHandler.onClose();
+        }
     }
-
     private void handleItemTopicClicked(Topic topic) {
         if (mItemTopicClickedObserver != null) {
             mItemTopicClickedObserver.onComplete(topic);

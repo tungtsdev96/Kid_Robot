@@ -1,8 +1,7 @@
-package com.android.tupple.robot.domain.presenter.audiolist;
+package com.android.tupple.robot.domain.presenter.listaudio;
 
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.robot.domain.presenter.IView;
-import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentView;
 
 public interface AudioListViewWrapper<Media> extends IView {
     CleanObservable<AudioListView<Media>> getViewCreatedObservable();

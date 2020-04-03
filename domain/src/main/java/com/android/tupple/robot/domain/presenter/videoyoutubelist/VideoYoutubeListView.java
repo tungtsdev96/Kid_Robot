@@ -4,7 +4,9 @@ import com.android.tupple.cleanobject.CleanObservable;
 
 import java.util.List;
 
-public interface VideoYoutubeListView<Media>{
+public interface VideoYoutubeListView<Media> {
+    void initLayout();
+
     void setListVideoYoutube(List<Media> listMedia);
 
 

@@ -1,4 +1,4 @@
-package com.android.tupple.robot.view.videolist;
+package com.android.tupple.robot.view.listvideos;
 
 import android.os.Bundle;
 

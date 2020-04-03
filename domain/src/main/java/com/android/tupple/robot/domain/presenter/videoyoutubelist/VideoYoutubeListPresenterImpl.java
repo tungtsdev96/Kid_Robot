@@ -4,7 +4,6 @@ import com.android.tupple.robot.domain.entity.medialist.MediaListPresenter;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
 
 public class VideoYoutubeListPresenterImpl<Media> implements MediaListPresenter {
-    private VideoYoutubeListViewWrapper<Media> mVideoListViewWrapper;
     private VideoYoutubeListView<Media> mVideoListView;
     private VideoYoutubeListModel<Media> mVideoListModel;
     private PresenterObserver<Media> mItemVideoYoutubeClickedObserver;
@@ -14,9 +13,8 @@ public class VideoYoutubeListPresenterImpl<Media> implements MediaListPresenter 
 
     }
 
-    public void setVideoListViewWrapper(VideoYoutubeListViewWrapper<Media> videoListViewWrapper) {
-        this.mVideoListViewWrapper = videoListViewWrapper;
-        mVideoListViewWrapper.getViewCreatedObservable().subscribe(this::onViewCreated);
+    public void setmVideoListView(VideoYoutubeListView<Media> mVideoListView) {
+        this.mVideoListView = mVideoListView;
     }
 
     public void setVideoYoutubeListModel(VideoYoutubeListModel<Media> mVideoListModel) {
@@ -29,7 +27,9 @@ public class VideoYoutubeListPresenterImpl<Media> implements MediaListPresenter 
 
     @Override
     public void init() {
-        mVideoListViewWrapper.show();
+        mVideoListView.initLayout();
+        start();
+        initObserable();
         mIsLoadData = false;
     }
 

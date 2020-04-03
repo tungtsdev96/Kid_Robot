@@ -2,70 +2,50 @@ package com.android.tupple.robot.domain.presenter.entertainment;
 
 
 import com.android.tupple.robot.domain.entity.entertainment.EntertainmentPresenter;
+import com.android.tupple.robot.domain.presenter.CloseButtonHandler;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
-import com.android.tupple.robot.domain.presenter.audiolist.AudioListPresenterImpl;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListPresenterImpl;
-import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListPresenterImpl;
 
-public class EntertainmentPresenterImpl<Fragment> implements EntertainmentPresenter {
+public class EntertainmentPresenterImpl implements EntertainmentPresenter {
 
-    private EntertainmentView<Fragment> mEntertainmentView;
-    private EntertainmentModel<Fragment> mEntertainmentModel;
-    private PresenterObserver<Fragment> mButtonVideoClickedObserver;
-    private PresenterObserver<Fragment> mButtonAudioClickedObserver;
-    private VideoListPresenterImpl mVideoListPresenter;
-    private AudioListPresenterImpl mAudioListPresenter;
-    private VideoYoutubeListPresenterImpl mVideoYoutubeListPresenter;
+    private EntertainmentView mEntertainmentView;
+    private EntertainmentModel mEntertainmentModel;
+    private PresenterObserver mButtonVideoClickedObserver;
+    private PresenterObserver mButtonAudioClickedObserver;
+    private PresenterObserver mButtonVideoYoutubeClickedObserver;
+    private CloseButtonHandler mOnCloseButtonHandler;
     private boolean mIsLoadData = false;
 
-    public void setVideoListPresenter(VideoListPresenterImpl videoListPresenter) {
-        this.mVideoListPresenter = videoListPresenter;
-    }
-
-    public void setAudioListPresenter(AudioListPresenterImpl audioListPresenter) {
-        this.mAudioListPresenter = audioListPresenter;
-    }
-
-    public void setVideoYoutubeListPresenter(VideoYoutubeListPresenterImpl mVideoYoutubeListPresenter) {
-        this.mVideoYoutubeListPresenter = mVideoYoutubeListPresenter;
-    }
 
     public void setEntertainmentView(EntertainmentView entertainmentView) {
         this.mEntertainmentView = entertainmentView;
     }
 
-    public void setEntertainmentModel(EntertainmentModel<Fragment> entertainmentModel) {
+    public void setEntertainmentModel(EntertainmentModel entertainmentModel) {
         this.mEntertainmentModel = entertainmentModel;
     }
 
-    private void handleButtonVideoClicked(Fragment fragment) {
-        mVideoListPresenter.stop();
-        if (mAudioListPresenter != null) mAudioListPresenter.stop();
-        if (mVideoListPresenter != null)
-            mVideoListPresenter.init();
+    private void handleButtonVideoClicked() {
+        mButtonVideoClickedObserver.onComplete("string");
     }
 
-    private void handleButtonAudioClicked(Fragment fragment) {
-        //if(mAudioListPresenter!=null) mAudioListPresenter.stop();
-        // mAudioListPresenter.stop();
-        if (mAudioListPresenter != null)
-            mAudioListPresenter.init();
+    public void setCloseButtonHandler(CloseButtonHandler closeButtonHandler) {
+        this.mOnCloseButtonHandler = closeButtonHandler;
     }
-    private void handleButtonVideoYoutubeClicked(Fragment fragment) {
-        //if(mAudioListPresenter!=null) mAudioListPresenter.stop();
-        // mAudioListPresenter.stop();
-        mVideoYoutubeListPresenter.stop();
-        if (mAudioListPresenter != null) mAudioListPresenter.stop();
-        if (mVideoYoutubeListPresenter != null)
-            mVideoYoutubeListPresenter.init();
+
+    private void handleButtonAudioClicked() {
+        mButtonAudioClickedObserver.onComplete("string");
     }
+
+    private void handleButtonVideoYoutubeClicked() {
+        mButtonVideoYoutubeClickedObserver.onComplete("string");
+    }
+
     @Override
     public void init() {
         mEntertainmentView.initLayout();
         mIsLoadData = false;
         start();
         initObserable();
-        mVideoListPresenter.init();
     }
 
 //    private void onViewCreated(EntertainmentView entertainmentView) {
@@ -78,13 +58,24 @@ public class EntertainmentPresenterImpl<Fragment> implements EntertainmentPresen
     private void initObserable() {
         mEntertainmentView.getButtonVideoClickedObservable().subscribe(this::handleButtonVideoClicked);
         mEntertainmentView.getButtonAudioClickedObservable().subscribe(this::handleButtonAudioClicked);
-        mEntertainmentView.getButtonCloseClickedObservable().subscribe(this::closeEntertainmentActivity);
+        mEntertainmentView.getButtonCloseClickedObservable().subscribe(() -> {
+            if (mOnCloseButtonHandler != null) {
+                mOnCloseButtonHandler.onClose();
+            }
+        });
         mEntertainmentView.getButtonVideoYoutubeClickedObservable().subscribe(this::handleButtonVideoYoutubeClicked);
     }
 
-    private void closeEntertainmentActivity() {
-        if (mAudioListPresenter != null) mAudioListPresenter.stop();
-        mEntertainmentView.closeEntertainmentActivity();
+    public void setmButtonVideoClickedObserver(PresenterObserver mButtonVideoClickedObserver) {
+        this.mButtonVideoClickedObserver = mButtonVideoClickedObserver;
+    }
+
+    public void setmButtonAudioClickedObserver(PresenterObserver mButtonAudioClickedObserver) {
+        this.mButtonAudioClickedObserver = mButtonAudioClickedObserver;
+    }
+
+    public void setmButtonVideoYoutubeClickedObserver(PresenterObserver mButtonVideoYoutubeClickedObserver) {
+        this.mButtonVideoYoutubeClickedObserver = mButtonVideoYoutubeClickedObserver;
     }
 
     @Override

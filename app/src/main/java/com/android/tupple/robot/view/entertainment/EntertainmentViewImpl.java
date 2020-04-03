@@ -1,21 +1,19 @@
 package com.android.tupple.robot.view.entertainment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentView;
-import com.android.tupple.robot.view.audiolist.AudioListFragment;
-import com.android.tupple.robot.view.videolist.VideoListFragment;
-import com.android.tupple.robot.view.videoyoutubelist.VideoYoutubeListFragment;
+import com.android.tupple.robot.view.listaudio.AudioListFragment;
+import com.android.tupple.robot.view.listvideos.VideoListFragment;
+import com.android.tupple.robot.view.listvideoyoutube.VideoYoutubeListFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class EntertainmentViewImpl implements EntertainmentView {
@@ -23,12 +21,12 @@ public class EntertainmentViewImpl implements EntertainmentView {
     private Activity mActivity;
     private Bundle bundle;
     private FloatingActionButton mBtnClose;
-    private CleanObserver<EntertainmentView<Fragment>> mViewCreatedObserver;
+    private CleanObserver<EntertainmentView> mViewCreatedObserver;
 
     private RadioButton mBtnAudio, mBtnVideo, mBtnVideoYoutube;
-    private CleanObserver<Fragment> mButtonVideoClickedObserver;
-    private CleanObserver<Fragment> mButtonAudioClickedObserver;
-    private CleanObserver<Fragment> mButtonVideoYoutubeClickedObserver;
+    private CleanObserver mButtonVideoClickedObserver;
+    private CleanObserver mButtonAudioClickedObserver;
+    private CleanObserver mButtonVideoYoutubeClickedObserver;
     private CleanObserver mButtonCloseClickedObserver;
 
     public EntertainmentViewImpl(Activity mActivity, Bundle bundle) {
@@ -75,23 +73,19 @@ public class EntertainmentViewImpl implements EntertainmentView {
         });
     }
 
-    @Override
-    public void closeEntertainmentActivity() {
-        mActivity.finish();
-    }
 
     @Override
-    public CleanObservable<Fragment> getButtonVideoClickedObservable() {
+    public CleanObservable getButtonVideoClickedObservable() {
         return CleanObservable.create(cleanObserver -> mButtonVideoClickedObserver = cleanObserver);
     }
 
     @Override
-    public CleanObservable<Fragment> getButtonAudioClickedObservable() {
+    public CleanObservable getButtonAudioClickedObservable() {
         return CleanObservable.create(cleanObserver -> mButtonAudioClickedObserver = cleanObserver);
     }
 
     @Override
-    public CleanObservable<Fragment> getButtonVideoYoutubeClickedObservable() {
+    public CleanObservable getButtonVideoYoutubeClickedObservable() {
         return CleanObservable.create(cleanObserver -> mButtonVideoYoutubeClickedObserver = cleanObserver);
     }
 

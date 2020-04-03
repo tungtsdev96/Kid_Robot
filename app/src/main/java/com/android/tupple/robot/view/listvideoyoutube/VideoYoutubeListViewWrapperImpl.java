@@ -1,4 +1,4 @@
-package com.android.tupple.robot.view.videolist;
+package com.android.tupple.robot.view.listvideoyoutube;
 
 import android.os.Bundle;
 
@@ -9,41 +9,41 @@ import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.data.entity.Media;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListView;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListViewWrapper;
+import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListView;
+import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListViewWrapper;
 
-public class VideoListViewWrapperImpl implements VideoListViewWrapper {
+
+public class VideoYoutubeListViewWrapperImpl implements VideoYoutubeListViewWrapper {
     private Bundle bundle;
     private FragmentManager mFragmentManager;
-    private VideoListFragment mVideoListFragment;
-    private CleanObserver<VideoListView<Media>> mViewCreatedObserver;
+    private VideoYoutubeListFragment mVideoYoutubeListFragment;
+    private CleanObserver<VideoYoutubeListView<Media>> mViewCreatedObserver;
 
-    public VideoListViewWrapperImpl(FragmentManager mFragmentManager, Bundle bundle) {
+    public VideoYoutubeListViewWrapperImpl(FragmentManager mFragmentManager, Bundle bundle) {
         this.bundle = bundle;
         this.mFragmentManager = mFragmentManager;
     }
 
     @Override
-    public CleanObservable<VideoListView<Media>> getViewCreatedObservable() {
+    public CleanObservable<VideoYoutubeListView<Media>> getViewCreatedObservable() {
         return CleanObservable.create(cleanObserver -> mViewCreatedObserver = cleanObserver);
     }
 
     @Override
     public void show() {
-        createVideoListFragment();
+        createVideoYoutubeListFragment();
         setViewCreatedObserverOnFragment();
     }
 
     private void setViewCreatedObserverOnFragment() {
         if (mViewCreatedObserver != null) {
-            mVideoListFragment.setViewCreatedObserver(mViewCreatedObserver);
+            mVideoYoutubeListFragment.setViewCreatedObserver(mViewCreatedObserver);
         }
     }
 
-    private void createVideoListFragment() {
+    private void createVideoYoutubeListFragment() {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        mVideoListFragment = VideoListFragment.newInstance();
-        fragmentTransaction.replace(R.id.content_entertainment, mVideoListFragment, mVideoListFragment.TAG);
+        mVideoYoutubeListFragment = VideoYoutubeListFragment.newInstance();
         fragmentTransaction.commitAllowingStateLoss();
     }
 
@@ -57,3 +57,4 @@ public class VideoListViewWrapperImpl implements VideoListViewWrapper {
 
     }
 }
+

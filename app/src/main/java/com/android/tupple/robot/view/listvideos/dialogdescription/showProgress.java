@@ -1,4 +1,4 @@
-package com.android.tupple.robot.view.videolist.dialogdescription;
+package com.android.tupple.robot.view.listvideos.dialogdescription;
 
 import com.android.tupple.robot.data.entity.Media;
 

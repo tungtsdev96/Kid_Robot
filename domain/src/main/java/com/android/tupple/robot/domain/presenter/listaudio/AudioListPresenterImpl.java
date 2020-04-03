@@ -1,18 +1,13 @@
-package com.android.tupple.robot.domain.presenter.audiolist;
+package com.android.tupple.robot.domain.presenter.listaudio;
 
 import android.util.Log;
 
 import com.android.tupple.robot.domain.entity.medialist.MediaListPresenter;
-import com.android.tupple.robot.domain.presenter.PresenterObserver;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListModel;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListView;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListViewWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AudioListPresenterImpl<Media> implements MediaListPresenter {
-    private AudioListViewWrapper<Media> mAudioListViewWrapper;
     private AudioListView<Media> mAudioListView;
     private AudioListModel<Media> mAudioListModel;
     // private PresenterObserver<Media> mItemAudioClickedObserver;
@@ -25,9 +20,8 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
     public AudioListPresenterImpl() {
     }
 
-    public void setAudioListViewWrapper(AudioListViewWrapper<Media> audioListViewWrapper) {
-        this.mAudioListViewWrapper = audioListViewWrapper;
-        mAudioListViewWrapper.getViewCreatedObservable().subscribe(this::onViewCreated);
+    public void setmAudioListView(AudioListView<Media> mAudioListView) {
+        this.mAudioListView = mAudioListView;
     }
 
     public void setAudioListModel(AudioListModel<Media> mAudioListModel) {
@@ -48,19 +42,15 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
 
     @Override
     public void init() {
-        mAudioListViewWrapper.show();
+        mAudioListView.initLayout();
+        start();
+        initObserable();
         mIsLoadData = false;
         // mAudioListView.initLayout();
 
     }
 
-    private void onViewCreated(AudioListView audioListView) {
-        this.mAudioListView = audioListView;
-        //mAudioListView.setCurrentAudio(mCurrentAudio);
-        start();
-        initObserable();
-        // TODO innit Observerable
-    }
+
 
     private void initObserable() {
         mAudioListView.getItemAudioClickedObservable().subscribe(this::handleItemAudioClicked);

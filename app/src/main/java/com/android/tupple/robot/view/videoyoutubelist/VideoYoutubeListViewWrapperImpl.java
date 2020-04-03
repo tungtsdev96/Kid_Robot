@@ -44,7 +44,7 @@ public class VideoYoutubeListViewWrapperImpl implements VideoYoutubeListViewWrap
     private void createVideoYoutubeListFragment() {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         mVideoYoutubeListFragment = VideoYoutubeListFragment.newInstance();
-        fragmentTransaction.replace(R.id.content_entertainment, mVideoYoutubeListFragment, mVideoYoutubeListFragment.TAG);
+        //fragmentTransaction.replace(R.id.content_entertainment, mVideoYoutubeListFragment, mVideoYoutubeListFragment.TAG);
         fragmentTransaction.commitAllowingStateLoss();
     }
 

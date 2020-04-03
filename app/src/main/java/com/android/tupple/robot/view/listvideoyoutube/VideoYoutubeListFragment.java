@@ -1,4 +1,4 @@
-package com.android.tupple.robot.view.videoyoutubelist;
+package com.android.tupple.robot.view.listvideoyoutube;
 
 import android.content.Context;
 import android.os.Bundle;

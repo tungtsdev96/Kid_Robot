@@ -191,32 +191,44 @@ public class Media implements Parcelable {
 
     public static List<Media> fakeVideoYoutubeData() {
         List<Media> media = new ArrayList<>();
-        media.add(new Media(1, "Kimetsu No Yaiba 1", false,
-                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 1.mp4",
+        media.add(new Media(1, "Head, Shoulders, Knees", false,
+                "https://www.youtube.com/watch?v=h4eueDYPTIg",
                 "Description for media object #1",
                 true));
-        media.add(new Media(2, "Kimetsu No Yaiba 2", false,
-                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 2.mp4",
+        media.add(new Media(2, "Twinkle Twinkle Little Star", false,
+                "https://www.youtube.com/watch?v=yCjJyiqpAuU",
                 "Description for media object #2",
                 true));
-        media.add(new Media(3, "Kimetsu No Yaiba 3", false,
-                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 3.mp4",
+        media.add(new Media(3, "You are my sunshine", false,
+                "https://www.youtube.com/watch?v=kVnerkBSEnk",
                 "Description for media object #3",
                 true));
-        media.add(new Media(4, "Kimetsu No Yaiba 4", false,
-                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 4 .mp4",
+        media.add(new Media(4, "Old MacDonald Had A Farm ", false,
+                "https://www.youtube.com/watch?v=_6HzoUcx3eo",
                 "Description for media object #4",
                 true));
-        media.add(new Media(5, "Kimetsu No Yaiba 5", false,
-                "https://www.youtube.com/watch?v=Kg2MnWw6NqY",
+        media.add(new Media(5, "ABC Song with Balloons", false,
+                "https://www.youtube.com/watch?v=uCIsBFV87-U",
                 "Description for media object #5",
                 true));
-//        media.add(new Media(6, "Kimetsu No Yaiba 6", false,
-//                "https://www.androidtutorialpoint.com/wp-content/uploads/2016/09/Beauty.jpg",
-//                "Description for media object #6",
-//                false,
-//                "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
-//        ));
+        media.add(new Media(6, "Our Favorite Numbers Songs", false,
+                "https://www.youtube.com/watch?v=V_lgJgBbqWE",
+                "Description for media object #6",
+                false,
+                "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+        ));
+        media.add(new Media(7, "Five Little Ducks", false,
+                "https://www.youtube.com/watch?v=pZw9veQ76fo",
+                "Description for media object #6",
+                false,
+                "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+        ));
+        media.add(new Media(8, "My Happy Song", false,
+                "https://www.youtube.com/watch?v=ufbOHl1mmYk",
+                "Description for media object #6",
+                false,
+                "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+        ));
         return media;
     }
 

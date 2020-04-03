@@ -40,6 +40,8 @@ public class TopicActivity extends BaseActivity {
         EnglishTopicView<Topic> englishTopicView = EnglishTopicViewFactory.newEnglishTopicView(this,bundle);
         englishTopicPresenter.setEnglishBookModel(englishTopicModel);
         englishTopicPresenter.setmEnglishTopicView(englishTopicView);
+
+        englishTopicPresenter.setOnCloseButtonHandler(this::finish);
         // innit Observerable
         englishTopicPresenter.setOnItemBookClickedObserver(activityLauncher::launchLearningVocabActivity);
         englishTopic.setEnglishTopicPresenter(englishTopicPresenter);

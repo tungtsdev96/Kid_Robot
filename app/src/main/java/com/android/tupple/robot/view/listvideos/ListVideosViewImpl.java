@@ -1,16 +1,8 @@
-package com.android.tupple.robot.view.videolist;
+package com.android.tupple.robot.view.listvideos;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,50 +13,30 @@ import com.android.tupple.robot.common.customview.snaprecycleview.SnapRecycleVie
 import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListView;
 import com.android.tupple.robot.utils.downloadutils.DownloadInterface;
-import com.android.tupple.robot.view.videolist.dialogdescription.MyDialogDescription;
-import com.android.tupple.robot.view.videolist.dialogdescription.showProgress;
+import com.android.tupple.robot.view.listvideos.dialogdescription.MyDialogDescription;
+import com.android.tupple.robot.view.listvideos.dialogdescription.showProgress;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class VideoListFragment extends Fragment implements showProgress, VideoListView<Media>, DownloadInterface {
-
-
-    public static final String TAG = "VideoListFragment";
-    private Context mContext;
+public class ListVideosViewImpl implements showProgress, VideoListView<Media>, DownloadInterface {
+    public static final String TAG = "ListVideosViewImpl";
+    private Activity mActivity;
+    private Bundle bundle;
     private CleanObserver<VideoListView<Media>> mViewCreatedObserver;
     private SnapRecycleView mRecyclerViewVideo;
     private CleanObserver<Media> mItemVideoClickedObserver;
     private RecyclerViewVideoAdapter recyclerViewVideoAdapter;
 
-    public static VideoListFragment newInstance() {
-        return new VideoListFragment();
-    }
-
-    public void setViewCreatedObserver(CleanObserver<VideoListView<Media>> viewCreatedObserver) {
-        this.mViewCreatedObserver = viewCreatedObserver;
+    public ListVideosViewImpl(Activity mActivity, Bundle bundle) {
+        this.mActivity = mActivity;
+        this.bundle = bundle;
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        mContext = context;
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mRootView = inflater.inflate(R.layout.fragment_video_list, container, false);
-        initView(mRootView);
-        if (mViewCreatedObserver != null) {
-            mViewCreatedObserver.onNext(this);
-        }
-        return mRootView;
-    }
-
-    private void initView(View rootView) {
-        mRecyclerViewVideo = rootView.findViewById(R.id.recycler_video);
-        recyclerViewVideoAdapter = new RecyclerViewVideoAdapter(mContext);
-        mRecyclerViewVideo.setLayoutManager(new LinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
+    public void initLayout() {
+        mRecyclerViewVideo = mActivity.findViewById(R.id.recycler_video);
+        recyclerViewVideoAdapter = new RecyclerViewVideoAdapter(mActivity);
+        mRecyclerViewVideo.setLayoutManager(new LinearLayoutManager(mActivity, RecyclerView.HORIZONTAL, false));
         mRecyclerViewVideo.setAdapter(recyclerViewVideoAdapter);
         recyclerViewVideoAdapter.setOnItemVideoClickedListener(this::handleItemVideoClicked);
     }
@@ -82,22 +54,15 @@ public class VideoListFragment extends Fragment implements showProgress, VideoLi
 
     @Override
     public void showDialogDescription(Media media) {
-        MyDialogDescription myDialogDescription = new MyDialogDescription(mContext);
-        myDialogDescription.setActivity((Activity) mContext);
+        MyDialogDescription myDialogDescription = new MyDialogDescription(mActivity);
+        myDialogDescription.setActivity((Activity) mActivity);
         myDialogDescription.setMedia(media);
-        myDialogDescription.setVideoListFragment(this);
         myDialogDescription.show();
     }
-
 
     @Override
     public CleanObservable<Media> getItemVideoClickedObservable() {
         return CleanObservable.create(cleanObserver -> mItemVideoClickedObserver = cleanObserver);
-    }
-
-    @Override
-    public void showProgressbar(Media media) {
-        recyclerViewVideoAdapter.setPositionForItemWhenStartDownload(media);
     }
 
     @Override
@@ -117,5 +82,10 @@ public class VideoListFragment extends Fragment implements showProgress, VideoLi
     @Override
     public void onDownloadFail() {
 
+    }
+
+    @Override
+    public void showProgressbar(Media media) {
+        recyclerViewVideoAdapter.setPositionForItemWhenStartDownload(media);
     }
 }
