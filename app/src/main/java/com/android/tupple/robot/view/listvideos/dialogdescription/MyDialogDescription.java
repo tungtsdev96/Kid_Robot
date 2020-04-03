@@ -14,13 +14,11 @@ import com.android.tupple.robot.domain.entity.dialogdescription.DialogDescriptio
 import com.android.tupple.robot.domain.presenter.videolist.dialog_description.DialogDescriptionPresenterImpl;
 import com.android.tupple.robot.domain.presenter.videolist.dialog_description.DialogDescriptionView;
 import com.android.tupple.robot.utils.downloadutils.DownloadUtils;
-import com.android.tupple.robot.view.listvideos.VideoListFragment;
 
 public class MyDialogDescription extends Dialog {
     private Activity mActivity;
     private Media media;
     private ActivityLauncher mActivityLauncher;
-    private VideoListFragment videoListFragment;
     private showProgress showProgress;
     public MyDialogDescription(@NonNull Context context) {
         super(context);
@@ -61,9 +59,9 @@ public class MyDialogDescription extends Dialog {
     }
 
     private void downloadVideo(Media media) {
-        DownloadUtils downloadUtils = new DownloadUtils(videoListFragment,media.getMedia_url(),media.getTitle());
-        downloadUtils.download();
-        showProgress.showProgressbar(media);
+//        DownloadUtils downloadUtils = new DownloadUtils(videoListFragment,media.getMedia_url(),media.getTitle());
+//        downloadUtils.download();
+//        showProgress.showProgressbar(media);
     }
 
 //    private void launchVideoPlayerActivity(Media media) {

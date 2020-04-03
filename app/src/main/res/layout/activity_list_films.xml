@@ -4,12 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ListFilmsActivity">
-    <com.android.tupple.robot.common.customview.snaprecycleview.SnapRecycleView
+    tools:context=".activity.ListFilmsActivity"
+    android:background="@drawable/audiolist_background"
+    >
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:id="@+id/recycler_video"
-        android:fadingEdge="horizontal"
-        />
+        android:layout_height="match_parent">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:src="@drawable/ic_back"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@android:color/white"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            app:fabSize="mini" />
+        <TextView
+            android:id="@+id/title"
+            style="@style/CommonStyleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Xem Phim"
+            android:textColor="@color/main_color_entertainment"
+            android:textSize="30sp" />
+        <com.android.tupple.robot.common.customview.snaprecycleview.SnapRecycleView
+            android:layout_below="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/recycler_video"
+            android:fadingEdge="horizontal"
+            />
+    </RelativeLayout>
+
+
 </RelativeLayout>

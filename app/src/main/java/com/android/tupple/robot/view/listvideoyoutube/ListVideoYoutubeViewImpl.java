@@ -3,6 +3,7 @@ package com.android.tupple.robot.view.listvideoyoutube;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +21,7 @@ public class ListVideoYoutubeViewImpl implements VideoYoutubeListView<Media> {
     public static final String TAG = "ListVideoYoutubeViewImpl";
     private Activity mActivity;
     private Bundle bundle;
-
+    private CleanObserver mButtonCloseClickedObserver;
     public ListVideoYoutubeViewImpl(Activity mActivity, Bundle bundle) {
         this.mActivity = mActivity;
         this.bundle = bundle;
@@ -37,6 +38,14 @@ public class ListVideoYoutubeViewImpl implements VideoYoutubeListView<Media> {
         mRecyclerViewVideoYoutube.setLayoutManager(new LinearLayoutManager(mActivity, RecyclerView.HORIZONTAL, false));
         mRecyclerViewVideoYoutube.setAdapter(recyclerViewVideoYoutubeAdapter);
         recyclerViewVideoYoutubeAdapter.setOnItemVideoClickedListener(this::handleItemVideoClicked);
+
+        mActivity.findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mButtonCloseClickedObserver != null)
+                    mButtonCloseClickedObserver.onNext();
+            }
+        });
     }
 
     private void handleItemVideoClicked(int position) {
@@ -53,5 +62,10 @@ public class ListVideoYoutubeViewImpl implements VideoYoutubeListView<Media> {
     @Override
     public CleanObservable<Media> getItemVideoYoutubeClickedObservable() {
         return CleanObservable.create(cleanObserver -> mItemVideoYoutubeClickedObserver = cleanObserver);
+    }
+
+    @Override
+    public CleanObservable getCloseButtonClickedObservable() {
+        return CleanObservable.create(cleanObserver -> mButtonCloseClickedObserver = cleanObserver);
     }
 }

@@ -5,15 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 
-import androidx.fragment.app.Fragment;
-
 import com.android.tupple.cleanobject.CleanObservable;
 import com.android.tupple.cleanobject.CleanObserver;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentView;
-import com.android.tupple.robot.view.listaudio.AudioListFragment;
-import com.android.tupple.robot.view.listvideos.VideoListFragment;
-import com.android.tupple.robot.view.listvideoyoutube.VideoYoutubeListFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class EntertainmentViewImpl implements EntertainmentView {
@@ -43,24 +38,24 @@ public class EntertainmentViewImpl implements EntertainmentView {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(mContext, "click video", Toast.LENGTH_SHORT).show();
-                if (mButtonAudioClickedObserver != null)
-                    mButtonVideoClickedObserver.onNext(new VideoListFragment());
+                //if (mButtonAudioClickedObserver != null)
+                    //mButtonVideoClickedObserver.onNext(new VideoListFragment());
             }
         });
         mBtnAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(mContext, "click audio", Toast.LENGTH_SHORT).show();
-                if (mButtonAudioClickedObserver != null)
-                    mButtonAudioClickedObserver.onNext(new AudioListFragment());
+                //if (mButtonAudioClickedObserver != null)
+                   // mButtonAudioClickedObserver.onNext(new AudioListFragment());
             }
         });
         mBtnVideoYoutube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(mContext, "click audio", Toast.LENGTH_SHORT).show();
-                if (mButtonVideoYoutubeClickedObserver != null)
-                    mButtonVideoYoutubeClickedObserver.onNext(new VideoYoutubeListFragment());
+//                if (mButtonVideoYoutubeClickedObserver != null)
+//                    mButtonVideoYoutubeClickedObserver.onNext(new VideoYoutubeListFragment());
             }
         });
         mBtnClose = mActivity.findViewById(R.id.btn_close);

@@ -1,7 +1,5 @@
 package com.android.tupple.robot.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,9 +11,7 @@ import com.android.tupple.robot.domain.entity.medialist.MediaList;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListModel;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListPresenterImpl;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListView;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListViewWrapper;
 import com.android.tupple.robot.view.listvideos.ListVideosViewFactory;
-import com.android.tupple.robot.view.listvideos.VideoListViewWrapperFactory;
 
 public class ListFilmsActivity extends BaseActivity {
     private ActivityLauncher activityLauncher;
@@ -46,6 +42,7 @@ public class ListFilmsActivity extends BaseActivity {
         VideoListView<Media> videoListView = ListVideosViewFactory.newVideoListView(this,bundle);
         videoListPresenter.setmVideoListView(videoListView);
         videoListPresenter.setVideoListModel(videoListModel);
+        videoListPresenter.setOnCloseButtonHandler(this::onBackPressed);
         mediaList.setMediaListPresenter(videoListPresenter);
         mediaList.init();
     }

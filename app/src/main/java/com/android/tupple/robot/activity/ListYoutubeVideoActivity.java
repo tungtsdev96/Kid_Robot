@@ -1,7 +1,5 @@
 package com.android.tupple.robot.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,9 +11,7 @@ import com.android.tupple.robot.domain.entity.medialist.MediaList;
 import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListModel;
 import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListPresenterImpl;
 import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListView;
-import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListViewWrapper;
 import com.android.tupple.robot.view.listvideoyoutube.ListVideoYoutubeViewFactory;
-import com.android.tupple.robot.view.listvideoyoutube.VideoYoutubeListViewWrapperFactory;
 
 public class ListYoutubeVideoActivity extends BaseActivity {
     private ActivityLauncher activityLauncher;
@@ -45,6 +41,7 @@ public class ListYoutubeVideoActivity extends BaseActivity {
         videoYoutubeListPresenter.setVideoYoutubeListModel(videoYoutubeListModel);
         videoYoutubeListPresenter.setmVideoListView(videoYoutubeListView);
         videoYoutubeListPresenter.setOnItemVideoClickObserver(activityLauncher::launchVideoYoutubePlayerActivity);
+        videoYoutubeListPresenter.setOnCloseButtonHandler(this::onBackPressed);
         mediaList.setMediaListPresenter(videoYoutubeListPresenter);
         mediaList.init();
     }

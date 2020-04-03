@@ -3,6 +3,7 @@ package com.android.tupple.robot.domain.presenter.listaudio;
 import android.util.Log;
 
 import com.android.tupple.robot.domain.entity.medialist.MediaListPresenter;
+import com.android.tupple.robot.domain.presenter.CloseButtonHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
     private AudioListView<Media> mAudioListView;
     private AudioListModel<Media> mAudioListModel;
     // private PresenterObserver<Media> mItemAudioClickedObserver;
+
+    private CloseButtonHandler mOnCloseButtonHandler;
     private boolean mIsLoadData = false;
     private Media mCurrentAudio;
     private int mCurrentPosition;
@@ -19,7 +22,9 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
 
     public AudioListPresenterImpl() {
     }
-
+    public void setOnCloseButtonHandler(CloseButtonHandler onButtonCloseHandler) {
+        this.mOnCloseButtonHandler = onButtonCloseHandler;
+    }
     public void setmAudioListView(AudioListView<Media> mAudioListView) {
         this.mAudioListView = mAudioListView;
     }
@@ -57,9 +62,13 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
         mAudioListView.getNextButtonClickedObservable().subscribe(this::handleNextButton);
         mAudioListView.getPreviousButtonClickedObservable().subscribe(this::handlePreviousButton);
         mAudioListView.getStopPlayButtonClickedObservable().subscribe(this::handleStopPlayButton);
-
+        mAudioListView.getCloseButtonClickedObservable().subscribe(this::handleCloseButton);
     }
-
+    private void handleCloseButton() {
+        if (mOnCloseButtonHandler != null) {
+            mOnCloseButtonHandler.onClose();
+        }
+    }
     private void handleItemAudioClicked(Media media) {
         mAudioListView.setCurrentAudio(media);
         Log.d("AudioListPresenterImpl", "prepare");

@@ -9,6 +9,7 @@ public interface VideoYoutubeListView<Media> {
 
     void setListVideoYoutube(List<Media> listMedia);
 
-
     CleanObservable<Media> getItemVideoYoutubeClickedObservable();
+
+    CleanObservable getCloseButtonClickedObservable();
 }

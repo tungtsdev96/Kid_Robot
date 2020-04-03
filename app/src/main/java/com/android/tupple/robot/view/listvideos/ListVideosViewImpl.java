@@ -2,6 +2,7 @@ package com.android.tupple.robot.view.listvideos;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +27,7 @@ public class ListVideosViewImpl implements showProgress, VideoListView<Media>, D
     private SnapRecycleView mRecyclerViewVideo;
     private CleanObserver<Media> mItemVideoClickedObserver;
     private RecyclerViewVideoAdapter recyclerViewVideoAdapter;
-
+    private CleanObserver mButtonCloseClickedObserver;
     public ListVideosViewImpl(Activity mActivity, Bundle bundle) {
         this.mActivity = mActivity;
         this.bundle = bundle;
@@ -39,6 +40,13 @@ public class ListVideosViewImpl implements showProgress, VideoListView<Media>, D
         mRecyclerViewVideo.setLayoutManager(new LinearLayoutManager(mActivity, RecyclerView.HORIZONTAL, false));
         mRecyclerViewVideo.setAdapter(recyclerViewVideoAdapter);
         recyclerViewVideoAdapter.setOnItemVideoClickedListener(this::handleItemVideoClicked);
+        mActivity.findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mButtonCloseClickedObserver != null)
+                    mButtonCloseClickedObserver.onNext();
+            }
+        });
     }
 
     private void handleItemVideoClicked(int position) {
@@ -63,6 +71,11 @@ public class ListVideosViewImpl implements showProgress, VideoListView<Media>, D
     @Override
     public CleanObservable<Media> getItemVideoClickedObservable() {
         return CleanObservable.create(cleanObserver -> mItemVideoClickedObserver = cleanObserver);
+    }
+
+    @Override
+    public CleanObservable getCloseButtonClickedObservable() {
+        return CleanObservable.create(cleanObserver -> mButtonCloseClickedObserver = cleanObserver);
     }
 
     @Override

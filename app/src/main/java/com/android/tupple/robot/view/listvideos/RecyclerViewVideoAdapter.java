@@ -170,7 +170,6 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
                         Bitmap b = null;
                         try {
                             b = retriveVideoFrameFromVideo(videoURL);
-                            b = Bitmap.createScaledBitmap(b, 130, 100, false);
                         } catch (Throwable throwable) {
                             throwable.printStackTrace();
                         }

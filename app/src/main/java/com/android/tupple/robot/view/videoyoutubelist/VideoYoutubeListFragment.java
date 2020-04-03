@@ -83,4 +83,9 @@ public class VideoYoutubeListFragment extends Fragment implements VideoYoutubeLi
     public CleanObservable<Media> getItemVideoYoutubeClickedObservable() {
         return CleanObservable.create(cleanObserver -> mItemVideoYoutubeClickedObserver = cleanObserver);
     }
+
+    @Override
+    public CleanObservable getCloseButtonClickedObservable() {
+        return null;
+    }
 }

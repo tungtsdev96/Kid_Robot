@@ -47,7 +47,7 @@ public class ListAudioViewImpl implements AudioListView<Media> {
     private CleanObserver mNextButtonClickedObserver;
     private CleanObserver mPreviousButtonClickedObserver;
     private CleanObserver mStopPlayButtonClickedObserver;
-
+    private CleanObserver mButtonCloseClickedObserver;
     public ListAudioViewImpl(Activity mActivity, Bundle bundle) {
         this.mActivity = mActivity;
         this.bundle = bundle;
@@ -90,6 +90,14 @@ public class ListAudioViewImpl implements AudioListView<Media> {
                     mStopPlayButtonClickedObserver.onNext();
             }
         });
+        mBtnClose = mActivity.findViewById(R.id.btn_back);
+        mBtnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mButtonCloseClickedObserver != null)
+                    mButtonCloseClickedObserver.onNext();
+            }
+        });
     }
 
     @Override
@@ -106,11 +114,11 @@ public class ListAudioViewImpl implements AudioListView<Media> {
         }
         // recyclerViewAudioAdapter.set
     }
+
     @Override
     public void setListAudio(List listMedia) {
         recyclerViewAudioAdapter.setListData(listMedia);
     }
-
 
 
     @Override
@@ -205,7 +213,8 @@ public class ListAudioViewImpl implements AudioListView<Media> {
 
     @Override
     public void stopAudio() {
-        mMediaPlayer.stop();
+        if (mMediaPlayer != null)
+            mMediaPlayer.stop();
     }
 
     @Override
@@ -238,6 +247,11 @@ public class ListAudioViewImpl implements AudioListView<Media> {
     public CleanObservable getStopPlayButtonClickedObservable() {
         return CleanObservable.create(cleanObserver -> mStopPlayButtonClickedObserver = cleanObserver);
 
+    }
+
+    @Override
+    public CleanObservable getCloseButtonClickedObservable() {
+        return CleanObservable.create(cleanObserver -> mButtonCloseClickedObserver = cleanObserver);
     }
 
     @SuppressLint("HandlerLeak")

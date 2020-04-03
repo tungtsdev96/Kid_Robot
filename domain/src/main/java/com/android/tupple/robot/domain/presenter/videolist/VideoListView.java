@@ -13,4 +13,5 @@ public interface VideoListView<Media> {
 
     CleanObservable<Media> getItemVideoClickedObservable();
 
+    CleanObservable getCloseButtonClickedObservable();
 }

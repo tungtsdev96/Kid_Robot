@@ -19,7 +19,7 @@ import com.android.tupple.robot.view.listaudio.ListAudioViewFactory;
 public class ListAudioActivity extends BaseActivity {
     private ActivityLauncher activityLauncher;
     private MediaList mediaList;
-
+    AudioListPresenterImpl<Media> audioListPresenter;
 
     @Override
     protected int getLayoutContent() {
@@ -38,11 +38,12 @@ public class ListAudioActivity extends BaseActivity {
     }
 
     private void inject(Bundle bundle) {
-        AudioListPresenterImpl<Media> audioListPresenter = new AudioListPresenterImpl<>();
+        audioListPresenter = new AudioListPresenterImpl<>();
         AudioListModel<Media> audioListModel = AudioListModelFactory.newAudioListModel(this);
-        AudioListView<Media> audioListView = ListAudioViewFactory.newAudioListView(this,bundle);
+        AudioListView<Media> audioListView = ListAudioViewFactory.newAudioListView(this, bundle);
         audioListPresenter.setAudioListModel(audioListModel);
         audioListPresenter.setmAudioListView(audioListView);
+        audioListPresenter.setOnCloseButtonHandler(this::onBackPressed);
         mediaList.setMediaListPresenter(audioListPresenter);
         mediaList.init();
     }
@@ -52,4 +53,10 @@ public class ListAudioActivity extends BaseActivity {
         mediaList = new MediaList();
     }
 
+    @Override
+    protected void onStop() {
+        if (audioListPresenter != null)
+            audioListPresenter.finish();
+        super.onStop();
+    }
 }
