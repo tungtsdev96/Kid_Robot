@@ -37,7 +37,7 @@ public class DownloadMediaUtils {
     private Media media;
     private long downloadId;
 
-    private DownloadMediaUtils(Activity mActivity, Media media) {
+    public DownloadMediaUtils(Activity mActivity, Media media) {
         this.mActivity = mActivity;
         this.media = media;
     }
@@ -57,6 +57,7 @@ public class DownloadMediaUtils {
     }
 
     public void download() {
+        Log.d("testtest" , media.getId()+" ");
         new DownloadAsyncTask(mActivity).execute(media.getMedia_url(), media.getTitle());
     }
 
@@ -155,9 +156,11 @@ public class DownloadMediaUtils {
             if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
                 long id = intent.getLongExtra(
                         DownloadManager.EXTRA_DOWNLOAD_ID, 0);
+                Log.d("testtest" , downloadId+" " + id);
                 if (downloadId == id) {
                     Toast.makeText(mActivity, "Success" , Toast.LENGTH_SHORT).show();
                     File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), media.getTitle());
+                    Log.d("testtest" , file.getAbsolutePath());
                     Media newMedia = new Media(media.getId(),media.getTitle(),media.getMedia_type(),file.getAbsolutePath(),media.getDescription(),true,media.getThumbnail_video());
                     updateMediaToDB(newMedia);
                     mActivity.unregisterReceiver(DownloadCompleteReceive);

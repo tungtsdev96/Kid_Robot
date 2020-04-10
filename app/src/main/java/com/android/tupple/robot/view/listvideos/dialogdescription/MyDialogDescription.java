@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -62,6 +63,7 @@ public class MyDialogDescription extends Dialog {
 //        DownloadUtils downloadUtils = new DownloadUtils(videoListFragment,media.getMedia_url(),media.getTitle());
 //        downloadUtils.download();
 //        showProgress.showProgressbar(media);
+        Log.d("testtest",media.getTitle() + " " + media.getId());
         DownloadMediaUtils.getInstance(mActivity, media).download();
     }
 

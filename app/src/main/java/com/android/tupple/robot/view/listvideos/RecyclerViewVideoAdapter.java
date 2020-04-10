@@ -3,6 +3,7 @@ package com.android.tupple.robot.view.listvideos;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,6 +95,7 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.bind(mMediaItems.get(position));
+        Log.d("testtest" , mMediaItems.get(position).getTitle());
         //holder.progressDownload.setProgress(progress);
         if (positionItemWhenStartDownload == position) {
             updateLayoutItemWhenStartDownload(holder);
