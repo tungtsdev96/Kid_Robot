@@ -47,5 +47,13 @@ public class Columns {
         String TOPIC_ID = "topic_id";
         String LESSON_ID = "lesson_id";
     }
-
+    public interface Media{
+        String _ID = BaseColumns._ID;
+        String MEDIA_TITLE = "media_title";
+        String MEDIA_URL = "media_url";
+        String MEDIA_DESCRIPTION = "media_description";
+        String VIDEO_THUMBNAIL = "media_thumbnail";// thumbnail for video that wasnot downloaded
+        String IS_LOCAL = "is_local";
+        String MEDIA_TYPE = "type"; // audio - video - image ....
+    }
 }

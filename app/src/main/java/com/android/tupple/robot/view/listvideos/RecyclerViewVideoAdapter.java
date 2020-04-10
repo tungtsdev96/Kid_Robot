@@ -19,7 +19,6 @@ import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.data.file.FileUtils;
 import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.RxUtils;
-import com.android.tupple.robot.utils.downloadutils.DownloadInterface;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
@@ -28,7 +27,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewVideoAdapter.ItemViewHolder> implements DownloadInterface {
+public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewVideoAdapter.ItemViewHolder>   {
     Context mContext;
     List<Media> mMediaItems = new ArrayList<>();
     private ItemVideoClickedListener mOnItemVideClickedListener;
@@ -40,10 +39,7 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
         this.mContext = mContext;
     }
 
-    @Override
-    public void showDownloadProgress(double progress) {
-        this.progress = (int) progress;
-    }
+
 
     public void setPositionForItemWhenFinishDownload(String title) {
         for (int i = 0; i < mMediaItems.size(); i++) {
@@ -64,15 +60,7 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
         }
         notifyDataSetChanged();
     }
-    @Override
-    public void onDownloadSuccess(String filePath, String fileName) {
 
-    }
-
-    @Override
-    public void onDownloadFail() {
-
-    }
 
     public void setProgress(double progress) {
         this.progress = (int) progress;

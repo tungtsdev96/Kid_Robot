@@ -10,10 +10,12 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.android.tupple.robot.data.dao.LessonDao;
+import com.android.tupple.robot.data.dao.MediaDao;
 import com.android.tupple.robot.data.dao.SchoolBookDao;
 import com.android.tupple.robot.data.dao.TopicDao;
 import com.android.tupple.robot.data.dao.VocabularyDao;
 import com.android.tupple.robot.data.entity.LessonData;
+import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.data.entity.Vocabulary;
@@ -25,7 +27,7 @@ import com.android.tupple.robot.data.entity.Vocabulary;
  *   2, event, alarm_clock
  */
 
-@Database(entities = {SchoolBook.class, LessonData.class, Topic.class, Vocabulary.class},
+@Database(entities = {SchoolBook.class, LessonData.class, Topic.class, Vocabulary.class, Media.class},
         version = 1, exportSchema = false)
 public abstract class KidRobotDatabase extends RoomDatabase {
 
@@ -78,4 +80,6 @@ public abstract class KidRobotDatabase extends RoomDatabase {
     public abstract TopicDao topicDao();
 
     public abstract VocabularyDao vocabularyDao();
+
+    public abstract MediaDao mediaDao();
 }

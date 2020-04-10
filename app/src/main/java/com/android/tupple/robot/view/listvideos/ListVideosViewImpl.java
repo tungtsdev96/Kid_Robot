@@ -13,13 +13,12 @@ import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.customview.snaprecycleview.SnapRecycleView;
 import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListView;
-import com.android.tupple.robot.utils.downloadutils.DownloadInterface;
 import com.android.tupple.robot.view.listvideos.dialogdescription.MyDialogDescription;
 import com.android.tupple.robot.view.listvideos.dialogdescription.showProgress;
 
 import java.util.List;
 
-public class ListVideosViewImpl implements showProgress, VideoListView<Media>, DownloadInterface {
+public class ListVideosViewImpl implements showProgress, VideoListView<Media> {
     public static final String TAG = "ListVideosViewImpl";
     private Activity mActivity;
     private Bundle bundle;
@@ -78,24 +77,12 @@ public class ListVideosViewImpl implements showProgress, VideoListView<Media>, D
         return CleanObservable.create(cleanObserver -> mButtonCloseClickedObserver = cleanObserver);
     }
 
-    @Override
-    public void showDownloadProgress(double progress) {
-        recyclerViewVideoAdapter.setProgress(progress);
-    }
 
-    @Override
-    public void onDownloadSuccess(String filePath, String fileName) {
-        recyclerViewVideoAdapter.setPositionForItemWhenFinishDownload(fileName);
-        saveUrlToDatabase();
-    }
 
     private void saveUrlToDatabase() {
     }
 
-    @Override
-    public void onDownloadFail() {
 
-    }
 
     @Override
     public void showProgressbar(Media media) {

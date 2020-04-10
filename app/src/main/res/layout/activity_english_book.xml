@@ -9,7 +9,16 @@
     <include layout="@layout/view_background"/>
 
     <include layout="@layout/view_button_close"/>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sách Giáo Khoa"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/main_color_entertainment"
+        style="@style/CommonStyleText"
+        android:textSize="30sp"
+        />
     <com.android.tupple.robot.common.customview.snaprecycleview.SnapRecycleView
         android:id="@+id/rcv_english_book"
         android:layout_width="match_parent"

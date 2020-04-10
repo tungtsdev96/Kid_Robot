@@ -11,6 +11,7 @@ import androidx.multidex.MultiDexApplication;
 
 import com.android.tupple.robot.data.KidRobotDatabase;
 import com.android.tupple.robot.data.entity.LessonData;
+import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.data.entity.Vocabulary;
@@ -28,6 +29,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -66,6 +68,9 @@ public class KidRobotApplication extends MultiDexApplication {
          // test data for topic
         initTopic();
         initVocab();
+
+        ///
+        initMedia();
     }
 
     private void initBook() {
@@ -207,5 +212,58 @@ public class KidRobotApplication extends MultiDexApplication {
                 Log.e(tag, text);
             }
         });
+    }
+    private void initMedia() {
+
+        List<Media> media = new ArrayList<>();
+
+        media.add(new Media(1, "Apologize", "audio",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Apologize.mp3",
+                "Description for media object #1",
+                true));
+        media.add(new Media(2, "Chi Can Em Hanh Phuc - Ho Quang Hieu", "audio",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Chi Can Em Hanh Phuc - Ho Quang Hieu.mp3",
+                "Description for media object #1",
+                true));
+        media.add(new Media(3, "Chuc-Em-Ngu-Ngon-Ngo-Kien-Huy-Thanh-Thao", "audio",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Chuc-Em-Ngu-Ngon-Ngo-Kien-Huy-Thanh-Thao.mp3",
+                "Description for media object #1",
+                true));
+        media.add(new Media(4, "Cam On Nguoi Da Roi Xa Toi", "audio",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Cam On Nguoi Da Roi Xa Toi - Pham Hong Phuoc.mp3",
+                "Description for media object #1",
+                true));
+        media.add(new Media(5, "Kimetsu No Yaiba 1", "video",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 1.mp4",
+                "Description for media object #1",
+                true));
+        media.add(new Media(6, "Kimetsu No Yaiba 2", "video",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 2.mp4",
+                "Description for media object #2",
+                true));
+        media.add(new Media(7, "Kimetsu No Yaiba 3", "video",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 3.mp4",
+                "Description for media object #3",
+                true));
+        media.add(new Media(8, "Kimetsu No Yaiba 4", "video",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 4 .mp4",
+                "Description for media object #4",
+                true));
+
+        media.add(new Media(9, "Kimetsu No Yaiba 5.jpg", "video",
+                "https://www.androidtutorialpoint.com/wp-content/uploads/2016/09/Beauty.jpg",
+                "Description for media object #6",
+                false,
+                "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+        ));
+        media.add(new Media(10, "Kimetsu No Yaiba 6.jpg", "video",
+                "http://www.appsapk.com/downloading/latest/WeChat-6.5.7.apk",
+                "Description for media object #6",
+                false,
+                "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+        ));
+        KidRobotDatabase.getInstance(getApplicationContext())
+                .mediaDao().insert(media).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 }

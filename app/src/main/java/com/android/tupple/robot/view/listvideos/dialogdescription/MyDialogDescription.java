@@ -13,7 +13,7 @@ import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.domain.entity.dialogdescription.DialogDescription;
 import com.android.tupple.robot.domain.presenter.videolist.dialog_description.DialogDescriptionPresenterImpl;
 import com.android.tupple.robot.domain.presenter.videolist.dialog_description.DialogDescriptionView;
-import com.android.tupple.robot.utils.downloadutils.DownloadUtils;
+import com.android.tupple.robot.utils.downloadutils.DownloadMediaUtils;
 
 public class MyDialogDescription extends Dialog {
     private Activity mActivity;
@@ -62,6 +62,7 @@ public class MyDialogDescription extends Dialog {
 //        DownloadUtils downloadUtils = new DownloadUtils(videoListFragment,media.getMedia_url(),media.getTitle());
 //        downloadUtils.download();
 //        showProgress.showProgressbar(media);
+        DownloadMediaUtils.getInstance(mActivity, media).download();
     }
 
 //    private void launchVideoPlayerActivity(Media media) {

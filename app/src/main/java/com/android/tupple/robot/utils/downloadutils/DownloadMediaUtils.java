@@ -19,6 +19,9 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import com.android.tupple.robot.data.entity.Media;
+import com.android.tupple.robot.data.model.mediaobject.MediaModelImpl;
+
 import java.io.File;
 import java.lang.ref.WeakReference;
 
@@ -29,35 +32,45 @@ import java.lang.ref.WeakReference;
 file path and file name in method onDownloadSuccess();
 example url: https://www.androidtutorialpoint.com/wp-content/uploads/2016/09/Beauty.jpg
  */
-public class DownloadUtils {
-    private Fragment mFragment;
-    private String mDownloadUrl;
-    private String mFileName;
+public class DownloadMediaUtils {
+    private Activity mActivity;
+    private Media media;
     private long downloadId;
-    private DownloadInterface downloadInterface;
 
-    public DownloadUtils(Fragment mFragment, String mDownloadUrl, String mFileName) {
-        this.mFragment = mFragment;
-        this.mDownloadUrl = mDownloadUrl;
-        this.mFileName = mFileName;
-        downloadInterface = (DownloadInterface) mFragment;
+    private DownloadMediaUtils(Activity mActivity, Media media) {
+        this.mActivity = mActivity;
+        this.media = media;
+    }
+
+    private static volatile DownloadMediaUtils instance;
+
+
+    public static DownloadMediaUtils getInstance(Activity mActivity, Media media) {
+        if (instance == null) {
+            synchronized (DownloadMediaUtils.class) {
+                if (instance == null) {
+                    instance = new DownloadMediaUtils(mActivity, media);
+                }
+            }
+        }
+        return instance;
     }
 
     public void download() {
-        new DownloadAsyncTask(mFragment).execute(mDownloadUrl, mFileName);
+        new DownloadAsyncTask(mActivity).execute(media.getMedia_url(), media.getTitle());
     }
 
     private class DownloadAsyncTask extends AsyncTask<String, String, String> {
-        private WeakReference<Fragment> fragment;
-        public DownloadAsyncTask(Fragment fragment) {
-            this.fragment = new WeakReference<>(fragment);
+        private WeakReference<Activity> activity;
+        public DownloadAsyncTask(Activity activity) {
+            this.activity = new WeakReference<>(activity);
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         protected String doInBackground(String... strings) {
-            if (fragment.get() != null) {
-                downloadFile(fragment.get(), strings[0], strings[1]);
+            if (activity.get() != null) {
+                downloadFile(activity.get(), strings[0], strings[1]);
             }
             return null;
         }
@@ -69,11 +82,11 @@ public class DownloadUtils {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void downloadFile(final Fragment fragment, final String url, final String fileName) {
+    public void downloadFile(final Activity activity, final String url, final String fileName) {
         try {
             if (url != null && !url.isEmpty()) {
                 Uri uri = Uri.parse(url);
-                fragment.getActivity().registerReceiver(DownloadCompleteReceive, new IntentFilter(
+                activity.registerReceiver(DownloadCompleteReceive, new IntentFilter(
                         DownloadManager.ACTION_DOWNLOAD_COMPLETE));
                 DownloadManager.Request request = new DownloadManager.Request(uri);
                 request.setDescription("Downloading...");
@@ -90,7 +103,7 @@ public class DownloadUtils {
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
 
 
-                DownloadManager manager = (DownloadManager) fragment.getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
+                DownloadManager manager = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
                 downloadId = manager.enqueue(request);
                 boolean downloading = true;
                 while (downloading) {
@@ -112,10 +125,10 @@ public class DownloadUtils {
                     }
                     final double dl_progress = (int) ((bytes_downloaded * 100l) / bytes_total);
                     Log.d("DownloadUtils", dl_progress + " ");
-                    mFragment.getActivity().runOnUiThread(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            downloadInterface.showDownloadProgress(dl_progress);
+                            //downloadInterface.showDownloadProgress(dl_progress);
                         }
                     });
 
@@ -143,14 +156,23 @@ public class DownloadUtils {
                 long id = intent.getLongExtra(
                         DownloadManager.EXTRA_DOWNLOAD_ID, 0);
                 if (downloadId == id) {
-                    Toast.makeText(mFragment.getActivity(), "Success" , Toast.LENGTH_SHORT).show();
-                    File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), mFileName);
-                    downloadInterface.onDownloadSuccess(file.getAbsolutePath(), mFileName);
-                    mFragment.getActivity().unregisterReceiver(DownloadCompleteReceive);
+                    Toast.makeText(mActivity, "Success" , Toast.LENGTH_SHORT).show();
+                    File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), media.getTitle());
+                    Media newMedia = new Media(media.getId(),media.getTitle(),media.getMedia_type(),file.getAbsolutePath(),media.getDescription(),true,media.getThumbnail_video());
+                    updateMediaToDB(newMedia);
+                    mActivity.unregisterReceiver(DownloadCompleteReceive);
+                    //downloadInterface.onDownloadSuccess(file.getAbsolutePath(), mFileName);
+                    //mActivity.unregisterReceiver(DownloadCompleteReceive);
                 } else {
-                    downloadInterface.onDownloadFail();
+                    //downloadInterface.onDownloadFail();
                 }
             }
         }
     };
+    private void updateMediaToDB(Media media){
+        new MediaModelImpl(mActivity).updateVideo(media).subscribe(this::showToast);
+    }
+    private void showToast() {
+        Toast.makeText(mActivity, "update thành công, " + media.getTitle(), Toast.LENGTH_LONG).show();
+    }
 }

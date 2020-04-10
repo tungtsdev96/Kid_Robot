@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface AudioListModel<Media> extends IModel {
 
-    CleanObservable<List<Media>> getAllAudio();
 
+    CleanObservable<List<Media>> getAllAudio();
+    CleanObservable updateAudio(Media media);
 
 }
 
