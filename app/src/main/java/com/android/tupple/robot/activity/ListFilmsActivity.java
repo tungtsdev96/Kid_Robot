@@ -1,8 +1,10 @@
 package com.android.tupple.robot.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.android.tupple.robot.KidRobotApplication;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.base.BaseActivity;
 import com.android.tupple.robot.data.entity.Media;
@@ -16,7 +18,6 @@ import com.android.tupple.robot.view.listvideos.ListVideosViewFactory;
 public class ListFilmsActivity extends BaseActivity {
     private ActivityLauncher activityLauncher;
     private MediaList mediaList;
-
     @Override
     protected int getLayoutContent() {
         return R.layout.activity_list_films;
@@ -46,4 +47,15 @@ public class ListFilmsActivity extends BaseActivity {
         mediaList.setMediaListPresenter(videoListPresenter);
         mediaList.init();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
 }

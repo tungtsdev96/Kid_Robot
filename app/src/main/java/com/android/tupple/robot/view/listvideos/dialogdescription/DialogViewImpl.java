@@ -3,6 +3,7 @@ package com.android.tupple.robot.view.listvideos.dialogdescription;
 import android.app.Activity;
 import android.app.Dialog;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;

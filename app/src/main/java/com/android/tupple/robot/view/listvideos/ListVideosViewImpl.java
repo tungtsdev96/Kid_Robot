@@ -3,6 +3,7 @@ package com.android.tupple.robot.view.listvideos;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +19,7 @@ import com.android.tupple.robot.view.listvideos.dialogdescription.showProgress;
 
 import java.util.List;
 
-public class ListVideosViewImpl implements showProgress, VideoListView<Media> {
+public class ListVideosViewImpl implements showProgress, VideoListView<Media>  {
     public static final String TAG = "ListVideosViewImpl";
     private Activity mActivity;
     private Bundle bundle;
@@ -62,8 +63,11 @@ public class ListVideosViewImpl implements showProgress, VideoListView<Media> {
     @Override
     public void showDialogDescription(Media media) {
         MyDialogDescription myDialogDescription = new MyDialogDescription(mActivity);
-        myDialogDescription.setActivity((Activity) mActivity);
+        myDialogDescription.setActivity(mActivity);
         myDialogDescription.setMedia(media);
+        myDialogDescription.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+        //WindowManagerUtils.setFullScreenMode(myDialogDescription);
         myDialogDescription.show();
     }
 
@@ -88,4 +92,6 @@ public class ListVideosViewImpl implements showProgress, VideoListView<Media> {
     public void showProgressbar(Media media) {
         recyclerViewVideoAdapter.setPositionForItemWhenStartDownload(media);
     }
+
+
 }

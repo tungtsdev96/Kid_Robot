@@ -1,13 +1,17 @@
 package com.android.tupple.robot.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.tupple.robot.KidRobotApplication;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.base.BaseActivity;
+import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.domain.entity.menumain.MenuMain;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -18,22 +22,22 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.util.Calendar;
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity   {
 
     private MenuMain mMenuMain;
     private ActivityLauncher mActivityLauncher;
-
     @Override
     protected int getLayoutContent() {
         return R.layout.activity_main;
     }
+
+
 
     @Override
     protected void onCreatedActivity(Bundle savedInstanceState) {
         checkPermission();
         initFirstBatch(savedInstanceState);
         //inject(savedInstanceState);
-
         mMenuMain.init();
         findViewById(R.id.topic).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,4 +191,6 @@ public class MainActivity extends BaseActivity {
         mMenuMain.stop();
         super.onDestroy();
     }
+
 }
+

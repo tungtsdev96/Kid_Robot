@@ -28,7 +28,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewVideoAdapter.ItemViewHolder>   {
+public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewVideoAdapter.ItemViewHolder> {
     Context mContext;
     List<Media> mMediaItems = new ArrayList<>();
     private ItemVideoClickedListener mOnItemVideClickedListener;
@@ -39,7 +39,6 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
     public RecyclerViewVideoAdapter(Context mContext) {
         this.mContext = mContext;
     }
-
 
 
     public void setPositionForItemWhenFinishDownload(String title) {
@@ -73,7 +72,6 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
     }
 
 
-
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -95,28 +93,31 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.bind(mMediaItems.get(position));
-        Log.d("testtest" , mMediaItems.get(position).getTitle());
+        Log.d("testtest", mMediaItems.get(position).getTitle() + " " + mMediaItems.get(position).isIs_local() + " ");
         //holder.progressDownload.setProgress(progress);
         if (positionItemWhenStartDownload == position) {
             updateLayoutItemWhenStartDownload(holder);
         } else {
             holder.progressDownload.setVisibility(View.GONE);
         }
-        if (positionItemWhenFinishDownload==position){
+        if (positionItemWhenFinishDownload == position) {
             updateLayoutItemWhenFinishDownload(holder);
         }
     }
-    private void updateLayoutItemWhenStartDownload(ItemViewHolder holder){
+
+    private void updateLayoutItemWhenStartDownload(ItemViewHolder holder) {
         holder.progressDownload.setVisibility(View.VISIBLE);
         holder.titleVideo.setVisibility(View.GONE);
         holder.progressDownload.setProgress(progress);
     }
-    private void updateLayoutItemWhenFinishDownload(ItemViewHolder holder){
+
+    private void updateLayoutItemWhenFinishDownload(ItemViewHolder holder) {
         holder.progressDownload.setVisibility(View.GONE);
         holder.imgIconDownload.setVisibility(View.GONE);
         holder.titleVideo.setVisibility(View.VISIBLE);
         holder.relativeIcon.setBackgroundColor(mContext.getResources().getColor(R.color.text_btn_answer_enable));
     }
+
     @Override
     public int getItemCount() {
         return mMediaItems.size();

@@ -1,10 +1,12 @@
 package com.android.tupple.robot.common.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.tupple.robot.KidRobotApplication;
 import com.android.tupple.robot.utils.WindowManagerUtils;
 
 /**
@@ -12,9 +14,10 @@ import com.android.tupple.robot.utils.WindowManagerUtils;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
-
+    private KidRobotApplication kidRobotApplication;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        kidRobotApplication = (KidRobotApplication)this.getApplicationContext();
         WindowManagerUtils.setFullScreenMode(this);
         super.onCreate(savedInstanceState);
         setContentView(getLayoutContent());
@@ -37,5 +40,22 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @Override
+    protected void onResume() {
+        kidRobotApplication.setCurrentActivity(this);
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        clearReferences();
+        super.onDestroy();
+    }
+    private void clearReferences(){
+        Activity currActivity = kidRobotApplication.getCurrentActivity();
+        if (this.equals(currActivity))
+            kidRobotApplication.setCurrentActivity(null);
     }
 }

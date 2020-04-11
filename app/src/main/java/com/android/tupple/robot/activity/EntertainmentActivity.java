@@ -1,43 +1,31 @@
 package com.android.tupple.robot.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RadioButton;
 
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 
+import com.android.tupple.robot.KidRobotApplication;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.base.BaseActivity;
 import com.android.tupple.robot.data.entity.Media;
-import com.android.tupple.robot.data.model.mediaobject.AudioListModelFactory;
-import com.android.tupple.robot.data.model.mediaobject.EntertainmentModelFactory;
-import com.android.tupple.robot.data.model.mediaobject.VideoListModelFactory;
-import com.android.tupple.robot.data.model.mediaobject.VideoYoutubeListModelFactory;
 import com.android.tupple.robot.domain.entity.entertainment.Entertainment;
-import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentModel;
-import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentPresenterImpl;
-import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentView;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListModel;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListPresenterImpl;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListViewWrapper;
-import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListModel;
-import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListPresenterImpl;
-import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListViewWrapper;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class EntertainmentActivity extends BaseActivity {
+public class EntertainmentActivity extends BaseActivity   {
     private ActivityLauncher activityLauncher;
     private Entertainment entertainment;
     private CardView mBtnAudio, mBtnVideo, mBtnVideoYoutube;
     private FloatingActionButton mBtnClose;
-
+    private KidRobotApplication kidRobotApplication;
     @Override
     protected int getLayoutContent() {
         return R.layout.activity_entertainment;
     }
+
 
     @Override
     protected void onCreatedActivity(Bundle savedInstanceState) {
@@ -97,6 +85,16 @@ public class EntertainmentActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
 }

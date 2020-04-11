@@ -1,5 +1,6 @@
 package com.android.tupple.robot;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -43,9 +44,21 @@ public class KidRobotApplication extends MultiDexApplication {
 
     private static KidRobotApplication sInstance;
 
+    private Activity mCurrentActivity = null;
+
     public KidRobotApplication() {
         super();
         sInstance = this;
+    }
+
+
+
+    public Activity getCurrentActivity() {
+        return mCurrentActivity;
+    }
+
+    public void setCurrentActivity(Activity mCurrentActivity) {
+        this.mCurrentActivity = mCurrentActivity;
     }
 
     @Override
@@ -65,7 +78,7 @@ public class KidRobotApplication extends MultiDexApplication {
         initLesson();
         initVocabLesson();
 
-         // test data for topic
+        // test data for topic
         initTopic();
         initVocab();
 
@@ -88,7 +101,7 @@ public class KidRobotApplication extends MultiDexApplication {
         Context mContext = getApplicationContext();
         try {
             ArrayList<LessonData> listLesson = readJsonStreamLesson(mContext.getResources().openRawResource(R.raw.book_1));
-            for (LessonData lesson: listLesson) {
+            for (LessonData lesson : listLesson) {
                 lesson.setTotalVocab(lesson.getTotalVocab() - 2);
             }
             KidRobotDatabase.getInstance(mContext).lessonDao()
@@ -213,6 +226,7 @@ public class KidRobotApplication extends MultiDexApplication {
             }
         });
     }
+
     private void initMedia() {
 
         List<Media> media = new ArrayList<>();
