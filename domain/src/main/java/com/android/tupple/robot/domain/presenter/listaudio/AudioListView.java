@@ -25,6 +25,9 @@ public interface AudioListView<Media> {
 
     void stopPlayer();
 
+    int getPositionByMedia(Media media);
+
+
     CleanObservable<Media> getItemAudioClickedObservable();
 
     CleanObservable getNextButtonClickedObservable();

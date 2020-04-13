@@ -132,6 +132,16 @@ public class ListAudioViewImpl implements AudioListView<Media> {
         Uri audioUri = Uri.parse(mCurrentAudio.getMedia_url());
         Log.d(TAG, mCurrentAudio.getMedia_url());
         mMediaPlayer = MediaPlayer.create(mActivity, audioUri);
+        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                //mp.stop();
+                equalizer.stopBars();
+                btnPlayStop.setImageResource(R.drawable.playbutton);
+                btnPlayStop.setEnabled(false);
+            }
+        });
+
         mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
@@ -188,6 +198,7 @@ public class ListAudioViewImpl implements AudioListView<Media> {
 
     @Override
     public void playAudio() {
+        Log.d("ahjihi" , mMediaPlayer.isPlaying()+"");
         if (mMediaPlayer != null && !mMediaPlayer.isPlaying()) {
             mMediaPlayer.start();
             equalizer.animateBars();
@@ -227,6 +238,13 @@ public class ListAudioViewImpl implements AudioListView<Media> {
         if (mMediaPlayer != null)
             mMediaPlayer.stop();
     }
+
+    @Override
+    public int getPositionByMedia(Media media) {
+        return recyclerViewAudioAdapter.getPositionByMedia(media);
+    }
+
+
 
     @Override
     public CleanObservable<Media> getItemAudioClickedObservable() {

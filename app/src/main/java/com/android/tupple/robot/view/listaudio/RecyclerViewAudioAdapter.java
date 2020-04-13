@@ -97,4 +97,7 @@ public class RecyclerViewAudioAdapter extends RecyclerView.Adapter<RecyclerViewA
         }
         return mMediaItems.get(pos);
     }
+    public int getPositionByMedia(Media media){
+        return mMediaItems.indexOf(media);
+    }
 }

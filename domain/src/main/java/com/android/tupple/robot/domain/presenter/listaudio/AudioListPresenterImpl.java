@@ -1,6 +1,7 @@
 package com.android.tupple.robot.domain.presenter.listaudio;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.tupple.robot.domain.entity.medialist.MediaListPresenter;
 import com.android.tupple.robot.domain.presenter.CloseButtonHandler;
@@ -16,15 +17,17 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
     private CloseButtonHandler mOnCloseButtonHandler;
     private boolean mIsLoadData = false;
     private Media mCurrentAudio;
-    private int mCurrentPosition;
+    private int mCurrentPosition = -1;
     private boolean isPlay = false;
     private List<Media> mListAudio = new ArrayList<>();
 
     public AudioListPresenterImpl() {
     }
+
     public void setOnCloseButtonHandler(CloseButtonHandler onButtonCloseHandler) {
         this.mOnCloseButtonHandler = onButtonCloseHandler;
     }
+
     public void setmAudioListView(AudioListView<Media> mAudioListView) {
         this.mAudioListView = mAudioListView;
     }
@@ -56,7 +59,6 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
     }
 
 
-
     private void initObserable() {
         mAudioListView.getItemAudioClickedObservable().subscribe(this::handleItemAudioClicked);
         mAudioListView.getNextButtonClickedObservable().subscribe(this::handleNextButton);
@@ -64,12 +66,16 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
         mAudioListView.getStopPlayButtonClickedObservable().subscribe(this::handleStopPlayButton);
         mAudioListView.getCloseButtonClickedObservable().subscribe(this::handleCloseButton);
     }
+
     private void handleCloseButton() {
         if (mOnCloseButtonHandler != null) {
             mOnCloseButtonHandler.onClose();
         }
     }
+
     private void handleItemAudioClicked(Media media) {
+
+        mCurrentPosition = mAudioListView.getPositionByMedia(media);
         mAudioListView.setCurrentAudio(media);
         Log.d("AudioListPresenterImpl", "prepare");
         mAudioListView.preparePlayer();
@@ -103,15 +109,24 @@ public class AudioListPresenterImpl<Media> implements MediaListPresenter {
     }
 
     private void handleStopPlayButton() {
-        mAudioListView.changeIconStopPlay(isPlay);
-        if (isPlay) {
-            mAudioListView.pauseAudio();
-            isPlay = false;
-        } else {
-            mAudioListView.playAudio();
+        if (mCurrentPosition == -1) {
+            mCurrentPosition = 0;
+            mAudioListView.setCurrentAudio(mListAudio.get(mCurrentPosition));
+            mAudioListView.preparePlayer();
             isPlay = true;
-        }
+        } else {
+            mAudioListView.changeIconStopPlay(isPlay);
 
+            Log.d("ahihi" , isPlay+" ");
+            if (isPlay) {
+                mAudioListView.pauseAudio();
+                isPlay = false;
+            } else {
+
+                mAudioListView.playAudio();
+                isPlay = true;
+            }
+        }
     }
 
     @Override
