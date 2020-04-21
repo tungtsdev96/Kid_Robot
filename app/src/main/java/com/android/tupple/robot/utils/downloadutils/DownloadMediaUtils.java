@@ -23,6 +23,7 @@ import com.android.tupple.robot.KidRobotApplication;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.data.model.mediaobject.MediaModelImpl;
+import com.android.tupple.robot.utils.SharedPrefs;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -40,6 +41,7 @@ public class DownloadMediaUtils {
     private Media media;
     private long downloadId;
     KidRobotApplication kidRobotApplication;
+
     public DownloadMediaUtils(Context context, Activity mActivity, Media media) {
         this.mContext = context;
         this.mActivity = mActivity;
@@ -111,6 +113,7 @@ public class DownloadMediaUtils {
 
                 DownloadManager manager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
                 downloadId = manager.enqueue(request);
+                SharedPrefs.getInstance().put(media.getId() + "", downloadId);
                 boolean downloading = true;
                 while (downloading) {
                     DownloadManager.Query q = new DownloadManager.Query();
@@ -162,9 +165,9 @@ public class DownloadMediaUtils {
             if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
                 long id = intent.getLongExtra(
                         DownloadManager.EXTRA_DOWNLOAD_ID, 0);
-               // Log.d("testtest", downloadId + " " + id);
+                // Log.d("testtest", downloadId + " " + id);
                 if (downloadId == id) {
-                     kidRobotApplication = (KidRobotApplication) mContext;
+                    kidRobotApplication = (KidRobotApplication) mContext;
                     new DialogUtils(kidRobotApplication.getCurrentActivity(), "Thông báo", "Tải xuống " + media.getTitle() + " thành công", R.drawable.ic_success).showDialog();
                     File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), media.getTitle());
                     Media newMedia = new Media(media.getId(), media.getTitle(), media.getMedia_type(), file.getAbsolutePath(), media.getDescription(), true, media.getThumbnail_video());

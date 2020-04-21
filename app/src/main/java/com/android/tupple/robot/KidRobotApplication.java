@@ -50,7 +50,9 @@ public class KidRobotApplication extends MultiDexApplication {
         super();
         sInstance = this;
     }
-
+    public static KidRobotApplication getInstance() {
+        return sInstance;
+    }
 
 
     public Activity getCurrentActivity() {
@@ -70,6 +72,7 @@ public class KidRobotApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        sInstance = this;
         initCLogger();
         initTriggerService();
 
@@ -83,7 +86,7 @@ public class KidRobotApplication extends MultiDexApplication {
         initVocab();
 
         ///
-        initMedia();
+        //initMedia();
     }
 
     private void initBook() {

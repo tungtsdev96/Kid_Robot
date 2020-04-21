@@ -59,7 +59,6 @@ public class EntertainmentActivity extends BaseActivity   {
 //        entertainment.init();
         mBtnAudio = findViewById(R.id.btn_tab_audio);
         mBtnVideo = findViewById(R.id.btn_tab_video);
-        mBtnVideoYoutube = findViewById(R.id.btn_tab_video_youtube);
         mBtnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,12 +69,6 @@ public class EntertainmentActivity extends BaseActivity   {
             @Override
             public void onClick(View v) {
                 activityLauncher.launchListAudioActivity();
-            }
-        });
-        mBtnVideoYoutube.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activityLauncher.launchListYoutubeVideoActivity();
             }
         });
         mBtnClose = findViewById(R.id.btn_close);

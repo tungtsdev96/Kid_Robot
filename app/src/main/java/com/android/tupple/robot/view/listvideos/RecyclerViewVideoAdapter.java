@@ -20,6 +20,7 @@ import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.data.file.FileUtils;
 import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.RxUtils;
+import com.android.tupple.robot.utils.SharedPrefs;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
@@ -181,6 +182,7 @@ public class RecyclerViewVideoAdapter extends RecyclerView.Adapter<RecyclerViewV
             }
             imgIconDownload.setVisibility(media.isLocal() ? View.GONE : View.VISIBLE);
         }
+
 
     }
 

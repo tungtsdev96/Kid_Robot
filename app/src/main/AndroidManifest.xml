@@ -17,9 +17,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ListYoutubeVideoActivity"
-            android:screenOrientation="sensorLandscape"
-            ></activity>
         <activity android:name=".activity.ListFilmsActivity"
             android:screenOrientation="sensorLandscape"
             />

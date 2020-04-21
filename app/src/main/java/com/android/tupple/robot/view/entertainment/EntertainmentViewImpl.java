@@ -33,7 +33,6 @@ public class EntertainmentViewImpl implements EntertainmentView {
     public void initLayout() {
         mBtnAudio = mActivity.findViewById(R.id.btn_tab_audio);
         mBtnVideo = mActivity.findViewById(R.id.btn_tab_video);
-        mBtnVideoYoutube = mActivity.findViewById(R.id.btn_tab_video_youtube);
         mBtnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,10 +78,7 @@ public class EntertainmentViewImpl implements EntertainmentView {
         return CleanObservable.create(cleanObserver -> mButtonAudioClickedObserver = cleanObserver);
     }
 
-    @Override
-    public CleanObservable getButtonVideoYoutubeClickedObservable() {
-        return CleanObservable.create(cleanObserver -> mButtonVideoYoutubeClickedObserver = cleanObserver);
-    }
+
 
     @Override
     public CleanObservable getButtonCloseClickedObservable() {

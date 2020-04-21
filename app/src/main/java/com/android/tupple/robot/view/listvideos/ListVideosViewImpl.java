@@ -83,8 +83,6 @@ public class ListVideosViewImpl implements showProgress, VideoListView<Media>  {
 
 
 
-    private void saveUrlToDatabase() {
-    }
 
 
 

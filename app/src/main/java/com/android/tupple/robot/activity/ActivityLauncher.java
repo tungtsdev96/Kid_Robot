@@ -81,22 +81,11 @@ public class ActivityLauncher {
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityUtils.startActivty(mActivity, intent);
     }
-    public void launchListYoutubeVideoActivity() {
-        Intent intent = new Intent(mActivity, ListYoutubeVideoActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        ActivityUtils.startActivty(mActivity, intent);
-    }
+
     public void launchListAudioActivity() {
         Intent intent = new Intent(mActivity, ListAudioActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityUtils.startActivty(mActivity, intent);
     }
 
-
-    public void launchVideoYoutubePlayerActivity(Media media){
-        Intent intent = new Intent(mActivity, YoutubeVideoPlayerActivity.class);
-        intent.putExtra(EntertainmentConstant.VIDEO_INTENT, media.getMedia_url());
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        ActivityUtils.startActivty(mActivity, intent);
-    }
 }

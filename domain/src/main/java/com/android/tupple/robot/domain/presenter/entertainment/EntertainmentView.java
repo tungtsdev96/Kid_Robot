@@ -9,7 +9,5 @@ public interface EntertainmentView {
 
     CleanObservable getButtonAudioClickedObservable();
 
-    CleanObservable getButtonVideoYoutubeClickedObservable();
-
     CleanObservable getButtonCloseClickedObservable();
 }

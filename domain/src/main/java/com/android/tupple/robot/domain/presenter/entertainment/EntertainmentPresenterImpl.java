@@ -11,7 +11,6 @@ public class EntertainmentPresenterImpl implements EntertainmentPresenter {
     private EntertainmentModel mEntertainmentModel;
     private PresenterObserver mButtonVideoClickedObserver;
     private PresenterObserver mButtonAudioClickedObserver;
-    private PresenterObserver mButtonVideoYoutubeClickedObserver;
     private CloseButtonHandler mOnCloseButtonHandler;
     private boolean mIsLoadData = false;
 
@@ -36,9 +35,7 @@ public class EntertainmentPresenterImpl implements EntertainmentPresenter {
         mButtonAudioClickedObserver.onComplete("string");
     }
 
-    private void handleButtonVideoYoutubeClicked() {
-        mButtonVideoYoutubeClickedObserver.onComplete("string");
-    }
+
 
     @Override
     public void init() {
@@ -63,7 +60,7 @@ public class EntertainmentPresenterImpl implements EntertainmentPresenter {
                 mOnCloseButtonHandler.onClose();
             }
         });
-        mEntertainmentView.getButtonVideoYoutubeClickedObservable().subscribe(this::handleButtonVideoYoutubeClicked);
+
     }
 
     public void setmButtonVideoClickedObserver(PresenterObserver mButtonVideoClickedObserver) {
@@ -74,9 +71,6 @@ public class EntertainmentPresenterImpl implements EntertainmentPresenter {
         this.mButtonAudioClickedObserver = mButtonAudioClickedObserver;
     }
 
-    public void setmButtonVideoYoutubeClickedObserver(PresenterObserver mButtonVideoYoutubeClickedObserver) {
-        this.mButtonVideoYoutubeClickedObserver = mButtonVideoYoutubeClickedObserver;
-    }
 
     @Override
     public void start() {

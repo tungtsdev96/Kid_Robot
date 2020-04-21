@@ -8,7 +8,6 @@ import com.android.tupple.robot.data.dao.MediaDao;
 import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.domain.presenter.listaudio.AudioListModel;
 import com.android.tupple.robot.domain.presenter.videolist.VideoListModel;
-import com.android.tupple.robot.domain.presenter.videoyoutubelist.VideoYoutubeListModel;
 import com.android.tupple.robot.utils.RxUtils;
 
 import java.util.List;
@@ -19,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class
 
-MediaModelImpl implements VideoListModel<Media>, AudioListModel<Media>, VideoYoutubeListModel<Media> {
+MediaModelImpl implements VideoListModel<Media>, AudioListModel<Media>{
     private Context mContext;
     private MediaDao mMediaDao;
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
@@ -78,12 +77,4 @@ MediaModelImpl implements VideoListModel<Media>, AudioListModel<Media>, VideoYou
 
     }
 
-    @Override
-    public CleanObservable<List<Media>> getAllVideoYoutube() {
-        return CleanObservable.create(
-                cleanObserver -> {
-                    cleanObserver.onNext(Media.fakeVideoYoutubeData());
-                }
-        );
-    }
 }
