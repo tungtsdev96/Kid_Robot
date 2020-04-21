@@ -10,4 +10,5 @@ public interface AnswerItem {
 
     boolean isAnswerTrue();
 
+    int getVocabId();
 }

@@ -251,32 +251,32 @@ public class KidRobotApplication extends MultiDexApplication {
                 "Description for media object #1",
                 true));
         media.add(new Media(5, "Kimetsu No Yaiba 1", "video",
-                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 1.mp4",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/5.mp4",
                 "Description for media object #1",
                 true));
         media.add(new Media(6, "Kimetsu No Yaiba 2", "video",
-                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 2.mp4",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/6.mp4",
                 "Description for media object #2",
                 true));
         media.add(new Media(7, "Kimetsu No Yaiba 3", "video",
-                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 3.mp4",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/7.mp4",
                 "Description for media object #3",
                 true));
         media.add(new Media(8, "Kimetsu No Yaiba 4", "video",
-                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/Lưỡi Gươm Diệt Quỷ - Kimetsu No Yaiba 4 .mp4",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/8.mp4",
                 "Description for media object #4",
                 true));
 
-        media.add(new Media(9, "Kimetsu No Yaiba 5.jpg", "video",
-                "https://www.androidtutorialpoint.com/wp-content/uploads/2016/09/Beauty.jpg",
-                "Description for media object #6",
-                false,
+        media.add(new Media(9, "Kimetsu No Yaiba 5", "video",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/9.mp4",
+                "Description for media object #5",
+                true,
                 "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
         ));
-        media.add(new Media(10, "Kimetsu No Yaiba 6.jpg", "video",
-                "http://www.appsapk.com/downloading/latest/WeChat-6.5.7.apk",
+        media.add(new Media(10, "Kimetsu No Yaiba 6", "video",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/10.mp4",
                 "Description for media object #6",
-                false,
+                true,
                 "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
         ));
         KidRobotDatabase.getInstance(getApplicationContext())

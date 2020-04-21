@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class QAResponse {
 
-    @SerializedName("link_audio")
+    @SerializedName("audio_link")
     private String linkAudio;
 
     @SerializedName("text")

@@ -28,6 +28,7 @@ import com.android.tupple.robot.utils.GlideUtils;
 import com.android.tupple.robot.utils.SingleClickUtil;
 import com.android.tupple.robot.utils.constant.TestVocabConstant;
 import com.android.tupple.robot.view.testvocab.adapter.AnswerAdapter;
+import com.android.tupple.robot.view.testvocab.adapter.item.AnswerItem;
 
 import java.util.List;
 

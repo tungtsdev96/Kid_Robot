@@ -30,6 +30,11 @@ public class AnswerTextAndImageItem implements AnswerItem {
         return isAnswer;
     }
 
+    @Override
+    public int getVocabId() {
+        return vocabulary.getVocabId();
+    }
+
     public Vocabulary getVocabulary() {
         return this.vocabulary;
     }
