@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Observable;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -221,7 +222,7 @@ public class TriggerService extends Service {
                 mRecordingBufferLock.unlock();
             }
 
-//            cacheInputBuffer(inputBuffer);
+            cacheInputBuffer(inputBuffer);
 
             maxInput = -1;
             for (Short aShort : inputBuffer) {
@@ -246,13 +247,7 @@ public class TriggerService extends Service {
                 inferenceInterface.run(outputScoresNames);
                 inferenceInterface.fetch(OUTPUT_SCORES_NAME, outputScores);
 
-                if (BuildConfig.DEBUG) {
-                    Log.d(TAG, "recognize: " + outputScores[0] + "  " + outputScores[1]
-                            + " " + outputScores[2]
-                            + " " + outputScores[3]
-                            + " " + outputScores[4]
-                            + " " + outputScores[5]);
-                }
+                Log.d(TAG, "recognize: " + outputScores[0] + "  " + outputScores[1]);
 
                 if (outputScores[1] > 0.7f && numberLoadIgnore == 0){
                     sendRecognitionEvent();
@@ -270,7 +265,7 @@ public class TriggerService extends Service {
 
     private void cacheInputBuffer(short[] inputBuffer) {
         try {
-            File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/data/input");
+            File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/data/trigger");
             if (!f.exists()) {
                 boolean x = f.mkdir();
             }

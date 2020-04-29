@@ -72,6 +72,7 @@ public class SmartQAActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mSmartQA.finish();
         TriggerHelper.startTrigger(this);
     }
 }

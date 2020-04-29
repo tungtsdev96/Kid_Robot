@@ -1,4 +1,4 @@
-package com.android.tupple.device;
+package com.android.tupple.robot.wavelineview;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.android.tupple.device.test", appContext.getPackageName());
+        assertEquals("com.android.tupple.robot.wavelineview.test", appContext.getPackageName());
     }
 }

@@ -70,19 +70,24 @@ public class TextQAAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void addItem(int type, String textContent) {
         if (type == 0) {
-            int lastPosition = mItems.isEmpty() ? -1 : mItems.size() - 1;
-            if (lastPosition >= 0 && mItems.get(lastPosition) instanceof TypingItem) {
-                mItems.remove(lastPosition);
-                notifyItemRemoved(lastPosition);
-            }
+            removeTyingItem();
             mItems.add(new TextQARobot(textContent));
         } else if (type == 1) {
+            removeTyingItem();
             mItems.add(new TextQAUser(textContent));
         } else {
             mItems.add(new TypingItem(textContent));
         }
         notifyItemInserted(mItems.size());
         mRecyclerView.smoothScrollToPosition(mItems.size() - 1);
+    }
+
+    private void removeTyingItem() {
+        int lastPosition = mItems.isEmpty() ? -1 : mItems.size() - 1;
+        if (lastPosition >= 0 && mItems.get(lastPosition) instanceof TypingItem) {
+            mItems.remove(lastPosition);
+            notifyItemRemoved(lastPosition);
+        }
     }
 
     public void clear() {

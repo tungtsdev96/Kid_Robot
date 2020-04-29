@@ -1,4 +1,4 @@
-package com.android.tupple.device;
+package com.android.tupple.robot.wavelineview;
 
 import org.junit.Test;
 

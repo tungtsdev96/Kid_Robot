@@ -72,21 +72,20 @@ public class KidRobotApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        sInstance = this;
         initCLogger();
         initTriggerService();
 
         // test data for school book
-        initBook();
-        initLesson();
-        initVocabLesson();
-
-        // test data for topic
-        initTopic();
-        initVocab();
-
-        ///
-        //initMedia();
+//        initBook();
+//        initLesson();
+//        initVocabLesson();
+//
+//        // test data for topic
+//        initTopic();
+//        initVocab();
+//
+//        ///
+//        initMedia();
     }
 
     private void initBook() {
@@ -196,16 +195,16 @@ public class KidRobotApplication extends MultiDexApplication {
     }
 
     private void initTriggerService() {
-//        if (Utils.isMyServiceRunning(getApplicationContext(), TriggerService.class)){
-//            return;
-//        }
-//
-//        try {
-//            Intent intent = new Intent(getApplicationContext(), TriggerService.class);
-//            startService(intent);
-//        } catch (Exception e) {
-//            Log.e(TriggerService.TAG, "Can not start service");
-//        }
+        if (Utils.isMyServiceRunning(getApplicationContext(), TriggerService.class)){
+            return;
+        }
+
+        try {
+            Intent intent = new Intent(getApplicationContext(), TriggerService.class);
+            startService(intent);
+        } catch (Exception e) {
+            Log.e(TriggerService.TAG, "Can not start service");
+        }
     }
 
     private void initCLogger() {
