@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Created by tungts on 2020-02-17.
@@ -82,6 +83,29 @@ public class FileUtils {
             return f.delete();
         }
         return true;
+    }
+
+    public static void convertBytesToFile(File f, byte[] bytes) {
+        try {
+
+            // Initialize a pointer
+            // in file using OutputStream
+            OutputStream
+                    os
+                    = new FileOutputStream(f);
+
+            // Starts writing the bytes in it
+            os.write(bytes);
+            System.out.println("Successfully"
+                    + " byte inserted");
+
+            // Close the file
+            os.close();
+        }
+
+        catch (Exception e) {
+            System.out.println("Exception: " + e);
+        }
     }
 
 }

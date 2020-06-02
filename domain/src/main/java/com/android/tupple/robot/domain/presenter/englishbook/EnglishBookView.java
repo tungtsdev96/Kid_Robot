@@ -20,4 +20,6 @@ public interface EnglishBookView<Book> {
 
     CleanObservable<Book> getOnBtnDownloadClickedObservable();
 
+    CleanObservable getCloseButtonClickedObservable();
+
 }

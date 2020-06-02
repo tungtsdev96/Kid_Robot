@@ -12,9 +12,11 @@ public class AnswerTextItem implements AnswerChoose {
     private String text;
     private boolean isAnswer;
     private boolean isChoose;
+    private int vocabId;
 
     private AnswerTextItem(Vocabulary vocabulary) {
         this.text = vocabulary.getVocabEn();
+        this.vocabId = vocabulary.getVocabId();
     }
 
     public static AnswerTextItem create(Vocabulary vocabulary) {
@@ -33,6 +35,11 @@ public class AnswerTextItem implements AnswerChoose {
     @Override
     public boolean isAnswerTrue() {
         return isAnswer;
+    }
+
+    @Override
+    public int getVocabId() {
+        return vocabId;
     }
 
     @Override

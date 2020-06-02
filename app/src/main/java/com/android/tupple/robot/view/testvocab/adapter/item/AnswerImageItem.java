@@ -12,9 +12,11 @@ public class AnswerImageItem implements AnswerChoose {
     private String image;
     private boolean isAnswer;
     private boolean isChoose = false;
+    private int vocabId;
 
     private AnswerImageItem(Vocabulary vocabulary) {
         this.image = vocabulary.getImageUrl();
+        this.vocabId = vocabulary.getVocabId();
     }
 
     public static AnswerImageItem create(Vocabulary vocabulary) {
@@ -29,6 +31,11 @@ public class AnswerImageItem implements AnswerChoose {
     @Override
     public boolean isAnswerTrue() {
         return isAnswer;
+    }
+
+    @Override
+    public int getVocabId() {
+        return vocabId;
     }
 
     @Override

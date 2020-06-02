@@ -50,10 +50,6 @@ public class EnglishTopicViewImpl implements EnglishTopicView<Topic> {
         mTopicAdapter.setListData(listTopic);
     }
 
-    @Override
-    public void closeActivity() {
-        mActivity.finish();
-    }
 
     @Override
     public CleanObservable<Topic> getItemTopicClickedObservable() {

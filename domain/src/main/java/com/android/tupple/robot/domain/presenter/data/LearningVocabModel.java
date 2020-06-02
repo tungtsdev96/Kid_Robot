@@ -15,6 +15,7 @@ public interface LearningVocabModel<Vocabulary> extends IModel {
 
     CleanObservable<List<Vocabulary>> getListVocabLearningByLessonId(int lessonId);
 
-    List<Vocabulary> getListVocabLearning();
+    CleanObservable<Boolean> updateLearnLessonDone();
 
+    List<Vocabulary> getListVocabLearning();
 }

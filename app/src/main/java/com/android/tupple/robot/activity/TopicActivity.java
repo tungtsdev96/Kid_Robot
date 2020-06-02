@@ -1,7 +1,5 @@
 package com.android.tupple.robot.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -22,7 +20,7 @@ public class TopicActivity extends BaseActivity {
 
     @Override
     protected int getLayoutContent() {
-        return R.layout.fragment_english_topic;
+        return R.layout.activity_english_topic;
     }
 
     @Override
@@ -42,6 +40,8 @@ public class TopicActivity extends BaseActivity {
         EnglishTopicView<Topic> englishTopicView = EnglishTopicViewFactory.newEnglishTopicView(this,bundle);
         englishTopicPresenter.setEnglishBookModel(englishTopicModel);
         englishTopicPresenter.setmEnglishTopicView(englishTopicView);
+
+        englishTopicPresenter.setOnCloseButtonHandler(this::finish);
         // innit Observerable
         englishTopicPresenter.setOnItemBookClickedObserver(activityLauncher::launchLearningVocabActivity);
         englishTopic.setEnglishTopicPresenter(englishTopicPresenter);

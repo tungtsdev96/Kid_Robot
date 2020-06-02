@@ -1,5 +1,6 @@
 package com.android.tupple.robot;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import androidx.multidex.MultiDexApplication;
 
 import com.android.tupple.robot.data.KidRobotDatabase;
 import com.android.tupple.robot.data.entity.LessonData;
+import com.android.tupple.robot.data.entity.Media;
 import com.android.tupple.robot.data.entity.SchoolBook;
 import com.android.tupple.robot.data.entity.Topic;
 import com.android.tupple.robot.data.entity.Vocabulary;
@@ -28,6 +30,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -41,9 +44,23 @@ public class KidRobotApplication extends MultiDexApplication {
 
     private static KidRobotApplication sInstance;
 
+    private Activity mCurrentActivity = null;
+
     public KidRobotApplication() {
         super();
         sInstance = this;
+    }
+    public static KidRobotApplication getInstance() {
+        return sInstance;
+    }
+
+
+    public Activity getCurrentActivity() {
+        return mCurrentActivity;
+    }
+
+    public void setCurrentActivity(Activity mCurrentActivity) {
+        this.mCurrentActivity = mCurrentActivity;
     }
 
     @Override
@@ -63,9 +80,12 @@ public class KidRobotApplication extends MultiDexApplication {
 //        initLesson();
 //        initVocabLesson();
 //
-        // test data for topic
-        initTopic();
-        initVocab();
+//        // test data for topic
+//        initTopic();
+//        initVocab();
+//
+//        ///
+//        initMedia();
     }
 
     private void initBook() {
@@ -83,7 +103,7 @@ public class KidRobotApplication extends MultiDexApplication {
         Context mContext = getApplicationContext();
         try {
             ArrayList<LessonData> listLesson = readJsonStreamLesson(mContext.getResources().openRawResource(R.raw.book_1));
-            for (LessonData lesson: listLesson) {
+            for (LessonData lesson : listLesson) {
                 lesson.setTotalVocab(lesson.getTotalVocab() - 2);
             }
             KidRobotDatabase.getInstance(mContext).lessonDao()
@@ -175,16 +195,16 @@ public class KidRobotApplication extends MultiDexApplication {
     }
 
     private void initTriggerService() {
-//        if (Utils.isMyServiceRunning(getApplicationContext(), TriggerService.class)){
-//            return;
-//        }
-//
-//        try {
-//            Intent intent = new Intent(getApplicationContext(), TriggerService.class);
-//            startService(intent);
-//        } catch (Exception e) {
-//            Log.e(TriggerService.TAG, "Can not start service");
-//        }
+        if (Utils.isMyServiceRunning(getApplicationContext(), TriggerService.class)){
+            return;
+        }
+
+        try {
+            Intent intent = new Intent(getApplicationContext(), TriggerService.class);
+            startService(intent);
+        } catch (Exception e) {
+            Log.e(TriggerService.TAG, "Can not start service");
+        }
     }
 
     private void initCLogger() {
@@ -207,5 +227,59 @@ public class KidRobotApplication extends MultiDexApplication {
                 Log.e(tag, text);
             }
         });
+    }
+
+    private void initMedia() {
+
+        List<Media> media = new ArrayList<>();
+
+        media.add(new Media(1, "Apologize", "audio",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Apologize.mp3",
+                "Description for media object #1",
+                true));
+        media.add(new Media(2, "Chi Can Em Hanh Phuc - Ho Quang Hieu", "audio",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Chi Can Em Hanh Phuc - Ho Quang Hieu.mp3",
+                "Description for media object #1",
+                true));
+        media.add(new Media(3, "Chuc-Em-Ngu-Ngon-Ngo-Kien-Huy-Thanh-Thao", "audio",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Chuc-Em-Ngu-Ngon-Ngo-Kien-Huy-Thanh-Thao.mp3",
+                "Description for media object #1",
+                true));
+        media.add(new Media(4, "Cam On Nguoi Da Roi Xa Toi", "audio",
+                "/storage/emulated/0/DataMediaKidRobot/Audio/Cam On Nguoi Da Roi Xa Toi - Pham Hong Phuoc.mp3",
+                "Description for media object #1",
+                true));
+        media.add(new Media(5, "Kimetsu No Yaiba 1", "video",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/5.mp4",
+                "Description for media object #1",
+                true));
+        media.add(new Media(6, "Kimetsu No Yaiba 2", "video",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/6.mp4",
+                "Description for media object #2",
+                true));
+        media.add(new Media(7, "Kimetsu No Yaiba 3", "video",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/7.mp4",
+                "Description for media object #3",
+                true));
+        media.add(new Media(8, "Kimetsu No Yaiba 4", "video",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/8.mp4",
+                "Description for media object #4",
+                true));
+
+        media.add(new Media(9, "Kimetsu No Yaiba 5", "video",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/9.mp4",
+                "Description for media object #5",
+                true,
+                "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+        ));
+        media.add(new Media(10, "Kimetsu No Yaiba 6", "video",
+                "/storage/emulated/0/DataMediaKidRobot/KimetsuNoYaiba/10.mp4",
+                "Description for media object #6",
+                true,
+                "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+        ));
+        KidRobotDatabase.getInstance(getApplicationContext())
+                .mediaDao().insert(media).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 }

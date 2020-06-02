@@ -1,8 +1,9 @@
 package com.android.tupple.robot.view.smartqa;
 
 import android.app.Activity;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,14 +14,24 @@ import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.music.MultiPlayer;
 import com.android.tupple.robot.data.remote.questionanswer.QAResponse;
 import com.android.tupple.robot.domain.presenter.smartqa.SmartQAView;
+import com.android.tupple.robot.utils.RxUtils;
 import com.android.tupple.robot.utils.SingleClickUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by tungts on 3/22/20.
  */
 
-public class SmartQAViewImpl implements SmartQAView<QAResponse>, RecognitionPopupView.OnRecognitionPopupListener {
+public class SmartQAViewImpl implements SmartQAView<QAResponse>, RecognitionPopupView.OnRecognitionPopupListener, RecordingPopupView.OnRecordingPopupListener {
 
     private Activity mActivity;
     private MultiPlayer mMultiPlayer;
@@ -32,6 +43,8 @@ public class SmartQAViewImpl implements SmartQAView<QAResponse>, RecognitionPopu
     private CleanObserver mBtnCloseButtonClicked;
     private CleanObserver mBtnAskRobotButtonClicked;
     private CleanObserver<String> mResultSpeedToTextObserver;
+//    private CleanObserver<List<short[]>> mResultBufferAudioObserver;
+    private CleanObserver<String> mResultBufferAudioObserver;
 
     public SmartQAViewImpl(Activity activity) {
         this.mActivity = activity;
@@ -63,11 +76,17 @@ public class SmartQAViewImpl implements SmartQAView<QAResponse>, RecognitionPopu
 
     @Override
     public void showPopUpSpeedToText() {
-        RecognitionPopupView.getInstance(mActivity.hashCode())
+//        RecognitionPopupView.getInstance(mActivity.hashCode())
+//                .init(mActivity.getResources())
+//                .setParentView(mActivity.findViewById(R.id.bubble_answer_view))
+//                .setOnShowCompleteListener(this)
+//                .setLanguage("VN")
+//                .show();
+
+        RecordingPopupView.getInstance(mActivity.hashCode())
                 .init(mActivity.getResources())
                 .setParentView(mActivity.findViewById(R.id.bubble_answer_view))
                 .setOnShowCompleteListener(this)
-                .setLanguage("VN")
                 .show();
     }
 
@@ -98,9 +117,13 @@ public class SmartQAViewImpl implements SmartQAView<QAResponse>, RecognitionPopu
             return;
         }
 
+        if (qaResponse.getQuestion() != null && !qaResponse.getQuestion().isEmpty()) {
+            mTextQAAdapter.addItem(1, qaResponse.getQuestion());
+        }
+
         mTextQAAdapter.addItem(0, qaResponse.getResultText());
         playAnswer(qaResponse.getLinkAudio());
-        mRcvListQA.scrollToPosition(mTextQAAdapter.getItemCount());
+//        mRcvListQA.scrollToPosition(mTextQAAdapter.getItemCount());
     }
 
     @Override
@@ -134,7 +157,8 @@ public class SmartQAViewImpl implements SmartQAView<QAResponse>, RecognitionPopu
         if (mMultiPlayer != null) {
             mMultiPlayer.destroy();
         }
-        RecognitionPopupView.removeInstance(mActivity.hashCode());
+//        RecognitionPopupView.removeInstance(mActivity.hashCode());
+        RecordingPopupView.removeInstance(mActivity.hashCode());
     }
 
     @Override
@@ -153,7 +177,31 @@ public class SmartQAViewImpl implements SmartQAView<QAResponse>, RecognitionPopu
     }
 
     @Override
+    public CleanObservable<String> getResultBufferAudioObservable() {
+        return CleanObservable.create(cleanObserver -> mResultBufferAudioObserver = cleanObserver);
+    }
+
+    @Override
     public void onShowPopupSpeedToTextComplete() {
+
+    }
+
+    @Override
+    public void onResultBuffer(String filePath) {
+//        Log.d("Recording", bytesArray.length + "");
+        if (mResultBufferAudioObserver != null) {
+            mResultBufferAudioObserver.onNext(filePath);
+            mTextQAAdapter.addItem(2, "Answering");
+        }
+    }
+
+    @Override
+    public void onError(int type) {
+        mTextQAAdapter.addItem(0, mActivity.getResources().getString(R.string.text_cant_hear_that));
+    }
+
+    @Override
+    public void onResultBuffer(short[] data) {
 
     }
 

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface VideoListModel<Media> {
     CleanObservable<List<Media>> getAllVideo();
+    CleanObservable updateVideo(Media media);
 }

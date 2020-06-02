@@ -21,10 +21,13 @@ public abstract class LessonDao extends BaseDao<LessonData> {
     @Query("SELECT * FROM " + LessonData.TABLE_NAME)
     public abstract Observable<List<LessonData>> loadAllLesson();
 
-
     @Query("SELECT * FROM " + LessonData.TABLE_NAME + " WHERE " + Columns.LessonOfBook.BOOK_GRADLE  + " = :bookId")
     public abstract Observable<List<LessonData>> loadListLessonByBook(int bookId);
 
     @Query("SELECT " + Columns.LessonOfBook.BOOK_GRADLE + " FROM " + LessonData.TABLE_NAME + " WHERE " + Columns.LessonOfBook._ID + " = :lessonId")
     public abstract int getBookGradleFromLessonId(int lessonId);
+
+    @Query("UPDATE " + LessonData.TABLE_NAME + " SET " + Columns.LessonOfBook.IS_LEARNING + " = :isLearning " + "WHERE " + Columns.LessonOfBook._ID + " = :lessonId")
+    public abstract Single<Integer> updateLessonDataLearning(boolean isLearning, int lessonId);
+
 }

@@ -42,6 +42,11 @@ public class SmartQAPresenterImpl<QAResponse> implements SmartQAPresenter {
         });
         mQAView.getAskRobotButtonClickedObservable().subscribe(() -> mQAView.showPopUpSpeedToText());
         mQAView.getResultSpeedToTextObservable().subscribe(this::handleQuestionFromUser);
+        mQAView.getResultBufferAudioObservable().subscribe(this::handleAudioFromUser);
+    }
+
+    private void handleAudioFromUser(String filePath) {
+        mQAModel.getAnswerObservable(filePath, null).subscribe(mQAView::addResultFromRobot, (e) -> mQAView.showError());
     }
 
     private void handleQuestionFromUser(String question) {

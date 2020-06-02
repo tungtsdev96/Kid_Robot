@@ -8,14 +8,25 @@ import com.google.gson.annotations.SerializedName;
 
 public class QAResponse {
 
-    @SerializedName("link_audio")
+    @SerializedName("audio_link")
     private String linkAudio;
+
+    @SerializedName("question_text")
+    private String question;
 
     @SerializedName("text")
     private String resultText;
 
     public String getLinkAudio() {
         return linkAudio;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public void setLinkAudio(String linkAudio) {

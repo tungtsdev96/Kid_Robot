@@ -5,6 +5,6 @@ import com.android.tupple.robot.domain.presenter.IModel;
 
 import java.util.List;
 
-public interface EntertainmentModel<Fragment> extends IModel {
+public interface EntertainmentModel extends IModel {
 
 }

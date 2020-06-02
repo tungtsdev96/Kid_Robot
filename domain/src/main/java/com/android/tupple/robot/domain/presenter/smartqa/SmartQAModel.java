@@ -8,7 +8,11 @@ import com.android.tupple.cleanobject.CleanObservable;
 
 public interface SmartQAModel<QAResponse> {
 
-   CleanObservable<QAResponse> getAnswerObservable(String question);
+    CleanObservable<QAResponse> getAnswerObservable(String question);
+
+    CleanObservable<QAResponse> getAnswerObservable(String pathFile, String xx);
+
+    CleanObservable<QAResponse> getAnswerObservable(short[] data);
 
     void stop();
 

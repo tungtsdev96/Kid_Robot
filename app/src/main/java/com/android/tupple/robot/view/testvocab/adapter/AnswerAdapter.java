@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.tupple.robot.common.sound.SoundPoolManagement;
 import com.android.tupple.robot.data.entity.Vocabulary;
 import com.android.tupple.robot.utils.constant.TestVocabConstant;
 import com.android.tupple.robot.view.testvocab.adapter.item.AnswerChoose;
@@ -42,6 +43,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerViewHolderFactory.
         holder.bind(mItems.get(position));
         if (mIsCanSelected) {
             holder.mAnswerItem.setOnClickListener(v -> {
+                SoundPoolManagement.getInstance().playSound(mItems.get(position).getVocabId());
                 if (mOnAnswerClickListener != null) {
                     mOnAnswerClickListener.onClick(position);
                 }

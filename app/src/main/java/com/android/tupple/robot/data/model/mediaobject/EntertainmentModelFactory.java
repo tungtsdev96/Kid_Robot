@@ -9,7 +9,7 @@ import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentMode
 
 public class EntertainmentModelFactory {
 
-    public static EntertainmentModel<Fragment> newEntertainmentModel(Context context) {
+    public static EntertainmentModel newEntertainmentModel(Context context) {
         return new EntertainmentModelImpl(context);
     }
 }

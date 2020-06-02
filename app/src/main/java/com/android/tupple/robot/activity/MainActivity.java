@@ -1,51 +1,18 @@
 package com.android.tupple.robot.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-
+import com.android.tupple.robot.KidRobotApplication;
 import com.android.tupple.robot.R;
 import com.android.tupple.robot.common.base.BaseActivity;
 import com.android.tupple.robot.data.entity.Media;
-import com.android.tupple.robot.data.entity.MenuItemData;
-import com.android.tupple.robot.data.entity.SchoolBook;
-import com.android.tupple.robot.data.entity.Topic;
-import com.android.tupple.robot.data.model.alarm.AlarmModelFactory;
-import com.android.tupple.robot.data.model.mediaobject.AudioListModelFactory;
-import com.android.tupple.robot.data.model.mediaobject.EntertainmentModelFactory;
-import com.android.tupple.robot.data.model.mediaobject.VideoListModelFactory;
 import com.android.tupple.robot.domain.entity.menumain.MenuMain;
-import com.android.tupple.robot.domain.entity.menumain.MenuType;
-import com.android.tupple.robot.domain.presenter.alarm.AlarmModel;
-import com.android.tupple.robot.domain.presenter.alarm.AlarmPresenterImpl;
-import com.android.tupple.robot.domain.presenter.alarm.AlarmViewWrapper;
-import com.android.tupple.robot.domain.presenter.audiolist.AudioListModel;
-import com.android.tupple.robot.domain.presenter.audiolist.AudioListPresenterImpl;
-import com.android.tupple.robot.domain.presenter.audiolist.AudioListViewWrapper;
-import com.android.tupple.robot.domain.presenter.drawer.DrawerModel;
-import com.android.tupple.robot.domain.presenter.drawer.DrawerPresenterImpl;
-import com.android.tupple.robot.domain.presenter.drawer.DrawerView;
-import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookModel;
-import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookPresenterImpl;
-import com.android.tupple.robot.domain.presenter.englishbook.EnglishBookViewWrapper;
-import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicModel;
-import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicPresenterImpl;
-import com.android.tupple.robot.domain.presenter.englishtopic.EnglishTopicViewWrapper;
-import com.android.tupple.robot.data.model.drawer.DrawerModelFactory;
-import com.android.tupple.robot.data.model.english.EnglishModelFactory;
-import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentModel;
-import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentPresenterImpl;
-import com.android.tupple.robot.domain.presenter.entertainment.EntertainmentViewWrapper;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListModel;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListPresenterImpl;
-import com.android.tupple.robot.domain.presenter.videolist.VideoListViewWrapper;
-import com.android.tupple.robot.view.alarm.AlarmViewWrapperFactory;
-import com.android.tupple.robot.view.audiolist.AudioListViewWrapperFactory;
-import com.android.tupple.robot.view.videolist.VideoListViewWrapperFactory;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -55,22 +22,22 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.util.Calendar;
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity   {
 
     private MenuMain mMenuMain;
     private ActivityLauncher mActivityLauncher;
-
     @Override
     protected int getLayoutContent() {
         return R.layout.activity_main;
     }
+
+
 
     @Override
     protected void onCreatedActivity(Bundle savedInstanceState) {
         checkPermission();
         initFirstBatch(savedInstanceState);
         //inject(savedInstanceState);
-
         mMenuMain.init();
         findViewById(R.id.topic).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,4 +191,6 @@ public class MainActivity extends BaseActivity {
         mMenuMain.stop();
         super.onDestroy();
     }
+
 }
+

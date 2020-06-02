@@ -28,7 +28,7 @@ public class TriggerReceiver extends BroadcastReceiver {
         }
 
         if (TriggerConstant.ACTION_RECOGNIZE_DONE.equals(action)) {
-            startSmartQAActivity(context);
+//            startSmartQAActivity(context);
         }
     }
 

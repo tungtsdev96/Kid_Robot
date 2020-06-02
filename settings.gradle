@@ -1,2 +1,3 @@
-include ':app', ':libtrigger', ':device', ':cleanobject', ':domain', ':domain'
+include ':app', ':libtrigger', ':cleanobject', ':domain', ':domain'
 rootProject.name='Kid Robot'
+include ':wavelineview'

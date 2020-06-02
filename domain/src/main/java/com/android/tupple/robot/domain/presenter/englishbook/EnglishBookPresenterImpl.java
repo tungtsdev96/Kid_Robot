@@ -3,6 +3,7 @@ package com.android.tupple.robot.domain.presenter.englishbook;
 
 import com.android.tupple.robot.domain.entity.englishbook.EnglishBookPresenter;
 import com.android.tupple.robot.domain.entity.menumain.MenuType;
+import com.android.tupple.robot.domain.presenter.CloseButtonHandler;
 import com.android.tupple.robot.domain.presenter.PresenterObserver;
 
 /**
@@ -14,6 +15,7 @@ public class EnglishBookPresenterImpl<SchoolBook> implements EnglishBookPresente
     private EnglishBookView<SchoolBook> mEnglishBookView;
     private EnglishBookModel<SchoolBook> mEnglishBookModel;
 
+    private CloseButtonHandler mCloseButtonHandler;
     private PresenterObserver<SchoolBook> mOnItemBookClickedObserver;
 
     private boolean mIsInitializing = true;
@@ -53,6 +55,7 @@ public class EnglishBookPresenterImpl<SchoolBook> implements EnglishBookPresente
 
     private void initObservable() {
         mEnglishBookView.getOnItemBookClickedObservable().subscribe(this::handleItemBookClicked);
+        mEnglishBookView.getCloseButtonClickedObservable().subscribe(this::handleCloseButton);
     }
 
 
@@ -61,6 +64,17 @@ public class EnglishBookPresenterImpl<SchoolBook> implements EnglishBookPresente
             mOnItemBookClickedObserver.onComplete(book);
         }
     }
+
+    private void handleCloseButton() {
+        if (mCloseButtonHandler != null) {
+            mCloseButtonHandler.onClose();
+        }
+    }
+
+    public void setCloseButtonHandler(CloseButtonHandler closeButtonHandler) {
+        this.mCloseButtonHandler = closeButtonHandler;
+    }
+
 
     public void setOnItemBookClickedObserver(PresenterObserver<SchoolBook> onItemBookClickedObserver) {
         this.mOnItemBookClickedObserver = onItemBookClickedObserver;

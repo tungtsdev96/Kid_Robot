@@ -14,7 +14,6 @@ public interface EnglishTopicView<Topic> {
 
     void setListTopic(List<Topic> listTopic);
 
-    void closeActivity();
 
     CleanObservable<Topic> getItemTopicClickedObservable();
 

@@ -76,5 +76,16 @@ public class ActivityLauncher {
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityUtils.startActivty(mActivity, intent);
     }
+    public void launchListFilmsActivity() {
+        Intent intent = new Intent(mActivity, ListFilmsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityUtils.startActivty(mActivity, intent);
+    }
+
+    public void launchListAudioActivity() {
+        Intent intent = new Intent(mActivity, ListAudioActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityUtils.startActivty(mActivity, intent);
+    }
 
 }

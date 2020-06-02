@@ -25,6 +25,10 @@ public class RecordingHelper {
     }
 
     public void startRecord(String fileName) {
+        if (isRecording()) {
+            stopRecord();
+        }
+
         if (mRecorder == null) {
             mRecorder = new MediaRecorder();
         }
@@ -34,9 +38,10 @@ public class RecordingHelper {
             boolean isSuccess = cacheRecording.mkdir();
         }
 
-        mFileTmp = new File(cacheRecording + "/" + fileName + ".mp3");
+        mFileTmp = new File(cacheRecording + "/" + fileName + ".wav");
+        mRecorder.setAudioSamplingRate(8000);
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         mRecorder.setOutputFile(mFileTmp.getAbsolutePath());
         try {
@@ -60,11 +65,17 @@ public class RecordingHelper {
             return null;
         }
 
-        Log.d(TAG, "Stop Recording " + mFileTmp.getAbsolutePath());
-        mIsRecording = false;
-        mRecorder.stop();
-        mRecorder.release();
-        mRecorder = null;
+        try {
+            Log.d(TAG, "Stop Recording " + mFileTmp.getAbsolutePath());
+            mIsRecording = false;
+            mRecorder.stop();
+            mRecorder.release();
+            mRecorder = null;
+        } catch (Exception e) {
+            mRecorder = null;
+        }
+
+
         return mFileTmp;
     }
 
